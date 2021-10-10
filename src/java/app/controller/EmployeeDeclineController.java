@@ -6,14 +6,10 @@
 package app.controller;
 
 import app.feedback.FeedbackDAO;
-import app.feedback.FeedbackDetailDTO;
 import app.response.ResponseDAO;
 import app.response.ResponseDTO;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,21 +17,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileItemFactory;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  *
  * @author ADMIN
  */
-@WebServlet(name = "AddResponseController", urlPatterns = {"/AddResponseController"})
-public class AddResponseController extends HttpServlet {
+@WebServlet(name = "EmployeeDeclineController", urlPatterns = {"/EmployeeDeclineController"})
+public class EmployeeDeclineController extends HttpServlet {
 
     private static final String SUCCESS = "##";
     private static final String ERROR = "##";
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -50,54 +41,17 @@ public class AddResponseController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            HttpSession session = request.getSession(true);
+            HttpSession session = request.getSession();
             ResponseDAO dao = new ResponseDAO();
-            FileInputStream photo = null;
             String feedbackDetailId = request.getParameter("feedbackDetailID");
             String userId = request.getParameter("userID");
-            String des = "";
-
-            boolean isMultiPart = ServletFileUpload.isMultipartContent(request);
-            if (!isMultiPart) {
-
-            } else {
-                FileItemFactory factory = new DiskFileItemFactory();
-                ServletFileUpload upload = new ServletFileUpload(factory);
-                List items = null;
-                try {
-                    items = upload.parseRequest(request);
-                } catch (org.apache.commons.fileupload.FileUploadException e) {
-                    e.printStackTrace();
-                }
-                Iterator iter = items.iterator();
-                Hashtable params = new Hashtable();
-                String fileName = null;
-                while (iter.hasNext()) {
-                    FileItem item = (FileItem) iter.next();
-                    if (item.isFormField()) {
-                        params.put(item.getFieldName(), item.getString());
-                        String inputName = item.getFieldName();
-                        if (inputName.equalsIgnoreCase("description")) {
-                            des = item.getString();
-                        }
-
-                    } else {
-                        if (des.equals("")) {
-                            url = ERROR;
-                            request.setAttribute("ADD_FAILURE", "active");
-                            break;
-                        }
-                        photo = (FileInputStream) item.getInputStream();
-                    }
-                }
-            }
-            ResponseDTO res = new ResponseDTO(feedbackDetailId, userId, des, "done");
-            if (dao.insertResponse(res, photo)) {
-                dao.updateFlagDetail(feedbackDetailId);
+            ResponseDTO res = new ResponseDTO(feedbackDetailId, userId, "Employee decline to do task", "decline");
+            if (dao.insertDeclineResponse(res)) {
+                
                 url = SUCCESS;
             }
         } catch (Exception e) {
-            log("Error at AddResponseController" + e.toString());
+            log("Error at EmployeeDeclineController" + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

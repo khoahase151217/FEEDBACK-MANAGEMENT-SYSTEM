@@ -45,10 +45,6 @@
         <servlet-class>app.controller.AssignController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddResponseController</servlet-name>
-        <servlet-class>app.controller.AddResponseController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ShowFacilityStudentController</servlet-name>
         <servlet-class>app.controller.ShowFacilityStudentController</servlet-class>
     </servlet>
@@ -139,10 +135,6 @@
     <servlet-mapping>
         <servlet-name>AssignController</servlet-name>
         <url-pattern>/AssignController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AddResponseController</servlet-name>
-        <url-pattern>/AddResponseController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ShowFacilityStudentController</servlet-name>

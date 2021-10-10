@@ -47,4 +47,57 @@ public class ResponseDAO {
         }
         return check;
     }
+    public boolean insertDeclineResponse(ResponseDTO response) throws SQLException, ClassNotFoundException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " INSERT INTO tblResponseFeedback( FeedbackDetailID, UserID, Image, Description, StatusID ) "
+                        + " VALUES(?,?,?,?) ";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, response.getFeedbackDetailID());
+                ps.setString(2, response.getUserID());
+                ps.setString(3, response.getDes());
+                ps.setString(4, response.getStatusID());
+                check = ps.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+    public boolean updateFlagDetail(String feedbackDetailId) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " UPDATE tblFeedbackDetail "
+                        + " SET flag=true "
+                        + " WHERE FeedbackDetailID=? ";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, feedbackDetailId);
+                check = ps.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
 }
