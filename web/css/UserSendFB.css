@@ -1,0 +1,553 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    line-height: 1.6rem;
+    background-image: url("https://cdn.discordapp.com/attachments/770804043794350100/889900990608834560/imageedit_1_6839330785.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+    max-width: 1100px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header {
+    height: 70px;
+    width: 100%;
+    position: relative;
+}
+
+.header .logo img,.image
+{
+    width: 37px;
+}
+
+.header .flex {
+    justify-content: space-between;
+}
+
+.header .logo {
+    display: flex;
+    align-items: center;
+    max-width: 500px;
+    width: 100%;
+}
+
+.header .logo h6 {
+    color: #151111;
+    margin-left: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    transition: 0.4s;
+}
+
+.header .logo h6:hover {
+    color: #0c4ca3;
+}
+
+@keyframe fadeIn {
+    from {
+        opacity: 1;
+    },
+    to {
+        opacity: 0;
+    }
+}
+
+.header .message-block-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    z-index: 2;
+    background-color: rgba(0,0,0,0.27);
+    opacity: 1;
+    transition: .25s linear;
+}
+
+.header .message-block-wrapper.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.header .message-block {
+    margin: auto;
+    width: 300px;
+    height: 80px;
+    background-color: #fff;
+    overflow: hidden;
+    text-align: center;
+    font-size: 0.85rem;
+    line-height: 1.2;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.header .message-block span {
+    color: green;
+}
+
+.header .message-block.error span{
+    color: red;
+}
+
+.header .message-block .heading {
+    width: 100%;
+    position: relative;
+    min-height: 20px;
+    margin-bottom: 0.5rem;
+}
+
+.header .message-block .heading ion-icon {
+    position: absolute;
+    right: 0;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+
+.header .message-block .heading ion-icon:hover {
+    color: red;
+}
+
+.header .heading-bottom {
+    display: flex;
+    align-items: center;
+    max-width: 220px;
+    width: 100%;
+}
+
+.heading-bottom a {
+    width: 100%;
+    height: 100%;
+    font-size: 1rem;
+    text-decoration: none;
+    color: #151111;
+    transform: translateX(20px);
+    transition: 0.4s;
+}
+
+.heading-bottom a:hover {
+    color: #0c4ca3;
+}
+
+.header-profile {
+    display: flex;
+}
+.header-profile-image {
+    width: 37px;
+    height: 37px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+.header-profile-image .img-select {
+    width: 100%;
+    object-fit: cover
+}
+.header-profile-link {
+    margin-right: 2rem;
+    color: #151111;
+    transform: translateY(5.5px);
+    transition: 0.25s linear;
+}
+.header-profile-link:hover {
+    color: #0c4ca3;
+}
+.header-profile-dropdown {
+    position: relative;
+    cursor: pointer;
+}
+.header-profile-dropdown .dropdown-list {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: translateY(120%);
+}
+.header-profile-dropdown .dropdown-item {
+    width: 110px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border-radius: 30px;
+    transform: translateX(-30%);
+    opacity: 0;
+    color: #151111;
+    background-color: #fff;
+    transition: 0.25s linear;
+}
+.header-profile-dropdown .dropdown-item img {
+    margin-right: 0.4rem;
+}
+.header-profile-dropdown .dropdown-item:hover {
+    background-color: #e2e0e0;
+}
+.header-profile-dropdown:hover .dropdown-item {
+    opacity: 1;
+}
+.header-dropdown-image {
+    width: 17px;
+}
+
+
+.showcase {
+    width: 100%;
+    height: 800px;
+    overflow: hidden;
+}
+
+.showcase .inner-box {
+    width: 100%;
+    height: calc(100% - 4.1rem);
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 30px;
+    overflow: hidden;
+    /* box-shadow: 0 50px 30px -30px rgba(0, 0, 0, 0.2); */
+}
+
+.showcase .heading {
+    width: 100%;
+    height: 80px;
+    background-color: #de9e52;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.showcase .heading h3 {
+    font-size: 2.5rem;
+    color: #3c3630;
+}
+
+.showcase form {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    overflow: hidden;
+}
+
+.showcase .actual-form {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    padding-right: 3rem;
+    flex-shrink: 0;
+}
+
+.actual-form .input-wrap {
+    width: calc(90% / 3.1);
+    position: relative;
+}
+
+.actual-form input[type="number"] {
+    display: block;
+    padding: 0 5px;
+    width: 50px;
+    height: 27px;
+    color: #bbb;
+    border-radius: 5px;
+    border: 0.1rem solid #bababa;
+}
+
+input[type="number"]::-webkit-input-placeholder {
+    color: #bbb;
+}
+input[type="number"]::-moz-input-placeholder {
+    color: #bbb;
+}
+
+.actual-form .input-wrap label {
+    position: absolute;
+    top: 2px;
+    left: 10px;
+    font-size: 0.65rem;
+    color: #bbb;
+    opacity: 1;
+    pointer-events: none;
+    transition: 0.4s linear;
+}
+
+.actual-form .input-wrap input,
+.actual-form .input-wrap select {
+    width: 100%;
+    height: 27px;
+    border-radius: 5px;
+    border: 0.1rem solid #bababa;
+    outline: none;
+}
+
+.actual-form .input-wrap select {
+    font-size: 0.75rem;
+    color: #bbb;
+}
+
+.actual-form .input-wrap select option:not([value=""]) {
+    color: #151111;
+}
+
+.actual-form .input-wrap.active label {
+    opacity: 0;
+}
+
+.actual-form img {
+    position: absolute;
+    right: 0;
+    top: 2px;
+    width: 25px;
+    cursor: pointer;
+    opacity: 1;
+}
+
+.plus-toggle i {
+    position: absolute;
+    right: -6px;
+    top: 5px;
+    width: 25px;
+    cursor: pointer;
+    opacity: 1;
+    font-size: 1rem;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.plus-toggle i:hover {
+    color: #fd0100;
+}
+
+.plus-toggle.remove i {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.plus-toggle.remove img {
+    opacity: 0;
+    pointer-events: none;
+}
+
+form .input-text {
+    width: calc(100% - 3rem);
+    position: relative;
+}
+
+form .input-text textarea {
+    width: 100%;
+    height: 150px;
+    outline: none;
+    border: 0.1rem solid #bababa;
+    border-radius: 5px;
+    padding: 10px;
+    line-height: 1em;
+    resize: none;
+}
+
+form .input-text label {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    color: #bbb;
+    font-size: 0.75rem;
+    pointer-events: none;
+    opacity: 1;
+    transition: 0.4s linear;
+}
+
+form .input-text.hide label,
+form .input-text.hide textarea {
+    display: none;
+}
+
+form .input-text.active label {
+    opacity: 0;
+}
+
+.root {
+    width: calc(100% -3.1rem);
+}
+
+.input-file-wrap {
+    max-width: 56.7rem;
+    display: flex;
+    align-items: center;
+    gap: 0 10px;
+}
+
+.input-file-wrap input {
+    padding: 0 10px;
+    display: block;
+    width: 100%;
+    height: 27.2px;
+    outline: none;
+    pointer-events: none;
+    color: #bbb;
+}
+
+.input-file-wrap ion-icon {
+    font-size: 2.2rem;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: 0.25s linear;
+    transform: translateY(3.5px);
+}
+
+.input-file-wrap ion-icon:hover {
+    opacity: 1;
+}
+
+.report-btn {
+    width: 100%;
+    height: calc(100% - 237.2px);
+    position: relative;
+}
+
+.report-btn input {
+    font-size: 1.4rem;
+    color: #fdf8f2;
+    background-color: #de9e52;
+    border-radius: 10px;
+    padding: 10px 40px;
+    border: none;
+    outline: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.report-btn input:hover {
+    background-color: #0c4ca3;
+}
+
+.footer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.footer .social {
+    height: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.footer .social img {
+    width: 27px;
+    /* margin: 0 10px; */
+}
+
+.footer .footer-info ul {
+    display: flex;
+}
+
+.footer .footer-info li {
+    text-decoration: none;
+    margin: 0 10px;
+    list-style: none;
+}
+
+.footer .footer-info a {
+    color: #151111;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: 0.4s;
+}
+
+.footer .footer-info a:hover {
+    color: #0c4ca3;
+}
+
+@media all and (max-width: 1630px) {
+    .showcase {
+        width: 100%;
+        height: 600px;
+        overflow: hidden;
+    }
+
+    .showcase .inner-box {
+        width: 100%;
+        height: calc(100% - 4.1rem);
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        border-radius: 30px;
+        overflow: hidden;
+        box-shadow: 0 50px 30px -40px rgba(0, 0, 0, 0.2);
+    }
+    .showcase .heading {
+        width: 100%;
+        height: 60px;
+        background-color: #de9e52;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .showcase .heading h3 {
+        font-size: 2.5rem;
+        color: #3c3630;
+    }
+
+    .showcase form {
+        width: 100%;
+        max-height: 535px;
+        height: 100%;
+        background-color: #fff;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        overflow: hidden;
+    }
+
+    .showcase .actual-form {
+        width: 100%;
+        height: 50px;
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+        padding-right: 3rem;
+        flex-shrink: 0;
+    }
+}
