@@ -224,7 +224,7 @@
                                                                                 </p>
                                                                                 <div class="pipe-bottom-links">
                                                                                     <form action="EmployeeDeclineController" method="post">
-                                                                                        <input type="hidden" name="feedbackID" value="${feedback.feedbackID}"/>
+                                                                                        <input type="hidden" name="feedbackId" value="${feedback.feedbackID}"/>
                                                                                         <button
                                                                                             type="submit"
                                                                                             class="btn-submit-links"
@@ -255,7 +255,7 @@
                                                                                 </p>
                                                                                 <div class="pipe-bottom-links">
                                                                                     <form action="EmployeeDeclineController" method="post">
-                                                                                        <input type="hidden" name="feedbackID" value="${feedback.feedbackID}"/>
+                                                                                        <input type="hidden" name="feedbackId" value="${feedback.feedbackID}"/>
                                                                                         <button
                                                                                             type="submit"
                                                                                             class="btn-submit-links"
@@ -286,7 +286,7 @@
                                                                                 </p>
                                                                                 <div class="pipe-bottom-links">
                                                                                     <form action="EmployeeDeclineController" method="post">
-                                                                                        <input type="hidden" name="feedbackID" value="${feedback.feedbackID}"/>
+                                                                                        <input type="hidden" name="feedbackId" value="${feedback.feedbackID}"/>
                                                                                         <button
                                                                                             type="submit"
                                                                                             class="btn-submit-links"

@@ -45,7 +45,7 @@ public class EmployeeDeclineController extends HttpServlet {
         try {
             String userId;
             ResponseDAO dao = new ResponseDAO();
-            String feedbackId = request.getParameter("feedbackID");
+            String feedbackId = request.getParameter("feedbackId");
             userId = dao.getUserId(feedbackId);
             if (dao.updateStatusFeedback(feedbackId)) {
                 dao.updateUserId(feedbackId, userId);
