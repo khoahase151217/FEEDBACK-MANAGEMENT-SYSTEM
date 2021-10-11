@@ -220,7 +220,7 @@
                                     <div class="showcase-title-wrapper">
                                         <h2 class="showcase-title">Welcome back, ${sessionScope.LOGIN_USER.fullName}!</h2>
                                         <p class="showcase-desc">
-                                            You have <span>9 tasks</span> to complete
+                                            You have <span>${requestScope.COUNT} tasks</span> to complete
                                         </p>
                                     </div>
                                 </div>

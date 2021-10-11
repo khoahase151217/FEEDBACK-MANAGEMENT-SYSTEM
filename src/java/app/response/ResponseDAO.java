@@ -10,6 +10,7 @@ import app.utils.DBUtils;
 import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -47,6 +48,7 @@ public class ResponseDAO {
         }
         return check;
     }
+
     public boolean insertDeclineResponse(ResponseDTO response) throws SQLException, ClassNotFoundException {
         boolean check = false;
         Connection conn = null;
@@ -75,6 +77,7 @@ public class ResponseDAO {
         }
         return check;
     }
+
     public boolean updateFlagDetail(String feedbackDetailId) throws SQLException {
         boolean check = false;
         Connection conn = null;
@@ -83,7 +86,7 @@ public class ResponseDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 String sql = " UPDATE tblFeedbackDetail "
-                        + " SET flag=true "
+                        + " SET flag= 'true' "
                         + " WHERE FeedbackDetailID=? ";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, feedbackDetailId);
@@ -100,4 +103,87 @@ public class ResponseDAO {
         }
         return check;
     }
+
+    public boolean updateStatusFeedback(String feedbackId) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " UPDATE tblFeedback "
+                        + " SET statusID='pending' "
+                        + " WHERE FeedbackID=? ";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, feedbackId);
+                check = ps.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+
+    public String getUserId(String feedbackId) throws SQLException {
+        String userId = "";
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " SELECT UserID FROM tblFeedback "
+                        + " WHERE FeedbackID=? ";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, feedbackId);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    userId = rs.getString("UserID");
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return userId;
+    }
+
+    public boolean updateUserId(String feedbackId, String userId) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " UPDATE tblFeedbackDetail "
+                        + " SET UserID=? "
+                        + " WHERE FeedbackID=? ";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, userId);
+                ps.setString(2, feedbackId);
+                check = ps.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+
 }

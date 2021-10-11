@@ -59,8 +59,8 @@ const chervonBacks = document.querySelectorAll(".icon-chevron-back");
 const chervonForwards = document.querySelectorAll(".icon-chevron-forward");
 
 if (taskList.length === 1) {
-    chervonBack.style.display = "none";
-    taskChervonForward.style.display = "none";
+    Array.from(chervonBacks)[0].style.display = "none";
+    Array.from(chervonForwards)[0].style.display = "none";
 }
 if (historyList.length === 1) {
     historyChervonBack.style.display = "none";
@@ -137,14 +137,31 @@ Array.from(chervonForwards).forEach((chervonForward) => {
 
 // Pop-up form response Messsage
 document.querySelector(".reponse-form").addEventListener("click", (e) => {
-    if (e.target.classList.contains(".reponse-form-main"))
+    if (!e.target.classList.contains("modal"))
         return;
     e.target.closest(".reponse-form").classList.remove("open");
 });
 
-document.querySelectorAll(".send-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-        console.log(123);
-        document.querySelector(".reponse-form").classList.add("open");
-    });
+const formMessage = document.querySelector(".feedback-form-message");
+formMessage.addEventListener("click", (e) => {
+    console.log(e.target);
+    if (!e.target.classList.contains("feedback-form-message-modal"))
+        return;
+    formMessage.classList.remove("open");
+    document.querySelector(".reponse-form").classList.remove("open");
+
+});
+
+// Drag or upload files
+const dropArea = document.querySelector(".reponse-form-drag-area");
+const dragText = dropArea.querySelector("header");
+dropArea.addEventListener("dragover", (event) => {
+    event.preventDefault();
+    dropArea.classList.add("active");
+    dragText.textContent = "Release to Upload File";
+});
+
+dropArea.addEventListener("dragleave", () => {
+    dropArea.classList.remove("active");
+    dragText.textContent = "Drag & Drop to Upload File";
 });

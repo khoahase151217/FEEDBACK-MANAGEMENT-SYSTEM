@@ -8,6 +8,7 @@ package app.controller;
 import app.feedback.FeedbackDAO;
 import app.response.ResponseDAO;
 import app.response.ResponseDTO;
+import app.users.UserDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -25,8 +26,9 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "EmployeeDeclineController", urlPatterns = {"/EmployeeDeclineController"})
 public class EmployeeDeclineController extends HttpServlet {
 
-    private static final String SUCCESS = "##";
+    private static final String SUCCESS = "ShowFeedbackForEmpController";
     private static final String ERROR = "##";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,13 +43,12 @@ public class EmployeeDeclineController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            HttpSession session = request.getSession();
+            String userId;
             ResponseDAO dao = new ResponseDAO();
-            String feedbackDetailId = request.getParameter("feedbackDetailID");
-            String userId = request.getParameter("userID");
-            ResponseDTO res = new ResponseDTO(feedbackDetailId, userId, "Employee decline to do task", "decline");
-            if (dao.insertDeclineResponse(res)) {
-                
+            String feedbackId = request.getParameter("feedbackID");
+            userId = dao.getUserId(feedbackId);
+            if (dao.updateStatusFeedback(feedbackId)) {
+                dao.updateUserId(feedbackId, userId);
                 url = SUCCESS;
             }
         } catch (Exception e) {

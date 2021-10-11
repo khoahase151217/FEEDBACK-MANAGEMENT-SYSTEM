@@ -244,6 +244,56 @@ public class EmployeesDAO {
         }
         return dto;
     }
+    
+    public List<FeedbackDetailDTO> showHistoryListFeedbackDetail(String userID, String feedbackID) throws SQLException {
+        List<FeedbackDetailDTO> dto = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT t1.*, t2.Date as Date, t3.Name as FacilityName "
+                        + "FROM tblFeedbackDetail t1 "
+                        + "JOIN tblFeedback t2 "
+                        + "  ON t1.FeedbackID = t2.FeedbackID "
+                        + "JOIN tblFacilities t3 "
+                        + "  ON t1.FacilityID = t3.FacilityID "
+                        + " WHERE t1.UserID = ? AND t1.flag='true' AND t1.FeedbackID = ?";
+                stm = conn.prepareCall(sql);
+                stm.setString(1, userID);
+                stm.setString(2, feedbackID);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String facilityID = rs.getString("FacilityID");
+                    String quantity = rs.getString("Quantity");
+                    String reason = rs.getString("Reason");
+                    String location = rs.getString("Location");
+                    byte[] tmp = rs.getBytes("Image");
+                    String base64Image = Base64.getEncoder().encodeToString(tmp);
+                    boolean flag = rs.getBoolean("flag");
+                    String date = rs.getString("date");
+                    String facilityName = rs.getString("FacilityName");
+                    String feedbackDetailID = rs.getString("feedbackDetailID");
+                    dto.add(new FeedbackDetailDTO(feedbackDetailID, facilityID, userID, feedbackID, quantity, reason, location, base64Image, flag, facilityName, date));
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return dto;
+    }
 
     public List<FeedbackDTO> showListFeedback(String userID) throws SQLException {
         List<FeedbackDTO> list = new ArrayList<>();
@@ -257,7 +307,7 @@ public class EmployeesDAO {
                         + " JOIN tblFeedbackDetail t2  ON t1.FeedbackID = t2.FeedbackID "
                         + " JOIN tblUser t3    ON t1.UserID = t3.UserID "
                         + " JOIN tblFeedbackStatus t4 ON t1.statusID = t4.FeedbackStatusID "
-                        + " WHERE t2.UserID = ? AND t2.flag= 'false' "
+                        + " WHERE t2.UserID = ? AND t2.flag= 'false' AND t1.statusID != 'decline' "
                         + " group by t1.Date ,t1.FeedbackID,t1.statusID, t1.UserID, t3.Email, t3.FullName, t4.Name "
                         + " ORDER BY t1.DATE";
                 stm = conn.prepareCall(sql);
@@ -289,4 +339,47 @@ public class EmployeesDAO {
         return list;
     }
 
+    public List<FeedbackDTO> showHistoryFeedback(String userID) throws SQLException {
+        List<FeedbackDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " SELECT t1.*,t3.Email as email ,t3.FullName as fullName ,t4.Name as statusName FROM tblFeedback t1 "
+                        + " JOIN tblFeedbackDetail t2  ON t1.FeedbackID = t2.FeedbackID "
+                        + " JOIN tblUser t3    ON t1.UserID = t3.UserID "
+                        + " JOIN tblFeedbackStatus t4 ON t1.statusID = t4.FeedbackStatusID "
+                        + " WHERE t2.UserID = ? AND t2.flag= 'true' AND t1.statusID in ('decline','done','onGoing') "
+                        + " group by t1.Date ,t1.FeedbackID,t1.statusID, t1.UserID, t3.Email, t3.FullName, t4.Name "
+                        + " ORDER BY t1.DATE";
+                stm = conn.prepareCall(sql);
+                stm.setString(1, userID);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String feedbackID = rs.getString("FeedbackID");
+                    String date = rs.getString("date");
+                    String statusID = rs.getString("statusID");
+                    String email = rs.getString("email");
+                    String fullName = rs.getString("fullName");
+                    String statusName = rs.getString("statusName");
+                    list.add(new FeedbackDTO(feedbackID, userID, date, email, statusID, fullName, statusName));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
 }

@@ -80,6 +80,10 @@
         <servlet-name>ShowFeedbackForEmp</servlet-name>
         <servlet-class>app.controller.ShowFeedbackForEmpController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ShowEmployeeFormController</servlet-name>
+        <servlet-class>app.controller.ShowEmployeeFormController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -171,6 +175,10 @@
     <servlet-mapping>
         <servlet-name>ShowFeedbackForEmp</servlet-name>
         <url-pattern>/ShowFeedbackForEmp</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowEmployeeFormController</servlet-name>
+        <url-pattern>/ShowEmployeeFormController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

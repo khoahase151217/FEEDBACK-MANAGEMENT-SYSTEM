@@ -516,66 +516,9 @@
                                                 </div>
                                             </div>
                                             <div class="pipe-list">
-                                                <c:forEach var="feedback" items="${sessionScope.HISTORY_DONE}">
-                                                    <div class="pipe-item">
-                                                        <div class="pipe-item-heading">
-                                                            <div class="pipe-item-title-wrapper">
-                                                                <h3 class="pipe-item-title">Feedback ${feedback.feedbackId}</h3>
-                                                            </div>
-                                                            <div class="pipe-item-date">Tue, August 18</div>
-                                                        </div>
-                                                        <div class="image-all-wrapper">
-                                                            <div class="pipe-item-image">
-                                                                <img
-                                                                    src="https://media.istockphoto.com/photos/love-it-picture-id1312766354?b=1&k=20&m=1312766354&s=170667a&w=0&h=-HM1RqOCh7SEFRcdBshd5DT_Ge-597UDwgyoSGrZYQY="
-                                                                    alt=""
-                                                                    />
-                                                            </div>
-                                                            <div class="pipe-item-image">
-                                                                <img
-                                                                    src="https://media.istockphoto.com/photos/love-it-picture-id1312766354?b=1&k=20&m=1312766354&s=170667a&w=0&h=-HM1RqOCh7SEFRcdBshd5DT_Ge-597UDwgyoSGrZYQY="
-                                                                    alt=""
-                                                                    />
-                                                            </div>
-
-                                                            <div class="more-wrapper">
-                                                                <div class="img-more active">
-                                                                    <img
-                                                                        src="https://icons-for-free.com/iconfiles/png/512/exposure+plus+1+48px-131985226685054051.png"
-                                                                        alt=""
-                                                                        />
-                                                                </div>
-                                                                <div class="img-more">
-                                                                    <img
-                                                                        src="https://www.shareicon.net/data/128x128/2015/09/12/100167_plus_512x512.png"
-                                                                        alt=""
-                                                                        />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="pipe-item-bottom">
-                                                            <p class="pipe-bottom-item">123</p>
-                                                            <p class="pipe-bottom-item">Room: 123</p>
-                                                        </div>
-                                                    </div>
-                                                </c:forEach>
-                                            </div>
-                                        </div>
-                                        <div class="pipe-column">
-                                            <div class="pipe-heading">
-                                                <div class="pipe-title-wrapper">
-                                                    <span class="onGoing"></span>
-                                                    <h2 class="pipe-title">On-going</h2>
-                                                </div>
-                                                <div class="pipe-date">
-                                                    Date Added
-                                                    <ion-icon name="chevron-down-outline"></ion-icon>
-                                                </div>
-                                            </div>
-                                            <div class="pipe-list">
                                                 <%
-                                                    List<UserHistoryDTO> list = (List<UserHistoryDTO>) session.getAttribute("HISTORY_ONGOING");
-                                                    for (UserHistoryDTO feedback : list) {
+                                                    List<UserHistoryDTO> listDone = (List<UserHistoryDTO>) session.getAttribute("HISTORY_DONE");
+                                                    for (UserHistoryDTO feedback : listDone) {
                                                 %> 
                                                 <div class="pipe-item">
                                                     <div class="pipe-item-heading">
@@ -599,7 +542,7 @@
                                                                 alt=""
                                                                 />
                                                         </div>
-                                                              
+
 
 
                                                         <%                                                        } else if (feedback.getImageList().size() == 3) {
@@ -638,7 +581,103 @@
                                                             </div>
                                                         </div>
                                                         <%
+                                                                    break;
+                                                                }
+                                                                count++;
+                                                            }
+                                                        %>  
+                                                    </div>
+
+
+
+                                                    <div class="pipe-item-bottom">
+                                                        <p class="pipe-bottom-item"><%=feedback.getDeviceName()%></p>
+                                                        <p class="pipe-bottom-item">Room: <%=feedback.getLocation()%></p>
+                                                    </div>
+                                                </div>
+                                                <%
+                                                    }
+                                                %> 
+                                            </div>
+                                        </div>
+                                        <div class="pipe-column">
+                                            <div class="pipe-heading">
+                                                <div class="pipe-title-wrapper">
+                                                    <span class="onGoing"></span>
+                                                    <h2 class="pipe-title">On-going</h2>
+                                                </div>
+                                                <div class="pipe-date">
+                                                    Date Added
+                                                    <ion-icon name="chevron-down-outline"></ion-icon>
+                                                </div>
+                                            </div>
+                                            <div class="pipe-list">
+                                                <%
+                                                    List<UserHistoryDTO> listOngoing = (List<UserHistoryDTO>) session.getAttribute("HISTORY_ONGOING");
+                                                    for (UserHistoryDTO feedback : listOngoing) {
+                                                %> 
+                                                <div class="pipe-item">
+                                                    <div class="pipe-item-heading">
+                                                        <div class="pipe-item-title-wrapper">
+                                                            <h3 class="pipe-item-title">Feedback <%=feedback.getFeedbackId()%></h3>
+                                                        </div>
+                                                        <div class="pipe-item-date"><%=feedback.getDate()%></div>
+                                                    </div>
+
+
+                                                    <div class="image-all-wrapper">
+                                                        <%
+                                                            int count = 1;
+                                                            for (String img : feedback.getImageList()) {
+                                                                if (count == 1 || count == 2) {
+
+                                                        %>  
+                                                        <div class="pipe-item-image">
+                                                            <img
+                                                                src="data:image/jpg/png;base64,<%=img%>"
+                                                                alt=""
+                                                                />
+                                                        </div>
+
+
+
+                                                        <%                                                        } else if (feedback.getImageList().size() == 3) {
+                                                        %>
+                                                        <div class="more-wrapper">
+                                                            <div class="img-more active">
+                                                                <img
+                                                                    src="https://icons-for-free.com/iconfiles/png/512/exposure+plus+1+48px-131985226685054051.png"
+                                                                    alt=""
+                                                                    />
+                                                            </div>
+                                                        </div>
+                                                        <div class="img-more">
+                                                            <img
+                                                                src="https://www.shareicon.net/data/128x128/2015/09/12/100167_plus_512x512.png"
+                                                                alt=""
+                                                                />
+                                                        </div>
+
+                                                        <%
                                                             break;
+                                                        } else {
+                                                        %>
+                                                        <div class="more-wrapper">
+                                                            <div class="img-more">
+                                                                <img
+                                                                    src="https://icons-for-free.com/iconfiles/png/512/exposure+plus+1+48px-131985226685054051.png"
+                                                                    alt=""
+                                                                    />
+                                                            </div>
+                                                            <div class="img-more active">
+                                                                <img
+                                                                    src="https://www.shareicon.net/data/128x128/2015/09/12/100167_plus_512x512.png"
+                                                                    alt=""
+                                                                    />
+                                                            </div>
+                                                        </div>
+                                                        <%
+                                                                    break;
                                                                 }
                                                                 count++;
                                                             }
@@ -669,49 +708,88 @@
                                                 </div>
                                             </div>
                                             <div class="pipe-list">
-                                                <c:forEach var="feedback" items="${sessionScope.HISTORY_DENY}">
-                                                    <div class="pipe-item">
-                                                        <div class="pipe-item-heading">
-                                                            <div class="pipe-item-title-wrapper">
-                                                                <h3 class="pipe-item-title">Feedback ${feedback.feedbackId}</h3>
-                                                            </div>
-                                                            <div class="pipe-item-date">Tue, August 18</div>
+                                                <%
+                                                    List<UserHistoryDTO> listDeny = (List<UserHistoryDTO>) session.getAttribute("HISTORY_DENY");
+                                                    for (UserHistoryDTO feedback : listDeny) {
+                                                %> 
+                                                <div class="pipe-item">
+                                                    <div class="pipe-item-heading">
+                                                        <div class="pipe-item-title-wrapper">
+                                                            <h3 class="pipe-item-title">Feedback <%=feedback.getFeedbackId()%></h3>
                                                         </div>
-                                                        <div class="image-all-wrapper">
-                                                            <div class="pipe-item-image">
-                                                                <img
-                                                                    src="https://media.istockphoto.com/photos/love-it-picture-id1312766354?b=1&k=20&m=1312766354&s=170667a&w=0&h=-HM1RqOCh7SEFRcdBshd5DT_Ge-597UDwgyoSGrZYQY="
-                                                                    alt=""
-                                                                    />
-                                                            </div>
-                                                            <div class="pipe-item-image">
-                                                                <img
-                                                                    src="https://media.istockphoto.com/photos/love-it-picture-id1312766354?b=1&k=20&m=1312766354&s=170667a&w=0&h=-HM1RqOCh7SEFRcdBshd5DT_Ge-597UDwgyoSGrZYQY="
-                                                                    alt=""
-                                                                    />
-                                                            </div>
-
-                                                            <div class="more-wrapper">
-                                                                <div class="img-more active">
-                                                                    <img
-                                                                        src="https://icons-for-free.com/iconfiles/png/512/exposure+plus+1+48px-131985226685054051.png"
-                                                                        alt=""
-                                                                        />
-                                                                </div>
-                                                                <div class="img-more">
-                                                                    <img
-                                                                        src="https://www.shareicon.net/data/128x128/2015/09/12/100167_plus_512x512.png"
-                                                                        alt=""
-                                                                        />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="pipe-item-bottom">
-                                                            <p class="pipe-bottom-item">123</p>
-                                                            <p class="pipe-bottom-item">Room: 213</p>
-                                                        </div>
+                                                        <div class="pipe-item-date"><%=feedback.getDate()%></div>
                                                     </div>
-                                                </c:forEach>
+
+
+                                                    <div class="image-all-wrapper">
+                                                        <%
+                                                            int count = 1;
+                                                            for (String img : feedback.getImageList()) {
+                                                                if (count == 1 || count == 2) {
+
+                                                        %>  
+                                                        <div class="pipe-item-image">
+                                                            <img
+                                                                src="data:image/jpg/png;base64,<%=img%>"
+                                                                alt=""
+                                                                />
+                                                        </div>
+
+
+
+                                                        <%                                                        } else if (feedback.getImageList().size() == 3) {
+                                                        %>
+                                                        <div class="more-wrapper">
+                                                            <div class="img-more active">
+                                                                <img
+                                                                    src="https://icons-for-free.com/iconfiles/png/512/exposure+plus+1+48px-131985226685054051.png"
+                                                                    alt=""
+                                                                    />
+                                                            </div>
+                                                        </div>
+                                                        <div class="img-more">
+                                                            <img
+                                                                src="https://www.shareicon.net/data/128x128/2015/09/12/100167_plus_512x512.png"
+                                                                alt=""
+                                                                />
+                                                        </div>
+
+                                                        <%
+                                                            break;
+                                                        } else {
+                                                        %>
+                                                        <div class="more-wrapper">
+                                                            <div class="img-more">
+                                                                <img
+                                                                    src="https://icons-for-free.com/iconfiles/png/512/exposure+plus+1+48px-131985226685054051.png"
+                                                                    alt=""
+                                                                    />
+                                                            </div>
+                                                            <div class="img-more active">
+                                                                <img
+                                                                    src="https://www.shareicon.net/data/128x128/2015/09/12/100167_plus_512x512.png"
+                                                                    alt=""
+                                                                    />
+                                                            </div>
+                                                        </div>
+                                                        <%
+                                                                    break;
+                                                                }
+                                                                count++;
+                                                            }
+                                                        %>  
+                                                    </div>
+
+
+
+                                                    <div class="pipe-item-bottom">
+                                                        <p class="pipe-bottom-item"><%=feedback.getDeviceName()%></p>
+                                                        <p class="pipe-bottom-item">Room: <%=feedback.getLocation()%></p>
+                                                    </div>
+                                                </div>
+                                                <%
+                                                    }
+                                                %> 
                                             </div>
                                         </div>
                                     </div>

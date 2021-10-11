@@ -9,6 +9,7 @@ import app.feedback.FeedbackDAO;
 import app.feedback.FeedbackDetailDTO;
 import app.response.ResponseDAO;
 import app.response.ResponseDTO;
+import app.users.UserDTO;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -33,7 +34,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 @WebServlet(name = "AddResponseController", urlPatterns = {"/AddResponseController"})
 public class AddResponseController extends HttpServlet {
 
-    private static final String SUCCESS = "##";
+    private static final String SUCCESS = "ShowEmployeeFormController";
     private static final String ERROR = "##";
 
     /**
@@ -53,8 +54,8 @@ public class AddResponseController extends HttpServlet {
             HttpSession session = request.getSession(true);
             ResponseDAO dao = new ResponseDAO();
             FileInputStream photo = null;
-            String feedbackDetailId = request.getParameter("feedbackDetailID");
-            String userId = request.getParameter("userID");
+            UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
+            String feedbackDetailId = "";
             String des = "";
 
             boolean isMultiPart = ServletFileUpload.isMultipartContent(request);
@@ -80,20 +81,26 @@ public class AddResponseController extends HttpServlet {
                         if (inputName.equalsIgnoreCase("description")) {
                             des = item.getString();
                         }
+                        if (inputName.equalsIgnoreCase("feedbackDetailID")) {
+                            feedbackDetailId = item.getString();
+                        }
 
                     } else {
                         if (des.equals("")) {
                             url = ERROR;
                             request.setAttribute("ADD_FAILURE", "active");
+                            request.setAttribute("SEND_FAILURE", "active");
                             break;
                         }
                         photo = (FileInputStream) item.getInputStream();
                     }
                 }
             }
-            ResponseDTO res = new ResponseDTO(feedbackDetailId, userId, des, "done");
+            ResponseDTO res = new ResponseDTO(feedbackDetailId, user.getUserID(), des, "done");
             if (dao.insertResponse(res, photo)) {
                 dao.updateFlagDetail(feedbackDetailId);
+                request.setAttribute("SEND_FEEDBACK_FLAG", "open");
+                request.setAttribute("SEND_SUCCESS", "active");
                 url = SUCCESS;
             }
         } catch (Exception e) {

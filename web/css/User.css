@@ -476,7 +476,6 @@ ul {
     width: 22rem;
     height: 100%;
     object-fit: cover;
-    object-position: 80% 100%;
 }
 .hero .pipe-item-date {
     color: #a7a7a7;
@@ -1081,12 +1080,7 @@ ul {
 .pipe-bottom-item {
     font-size: 1.4rem;
 }
-.hero .pipe-item-image img {
-    width: 22rem;
-    height: 100%;
-    object-fit: cover;
-    object-position: 80% 100%;
-}
+
 .hero .pipe-item-date {
     color: #a7a7a7;
     font-weight: 500;

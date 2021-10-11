@@ -34,14 +34,25 @@ public class ShowFeedbackForEmpController extends HttpServlet {
         String url = ERROR;
         HttpSession session = request.getSession();
         List<FeedbackDTO> list;
+        List<FeedbackDTO> historyList;
         //catch trường hợp chuyển trang về mất list
         try {
             boolean check = false;
             EmployeesDAO dao = new EmployeesDAO();
             UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
             list = dao.showListFeedback(user.getUserID());
-            String feedback = list.get(0).getFeedbackID();
-            request.setAttribute("FEEDBACK", feedback);
+            historyList = dao.showHistoryFeedback(user.getUserID());
+            String history = "";
+            String feedback = "";
+            if (!historyList.isEmpty()) {
+                history = historyList.get(0).getFeedbackID();
+            }
+            if (!list.isEmpty()) {
+                feedback = list.get(0).getFeedbackID();
+            }
+            session.setAttribute("HISTORY", history);
+            session.setAttribute("FEEDBACK", feedback);
+            session.setAttribute("LIST_HISTORY", historyList);
             session.setAttribute("LIST_FEEDBACK", list);
             session.setAttribute("COUNT", list.size());
             url = SUCCESS;

@@ -35,13 +35,20 @@ public class ShowFeedbackDetailForEmpController extends HttpServlet {
             HttpSession session = request.getSession();
             EmployeesDAO dao = new EmployeesDAO();
             String feedbackID = (String) request.getParameter("feedbackID");
+            String history = (String) request.getParameter("history");
             UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
             if (feedbackID == null) {
-                feedbackID = (String) request.getAttribute("FEEDBACK");
+                feedbackID = (String) session.getAttribute("FEEDBACK");
+            }
+            if (history == null) {
+                history = (String) session.getAttribute("HISTORY");
             }
             List<FeedbackDetailDTO> dto = dao.showListFeedbackDetail(user.getUserID(), feedbackID);
+            List<FeedbackDetailDTO> his = dao.showHistoryListFeedbackDetail(user.getUserID(), history);
             session.setAttribute("DETAIL", dto);
             request.setAttribute("FEEDBACK_ACTIVE", feedbackID);
+            session.setAttribute("HISTORY_DETAIL", his);
+            request.setAttribute("HISTORY_ACTIVE", history);
             url = SUCCESS;
         } catch (Exception e) {
             log("Error at ShowFeedbackDetailForEmp" + e.toString());

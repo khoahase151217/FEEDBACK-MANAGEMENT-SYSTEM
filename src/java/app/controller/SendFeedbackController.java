@@ -35,7 +35,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 @WebServlet(name = "SendFeedbackController", urlPatterns = {"/SendFeedbackController"})
 public class SendFeedbackController extends HttpServlet {
 
-    private static final String SUCCESS = "UserPage.jsp";
+    private static final String SUCCESS = "ShowFeedbackStudentController";
     private static final String ERROR = "UserPage.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

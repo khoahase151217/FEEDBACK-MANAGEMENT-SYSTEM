@@ -30,12 +30,72 @@
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
         ></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/EmployeeHome.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/EmployeeHome1.css" />
     </head>
     <body>
-        <div class="reponse-form">
+        <div class="reponse-form ${requestScope.flag}">
             <div class="modal">
-                <div class="reponse-form-main"></div>
+                <div class="reponse-form-main">
+                    <h2 class="reponse-form-heading">Feedback ${requestScope.COUNT}</h2>
+                    <form action="AddResponseController" class="reponse-form-actual-form" enctype="multipart/form-data" method="post">
+                        <div class="reponse-form-textarea-wrapper">
+                            <textarea
+                                name="description"
+                                id="description"
+                                class="reponse-form-textarea"
+                                placeholder="Enter message ..."
+                                ></textarea>
+                            <label>Description</label>
+                        </div>
+                        <div class="reponse-form-image-wrapper">
+                            <div class="reponse-form-image-show"></div>
+                            <div class="reponse-form-drag-area">
+                                <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                                <header>Drag & Drop to Upload File</header>
+                                <span>OR</span>
+                                <label>
+                                    <p>Browse File</p>
+                                    <input
+                                        type="file"
+                                        name="image"
+                                        id="image"
+                                        style="display: none"
+                                        />
+                                </label>
+                            </div>
+                        </div>
+                        <input type="hidden" name="feedbackDetailID" value="${requestScope.FEEDBACK_DETAIL_ID}" />
+                        <input type="submit" value="Send" class="submit-btn" />
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pop-up message when submit -->
+        <!-- When back end return a message you can add class value 'open' to div [class='feedback-form-message'] -->
+        <!-- you need have 2 difference attribute for success and failure, and add to two div[class='form-message-item']  -->
+        <div class="feedback-form-message ${requestScope.SEND_FEEDBACK_FLAG}">
+            <div class="modal feedback-form-message-modal">
+                <div class="feedback-form-message-main">
+                    <div class="form-message-item ${requestScope.SEND_SUCCESS}">
+                        <div class="item-image-wrap">
+                            <img src="./img/success.png" alt="" />
+                        </div>
+                        <h1 class="status">Thank You</h1>
+                        <p class="desc">
+                            You have already cancel this feedback successfully !
+                        </p>
+                    </div>
+                    <div class="form-message-item ${requestScope.SEND_FAILURE}">
+                        <div class="item-image-wrap">
+                            <img src="./img/failure.png" alt="" />
+                        </div>
+                        <h1 class="status status-error">Whoops</h1>
+                        <p class="desc">
+                            Something went wrong. Let's give this another try.
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -162,14 +222,17 @@
                                                                                     <strong>Send by</strong>
                                                                                     ${feedback.email}
                                                                                 </p>
-                                                                                <form action="123">
-                                                                                    <button type="submit" class="reponse-btn">
-                                                                                        <ion-icon
-                                                                                            name="send"
-                                                                                            class="send-btn"
-                                                                                            ></ion-icon>
-                                                                                    </button>
-                                                                                </form>
+                                                                                <div class="pipe-bottom-links">
+                                                                                    <form action="EmployeeDeclineController" method="post">
+                                                                                        <input type="hidden" name="feedbackID" value="${feedback.feedbackID}"/>
+                                                                                        <button
+                                                                                            type="submit"
+                                                                                            class="btn-submit-links"
+                                                                                            >
+                                                                                            <ion-icon name="trash"></ion-icon>
+                                                                                        </button>
+                                                                                    </form>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </a>
@@ -190,14 +253,17 @@
                                                                                     <strong>Send by</strong>
                                                                                     ${feedback.email}
                                                                                 </p>
-                                                                                <form action="123">
-                                                                                    <button type="submit" class="reponse-btn">
-                                                                                        <ion-icon
-                                                                                            name="send"
-                                                                                            class="send-btn"
-                                                                                            ></ion-icon>
-                                                                                    </button>
-                                                                                </form>
+                                                                                <div class="pipe-bottom-links">
+                                                                                    <form action="EmployeeDeclineController" method="post">
+                                                                                        <input type="hidden" name="feedbackID" value="${feedback.feedbackID}"/>
+                                                                                        <button
+                                                                                            type="submit"
+                                                                                            class="btn-submit-links"
+                                                                                            >
+                                                                                            <ion-icon name="trash"></ion-icon>
+                                                                                        </button>
+                                                                                    </form>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </a>
@@ -218,14 +284,17 @@
                                                                                     <strong>Send by</strong>
                                                                                     ${feedback.email}
                                                                                 </p>
-                                                                                <form action="123">
-                                                                                    <button type="submit" class="reponse-btn">
-                                                                                        <ion-icon
-                                                                                            name="send"
-                                                                                            class="send-btn"
-                                                                                            ></ion-icon>
-                                                                                    </button>
-                                                                                </form>
+                                                                                <div class="pipe-bottom-links">
+                                                                                    <form action="EmployeeDeclineController" method="post">
+                                                                                        <input type="hidden" name="feedbackID" value="${feedback.feedbackID}"/>
+                                                                                        <button
+                                                                                            type="submit"
+                                                                                            class="btn-submit-links"
+                                                                                            >
+                                                                                            <ion-icon name="trash"></ion-icon>
+                                                                                        </button>
+                                                                                    </form>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </a>
@@ -254,6 +323,21 @@
                                                                 >
                                                                 <div class="feedback-detail-header">
                                                                     <h2 class="feedback-detail-tittle">Feedback Detail ${counter.count}</h2>
+                                                                    <form
+                                                                        action="ShowEmployeeFormController?feedbackDetailID=${feedbackDetail.feedbackDetailID}&count=${counter.count}"
+                                                                        method="post"
+                                                                        class="form-reponse"
+                                                                        >
+                                                                        <button
+                                                                            type="submit"
+                                                                            class="btn-submit-links"
+                                                                            >
+                                                                            <ion-icon
+                                                                                name="send"
+                                                                                class="send-btn"
+                                                                                ></ion-icon>
+                                                                        </button>
+                                                                    </form>
                                                                 </div>
                                                                 <div class="feedback-detail-showcase">
                                                                     <div class="feedback-detail-input">
@@ -315,6 +399,21 @@
                                                                 >
                                                                 <div class="feedback-detail-header">
                                                                     <h2 class="feedback-detail-tittle">Feedback Detail ${counter.count}</h2>
+                                                                    <form
+                                                                        action="ShowEmployeeFormController?feedbackID=${feedback.feedbackID}&count=${counter.count}"
+                                                                        method="post"
+                                                                        class="form-reponse"
+                                                                        >
+                                                                        <button
+                                                                            type="submit"
+                                                                            class="btn-submit-links"
+                                                                            >
+                                                                            <ion-icon
+                                                                                name="send"
+                                                                                class="send-btn"
+                                                                                ></ion-icon>
+                                                                        </button>
+                                                                    </form>
                                                                 </div>
                                                                 <div class="feedback-detail-showcase">
                                                                     <div class="feedback-detail-input">
@@ -378,94 +477,70 @@
                                             <div class="pipe">
                                                 <div class="pipe-column">
                                                     <div class="pipe-list">
-                                                        <a href="#">
-                                                            <div class="pipe-item active">
-                                                                <div class="pipe-item-heading">
-                                                                    <div class="pipe-item-title-wrapper">
-                                                                        <h3 class="pipe-item-title">Feedback #1</h3>
-                                                                    </div>
-                                                                    <div class="pipe-item-date">
-                                                                        Tue, August 18
-                                                                    </div>
-                                                                </div>
-                                                                <div class="pipe-item-image-list"></div>
-                                                                <div class="pipe-item-bottom">
-                                                                    <p class="pipe-bottom-item">
-                                                                        <strong>Send by</strong>
-                                                                        ducndmse151198@fpt.edu.vn
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                        <a href="#">
-                                                            <div class="pipe-item">
-                                                                <div class="pipe-item-heading">
-                                                                    <div class="pipe-item-title-wrapper">
-                                                                        <h3 class="pipe-item-title">Feedback #1</h3>
-                                                                    </div>
-                                                                    <div class="pipe-item-date">
-                                                                        Tue, August 18
-                                                                    </div>
-                                                                </div>
-                                                                <div class="pipe-item-image-list">
-                                                                    <img
-                                                                        src="https://images.unsplash.com/photo-1633114128174-2f8aa49759b0?ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                                                                        alt=""
-                                                                        />
-                                                                    <div class="image-list-item">+ 2</div>
-                                                                </div>
-                                                                <div class="pipe-item-bottom">
-                                                                    <p class="pipe-bottom-item">
-                                                                        <strong>Send by</strong>
-                                                                        ducndmse151198@fpt.edu.vn
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                        <a href="#">
-                                                            <div class="pipe-item">
-                                                                <div class="pipe-item-heading">
-                                                                    <div class="pipe-item-title-wrapper">
-                                                                        <h3 class="pipe-item-title">Feedback #1</h3>
-                                                                    </div>
-                                                                    <div class="pipe-item-date">
-                                                                        Tue, August 18
-                                                                    </div>
-                                                                </div>
-                                                                <div class="pipe-item-image-list"></div>
-                                                                <div class="pipe-item-bottom">
-                                                                    <p class="pipe-bottom-item">
-                                                                        <strong>Send by</strong>
-                                                                        ducndmse151198@fpt.edu.vn
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                        <a href="#">
-                                                            <div class="pipe-item">
-                                                                <div class="pipe-item-heading">
-                                                                    <div class="pipe-item-title-wrapper">
-                                                                        <h3 class="pipe-item-title">Feedback #1</h3>
-                                                                    </div>
-                                                                    <div class="pipe-item-date">
-                                                                        Tue, August 18
-                                                                    </div>
-                                                                </div>
-                                                                <div class="pipe-item-image-list">
-                                                                    <img
-                                                                        src="https://images.unsplash.com/photo-1633114128174-2f8aa49759b0?ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                                                                        alt=""
-                                                                        />
-                                                                    <div class="image-list-item">+ 2</div>
-                                                                </div>
-                                                                <div class="pipe-item-bottom">
-                                                                    <p class="pipe-bottom-item">
-                                                                        <strong>Send by</strong>
-                                                                        ducndmse151198@fpt.edu.vn
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </a>
+                                                        <c:forEach var="feedback" items="${sessionScope.LIST_HISTORY}" varStatus="counter">
+                                                            <c:choose>
+                                                                <c:when test="${requestScope.HISTORY_ACTIVE == null && counter.count == 1}">
+                                                                    <a href="ShowFeedbackDetailForEmpController?history=${feedback.feedbackID}">
+                                                                        <div class="pipe-item active">
+                                                                            <div class="pipe-item-heading">
+                                                                                <div class="pipe-item-title-wrapper">
+                                                                                    <h3 class="pipe-item-title">Feedback ${feedback.feedbackID}</h3>
+                                                                                </div>
+                                                                                <div class="pipe-item-date">
+                                                                                    ${feedback.date}
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="pipe-item-bottom">
+                                                                                <p class="pipe-bottom-item">
+                                                                                    <strong>Send by</strong>
+                                                                                    ${feedback.email}
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </a>
+                                                                </c:when>
+                                                                <c:when test="${feedback.feedbackID eq requestScope.HISTORY_ACTIVE}">
+                                                                    <a href="ShowFeedbackDetailForEmpController?history=${feedback.feedbackID}">
+                                                                        <div class="pipe-item active">
+                                                                            <div class="pipe-item-heading">
+                                                                                <div class="pipe-item-title-wrapper">
+                                                                                    <h3 class="pipe-item-title">Feedback ${feedback.feedbackID}</h3>
+                                                                                </div>
+                                                                                <div class="pipe-item-date">
+                                                                                    ${feedback.date}
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="pipe-item-bottom">
+                                                                                <p class="pipe-bottom-item">
+                                                                                    <strong>Send by</strong>
+                                                                                    ${feedback.email}
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </a>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <a href="ShowFeedbackDetailForEmpController?history=${feedback.feedbackID}">
+                                                                        <div class="pipe-item">
+                                                                            <div class="pipe-item-heading">
+                                                                                <div class="pipe-item-title-wrapper">
+                                                                                    <h3 class="pipe-item-title">Feedback ${feedback.feedbackID}</h3>
+                                                                                </div>
+                                                                                <div class="pipe-item-date">
+                                                                                    ${feedback.date}
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="pipe-item-bottom">
+                                                                                <p class="pipe-bottom-item">
+                                                                                    <strong>Send by</strong>
+                                                                                    ${feedback.email}
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </a>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </c:forEach>
                                                     </div>
                                                 </div>
                                                 <div
@@ -480,158 +555,130 @@
                                                         >
                                                         <ion-icon name="chevron-forward-outline"></ion-icon>
                                                     </div>
-                                                    <div
-                                                        class="detail-wrapper history-detail active"
-                                                        data-index="1"
-                                                        >
-                                                        <div class="feedback-detail-header">
-                                                            <h2 class="feedback-detail-tittle">Feedback 1</h2>
-                                                        </div>
-                                                        <div class="feedback-detail-showcase">
-                                                            <div class="feedback-detail-input">
-                                                                <div class="input-wrapper">
-                                                                    <input
-                                                                        type="text"
-                                                                        name="device"
-                                                                        id="device"
-                                                                        value="Bui Duc Uy Dung"
-                                                                        readonly
-                                                                        />
-                                                                    <label class="input-label">Device Name</label>
+                                                    <c:forEach var="feedbackDetail" items="${sessionScope.HISTORY_DETAIL}" varStatus="counter">
+                                                        <c:if test="${counter.count == 1}">
+                                                            <div
+                                                                class="detail-wrapper history-detail active"
+                                                                data-index="${counter.count}"
+                                                                >
+                                                                <div class="feedback-detail-header">
+                                                                    <h2 class="feedback-detail-tittle">Feedback Detail ${counter.count}</h2>
                                                                 </div>
-                                                                <div class="input-wrapper">
-                                                                    <input
-                                                                        type="text"
-                                                                        name="location"
-                                                                        id="location"
-                                                                        value="Room 302"
-                                                                        readonly
-                                                                        />
-                                                                    <label class="input-label">Location</label>
-                                                                </div>
-                                                                <div class="input-wrapper">
-                                                                    <input
-                                                                        type="text"
-                                                                        name="quantity"
-                                                                        id="quantity"
-                                                                        value="2"
-                                                                        readonly
-                                                                        />
-                                                                    <label class="input-label">Quantity</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="feedback-detail-textarea">
-                                                                <div class="textarea-wrapper">
-                                                                    <textarea
-                                                                        name="description"
-                                                                        id="description"
-                                                                        readonly
-                                                                        >
-                                                                        At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.</textarea
-                                                                    >
-                                                                    <label class="input-label">Description</label>
-                                                                </div>
-                                                                <div class="feedback-detail-image-wrapper">
-                                                                    <img
-                                                                        src="https://images.unsplash.com/photo-1633430590464-4914c1fbab92?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                                                                        alt=""
-                                                                        />
-                                                                    <img
-                                                                        src="https://images.unsplash.com/photo-1489914099268-1dad649f76bf?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8MTkyMHgxMDgwfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                                                                        alt=""
-                                                                        />
-                                                                    <img
-                                                                        src="https://images.unsplash.com/photo-1633430590464-4914c1fbab92?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                                                                        alt=""
-                                                                        />
-                                                                    <img
-                                                                        src="https://images.unsplash.com/photo-1489914099268-1dad649f76bf?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8MTkyMHgxMDgwfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                                                                        alt=""
-                                                                        />
-                                                                    <img
-                                                                        src="https://images.unsplash.com/photo-1620121478247-ec786b9be2fa?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fDE5MjB4MTA4MHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                                                                        alt=""
-                                                                        />
-                                                                    <img
-                                                                        src="https://images.unsplash.com/photo-1620121478247-ec786b9be2fa?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fDE5MjB4MTA4MHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                                                                        alt=""
-                                                                        />
-                                                                    <img
-                                                                        src="https://images.unsplash.com/photo-1633430590464-4914c1fbab92?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                                                                        alt=""
-                                                                        />
+                                                                <div class="feedback-detail-showcase">
+                                                                    <div class="feedback-detail-input">
+                                                                        <div class="input-wrapper">
+                                                                            <input
+                                                                                type="text"
+                                                                                name="device"
+                                                                                id="device"
+                                                                                value="${feedbackDetail.deviceName}"
+                                                                                readonly
+                                                                                />
+                                                                            <label class="input-label">Device Name</label>
+                                                                        </div>
+                                                                        <div class="input-wrapper">
+                                                                            <input
+                                                                                type="text"
+                                                                                name="location"
+                                                                                id="location"
+                                                                                value="Room ${feedbackDetail.location}"
+                                                                                readonly
+                                                                                />
+                                                                            <label class="input-label">Location</label>
+                                                                        </div>
+                                                                        <div class="input-wrapper">
+                                                                            <input
+                                                                                type="number"
+                                                                                name="quantity"
+                                                                                id="quantity"
+                                                                                value="${feedbackDetail.quanity}"
+                                                                                readonly
+                                                                                />
+                                                                            <label class="input-label">Quantity</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="feedback-detail-textarea">
+                                                                        <div class="textarea-wrapper">
+                                                                            <textarea
+                                                                                name="description"
+                                                                                id="description"
+                                                                                readonly
+                                                                                >${feedbackDetail.reason}</textarea
+                                                                            >
+                                                                            <label class="input-label">Description</label>
+                                                                        </div>
+                                                                        <div class="feedback-detail-image-wrapper">
+                                                                            <img
+                                                                                src="data:image/jpg/png;base64,${feedbackDetail.image}"
+                                                                                alt=""
+                                                                                />
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="detail-wrapper history-detail"
-                                                        data-index="2"
-                                                        >
-                                                        <div class="feedback-detail-header">
-                                                            <h2 class="feedback-detail-tittle">Feedback 1</h2>
-                                                        </div>
-                                                        <div class="feedback-detail-showcase">
-                                                            <div class="feedback-detail-input">
-                                                                <div class="input-wrapper">
-                                                                    <input
-                                                                        type="text"
-                                                                        name="device"
-                                                                        id="device"
-                                                                        value="Bui Duc Uy Dung"
-                                                                        readonly
-                                                                        />
-                                                                    <label class="input-label">Device Name</label>
+                                                        </c:if>
+                                                        <c:if test="${counter.count != 1}">
+                                                            <div
+                                                                class="detail-wrapper history-detail"
+                                                                data-index="${counter.count}"
+                                                                >
+                                                                <div class="feedback-detail-header">
+                                                                    <h2 class="feedback-detail-tittle">Feedback Detail ${counter.count}</h2>
                                                                 </div>
-                                                                <div class="input-wrapper">
-                                                                    <input
-                                                                        type="text"
-                                                                        name="location"
-                                                                        id="location"
-                                                                        value="Room 302"
-                                                                        readonly
-                                                                        />
-                                                                    <label class="input-label">Location</label>
-                                                                </div>
-                                                                <div class="input-wrapper">
-                                                                    <input
-                                                                        type="text"
-                                                                        name="quantity"
-                                                                        id="quantity"
-                                                                        value="2"
-                                                                        readonly
-                                                                        />
-                                                                    <label class="input-label">Quantity</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="feedback-detail-textarea">
-                                                                <div class="textarea-wrapper">
-                                                                    <textarea
-                                                                        name="description"
-                                                                        id="description"
-                                                                        readonly
-                                                                        >
-                                                                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia corrupti magnam aut quidem saepe totam eos illo cum quas molestiae odit suscipit inventore, placeat laboriosam odio dicta, sit, sunt quam?</textarea
-                                                                    >
-                                                                    <label class="input-label">Description</label>
-                                                                </div>
-                                                                <div class="feedback-detail-image-wrapper">
-                                                                    <img
-                                                                        src="https://images.unsplash.com/photo-1633555234047-192d10238f5f?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1fHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                                                                        alt=""
-                                                                        />
-                                                                    <img
-                                                                        src="https://images.unsplash.com/photo-1633692301992-d27ca897ad65?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4fHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                                                                        alt=""
-                                                                        />
-                                                                    <img
-                                                                        src="https://images.unsplash.com/photo-1633532139011-ea6f0ecfab41?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                                                                        alt=""
-                                                                        />
+                                                                <div class="feedback-detail-showcase">
+                                                                    <div class="feedback-detail-input">
+                                                                        <div class="input-wrapper">
+                                                                            <input
+                                                                                type="text"
+                                                                                name="device"
+                                                                                id="device"
+                                                                                value="${feedbackDetail.deviceName}"
+                                                                                readonly
+                                                                                />
+                                                                            <label class="input-label">Device Name</label>
+                                                                        </div>
+                                                                        <div class="input-wrapper">
+                                                                            <input
+                                                                                type="text"
+                                                                                name="location"
+                                                                                id="location"
+                                                                                value="Room ${feedbackDetail.location}"
+                                                                                readonly
+                                                                                />
+                                                                            <label class="input-label">Location</label>
+                                                                        </div>
+                                                                        <div class="input-wrapper">
+                                                                            <input
+                                                                                type="number"
+                                                                                name="quantity"
+                                                                                id="quantity"
+                                                                                value="${feedbackDetail.quanity}"
+                                                                                readonly
+                                                                                />
+                                                                            <label class="input-label">Quantity</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="feedback-detail-textarea">
+                                                                        <div class="textarea-wrapper">
+                                                                            <textarea
+                                                                                name="description"
+                                                                                id="description"
+                                                                                readonly
+                                                                                >${feedbackDetail.reason}</textarea
+                                                                            >
+                                                                            <label class="input-label">Description</label>
+                                                                        </div>
+                                                                        <div class="feedback-detail-image-wrapper">
+                                                                            <img
+                                                                                src="data:image/jpg/png;base64,${feedbackDetail.image}"
+                                                                                alt=""
+                                                                                />
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </div>
+                                                        </c:if>
+                                                    </c:forEach>
                                                 </div>
                                             </div>
                                         </div>
@@ -644,6 +691,40 @@
                 </div>
             </section>
         </main>
-        <script src="${pageContext.request.contextPath}/js/EmployeeHome.js"></script>
+        <script src="${pageContext.request.contextPath}/js/EmployeeHome1.js"></script>
+        <!-- Query -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script>
+            $(function () {
+                var imagesPreview = function (input, placeToInsertImagePreview) {
+                    if (input.files) {
+                        var filesAmount = input.files.length;
+
+                        for (i = 0; i < filesAmount; i++) {
+                            var reader = new FileReader();
+
+                            reader.onload = function (event) {
+                                $($.parseHTML("<img>"))
+                                        .attr("src", event.target.result)
+                                        .appendTo(placeToInsertImagePreview);
+                            };
+
+                            reader.readAsDataURL(input.files[i]);
+                        }
+                    }
+                };
+
+                $(".reponse-form-drag-area").on("drop", (event) => {
+                    event.preventDefault();
+                    $("#image").prop("files", event.originalEvent.dataTransfer.files);
+                    $("#image").trigger("change");
+                });
+
+                $("#image").on("change", function (e) {
+                    $(".reponse-form-image-show").empty();
+                    imagesPreview(this, "div.reponse-form-image-show");
+                });
+            });
+        </script>
     </body>
 </html>
