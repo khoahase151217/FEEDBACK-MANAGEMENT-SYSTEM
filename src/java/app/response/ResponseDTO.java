@@ -17,9 +17,24 @@ public class ResponseDTO {
     private String des;
     private String statusID;
     private String responseID;
+    private String deviceName;
+    private String location;
+    private String userName;
 
     public ResponseDTO() {
     }
+
+    public ResponseDTO(String feedbackDetailID, String image, String des, String responseID, String deviceName, String location, String userName) {
+        this.feedbackDetailID = feedbackDetailID;
+        this.image = image;
+        this.des = des;
+        this.responseID = responseID;
+        this.deviceName = deviceName;
+        this.location = location;
+        this.userName = userName;
+    }
+    
+    
 
     public ResponseDTO(String feedbackDetailID, String userID, String des, String statusID) {
         this.feedbackDetailID = feedbackDetailID;
@@ -92,5 +107,30 @@ public class ResponseDTO {
     public void setResponseID(String responseID) {
         this.responseID = responseID;
     }
+
+    public String getDeviceName() {
+        return deviceName;
+    }
+
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+    
 
 }

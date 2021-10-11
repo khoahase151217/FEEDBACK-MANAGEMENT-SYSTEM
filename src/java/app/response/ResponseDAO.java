@@ -12,6 +12,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
 
 /**
  *
@@ -184,6 +187,58 @@ public class ResponseDAO {
             }
         }
         return check;
+    }
+
+    public List<ResponseDTO> showListResponeDetail(String feedbackID) throws SQLException {
+        List<ResponseDTO> dto = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT t1.* ,t2.Location as location , t3.Name as deivcename , t2.feedbackDetailID as feedbackDetailID , t4.Name as userName "
+                        + " FROM tblResponseFeedback t1 "
+                        + " JOIN tblFeedbackDetail t2 "
+                        + "  ON t1.feedbackDetailID = t2.feedbackDetailID"
+                        + " JOIN tblFacilities t3 "
+                        + " ON t3.FacilityID = t2.FacilityID "
+                        + " JOIN tblUser t4 "
+                        + " ON t1.UserID = t4.UserID "
+                        + " JOIN tblFeedback t5 "
+                        + "  ON t5.feedbackID = t2.feedbackID "
+                        + " WHERE t2.flag ='true' AND t5.FeedbackID = ? ";
+                stm = conn.prepareCall(sql);
+                stm.setString(2, feedbackID);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String responseID = rs.getString("ResponseID");
+                    String feedbackDetailID = rs.getString("feedbackDetailID");
+                    String userName = rs.getString("userName");
+                    String des = rs.getString("Description");
+                    byte[] tmp = rs.getBytes("Image");
+                    String base64Image = Base64.getEncoder().encodeToString(tmp);
+                   String location = rs.getString("location");
+                    String deviceName = rs.getString("deivcename");
+                    dto.add(new ResponseDTO(feedbackDetailID, base64Image, des, responseID, deviceName, location, userName));
+                    
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return dto;
     }
 
 }

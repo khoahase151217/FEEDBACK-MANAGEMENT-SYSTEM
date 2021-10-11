@@ -7,9 +7,8 @@ package app.controller;
 
 import app.employees.EmployeesDAO;
 import app.feedback.FeedbackDTO;
-import app.feedback.FeedbackDetailDTO;
-import app.users.UserDTO;
 import java.io.IOException;
+import static java.util.Collections.list;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,48 +21,39 @@ import javax.servlet.http.HttpSession;
  *
  * @author ASUS
  */
-@WebServlet(name = "ShowFeedbackForEmpController", urlPatterns = {"/ShowFeedbackForEmpController"})
-public class ShowFeedbackForEmpController extends HttpServlet {
+@WebServlet(name = "ShowFeedbackResponeForManagerController", urlPatterns = {"/ShowFeedbackResponeForManagerController"})
+public class ShowFeedbackResponeForManagerController extends HttpServlet {
 
-    private static final String ERROR = "ShowFeedbackDetailForEmpController";
-    private static final String SUCCESS = "ShowFeedbackDetailForEmpController";
+    private static final String ERROR = "ShowFeedbackResponeDetailForManagerController";
+    private static final String SUCCESS = "ShowFeedbackResponeDetailForManagerController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
+        List<FeedbackDTO> listRespone;
         HttpSession session = request.getSession();
-        List<FeedbackDTO> list;
-        List<FeedbackDTO> historyList;
-        //catch trường hợp chuyển trang về mất list
+        String url = ERROR;
         try {
             EmployeesDAO dao = new EmployeesDAO();
-            UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
-            list = dao.showListFeedback(user.getUserID());
-            historyList = dao.showHistoryFeedback(user.getUserID());
-            String history = "";
-            String feedback = "";
-            if (!historyList.isEmpty()) {
-                history = historyList.get(0).getFeedbackID();
+            listRespone = dao.showListFeedbackResponse();
+            String feedbackResponeID = "";
+
+            if (!listRespone.isEmpty()) {
+                feedbackResponeID = listRespone.get(0).getFeedbackID();
             }
-            if (!list.isEmpty()) {
-                feedback = list.get(0).getFeedbackID();
-            }
-            session.setAttribute("HISTORY", history);
-            session.setAttribute("FEEDBACK", feedback);
-            session.setAttribute("LIST_HISTORY", historyList);
-            session.setAttribute("LIST_FEEDBACK", list);
-            session.setAttribute("COUNT", list.size());
+            session.setAttribute("FEEDBACK_RESPONE_ID", feedbackResponeID);
+            session.setAttribute("FEEDBACK_RESPONE_LIST", listRespone);
+            session.setAttribute("COUNT", listRespone.size());
             url = SUCCESS;
 
         } catch (Exception e) {
-            log("Error at SearchStudentController:" + e.toString());
+            log("Error at ShowFeedbackResponeForManagerController:" + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }
 
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
