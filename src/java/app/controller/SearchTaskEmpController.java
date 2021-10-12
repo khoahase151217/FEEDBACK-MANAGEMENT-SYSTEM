@@ -28,6 +28,7 @@ public class SearchTaskEmpController extends HttpServlet {
 
     private static final String ERROR = "ShowFeedbackDetailForEmpController";
     private static final String SUCCESS = "ShowFeedbackDetailForEmpController";
+    private static final String FULL__NAME_REGEX = "^(?![\\s.]+$)[a-zA-Z\\s.]*$";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -49,10 +50,20 @@ public class SearchTaskEmpController extends HttpServlet {
             String feedbackID = (String) request.getAttribute("FEEDBACK_ID");
             String historyID = request.getParameter("history");
 
+            if (!search.matches(FULL__NAME_REGEX)) {
+                session.setAttribute("LIST_FEEDBACK", list);
+                session.setAttribute("LIST_HISTORY", historyList);
+                request.setAttribute("SEARCH", search);
+                request.getRequestDispatcher(url).forward(request, response);
+                return;
+            }
+
             if (task != null && his == null) {
                 list = dao.searchListFeedback(user.getUserID(), search);
+                historyList = dao2.showHistoryFeedback(user.getUserID());
             } else {
                 historyList = dao.searchHistoryFeedback(user.getUserID(), search);
+                list = dao2.showListFeedback(user.getUserID());
             }
 
             if (!historyList.isEmpty() && historyID == null) {
@@ -70,6 +81,7 @@ public class SearchTaskEmpController extends HttpServlet {
             session.setAttribute("FEEDBACK", feedback);
             session.setAttribute("LIST_HISTORY", historyList);
             session.setAttribute("LIST_FEEDBACK", list);
+            request.setAttribute("SEARCH", search);
             session.setAttribute("COUNT", list.size());
             url = SUCCESS;
         } catch (Exception e) {
