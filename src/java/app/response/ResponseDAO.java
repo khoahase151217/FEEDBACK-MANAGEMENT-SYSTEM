@@ -171,7 +171,7 @@ public class ResponseDAO {
             if (conn != null) {
                 String sql = " UPDATE tblFeedbackDetail "
                         + " SET UserID=? "
-                        + " WHERE FeedbackID=? ";
+                        + " WHERE FeedbackID=? AND flag='false' ";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, userId);
                 ps.setString(2, feedbackId);
