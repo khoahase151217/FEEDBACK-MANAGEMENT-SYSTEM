@@ -5,6 +5,7 @@
  */
 package app.controller;
 
+import app.feedback.FeedbackDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -26,11 +27,19 @@ public class ShowEmployeeFormController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String feedbackDetailID = request.getParameter("feedbackDetailID");
+            String feedbackID = "";
+            FeedbackDAO dao = new FeedbackDAO();
             String count = request.getParameter("count");
-            if (feedbackDetailID != null && count != null) {
-                request.setAttribute("FEEDBACK_DETAIL_ID", feedbackDetailID);
+            String feedbackDetailID = request.getParameter("feedbackDetailID");
+            if (feedbackDetailID != null) {
+                feedbackID = dao.getFeedbackIDByFeedbackDetailID(feedbackDetailID);
+            }
+            if (count != null) {
                 request.setAttribute("COUNT", count);
+            }
+            if (!feedbackID.equals("")) {
+                request.setAttribute("FEEDBACK_ID", feedbackID);
+                request.setAttribute("FEEDBACK_DETAIL_ID", feedbackDetailID);
             }
             request.setAttribute("flag", "open");
             url = SUCCESS;

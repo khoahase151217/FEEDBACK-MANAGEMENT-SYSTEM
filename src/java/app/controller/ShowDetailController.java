@@ -45,14 +45,24 @@ public class ShowDetailController extends HttpServlet {
             FeedbackDAO dao = new FeedbackDAO();
             String feedbackID = request.getParameter("feedbackID");
             String pipeOrList = request.getParameter("style_flag");
+            String statusID = request.getParameter("statusID");
+            String statusName = request.getParameter("statusName");
             List<FeedbackDetailDTO> list = dao.getListFeedbackDetail(feedbackID);
             if (!list.isEmpty()) {
                 session.setAttribute("LIST_DETAIL", list);
                 request.setAttribute("CLASS_NAME", "pending");
+                request.setAttribute("statusID", statusID);
+                request.setAttribute("statusName", statusName);
                 url = SUCCESS;
             } else {
+                request.setAttribute("statusID", statusID);
+                request.setAttribute("statusName", statusName);
                 if (dao.getFeedbackStatusID(feedbackID).equals("onGoing")) {
                     request.setAttribute("CLASS_NAME", "onGoing");
+                }
+                if (statusID.equalsIgnoreCase("pending") && statusName.equalsIgnoreCase("pending")) {
+                    request.setAttribute("statusID", "onGoing");
+                    request.setAttribute("statusName", "On-Going");
                 }
                 list = dao.getListFeedbackDetailShowEmployee(feedbackID);
                 session.setAttribute("LIST_DETAIL", list);
@@ -84,7 +94,7 @@ public class ShowDetailController extends HttpServlet {
                 }
             }
             String search = request.getParameter("search");
-            if(!search.equals("")) {
+            if (!search.equals("")) {
                 url = SEARCH;
             }
         } catch (Exception e) {

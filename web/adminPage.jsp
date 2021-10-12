@@ -32,7 +32,7 @@
         ></script>
 
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage.css" />
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPageDetailModal.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPageDetailModal1.css" />
     </head>
     <body>
         <!-- if you want to open modal, you add class for div[class = 'feedbackDetail'] value: 'open' -->
@@ -62,7 +62,7 @@
                                 <p>${param.feedbackID}${requestScope.feedbackID}</p>
                                 <p>${param.email}${requestScope.email}</p>
                                 <p>${param.date}${requestScope.date}</p>
-                                <button class="status-btn-${param.statusID}${requestScope.statusID}">${param.statusName}${requestScope.statusName}</button>
+                                <button class="status-btn-${requestScope.statusID}">${requestScope.statusName}</button>
                             </div>
                         </div>
                         <c:forEach var="feedbackDetail" items="${sessionScope.LIST_DETAIL}">

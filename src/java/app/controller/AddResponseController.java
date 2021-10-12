@@ -34,10 +34,9 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 @WebServlet(name = "AddResponseController", urlPatterns = {"/AddResponseController"})
 public class AddResponseController extends HttpServlet {
 
-    private static final String SUCCESS = "ShowEmployeeFormController";
-    private static final String ERROR = "##";
+    private static final String SUCCESS = "ShowFeedbackForEmpController";
+    private static final String ERROR = "ShowFeedbackForEmpController";
 
-   
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -45,6 +44,7 @@ public class AddResponseController extends HttpServlet {
         try {
             HttpSession session = request.getSession(true);
             ResponseDAO dao = new ResponseDAO();
+            FeedbackDAO dao2 = new FeedbackDAO();
             FileInputStream photo = null;
             UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
             String feedbackDetailId = "";
@@ -82,6 +82,7 @@ public class AddResponseController extends HttpServlet {
                             url = ERROR;
                             request.setAttribute("ADD_FAILURE", "active");
                             request.setAttribute("SEND_FAILURE", "active");
+                            request.setAttribute("FEEDBACK_DETAIL_ID", feedbackDetailId);
                             break;
                         }
                         photo = (FileInputStream) item.getInputStream();
@@ -95,6 +96,8 @@ public class AddResponseController extends HttpServlet {
                 request.setAttribute("SEND_SUCCESS", "active");
                 url = SUCCESS;
             }
+            request.setAttribute("FEEDBACK_ID", dao2.getFeedbackIDByFeedbackDetailID(feedbackDetailId));
+            request.setAttribute("flag", "open");
         } catch (Exception e) {
             log("Error at AddResponseController" + e.toString());
         } finally {

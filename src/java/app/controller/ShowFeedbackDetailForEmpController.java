@@ -37,6 +37,7 @@ public class ShowFeedbackDetailForEmpController extends HttpServlet {
             String feedbackID = (String) request.getParameter("feedbackID");
             String history = (String) request.getParameter("history");
             UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
+            String feedbackDetailID = (String) request.getAttribute("FEEDBACK_DETAIL_ID");
             if (feedbackID == null) {
                 feedbackID = (String) session.getAttribute("FEEDBACK");
             }
@@ -49,6 +50,24 @@ public class ShowFeedbackDetailForEmpController extends HttpServlet {
             request.setAttribute("FEEDBACK_ACTIVE", feedbackID);
             session.setAttribute("HISTORY_DETAIL", his);
             request.setAttribute("HISTORY_ACTIVE", history);
+            if (feedbackDetailID != null) {
+                request.setAttribute("FEEDBACK_DETAIL_ACTIVE", feedbackDetailID);
+            }
+
+            String styleList = request.getParameter("style_list");
+            if (styleList != null) {
+                switch (styleList) {
+                    case "history":
+                        request.setAttribute("LIST_STYLE_HISTORY", "active");
+                        break;
+                    default:
+                        request.setAttribute("LIST_STYLE_TASK", "active");
+                        break;
+                }
+            } else {
+                request.setAttribute("LIST_STYLE_TASK", "active");
+            }
+
             url = SUCCESS;
         } catch (Exception e) {
             log("Error at ShowFeedbackDetailForEmp" + e.toString());

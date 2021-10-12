@@ -89,6 +89,43 @@ public class FeedbackDAO {
         return result;
     }
 
+    public String getFeedbackIDByFeedbackDetailID(String feedbackDetailID) throws SQLException {
+        String result = "";
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT FeedbackID "
+                        + " FROM tblFeedbackDetail "
+                        + " WHERE FeedbackID in (SELECT FeedbackID "
+                        + " FROM tblFeedbackDetail "
+                        + " WHERE feedbackDetailID = ?) and flag = 'false' "
+                        + " group by FeedbackID";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, feedbackDetailID);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    result = rs.getString("FeedbackID");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return result;
+    }
+
     public boolean insertFeedbackDetail(String feedbackID, FeedbackDetailDTO detail, FileInputStream image) throws SQLException, ClassNotFoundException, IOException {
         boolean check = false;
         Connection conn = null;
