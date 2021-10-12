@@ -5,6 +5,7 @@
  */
 package app.controller;
 
+import app.employees.EmployeesDAO;
 import app.feedback.FeedbackDAO;
 import app.feedback.FeedbackDTO;
 import app.users.UserDTO;
@@ -22,8 +23,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author ASUS
  */
-@WebServlet(name = "SearchTaskEmp", urlPatterns = {"/SearchTaskEmp"})
-public class SearchTaskEmp extends HttpServlet {
+@WebServlet(name = "SearchTaskEmp", urlPatterns = {"/SearchTaskEmpController"})
+public class SearchTaskEmpController extends HttpServlet {
 
     private static final String ERROR = "ShowFeedbackDetailForEmpController";
     private static final String SUCCESS = "ShowFeedbackDetailForEmpController";
@@ -35,6 +36,7 @@ public class SearchTaskEmp extends HttpServlet {
         List<FeedbackDTO> historyList = new ArrayList<>();
         HttpSession session = request.getSession();
         FeedbackDAO dao = new FeedbackDAO();
+        EmployeesDAO dao2 = new EmployeesDAO();
         String url = ERROR;
         String history = "";
         String feedback = "";

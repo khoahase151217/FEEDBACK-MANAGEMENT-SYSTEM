@@ -167,7 +167,10 @@
                             <!-- Feedback -->
                             <div class="showcase-content-item active">
                                 <div class="showcase-content-item-heading">
-                                    <form action="#" class="showcase-form">
+                                    <form action="SearchTaskEmpController" class="showcase-form">
+                                        <div class="input-hidden-wrapper">
+                                            <input type="hidden" name="LIST_STYLE_TASK" value="active"/>
+                                        </div>
                                         <input
                                             type="text"
                                             name="search"
@@ -768,7 +771,7 @@
                 </div>
             </section>
         </main>
-        <script src="${pageContext.request.contextPath}/js/EmployeeHome.js"></script>
+        <script src="${pageContext.request.contextPath}/js/EmployeeHome1.js"></script>
         <!-- Query -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>

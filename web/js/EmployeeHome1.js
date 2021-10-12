@@ -40,6 +40,11 @@ Array.from(navigationItems).forEach((item) => {
             item.classList.remove("active")
         );
         Array.from(contentMainList)[index].classList.add("active");
+        if (e.target.innerText === "History") {
+            document.querySelector('.input-hidden-wrapper').innerHTML = `<input type="hidden" name="LIST_STYLE_HISTORY" value="active"/>`;
+        } else {
+            document.querySelector('.input-hidden-wrapper').innerHTML = `<input type="hidden" name="LIST_STYLE_TASK" value="active"/>`;
+        }
     });
 });
 //Array.from(pipeItems).forEach((item) => {
