@@ -789,7 +789,7 @@ img {
     margin-right: 1.5rem;
 }
 .reponse-form-drag-area {
-    border: 2px dashed #e6bb7a;
+    border: 2px dashed #5256ad;
     height: 12rem;
     width: 15rem;
     border-radius: 5px;
@@ -800,7 +800,7 @@ img {
     font-size: 1rem;
 }
 .reponse-form-drag-area.active {
-    border: 2px solid #e6bb7a;
+    border: 2px solid #5256ad;
 }
 .reponse-form-drag-area .icon {
     font-size: 30px;

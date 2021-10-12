@@ -41,9 +41,15 @@ Array.from(navigationItems).forEach((item) => {
         );
         Array.from(contentMainList)[index].classList.add("active");
         if (e.target.innerText === "History") {
-            document.querySelector('.input-hidden-wrapper').innerHTML = `<input type="hidden" name="LIST_STYLE_HISTORY" value="active"/>`;
+            document.querySelector('.input-hidden-wrapper').innerHTML = `
+                <input type="hidden" name="LIST_STYLE_HISTORY" value="active"/>
+                <input type="hidden" name="style_list" value="history"/>
+                `;
         } else {
-            document.querySelector('.input-hidden-wrapper').innerHTML = `<input type="hidden" name="LIST_STYLE_TASK" value="active"/>`;
+            document.querySelector('.input-hidden-wrapper').innerHTML = `
+                <input type="hidden" name="LIST_STYLE_TASK" value="active"/>
+                <input type="hidden" name="style_list" value="task"/>
+                `;
         }
     });
 });

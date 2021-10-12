@@ -33,7 +33,7 @@
         <!-- font awesome -->
         <script src="https://kit.fontawesome.com/97ce91ff3b.js" crossorigin="anonymous"></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/EmployeeHome1.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/EmployeeHome.css" />
     </head>
     <body>
         <div class="reponse-form ${requestScope.flag}">
@@ -170,15 +170,19 @@
                                     <form action="SearchTaskEmpController" class="showcase-form">
                                         <div class="input-hidden-wrapper">
                                             <input type="hidden" name="LIST_STYLE_TASK" value="active"/>
+                                            <input type="hidden" name="style_list" value="task"/>
                                         </div>
                                         <input
                                             type="text"
                                             name="search"
                                             placeholder="Search project..."
+                                            value="${SEARCH}"
                                             />
                                         <button type="submit">
                                             <ion-icon name="search"></ion-icon>
                                         </button>
+                                        <input type="hidden" name="FEEDBACK_DETAIL_ACTIVE" value="${requestScope.FEEDBACK_ACTIVE}"/>
+                                        <input type="hidden" name="HISTORY_DETAIL_ACTIVE" value="${requestScope.HISTORY_ACTIVE}"/>
                                     </form>
                                     <div class="showcase-title-wrapper">
                                         <h2 class="showcase-title">Welcome back, ${sessionScope.LOGIN_USER.fullName}</h2>
@@ -771,7 +775,7 @@
                 </div>
             </section>
         </main>
-        <script src="${pageContext.request.contextPath}/js/EmployeeHome1.js"></script>
+        <script src="${pageContext.request.contextPath}/js/EmployeeHome.js"></script>
         <!-- Query -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>

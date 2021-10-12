@@ -31,7 +31,7 @@
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
         ></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage2.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPageDetailModal1.css" />
     </head>
     <body>
@@ -378,7 +378,7 @@
                                                                                 </p>
                                                                             </div>
                                                                             <div class="pipe-item-date">
-                                                                               ${feedback.date}
+                                                                                ${feedback.date}
                                                                             </div>
                                                                         </div>
                                                                         <div class="pipe-item-bottom">
@@ -640,8 +640,257 @@
                                         <!-- Comments -->
                                         <div
                                             class="content-item-main-item facility-item-main-item"
-                                            style="background: blue"
-                                            ></div>
+                                            >
+                                            <div class="comments-wrapper">
+                                                <div class="comment-list-feedback">
+                                                    <div class="pipe-column">
+                                                        <div class="pipe-list">
+                                                            <a href="#">
+                                                                <div class="pipe-comment-item active">
+                                                                    <div class="pipe-item-heading">
+                                                                        <div class="pipe-item-title-wrapper">
+                                                                            <h3 class="pipe-item-title">
+                                                                                Feedback #1
+                                                                            </h3>
+                                                                        </div>
+                                                                        <div class="pipe-item-date">
+                                                                            Tue, August 18
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="pipe-item-bottom">
+                                                                        <p class="pipe-bottom-item">
+                                                                            <strong>Send by</strong>
+                                                                            ducndmse151198@fpt.edu.vn
+                                                                        </p>
+                                                                        <div class="pipe-item-bottom-form-wrapper">
+                                                                            <form action="#" class="pipe-bottom-form">
+                                                                                <button type="submit" class="btn--done">
+                                                                                    <ion-icon
+                                                                                        name="checkbox-outline"
+                                                                                        ></ion-icon>
+                                                                                </button>
+                                                                            </form>
+                                                                            <form action="#" class="pipe-bottom-form">
+                                                                                <button
+                                                                                    type="submit"
+                                                                                    class="btn--decline"
+                                                                                    >
+                                                                                    <ion-icon
+                                                                                        name="close-circle-outline"
+                                                                                        ></ion-icon>
+                                                                                </button>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                            <a href="#">
+                                                                <div class="pipe-comment-item">
+                                                                    <div class="pipe-item-heading">
+                                                                        <div class="pipe-item-title-wrapper">
+                                                                            <h3 class="pipe-item-title">
+                                                                                Feedback #1
+                                                                            </h3>
+                                                                        </div>
+                                                                        <div class="pipe-item-date">
+                                                                            Tue, August 18
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="pipe-item-bottom">
+                                                                        <p class="pipe-bottom-item">
+                                                                            <strong>Send by</strong>
+                                                                            ducndmse151198@fpt.edu.vn
+                                                                        </p>
+                                                                        <div class="pipe-item-bottom-form-wrapper">
+                                                                            <form action="#" class="pipe-bottom-form">
+                                                                                <button type="submit" class="btn--done">
+                                                                                    <ion-icon
+                                                                                        name="checkbox-outline"
+                                                                                        ></ion-icon>
+                                                                                </button>
+                                                                            </form>
+                                                                            <form action="#" class="pipe-bottom-form">
+                                                                                <button
+                                                                                    type="submit"
+                                                                                    class="btn--decline"
+                                                                                    >
+                                                                                    <ion-icon
+                                                                                        name="close-circle-outline"
+                                                                                        ></ion-icon>
+                                                                                </button>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="pipe-column feedback-detail"
+                                                    style="background-color: #fff"
+                                                    >
+                                                    <div class="icon-chevron-back task-chevron-back">
+                                                        <ion-icon name="chevron-back-outline"></ion-icon>
+                                                    </div>
+                                                    <div
+                                                        class="icon-chevron-forward task-chevron-forward"
+                                                        >
+                                                        <ion-icon name="chevron-forward-outline"></ion-icon>
+                                                    </div>
+                                                    <div
+                                                        class="detail-wrapper task-detail active"
+                                                        data-index="1"
+                                                        >
+                                                        <div class="feedback-detail-header">
+                                                            <h2 class="feedback-detail-tittle">Feedback 1</h2>
+                                                        </div>
+                                                        <div class="feedback-detail-showcase">
+                                                            <div class="feedback-detail-input">
+                                                                <div class="input-wrapper">
+                                                                    <input
+                                                                        type="text"
+                                                                        name="device"
+                                                                        id="device"
+                                                                        value="Bui Duc Uy Dung"
+                                                                        readonly
+                                                                        />
+                                                                    <label class="input-label">Device Name</label>
+                                                                </div>
+                                                                <div class="input-wrapper">
+                                                                    <input
+                                                                        type="text"
+                                                                        name="location"
+                                                                        id="location"
+                                                                        value="Room 302"
+                                                                        readonly
+                                                                        />
+                                                                    <label class="input-label">Location</label>
+                                                                </div>
+                                                                <div class="input-wrapper">
+                                                                    <input
+                                                                        type="text"
+                                                                        name="quantity"
+                                                                        id="quantity"
+                                                                        value="2"
+                                                                        readonly
+                                                                        />
+                                                                    <label class="input-label">Quantity</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="feedback-detail-textarea">
+                                                                <div class="textarea-wrapper">
+                                                                    <textarea
+                                                                        name="description"
+                                                                        id="description"
+                                                                        readonly
+                                                                        >At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.</textarea
+                                                                    >
+                                                                    <label class="input-label">Description</label>
+                                                                </div>
+                                                                <div class="feedback-detail-image-wrapper">
+                                                                    <img
+                                                                        src="https://images.unsplash.com/photo-1633430590464-4914c1fbab92?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                                                                        alt=""
+                                                                        />
+                                                                    <img
+                                                                        src="https://images.unsplash.com/photo-1489914099268-1dad649f76bf?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8MTkyMHgxMDgwfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                                                                        alt=""
+                                                                        />
+                                                                    <img
+                                                                        src="https://images.unsplash.com/photo-1633430590464-4914c1fbab92?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                                                                        alt=""
+                                                                        />
+                                                                    <img
+                                                                        src="https://images.unsplash.com/photo-1489914099268-1dad649f76bf?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8MTkyMHgxMDgwfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                                                                        alt=""
+                                                                        />
+                                                                    <img
+                                                                        src="https://images.unsplash.com/photo-1620121478247-ec786b9be2fa?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fDE5MjB4MTA4MHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                                                                        alt=""
+                                                                        />
+                                                                    <img
+                                                                        src="https://images.unsplash.com/photo-1620121478247-ec786b9be2fa?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fDE5MjB4MTA4MHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                                                                        alt=""
+                                                                        />
+                                                                    <img
+                                                                        src="https://images.unsplash.com/photo-1633430590464-4914c1fbab92?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                                                                        alt=""
+                                                                        />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        class="detail-wrapper task-detail"
+                                                        data-index="2"
+                                                        >
+                                                        <div class="feedback-detail-header">
+                                                            <h2 class="feedback-detail-tittle">Feedback 1</h2>
+                                                        </div>
+                                                        <div class="feedback-detail-showcase">
+                                                            <div class="feedback-detail-input">
+                                                                <div class="input-wrapper">
+                                                                    <input
+                                                                        type="text"
+                                                                        name="device"
+                                                                        id="device"
+                                                                        value="Bui Duc Uy Dung"
+                                                                        readonly
+                                                                        />
+                                                                    <label class="input-label">Device Name</label>
+                                                                </div>
+                                                                <div class="input-wrapper">
+                                                                    <input
+                                                                        type="text"
+                                                                        name="location"
+                                                                        id="location"
+                                                                        value="Room 302"
+                                                                        readonly
+                                                                        />
+                                                                    <label class="input-label">Location</label>
+                                                                </div>
+                                                                <div class="input-wrapper">
+                                                                    <input
+                                                                        type="text"
+                                                                        name="quantity"
+                                                                        id="quantity"
+                                                                        value="2"
+                                                                        readonly
+                                                                        />
+                                                                    <label class="input-label">Quantity</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="feedback-detail-textarea">
+                                                                <div class="textarea-wrapper">
+                                                                    <textarea
+                                                                        name="description"
+                                                                        id="description"
+                                                                        readonly
+                                                                        >Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia corrupti magnam aut quidem saepe totam eos illo cum quas molestiae odit suscipit inventore, placeat laboriosam odio dicta, sit, sunt quam?</textarea
+                                                                    >
+                                                                    <label class="input-label">Description</label>
+                                                                </div>
+                                                                <div class="feedback-detail-image-wrapper">
+                                                                    <img
+                                                                        src="https://images.unsplash.com/photo-1633555234047-192d10238f5f?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1fHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                                                                        alt=""
+                                                                        />
+                                                                    <img
+                                                                        src="https://images.unsplash.com/photo-1633692301992-d27ca897ad65?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4fHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                                                                        alt=""
+                                                                        />
+                                                                    <img
+                                                                        src="https://images.unsplash.com/photo-1633532139011-ea6f0ecfab41?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                                                                        alt=""
+                                                                        />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -651,6 +900,6 @@
             </section>
         </main>
         <script src="${pageContext.request.contextPath}/js/adminPage.js"></script>
-        <script src="${pageContext.request.contextPath}/js/ManagerFB.js"></script>
+        <script src="${pageContext.request.contextPath}/js/ManagerFB1.js"></script>
     </body>
 </html>
