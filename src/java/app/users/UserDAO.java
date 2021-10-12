@@ -7,6 +7,7 @@ package app.users;
 
 import app.feedback.FeedbackDTO;
 import app.utils.DBUtils;
+import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -975,9 +976,16 @@ public class UserDAO {
                     String RoleID = rs.getString("RoleID");
                     String StatusID = rs.getString("StatusID");
                     String Image = rs.getString("Image");
+                    //
                     String RoleName = rs.getString("roleName");
                     String StatusName = rs.getString("statusName");
-                    list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, RoleName, StatusName)));
+                    byte[] tmp = rs.getBytes("BinaryImage");
+                    if (tmp != null) {
+                        String base64Image = Base64.getEncoder().encodeToString(tmp);
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, RoleName, StatusName)));
+                    } else {
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, RoleName, StatusName)));
+                    }
                 }
             }
         } catch (Exception e) {
@@ -1440,5 +1448,37 @@ public class UserDAO {
             }
         }
         return list;
+    }
+
+    //Update user
+    public boolean UpdateUser(String userID, String fullName, String roleID, String statusID, FileInputStream image) throws ClassNotFoundException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        boolean check = false;
+        try {
+
+            con = DBUtils.getConnection();
+            if (con != null) {
+                String sql = "UPDATE tblUser "
+                        + " set fullName=?,roleID=?,statusID=?,binaryimage=? "
+                        + " WHERE userID = ?";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, fullName);
+                stm.setString(2, roleID);
+                stm.setString(3, statusID);
+                stm.setBinaryStream(4, image);
+                stm.setString(5, userID);
+                check = stm.executeUpdate() > 0;
+            }
+        } finally {
+
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
     }
 }

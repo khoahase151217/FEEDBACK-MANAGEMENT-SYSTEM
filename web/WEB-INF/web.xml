@@ -84,6 +84,10 @@
         <servlet-name>ShowEmployeeFormController</servlet-name>
         <servlet-class>app.controller.ShowEmployeeFormController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateUserController</servlet-name>
+        <servlet-class>app.controller.UpdateUserController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -179,6 +183,10 @@
     <servlet-mapping>
         <servlet-name>ShowEmployeeFormController</servlet-name>
         <url-pattern>/ShowEmployeeFormController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateUserController</servlet-name>
+        <url-pattern>/UpdateUserController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

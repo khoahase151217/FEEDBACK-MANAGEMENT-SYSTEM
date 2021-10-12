@@ -39,7 +39,7 @@
         <div class="user-form ${requestScope.flag}">
             <div class="modal">
                 <div class="user-form-main">
-                    <form action="123" class="user-form-actual-form" method="post">
+                    <form action="UpdateUserController" class="user-form-actual-form" method="post" enctype="multipart/form-data">
                         <div class="actual-form-heading">
                             <div class="avatar-wrap">
                                 <img
@@ -109,7 +109,7 @@
                                 </div>
                                 <div class="input-wrap">
                                     <select name="roleID" id="roleID">
-                                        <option value="" selected hidden>${requestScope.USER_UPDATE.roleName}</option>
+                                        <option value="${requestScope.USER_UPDATE.roleID}" selected hidden>${requestScope.USER_UPDATE.roleName}</option>
                                         <c:forEach var="role" items="${requestScope.LIST_ROLE}">
                                             <option value="${role.roleID}">${role.roleName}</option>
                                         </c:forEach>
@@ -118,8 +118,8 @@
                                 </div>
                                 <div class="input-wrap">
                                     <select name="statusID" id="statusID">
-                                        <option value="" selected>Active</option>
-                                        <option value="">Inactive</option>
+                                        <option value="active" selected>Active</option>
+                                        <option value="inactive">Inactive</option>
                                     </select>
                                     <label>Status</label>
                                 </div>
@@ -133,6 +133,7 @@
                                 <ion-icon name="close-circle-outline"></ion-icon>
                             </button>
                         </div>
+                        <input type="hidden" name="userID" value="${requestScope.USER_UPDATE.userID}"/>
                     </form>
                 </div>
             </div>
@@ -260,7 +261,7 @@
                                                         <div class="user-item-heading">
                                                             <div class="user-item-image">
                                                                 <img
-                                                                    src="${user.image}"
+                                                                    src="data:image/jpg/png;base64,${user.image}"
                                                                     alt=""
                                                                     />
                                                             </div>
@@ -275,7 +276,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="user-item-bottom">
-                                                            <a href="ShowUserFormController?userID=${user.userID}&image=${user.image}&fullName=${user.fullName}&email=${user.email}&statusName=${user.statusName}&statusID=${user.statusID}&roleName=${user.roleName}&search=${requestScope.SEARCH}&style_flag=all" class="user-item-link" >
+                                                            <a href="ShowUserFormController?userID=${user.userID}&image=${user.image}&fullName=${user.fullName}&email=${user.email}&statusName=${user.statusName}&statusID=${user.statusID}&roleID=${user.roleID}&roleName=${user.roleName}&search=${requestScope.SEARCH}&style_flag=all" class="user-item-link" >
                                                                 <ion-icon name="create-outline"></ion-icon>
                                                                 Edit Profile
                                                             </a>
@@ -319,7 +320,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="user-item-bottom">
-                                                            <a href="ShowUserFormController?userID=${user.userID}&image=${user.image}&fullName=${user.fullName}&email=${user.email}&statusName=${user.statusName}&statusID=${user.statusID}&roleName=${user.roleName}&search=${requestScope.SEARCH}&style_flag=student" class="user-item-link">
+                                                            <a href="ShowUserFormController?userID=${user.userID}&image=${user.image}&fullName=${user.fullName}&email=${user.email}&statusName=${user.statusName}&statusID=${user.statusID}&roleID=${user.roleID}&roleName=${user.roleName}&search=${requestScope.SEARCH}&style_flag=student" class="user-item-link">
                                                                 <ion-icon name="create-outline"></ion-icon>
                                                                 Edit Profile
                                                             </a>
@@ -366,7 +367,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="user-item-bottom">
-                                                            <a href="ShowUserFormController?userID=${user.userID}&image=${user.image}&fullName=${user.fullName}&email=${user.email}&statusName=${user.statusName}&statusID=${user.statusID}&roleName=${user.roleName}&search=${requestScope.SEARCH}&style_flag=employee" class="user-item-link">
+                                                            <a href="ShowUserFormController?userID=${user.userID}&image=${user.image}&fullName=${user.fullName}&email=${user.email}&statusName=${user.statusName}&statusID=${user.statusID}&roleID=${user.roleID}&roleName=${user.roleName}&search=${requestScope.SEARCH}&style_flag=employee" class="user-item-link">
                                                                 <ion-icon name="create-outline"></ion-icon>
                                                                 Edit Profile
                                                             </a>
@@ -410,7 +411,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="user-item-bottom">
-                                                            <a href="ShowUserFormController?userID=${user.userID}&image=${user.image}&fullName=${user.fullName}&email=${user.email}&statusName=${user.statusName}&statusID=${user.statusID}&roleName=${user.roleName}&search=${requestScope.SEARCH}&style_flag=active" class="user-item-link">
+                                                            <a href="ShowUserFormController?userID=${user.userID}&image=${user.image}&fullName=${user.fullName}&email=${user.email}&statusName=${user.statusName}&statusID=${user.statusID}&roleID=${user.roleID}&roleName=${user.roleName}&search=${requestScope.SEARCH}&style_flag=active" class="user-item-link">
                                                                 <ion-icon name="create-outline"></ion-icon>
                                                                 Edit Profile
                                                             </a>
@@ -454,7 +455,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="user-item-bottom">
-                                                            <a href="ShowUserFormController?userID=${user.userID}&image=${user.image}&fullName=${user.fullName}&email=${user.email}&statusName=${user.statusName}&statusID=${user.statusID}&roleName=${user.roleName}&search=${requestScope.SEARCH}&style_flag=inactive" class="user-item-link">
+                                                            <a href="ShowUserFormController?userID=${user.userID}&image=${user.image}&fullName=${user.fullName}&email=${user.email}&statusName=${user.statusName}&statusID=${user.statusID}&roleID=${user.roleID}&roleName=${user.roleName}&search=${requestScope.SEARCH}&style_flag=inactive" class="user-item-link">
                                                                 <ion-icon name="create-outline"></ion-icon>
                                                                 Edit Profile
                                                             </a>
