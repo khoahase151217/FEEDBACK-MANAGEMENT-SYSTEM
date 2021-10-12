@@ -6,6 +6,11 @@ const navigationScrollBar = document.querySelector(".navigation-scroll-bar");
 const categoryList = document.querySelectorAll(".content-item-category a");
 const contentMainList = document.querySelectorAll(".content-item-main-item");
 const pipeItems = document.querySelectorAll(".pipe-item");
+
+window.addEventListener('load', () => {
+    navigationScrollBar.style.left = document.querySelector('.navigation-item.active').offsetLeft + "px";
+    navigationScrollBar.style.width = document.querySelector('.navigation-item.active').offsetWidth + "px";
+});
 // Javascript for Feedback Page
 Array.from(items).forEach((item) => {
     item.addEventListener("click", (e) => {
