@@ -307,7 +307,7 @@ public class EmployeesDAO {
                         + " JOIN tblFeedbackDetail t2  ON t1.FeedbackID = t2.FeedbackID "
                         + " JOIN tblUser t3    ON t1.UserID = t3.UserID "
                         + " JOIN tblFeedbackStatus t4 ON t1.statusID = t4.FeedbackStatusID "
-                        + " WHERE t2.UserID = ? AND t2.flag= 'false' AND t1.statusID != 'decline' "
+                        + " WHERE t2.UserID = ? AND t2.flag= 'false' "
                         + " group by t1.Date ,t1.FeedbackID,t1.statusID, t1.UserID, t3.Email, t3.FullName, t4.Name "
                         + " ORDER BY t1.DATE";
                 stm = conn.prepareCall(sql);
@@ -351,7 +351,7 @@ public class EmployeesDAO {
                         + " JOIN tblFeedbackDetail t2  ON t1.FeedbackID = t2.FeedbackID "
                         + " JOIN tblUser t3    ON t1.UserID = t3.UserID "
                         + " JOIN tblFeedbackStatus t4 ON t1.statusID = t4.FeedbackStatusID "
-                        + " WHERE t2.UserID = ? AND t2.flag= 'true' AND t1.statusID in ('decline','done','onGoing') "
+                        + " WHERE t2.UserID = ? AND t2.flag= 'true'  "
                         + " group by t1.Date ,t1.FeedbackID,t1.statusID, t1.UserID, t3.Email, t3.FullName, t4.Name "
                         + " ORDER BY t1.DATE";
                 stm = conn.prepareCall(sql);
