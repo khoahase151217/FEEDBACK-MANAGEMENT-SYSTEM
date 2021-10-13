@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package app.controller;
+
 
 import app.feedback.FeedbackDAO;
 import app.feedback.FeedbackDetailDTO;
@@ -13,6 +13,8 @@ import app.users.UserDTO;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
@@ -46,6 +48,8 @@ public class AddResponseController extends HttpServlet {
             ResponseDAO dao = new ResponseDAO();
             FeedbackDAO dao2 = new FeedbackDAO();
             FileInputStream photo = null;
+            SimpleDateFormat sdf = new SimpleDateFormat("E, MMM dd");
+            String date = sdf.format(new Date());
             UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
             String feedbackDetailId = "";
             String des = "";
@@ -89,7 +93,7 @@ public class AddResponseController extends HttpServlet {
                     }
                 }
             }
-            ResponseDTO res = new ResponseDTO(feedbackDetailId, user.getUserID(), des, "done");
+            ResponseDTO res = new ResponseDTO(feedbackDetailId, user.getUserID(), des, "done", date);
             if (dao.insertResponse(res, photo)) {
                 dao.updateFlagDetail(feedbackDetailId);
                 request.setAttribute("SEND_FEEDBACK_FLAG", "open");

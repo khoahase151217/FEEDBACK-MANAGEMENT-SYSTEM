@@ -682,15 +682,7 @@ public class FeedbackDAO {
                     String reason = rs.getString("Reason");
                     String location = rs.getString("Location");
                     byte[] tmp = rs.getBytes("Image");
-
-//                    while ((bytesRead = inputStream.read(buffer)) >= 0) {
-//                        for (int i = 0; i < bytesRead; i++) {
-//                            outputStream.write(buffer, 0, bytesRead);
-//                        }
                     String base64Image = Base64.getEncoder().encodeToString(tmp);
-
-//                    inputStream.close();
-//                    outputStream.close();
                     boolean flag = rs.getBoolean("flag");
                     String date = rs.getString("date");
                     String facilityName = rs.getString("FacilityName");

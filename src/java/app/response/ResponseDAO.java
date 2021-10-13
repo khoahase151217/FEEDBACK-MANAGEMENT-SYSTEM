@@ -29,14 +29,15 @@ public class ResponseDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = " INSERT INTO tblResponseFeedback( FeedbackDetailID, UserID, Image, Description, StatusID ) "
-                        + " VALUES(?,?,?,?,?) ";
+                String sql = " INSERT INTO tblResponseFeedback( FeedbackDetailID, UserID, Image, Description, StatusID, Date ) "
+                        + " VALUES(?,?,?,?,?,?) ";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, response.getFeedbackDetailID());
                 ps.setString(2, response.getUserID());
                 ps.setBinaryStream(3, image);
                 ps.setString(4, response.getDes());
                 ps.setString(5, response.getStatusID());
+                ps.setString(6, response.getDate());
                 check = ps.executeUpdate() > 0;
             }
         } catch (Exception e) {
@@ -212,6 +213,7 @@ public class ResponseDAO {
                 stm.setString(1, feedbackID);
                 rs = stm.executeQuery();
                 while (rs.next()) {
+                    String date = rs.getString("Date");
                     String responseID = rs.getString("ResponseID");
                     String feedbackDetailID = rs.getString("feedbackDetailID");
                     String userName = rs.getString("userName");
@@ -221,7 +223,7 @@ public class ResponseDAO {
                     String base64Image = Base64.getEncoder().encodeToString(tmp);
                     String location = rs.getString("location");
                     String deviceName = rs.getString("deivcename");
-                    dto.add(new ResponseDTO(feedbackDetailID, base64Image, des, responseID, deviceName, location, userName, quantity));
+                    dto.add(new ResponseDTO(feedbackDetailID, base64Image, des, responseID, deviceName, location, userName, quantity, date));
 
                 }
             }
