@@ -243,7 +243,7 @@ public class ResponseDAO {
         }
         return dto;
     }
-    
+
     public int countDetail(String feedbackID) throws SQLException {
         int count = 0;
         Connection conn = null;
@@ -258,7 +258,9 @@ public class ResponseDAO {
                 stm = conn.prepareCall(sql);
                 stm.setString(1, feedbackID);
                 rs = stm.executeQuery();
-                count = rs.getInt(count);
+                if (rs.next()) {
+                    count = rs.getInt("count");
+                }
             }
 
         } catch (Exception e) {
@@ -276,6 +278,5 @@ public class ResponseDAO {
         }
         return count;
     }
-    
 
 }

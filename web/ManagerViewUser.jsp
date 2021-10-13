@@ -307,11 +307,11 @@
                                                                 <ion-icon name="create-outline"></ion-icon>
                                                                 Edit Profile
                                                             </a>-->
-                                                            <a href="#" class="user-item-link activate">
+                                                            <a href="AUController?userID=${user.userID}&StatusID=${user.statusID}&style_flag=all" class="user-item-link activate">
                                                                 <ion-icon name="checkmark-outline"></ion-icon
                                                                 >Activate
                                                             </a>
-                                                            <a href="#" class="user-item-link inactivate">
+                                                            <a href="AUController?userID=${user.userID}&StatusID=${user.statusID}&style_flag=all" class="user-item-link inactivate">
                                                                 <ion-icon name="close-outline"></ion-icon
                                                                 >Inactivate
                                                             </a>
@@ -377,11 +377,11 @@
                                                                 <ion-icon name="create-outline"></ion-icon>
                                                                 Edit Profile
                                                             </a>-->
-                                                            <a href="#" class="user-item-link activate">
+                                                            <a href="AUController?userID=${user.userID}&StatusID=${user.statusID}&style_flag=student" class="user-item-link activate">
                                                                 <ion-icon name="checkmark-outline"></ion-icon
                                                                 >Activate
                                                             </a>
-                                                            <a href="#" class="user-item-link inactivate">
+                                                            <a href="AUController?userID=${user.userID}&StatusID=${user.statusID}&style_flag=student" class="user-item-link inactivate">
                                                                 <ion-icon name="close-outline"></ion-icon
                                                                 >Inactivate
                                                             </a>
@@ -450,11 +450,11 @@
                                                                 <ion-icon name="create-outline"></ion-icon>
                                                                 Edit Profile
                                                             </a>-->
-                                                            <a href="#" class="user-item-link activate">
+                                                            <a href="AUController?userID=${user.userID}&StatusID=${user.statusID}&style_flag=employee" class="user-item-link activate">
                                                                 <ion-icon name="checkmark-outline"></ion-icon
                                                                 >Activate
                                                             </a>
-                                                            <a href="#" class="user-item-link inactivate">
+                                                            <a href="AUController?userID=${user.userID}&StatusID=${user.statusID}&style_flag=employee" class="user-item-link inactivate">
                                                                 <ion-icon name="close-outline"></ion-icon
                                                                 >Inactivate
                                                             </a>
@@ -520,11 +520,11 @@
                                                                 <ion-icon name="create-outline"></ion-icon>
                                                                 Edit Profile
                                                             </a>-->
-                                                            <a href="#" class="user-item-link activate">
+                                                            <a href="AUController?userID=${user.userID}&StatusID=${user.statusID}&style_flag=active" class="user-item-link activate">
                                                                 <ion-icon name="checkmark-outline"></ion-icon
                                                                 >Activate
                                                             </a>
-                                                            <a href="#" class="user-item-link inactivate">
+                                                            <a href="AUController?userID=${user.userID}&StatusID=${user.statusID}&style_flag=active" class="user-item-link inactivate">
                                                                 <ion-icon name="close-outline"></ion-icon
                                                                 >Inactivate
                                                             </a>
@@ -590,11 +590,11 @@
                                                                 <ion-icon name="create-outline"></ion-icon>
                                                                 Edit Profile
                                                             </a>-->
-                                                            <a href="#" class="user-item-link activate">
+                                                            <a href="AUController?userID=${user.userID}&StatusID=${user.statusID}&style_flag=inActive" class="user-item-link activate">
                                                                 <ion-icon name="checkmark-outline"></ion-icon
                                                                 >Activate
                                                             </a>
-                                                            <a href="#" class="user-item-link inactivate">
+                                                            <a href="AUController?userID=${user.userID}&StatusID=${user.statusID}&style_flag=inActive" class="user-item-link inactivate">
                                                                 <ion-icon name="close-outline"></ion-icon
                                                                 >Inactivate
                                                             </a>

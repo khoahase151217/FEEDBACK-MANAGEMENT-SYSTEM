@@ -31,7 +31,7 @@
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
         ></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage2.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage1.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPageDetailModal1.css" />
     </head>
     <body>
@@ -666,25 +666,29 @@
                                                                                         <strong>Send by</strong>
                                                                                         ${response.email}
                                                                                     </p>
-                                                                                    <div class="pipe-item-bottom-form-wrapper">
-                                                                                        <form action="#" class="pipe-bottom-form">
-                                                                                            <button type="submit" class="btn--done">
-                                                                                                <ion-icon
-                                                                                                    name="checkbox-outline"
-                                                                                                    ></ion-icon>
-                                                                                            </button>
-                                                                                        </form>
-                                                                                        <form action="#" class="pipe-bottom-form">
-                                                                                            <button
-                                                                                                type="submit"
-                                                                                                class="btn--decline"
-                                                                                                >
-                                                                                                <ion-icon
-                                                                                                    name="close-circle-outline"
-                                                                                                    ></ion-icon>
-                                                                                            </button>
-                                                                                        </form>
-                                                                                    </div>
+                                                                                    <c:if test="${requestScope.COMPLETED_ITEM eq true}">
+                                                                                        <div class="pipe-item-bottom-form-wrapper">
+                                                                                            <form action="UpdateFeedbackDoneController" class="pipe-bottom-form">
+                                                                                                <input type="hidden" name="feedbackID" value="${response.feedbackID}"/>
+                                                                                                <button type="submit" class="btn--done">
+                                                                                                    <ion-icon
+                                                                                                        name="checkbox-outline"
+                                                                                                        ></ion-icon>
+                                                                                                </button>
+                                                                                            </form>
+                                                                                            <form action="UpdateFeedbackDeclineController" class="pipe-bottom-form">
+                                                                                                <input type="hidden" name="feedbackID" value="${response.feedbackID}"/>
+                                                                                                <button
+                                                                                                    type="submit"
+                                                                                                    class="btn--decline"
+                                                                                                    >
+                                                                                                    <ion-icon
+                                                                                                        name="close-circle-outline"
+                                                                                                        ></ion-icon>
+                                                                                                </button>
+                                                                                            </form>
+                                                                                        </div>
+                                                                                    </c:if>
                                                                                 </div>
                                                                             </div>
                                                                         </a>
@@ -707,25 +711,29 @@
                                                                                         <strong>Send by</strong>
                                                                                         ${response.email}
                                                                                     </p>
-                                                                                    <div class="pipe-item-bottom-form-wrapper">
-                                                                                        <form action="#" class="pipe-bottom-form">
-                                                                                            <button type="submit" class="btn--done">
-                                                                                                <ion-icon
-                                                                                                    name="checkbox-outline"
-                                                                                                    ></ion-icon>
-                                                                                            </button>
-                                                                                        </form>
-                                                                                        <form action="#" class="pipe-bottom-form">
-                                                                                            <button
-                                                                                                type="submit"
-                                                                                                class="btn--decline"
-                                                                                                >
-                                                                                                <ion-icon
-                                                                                                    name="close-circle-outline"
-                                                                                                    ></ion-icon>
-                                                                                            </button>
-                                                                                        </form>
-                                                                                    </div>
+                                                                                    <c:if test="${requestScope.COMPLETED_ITEM eq true}">
+                                                                                        <div class="pipe-item-bottom-form-wrapper">
+                                                                                            <form action="UpdateFeedbackDoneController" class="pipe-bottom-form">
+                                                                                                <input type="hidden" name="feedbackID" value="${response.feedbackID}"/>
+                                                                                                <button type="submit" class="btn--done">
+                                                                                                    <ion-icon
+                                                                                                        name="checkbox-outline"
+                                                                                                        ></ion-icon>
+                                                                                                </button>
+                                                                                            </form>
+                                                                                            <form action="UpdateFeedbackDeclineController" class="pipe-bottom-form">
+                                                                                                <input type="hidden" name="feedbackID" value="${response.feedbackID}"/>
+                                                                                                <button
+                                                                                                    type="submit"
+                                                                                                    class="btn--decline"
+                                                                                                    >
+                                                                                                    <ion-icon
+                                                                                                        name="close-circle-outline"
+                                                                                                        ></ion-icon>
+                                                                                                </button>
+                                                                                            </form>
+                                                                                        </div>
+                                                                                    </c:if>
                                                                                 </div>
                                                                             </div>
                                                                         </a>
@@ -748,25 +756,6 @@
                                                                                         <strong>Send by</strong>
                                                                                         ${response.email}
                                                                                     </p>
-                                                                                    <div class="pipe-item-bottom-form-wrapper">
-                                                                                        <form action="#" class="pipe-bottom-form">
-                                                                                            <button type="submit" class="btn--done">
-                                                                                                <ion-icon
-                                                                                                    name="checkbox-outline"
-                                                                                                    ></ion-icon>
-                                                                                            </button>
-                                                                                        </form>
-                                                                                        <form action="#" class="pipe-bottom-form">
-                                                                                            <button
-                                                                                                type="submit"
-                                                                                                class="btn--decline"
-                                                                                                >
-                                                                                                <ion-icon
-                                                                                                    name="close-circle-outline"
-                                                                                                    ></ion-icon>
-                                                                                            </button>
-                                                                                        </form>
-                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </a>

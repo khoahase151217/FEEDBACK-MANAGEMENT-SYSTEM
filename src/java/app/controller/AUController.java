@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
 public class AUController extends HttpServlet {
 
     private static final String ERROR = "error.jsp";
-    private static final String SUCCESS = "##";
+    private static final String SUCCESS = "ShowUserController";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +41,33 @@ public class AUController extends HttpServlet {
             String userID = request.getParameter("userID");
             String statusID = request.getParameter("StatusID");
 
-            if (statusID.equals("active")) {
+            if (statusID.equalsIgnoreCase("active")) {
                 dao.UpdateUserStatusInactive(userID, statusID);
             } else {
                 dao.UpdateUserStatusActive(userID, statusID);
+            }
+            
+            String listStyle = request.getParameter("style_flag");
+            if (listStyle != null) {
+                switch (listStyle) {
+                    case "all":
+                        request.setAttribute("STYLE_LIST_ALL", "active");
+                        break;
+                    case "student":
+                        request.setAttribute("STYLE_LIST_STUDENT", "active");
+                        break;
+                    case "employee":
+                        request.setAttribute("STYLE_LIST_EMPLOYEE", "active");
+                        break;
+                    case "active":
+                        request.setAttribute("STYLE_LIST_ACTIVE", "active");
+                        break;
+                    default:
+                        request.setAttribute("STYLE_LIST_INACTIVE", "active");
+                        break;
+                }
+            } else {
+                request.setAttribute("STYLE_LIST_ALL", "active");
             }
             url = SUCCESS;
         } catch (Exception e) {

@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "UpdateFeedbackDoneController", urlPatterns = {"/UpdateFeedbackDoneController"})
 public class UpdateFeedbackDoneController extends HttpServlet {
 
-    private static final String SUCCESS = "##";
+    private static final String SUCCESS = "ShowFeedBackController";
     private static final String ERROR = "##";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
