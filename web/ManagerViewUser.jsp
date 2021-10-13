@@ -217,10 +217,21 @@
                             </ul>
                             <div class="showcase-profile">
                                 <div class="showcase-profile-image">
-                                    <img
-                                        src="${sessionScope.LOGIN_USER.image}"
-                                        alt=""
-                                        />
+                                    <c:set var="avatar" value="${sessionScope.LOGIN_USER.image}"></c:set>
+                                    <c:choose>
+                                        <c:when test="${fn:startsWith(avatar, 'http')}">
+                                            <img
+                                                src="${sessionScope.LOGIN_USER.image}"
+                                                alt=""
+                                                />
+                                        </c:when>
+                                        <c:otherwise>
+                                            <img
+                                                src="data:image/jpg/png;base64,${sessionScope.LOGIN_USER.image}"
+                                                alt=""
+                                                />
+                                        </c:otherwise>
+                                    </c:choose>
                                 </div>
                                 <a href="LogoutController">
                                     <ion-icon name="log-out-outline"></ion-icon>
@@ -379,7 +390,7 @@
                                                                 <input type="hidden" name="roleName" value="${user.roleName}"/>
                                                                 <input type="hidden" name="roleID" value="${user.roleID}"/>
                                                                 <input type="hidden" name="search" value="${requestScope.SEARCH}"/>
-                                                                <input type="hidden" name="style_flag" value="all"/>
+                                                                <input type="hidden" name="style_flag" value="student"/>
                                                                 <button type="submit" class="user-item-link">
                                                                     <ion-icon name="create-outline"></ion-icon>
                                                                     Edit Profile
@@ -452,7 +463,7 @@
                                                                 <input type="hidden" name="roleName" value="${user.roleName}"/>
                                                                 <input type="hidden" name="roleID" value="${user.roleID}"/>
                                                                 <input type="hidden" name="search" value="${requestScope.SEARCH}"/>
-                                                                <input type="hidden" name="style_flag" value="all"/>
+                                                                <input type="hidden" name="style_flag" value="employee"/>
                                                                 <button type="submit" class="user-item-link">
                                                                     <ion-icon name="create-outline"></ion-icon>
                                                                     Edit Profile
@@ -522,7 +533,7 @@
                                                                 <input type="hidden" name="roleName" value="${user.roleName}"/>
                                                                 <input type="hidden" name="roleID" value="${user.roleID}"/>
                                                                 <input type="hidden" name="search" value="${requestScope.SEARCH}"/>
-                                                                <input type="hidden" name="style_flag" value="all"/>
+                                                                <input type="hidden" name="style_flag" value="active"/>
                                                                 <button type="submit" class="user-item-link">
                                                                     <ion-icon name="create-outline"></ion-icon>
                                                                     Edit Profile
@@ -592,7 +603,7 @@
                                                                 <input type="hidden" name="roleName" value="${user.roleName}"/>
                                                                 <input type="hidden" name="roleID" value="${user.roleID}"/>
                                                                 <input type="hidden" name="search" value="${requestScope.SEARCH}"/>
-                                                                <input type="hidden" name="style_flag" value="all"/>
+                                                                <input type="hidden" name="style_flag" value="inActive"/>
                                                                 <button type="submit" class="user-item-link">
                                                                     <ion-icon name="create-outline"></ion-icon>
                                                                     Edit Profile
@@ -624,7 +635,7 @@
                 </div>
             </section>
         </main>
-        <script src="${pageContext.request.contextPath}/js/adminPage.js"></script>
+        <script src="${pageContext.request.contextPath}/js/adminPage1.js"></script>
         <script src="${pageContext.request.contextPath}/js/ManagerUser1.js"></script>
         <!-- Query -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

@@ -170,7 +170,7 @@ public class UserDAO {
 
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "select userID, FullName, RoleID, StatusID, Image from "
+                String sql = "select userID, FullName, RoleID, StatusID, Image, BinaryImage from "
                         + "tblUser where Email=? and Password=? ";
                 st = conn.prepareStatement(sql);
                 st.setString(1, email);
@@ -181,8 +181,15 @@ public class UserDAO {
                     String fullName = rs.getString("fullName");
                     String roleID = rs.getString("RoleID");
                     String statusID = rs.getString("StatusID");
+                    byte[] tmp = rs.getBytes("BinaryImage");
                     String image = rs.getString("Image");
-                    user = new UserDTO(userID, fullName, "******", email, roleID, statusID, image);
+                    if (tmp != null) {
+                        String base64Image = Base64.getEncoder().encodeToString(tmp);
+                        user = new UserDTO(userID, fullName, "******", email, roleID, statusID, base64Image);
+                    } else {
+                        user = new UserDTO(userID, fullName, "******", email, roleID, statusID, image);
+                    }
+
                 }
             }
         } catch (Exception e) {
@@ -1618,7 +1625,7 @@ public class UserDAO {
         }
         return check;
     }
-    
+
     public boolean UpdateUserNoPhoto(String userID, String fullName, String roleID, String statusID) throws ClassNotFoundException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;

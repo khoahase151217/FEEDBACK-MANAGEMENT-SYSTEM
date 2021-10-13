@@ -14,6 +14,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,7 +49,7 @@
             referrerpolicy="no-referrer"
             />
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/User.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/User1.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/FeedbackForm.css" />
     </head>
     <body>
@@ -457,11 +458,21 @@
                         <a href="#" class="header-profile-link">New Feedback</a>
                         <div class="header-profile-dropdown">
                             <div class="header-profile-image-wrapper">
-                                <img
-                                    src="https://images.unsplash.com/photo-1633114128729-0a8dc13406b9?ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                                    alt="user-profile"
-                                    class="header-profile-image"
-                                    />
+                                <c:set var="avatar" value="${sessionScope.LOGIN_USER.image}"></c:set>
+                                <c:choose>
+                                    <c:when test="${fn:startsWith(avatar, 'http')}">
+                                        <img
+                                            src="${sessionScope.LOGIN_USER.image}"
+                                            alt=""
+                                            />
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img
+                                            src="data:image/jpg/png;base64,${sessionScope.LOGIN_USER.image}"
+                                            alt=""
+                                            />
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                             <div class="dropdown-list">
                                 <a href="LogoutController" class="dropdown-item">
@@ -518,7 +529,9 @@
                                             <div class="pipe-list">
                                                 <%
                                                     List<UserHistoryDTO> listDone = (List<UserHistoryDTO>) session.getAttribute("HISTORY_DONE");
-                                                    for (UserHistoryDTO feedback : listDone) {
+                                                    if (listDone != null) {
+
+                                                        for (UserHistoryDTO feedback : listDone) {
                                                 %> 
                                                 <div class="pipe-item">
                                                     <div class="pipe-item-heading">
@@ -598,6 +611,7 @@
                                                 </div>
 
                                                 <%
+                                                        }
                                                     }
                                                 %> 
                                             </div>
@@ -616,7 +630,8 @@
                                             <div class="pipe-list">
                                                 <%
                                                     List<UserHistoryDTO> listOngoing = (List<UserHistoryDTO>) session.getAttribute("HISTORY_ONGOING");
-                                                    for (UserHistoryDTO feedback : listOngoing) {
+                                                    if (listOngoing != null) {
+                                                        for (UserHistoryDTO feedback : listOngoing) {
                                                 %> 
                                                 <div class="pipe-item">
                                                     <div class="pipe-item-heading">
@@ -696,6 +711,7 @@
                                                     </div>
                                                 </div>
                                                 <%
+                                                        }
                                                     }
                                                 %> 
                                             </div>
@@ -714,7 +730,8 @@
                                             <div class="pipe-list">
                                                 <%
                                                     List<UserHistoryDTO> listDeny = (List<UserHistoryDTO>) session.getAttribute("HISTORY_DENY");
-                                                    for (UserHistoryDTO feedback : listDeny) {
+                                                    if (listDeny != null) {
+                                                        for (UserHistoryDTO feedback : listDeny) {
                                                 %> 
                                                 <div class="pipe-item">
                                                     <div class="pipe-item-heading">
@@ -794,6 +811,7 @@
                                                     </div>
                                                 </div>
                                                 <%
+                                                        }
                                                     }
                                                 %> 
                                             </div>

@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -190,10 +191,21 @@
                             </ul>
                             <div class="showcase-profile">
                                 <div class="showcase-profile-image">
-                                    <img
-                                        src="${sessionScope.LOGIN_USER.image}"
-                                        alt=""
-                                        />
+                                    <c:set var="avatar" value="${sessionScope.LOGIN_USER.image}"></c:set>
+                                    <c:choose>
+                                        <c:when test="${fn:startsWith(avatar, 'http')}">
+                                            <img
+                                                src="${sessionScope.LOGIN_USER.image}"
+                                                alt=""
+                                                />
+                                        </c:when>
+                                        <c:otherwise>
+                                            <img
+                                                src="data:image/jpg/png;base64,${sessionScope.LOGIN_USER.image}"
+                                                alt=""
+                                                />
+                                        </c:otherwise>
+                                    </c:choose>
                                 </div>
                                 <a href="LogoutController">
                                     <ion-icon name="log-out-outline"></ion-icon>

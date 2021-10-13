@@ -7,6 +7,7 @@
 <%@page import="java.util.List"%>
 <%@page import="app.facility.FacilityDTO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -100,10 +101,21 @@
                             </ul>
                             <div class="showcase-profile">
                                 <div class="showcase-profile-image">
-                                    <img
-                                        src="${sessionScope.LOGIN_USER.image}"
-                                        alt=""
-                                        />
+                                    <c:set var="avatar" value="${sessionScope.LOGIN_USER.image}"></c:set>
+                                    <c:choose>
+                                        <c:when test="${fn:startsWith(avatar, 'http')}">
+                                            <img
+                                                src="${sessionScope.LOGIN_USER.image}"
+                                                alt=""
+                                                />
+                                        </c:when>
+                                        <c:otherwise>
+                                            <img
+                                                src="data:image/jpg/png;base64,${sessionScope.LOGIN_USER.image}"
+                                                alt=""
+                                                />
+                                        </c:otherwise>
+                                    </c:choose>
                                 </div>
                                 <a href="LogoutController">
                                     <ion-icon name="log-out-outline"></ion-icon>
@@ -368,7 +380,7 @@
             </section>
         </main>
 
-        <script src="${pageContext.request.contextPath}/js/adminPage.js"></script>
+        <script src="${pageContext.request.contextPath}/js/adminPage1.js"></script>
         <script src="${pageContext.request.contextPath}/js/ManagerFacility.js"></script>
     </body>
 </html>

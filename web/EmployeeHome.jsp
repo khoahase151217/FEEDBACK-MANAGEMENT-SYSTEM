@@ -5,6 +5,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -149,10 +150,21 @@
                             </ul>
                             <div class="showcase-profile">
                                 <div class="showcase-profile-image">
-                                    <img
-                                        src="https://images.unsplash.com/photo-1615915468538-0fbd857888ca?ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8bG9nbyUyMGZlZWRiYWNrfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                                        alt=""
-                                        />
+                                    <c:set var="avatar" value="${sessionScope.LOGIN_USER.image}"></c:set>
+                                    <c:choose>
+                                        <c:when test="${fn:startsWith(avatar, 'http')}">
+                                            <img
+                                                src="${sessionScope.LOGIN_USER.image}"
+                                                alt=""
+                                                />
+                                        </c:when>
+                                        <c:otherwise>
+                                            <img
+                                                src="data:image/jpg/png;base64,${sessionScope.LOGIN_USER.image}"
+                                                alt=""
+                                                />
+                                        </c:otherwise>
+                                    </c:choose>
                                 </div>
                                 <a href="LogoutController">
                                     <ion-icon name="log-out-outline"></ion-icon>
