@@ -253,6 +253,7 @@
                                             facility-item-main-item
                                             ${requestScope.STYLE_TASK}
                                             "
+                                            data-index="1"
                                             >
                                             <!-- Pipe -->
                                             <div
@@ -639,7 +640,7 @@
                                         </div>
                                         <!-- Comments -->
                                         <div
-                                            class="content-item-main-item facility-item-main-item ${requestScope.STYLE_COMMENT}"
+                                            class="content-item-main-item facility-item-main-item ${requestScope.STYLE_COMMENT}" data-index="2"
                                             >
                                             <div class="comments-wrapper">
                                                 <div class="comment-list-feedback">
@@ -964,7 +965,7 @@
                 </div>
             </section>
         </main>
-        <script src="${pageContext.request.contextPath}/js/adminPage.js"></script>
+        <script src="${pageContext.request.contextPath}/js/adminPage1.js"></script>
         <script src="${pageContext.request.contextPath}/js/ManagerFB1.js"></script>
     </body>
 </html>

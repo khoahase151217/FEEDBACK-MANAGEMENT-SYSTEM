@@ -690,7 +690,7 @@ img {
     border-radius: 0 0 0 15px;
 }
 .user-list .user-item-bottom .user-item-link:last-child {
-    border-radius: 0 0 15px 0;
+    border-radius: 0 0 0 15px;
 }
 .user-list .user-item-bottom .user-item-link:nth-last-child(2) {
     border-radius: 0 0 15px 0;
@@ -704,6 +704,10 @@ img {
     background-color: #fafbff;
     font-size: 1.2rem;
     transition: background-color 0.2s linear;
+    height: 100%;
+    width: 100%;
+    border: none;
+    cursor: pointer;
 }
 .user-list .user-item-link ion-icon {
     font-size: 1.5rem;

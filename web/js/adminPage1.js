@@ -21,6 +21,15 @@ const facilityCategoryContentItems = document.querySelectorAll(
         ".facility-item-main"
         );
 
+window.addEventListener('load', () => {
+    navigationScrollBar.style.left = document.querySelector('.navigation-item.active').offsetLeft + "px";
+    navigationScrollBar.style.width = document.querySelector('.navigation-item.active').offsetWidth + "px";
+    if (document.querySelector('.facility-item-main-item.active').dataset.index === '2') {
+        document.querySelector(".content-item-category").classList.remove('show');
+    }
+
+});
+
 // Javascript for Feedback Page
 //Array.from(items).forEach((item) => {
 //    item.addEventListener("click", (e) => {
