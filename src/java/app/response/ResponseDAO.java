@@ -197,7 +197,7 @@ public class ResponseDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.* ,t2.Location as location , t3.Name as deivcename , t2.feedbackDetailID as feedbackDetailID , t4.Name as userName "
+                String sql = "SELECT t1.* ,t2.Location as location ,t2.Quantity as quantity, t3.Name as deivcename , t2.feedbackDetailID as feedbackDetailID , t4.FullName as userName "
                         + " FROM tblResponseFeedback t1 "
                         + " JOIN tblFeedbackDetail t2 "
                         + "  ON t1.feedbackDetailID = t2.feedbackDetailID"
@@ -209,19 +209,20 @@ public class ResponseDAO {
                         + "  ON t5.feedbackID = t2.feedbackID "
                         + " WHERE t2.flag ='true' AND t5.FeedbackID = ? ";
                 stm = conn.prepareCall(sql);
-                stm.setString(2, feedbackID);
+                stm.setString(1, feedbackID);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     String responseID = rs.getString("ResponseID");
                     String feedbackDetailID = rs.getString("feedbackDetailID");
                     String userName = rs.getString("userName");
                     String des = rs.getString("Description");
+                    String quantity = rs.getString("quantity");
                     byte[] tmp = rs.getBytes("Image");
                     String base64Image = Base64.getEncoder().encodeToString(tmp);
-                   String location = rs.getString("location");
+                    String location = rs.getString("location");
                     String deviceName = rs.getString("deivcename");
-                    dto.add(new ResponseDTO(feedbackDetailID, base64Image, des, responseID, deviceName, location, userName));
-                    
+                    dto.add(new ResponseDTO(feedbackDetailID, base64Image, des, responseID, deviceName, location, userName, quantity));
+
                 }
             }
 

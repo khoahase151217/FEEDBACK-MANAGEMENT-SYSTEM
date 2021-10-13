@@ -5,6 +5,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +31,7 @@
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
         ></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage2.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ManagerViewUser.css" />
     </head>
     <body>
@@ -260,10 +261,21 @@
                                                     <div class="user-item ${user.statusID}">
                                                         <div class="user-item-heading">
                                                             <div class="user-item-image">
-                                                                <img
-                                                                    src="data:image/jpg/png;base64,${user.image}"
-                                                                    alt=""
-                                                                    />
+                                                                <c:set var="image" value="${user.image}"/>
+                                                                <c:choose>
+                                                                    <c:when test="${fn:startsWith(image, 'http')}">
+                                                                        <img
+                                                                            src="${user.image}"
+                                                                            alt=""
+                                                                            />
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <img
+                                                                            src="data:image/jpg/png;base64,${user.image}"
+                                                                            alt=""
+                                                                            />
+                                                                    </c:otherwise>
+                                                                </c:choose>
                                                             </div>
                                                             <div class="user-item-showcase">
                                                                 <h4 class="user-item-name">
@@ -276,10 +288,25 @@
                                                             </div>
                                                         </div>
                                                         <div class="user-item-bottom">
-                                                            <a href="ShowUserFormController?userID=${user.userID}&image=${user.image}&fullName=${user.fullName}&email=${user.email}&statusName=${user.statusName}&statusID=${user.statusID}&roleID=${user.roleID}&roleName=${user.roleName}&search=${requestScope.SEARCH}&style_flag=all" class="user-item-link" >
+                                                            <form action="ShowUserFormController" method="post">
+                                                                <input type="hidden" name="userID" value="${user.userID}"/>
+                                                                <input type="hidden" name="image" value="${user.image}"/>
+                                                                <input type="hidden" name="fullName" value="${user.fullName}"/>
+                                                                <input type="hidden" name="statusName" value="${user.statusName}"/>
+                                                                <input type="hidden" name="statusID" value="${user.statusID}"/>
+                                                                <input type="hidden" name="roleName" value="${user.roleName}"/>
+                                                                <input type="hidden" name="roleID" value="${user.roleID}"/>
+                                                                <input type="hidden" name="search" value="${requestScope.SEARCH}"/>
+                                                                <input type="hidden" name="style_flag" value="all"/>
+                                                                <button type="submit">
+                                                                    <ion-icon name="create-outline"></ion-icon>
+                                                                    Edit Profile
+                                                                </button>
+                                                            </form>
+<!--                                                            <a href="ShowUserFormController?userID=${user.userID}&image=${user.image}&fullName=${user.fullName}&email=${user.email}&statusName=${user.statusName}&statusID=${user.statusID}&roleID=${user.roleID}&roleName=${user.roleName}&search=${requestScope.SEARCH}&style_flag=all" class="user-item-link" >
                                                                 <ion-icon name="create-outline"></ion-icon>
                                                                 Edit Profile
-                                                            </a>
+                                                            </a>-->
                                                             <a href="#" class="user-item-link activate">
                                                                 <ion-icon name="checkmark-outline"></ion-icon
                                                                 >Activate
@@ -304,10 +331,21 @@
                                                     <div class="user-item ${user.statusID}">
                                                         <div class="user-item-heading">
                                                             <div class="user-item-image">
-                                                                <img
-                                                                    src="${user.image}"
-                                                                    alt=""
-                                                                    />
+                                                                <c:set var="image" value="${user.image}"/>
+                                                                <c:choose>
+                                                                    <c:when test="${fn:startsWith(image, 'http')}">
+                                                                        <img
+                                                                            src="${user.image}"
+                                                                            alt=""
+                                                                            />
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <img
+                                                                            src="data:image/jpg/png;base64,${user.image}"
+                                                                            alt=""
+                                                                            />
+                                                                    </c:otherwise>
+                                                                </c:choose>
                                                             </div>
                                                             <div class="user-item-showcase">
                                                                 <h4 class="user-item-name">
@@ -320,10 +358,25 @@
                                                             </div>
                                                         </div>
                                                         <div class="user-item-bottom">
-                                                            <a href="ShowUserFormController?userID=${user.userID}&image=${user.image}&fullName=${user.fullName}&email=${user.email}&statusName=${user.statusName}&statusID=${user.statusID}&roleID=${user.roleID}&roleName=${user.roleName}&search=${requestScope.SEARCH}&style_flag=student" class="user-item-link">
+                                                            <form action="ShowUserFormController" method="post">
+                                                                <input type="hidden" name="userID" value="${user.userID}"/>
+                                                                <input type="hidden" name="image" value="${user.image}"/>
+                                                                <input type="hidden" name="fullName" value="${user.fullName}"/>
+                                                                <input type="hidden" name="statusName" value="${user.statusName}"/>
+                                                                <input type="hidden" name="statusID" value="${user.statusID}"/>
+                                                                <input type="hidden" name="roleName" value="${user.roleName}"/>
+                                                                <input type="hidden" name="roleID" value="${user.roleID}"/>
+                                                                <input type="hidden" name="search" value="${requestScope.SEARCH}"/>
+                                                                <input type="hidden" name="style_flag" value="all"/>
+                                                                <button type="submit">
+                                                                    <ion-icon name="create-outline"></ion-icon>
+                                                                    Edit Profile
+                                                                </button>
+                                                            </form>
+<!--                                                            <a href="ShowUserFormController?userID=${user.userID}&image=${user.image}&fullName=${user.fullName}&email=${user.email}&statusName=${user.statusName}&statusID=${user.statusID}&roleID=${user.roleID}&roleName=${user.roleName}&search=${requestScope.SEARCH}&style_flag=student" class="user-item-link">
                                                                 <ion-icon name="create-outline"></ion-icon>
                                                                 Edit Profile
-                                                            </a>
+                                                            </a>-->
                                                             <a href="#" class="user-item-link activate">
                                                                 <ion-icon name="checkmark-outline"></ion-icon
                                                                 >Activate
@@ -348,10 +401,21 @@
                                                     <div class="user-item ${user.statusID}">
                                                         <div class="user-item-heading">
                                                             <div class="user-item-image">
-                                                                <img
-                                                                    src="${user.image}"
-                                                                    alt=""
-                                                                    />
+                                                                <c:set var="image" value="${user.image}"/>
+                                                                <c:choose>
+                                                                    <c:when test="${fn:startsWith(image, 'http')}">
+                                                                        <img
+                                                                            src="${user.image}"
+                                                                            alt=""
+                                                                            />
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <img
+                                                                            src="data:image/jpg/png;base64,${user.image}"
+                                                                            alt=""
+                                                                            />
+                                                                    </c:otherwise>
+                                                                </c:choose>
                                                             </div>
                                                             <div class="user-item-showcase">
                                                                 <h4 class="user-item-name">
@@ -367,10 +431,25 @@
                                                             </div>
                                                         </div>
                                                         <div class="user-item-bottom">
-                                                            <a href="ShowUserFormController?userID=${user.userID}&image=${user.image}&fullName=${user.fullName}&email=${user.email}&statusName=${user.statusName}&statusID=${user.statusID}&roleID=${user.roleID}&roleName=${user.roleName}&search=${requestScope.SEARCH}&style_flag=employee" class="user-item-link">
+                                                            <form action="ShowUserFormController" method="post">
+                                                                <input type="hidden" name="userID" value="${user.userID}"/>
+                                                                <input type="hidden" name="image" value="${user.image}"/>
+                                                                <input type="hidden" name="fullName" value="${user.fullName}"/>
+                                                                <input type="hidden" name="statusName" value="${user.statusName}"/>
+                                                                <input type="hidden" name="statusID" value="${user.statusID}"/>
+                                                                <input type="hidden" name="roleName" value="${user.roleName}"/>
+                                                                <input type="hidden" name="roleID" value="${user.roleID}"/>
+                                                                <input type="hidden" name="search" value="${requestScope.SEARCH}"/>
+                                                                <input type="hidden" name="style_flag" value="all"/>
+                                                                <button type="submit">
+                                                                    <ion-icon name="create-outline"></ion-icon>
+                                                                    Edit Profile
+                                                                </button>
+                                                            </form>
+<!--                                                            <a href="ShowUserFormController?userID=${user.userID}&image=${user.image}&fullName=${user.fullName}&email=${user.email}&statusName=${user.statusName}&statusID=${user.statusID}&roleID=${user.roleID}&roleName=${user.roleName}&search=${requestScope.SEARCH}&style_flag=employee" class="user-item-link">
                                                                 <ion-icon name="create-outline"></ion-icon>
                                                                 Edit Profile
-                                                            </a>
+                                                            </a>-->
                                                             <a href="#" class="user-item-link activate">
                                                                 <ion-icon name="checkmark-outline"></ion-icon
                                                                 >Activate
@@ -395,10 +474,21 @@
                                                     <div class="user-item ${user.statusID}">
                                                         <div class="user-item-heading">
                                                             <div class="user-item-image">
-                                                                <img
-                                                                    src="${user.image}"
-                                                                    alt=""
-                                                                    />
+                                                                <c:set var="image" value="${user.image}"/>
+                                                                <c:choose>
+                                                                    <c:when test="${fn:startsWith(image, 'http')}">
+                                                                        <img
+                                                                            src="${user.image}"
+                                                                            alt=""
+                                                                            />
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <img
+                                                                            src="data:image/jpg/png;base64,${user.image}"
+                                                                            alt=""
+                                                                            />
+                                                                    </c:otherwise>
+                                                                </c:choose>
                                                             </div>
                                                             <div class="user-item-showcase">
                                                                 <h4 class="user-item-name">
@@ -411,10 +501,25 @@
                                                             </div>
                                                         </div>
                                                         <div class="user-item-bottom">
-                                                            <a href="ShowUserFormController?userID=${user.userID}&image=${user.image}&fullName=${user.fullName}&email=${user.email}&statusName=${user.statusName}&statusID=${user.statusID}&roleID=${user.roleID}&roleName=${user.roleName}&search=${requestScope.SEARCH}&style_flag=active" class="user-item-link">
+                                                            <form action="ShowUserFormController" method="post">
+                                                                <input type="hidden" name="userID" value="${user.userID}"/>
+                                                                <input type="hidden" name="image" value="${user.image}"/>
+                                                                <input type="hidden" name="fullName" value="${user.fullName}"/>
+                                                                <input type="hidden" name="statusName" value="${user.statusName}"/>
+                                                                <input type="hidden" name="statusID" value="${user.statusID}"/>
+                                                                <input type="hidden" name="roleName" value="${user.roleName}"/>
+                                                                <input type="hidden" name="roleID" value="${user.roleID}"/>
+                                                                <input type="hidden" name="search" value="${requestScope.SEARCH}"/>
+                                                                <input type="hidden" name="style_flag" value="all"/>
+                                                                <button type="submit">
+                                                                    <ion-icon name="create-outline"></ion-icon>
+                                                                    Edit Profile
+                                                                </button>
+                                                            </form>
+<!--                                                            <a href="ShowUserFormController?userID=${user.userID}&image=${user.image}&fullName=${user.fullName}&email=${user.email}&statusName=${user.statusName}&statusID=${user.statusID}&roleID=${user.roleID}&roleName=${user.roleName}&search=${requestScope.SEARCH}&style_flag=active" class="user-item-link">
                                                                 <ion-icon name="create-outline"></ion-icon>
                                                                 Edit Profile
-                                                            </a>
+                                                            </a>-->
                                                             <a href="#" class="user-item-link activate">
                                                                 <ion-icon name="checkmark-outline"></ion-icon
                                                                 >Activate
@@ -439,10 +544,21 @@
                                                     <div class="user-item ${user.statusID}">
                                                         <div class="user-item-heading">
                                                             <div class="user-item-image">
-                                                                <img
-                                                                    src="${user.image}"
-                                                                    alt=""
-                                                                    />
+                                                                <c:set var="image" value="${user.image}"/>
+                                                                <c:choose>
+                                                                    <c:when test="${fn:startsWith(image, 'http')}">
+                                                                        <img
+                                                                            src="${user.image}"
+                                                                            alt=""
+                                                                            />
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <img
+                                                                            src="data:image/jpg/png;base64,${user.image}"
+                                                                            alt=""
+                                                                            />
+                                                                    </c:otherwise>
+                                                                </c:choose>
                                                             </div>
                                                             <div class="user-item-showcase">
                                                                 <h4 class="user-item-name">
@@ -455,10 +571,25 @@
                                                             </div>
                                                         </div>
                                                         <div class="user-item-bottom">
-                                                            <a href="ShowUserFormController?userID=${user.userID}&image=${user.image}&fullName=${user.fullName}&email=${user.email}&statusName=${user.statusName}&statusID=${user.statusID}&roleID=${user.roleID}&roleName=${user.roleName}&search=${requestScope.SEARCH}&style_flag=inactive" class="user-item-link">
+                                                            <form action="ShowUserFormController" method="post">
+                                                                <input type="hidden" name="userID" value="${user.userID}"/>
+                                                                <input type="hidden" name="image" value="${user.image}"/>
+                                                                <input type="hidden" name="fullName" value="${user.fullName}"/>
+                                                                <input type="hidden" name="statusName" value="${user.statusName}"/>
+                                                                <input type="hidden" name="statusID" value="${user.statusID}"/>
+                                                                <input type="hidden" name="roleName" value="${user.roleName}"/>
+                                                                <input type="hidden" name="roleID" value="${user.roleID}"/>
+                                                                <input type="hidden" name="search" value="${requestScope.SEARCH}"/>
+                                                                <input type="hidden" name="style_flag" value="all"/>
+                                                                <button type="submit">
+                                                                    <ion-icon name="create-outline"></ion-icon>
+                                                                    Edit Profile
+                                                                </button>
+                                                            </form>
+<!--                                                            <a href="ShowUserFormController?userID=${user.userID}&image=${user.image}&fullName=${user.fullName}&email=${user.email}&statusName=${user.statusName}&statusID=${user.statusID}&roleID=${user.roleID}&roleName=${user.roleName}&search=${requestScope.SEARCH}&style_flag=inactive" class="user-item-link">
                                                                 <ion-icon name="create-outline"></ion-icon>
                                                                 Edit Profile
-                                                            </a>
+                                                            </a>-->
                                                             <a href="#" class="user-item-link activate">
                                                                 <ion-icon name="checkmark-outline"></ion-icon
                                                                 >Activate

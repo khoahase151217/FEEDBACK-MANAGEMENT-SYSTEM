@@ -41,7 +41,7 @@ public class ShowFeedbackResponeForManagerController extends HttpServlet {
             if (!listRespone.isEmpty()) {
                 feedbackResponeID = listRespone.get(0).getFeedbackID();
             }
-            session.setAttribute("FEEDBACK_RESPONE_ID", feedbackResponeID);
+            request.setAttribute("FEEDBACK_RESPONE_ID", feedbackResponeID);
             session.setAttribute("FEEDBACK_RESPONE_LIST", listRespone);
             session.setAttribute("COUNT", listRespone.size());
             url = SUCCESS;

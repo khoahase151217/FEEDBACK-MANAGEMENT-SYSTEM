@@ -25,21 +25,29 @@ import javax.servlet.http.HttpSession;
 public class ShowFeedbackResponeDetailForManagerController extends HttpServlet {
 
     private static final String ERROR = "##";
-    private static final String SUCCESS = "EmployeeHome.jsp";
+    private static final String SUCCESS = "adminPage.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         String url = ERROR;
+        String url = ERROR;
         try {
             HttpSession session = request.getSession();
             ResponseDAO dao = new ResponseDAO();
             String feedbackID = (String) request.getParameter("feedback_response_id");
+            String styleList = request.getParameter("style_list");
             if (feedbackID == null) {
-                feedbackID = (String) session.getAttribute("FEEDBACK_RESPONE_ID");
+                feedbackID = (String) request.getAttribute("FEEDBACK_RESPONE_ID");
             }
             List<ResponseDTO> dto = dao.showListResponeDetail(feedbackID);
             session.setAttribute("RESPONE_DETAIL_LIST", dto);
-            session.setAttribute("RESPONE_ACTIVE", feedbackID);
+            request.setAttribute("RESPONE_ACTIVE", feedbackID);
+            request.setAttribute("STYLE_PIPE", "active");
+            request.setAttribute("STYLE_LIST_ALL", "active");
+            if (styleList != null) {
+                request.setAttribute("STYLE_COMMENT", "active");
+            }else {
+                request.setAttribute("STYLE_TASK", "active");
+            }
             url = SUCCESS;
         } catch (Exception e) {
             log("Error at ShowFeedbackResponeDetailForManagerController" + e.toString());

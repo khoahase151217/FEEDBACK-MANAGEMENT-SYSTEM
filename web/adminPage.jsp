@@ -227,10 +227,10 @@
                                 <div class="content-item-main">
                                     <div class="content-item-heading">
                                         <ul class="content-item-navigation">
-                                            <li class="navigation-item active" data-index="0">
+                                            <li class="navigation-item ${requestScope.STYLE_TASK}" data-index="0">
                                                 <a href="#">Tasks</a>
                                             </li>
-                                            <li class="navigation-item" data-index="1">
+                                            <li class="navigation-item ${requestScope.STYLE_COMMENT}" data-index="1">
                                                 <a href="#">Comments</a>
                                             </li>
                                             <span class="navigation-scroll-bar"></span>
@@ -251,7 +251,7 @@
                                             class="
                                             content-item-main-item
                                             facility-item-main-item
-                                            active
+                                            ${requestScope.STYLE_TASK}
                                             "
                                             >
                                             <!-- Pipe -->
@@ -639,90 +639,139 @@
                                         </div>
                                         <!-- Comments -->
                                         <div
-                                            class="content-item-main-item facility-item-main-item"
+                                            class="content-item-main-item facility-item-main-item ${requestScope.STYLE_COMMENT}"
                                             >
                                             <div class="comments-wrapper">
                                                 <div class="comment-list-feedback">
                                                     <div class="pipe-column">
                                                         <div class="pipe-list">
-                                                            <a href="#">
-                                                                <div class="pipe-comment-item active">
-                                                                    <div class="pipe-item-heading">
-                                                                        <div class="pipe-item-title-wrapper">
-                                                                            <h3 class="pipe-item-title">
-                                                                                Feedback #1
-                                                                            </h3>
-                                                                        </div>
-                                                                        <div class="pipe-item-date">
-                                                                            Tue, August 18
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="pipe-item-bottom">
-                                                                        <p class="pipe-bottom-item">
-                                                                            <strong>Send by</strong>
-                                                                            ducndmse151198@fpt.edu.vn
-                                                                        </p>
-                                                                        <div class="pipe-item-bottom-form-wrapper">
-                                                                            <form action="#" class="pipe-bottom-form">
-                                                                                <button type="submit" class="btn--done">
-                                                                                    <ion-icon
-                                                                                        name="checkbox-outline"
-                                                                                        ></ion-icon>
-                                                                                </button>
-                                                                            </form>
-                                                                            <form action="#" class="pipe-bottom-form">
-                                                                                <button
-                                                                                    type="submit"
-                                                                                    class="btn--decline"
-                                                                                    >
-                                                                                    <ion-icon
-                                                                                        name="close-circle-outline"
-                                                                                        ></ion-icon>
-                                                                                </button>
-                                                                            </form>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                            <a href="#">
-                                                                <div class="pipe-comment-item">
-                                                                    <div class="pipe-item-heading">
-                                                                        <div class="pipe-item-title-wrapper">
-                                                                            <h3 class="pipe-item-title">
-                                                                                Feedback #1
-                                                                            </h3>
-                                                                        </div>
-                                                                        <div class="pipe-item-date">
-                                                                            Tue, August 18
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="pipe-item-bottom">
-                                                                        <p class="pipe-bottom-item">
-                                                                            <strong>Send by</strong>
-                                                                            ducndmse151198@fpt.edu.vn
-                                                                        </p>
-                                                                        <div class="pipe-item-bottom-form-wrapper">
-                                                                            <form action="#" class="pipe-bottom-form">
-                                                                                <button type="submit" class="btn--done">
-                                                                                    <ion-icon
-                                                                                        name="checkbox-outline"
-                                                                                        ></ion-icon>
-                                                                                </button>
-                                                                            </form>
-                                                                            <form action="#" class="pipe-bottom-form">
-                                                                                <button
-                                                                                    type="submit"
-                                                                                    class="btn--decline"
-                                                                                    >
-                                                                                    <ion-icon
-                                                                                        name="close-circle-outline"
-                                                                                        ></ion-icon>
-                                                                                </button>
-                                                                            </form>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
+                                                            <c:forEach var="response" items="${sessionScope.FEEDBACK_RESPONE_LIST}" varStatus="counter">
+                                                                <c:choose>
+                                                                    <c:when test="${requestScope.RESPONE_ACTIVE == null && counter.count == 1}">
+                                                                        <a href="ShowFeedbackResponeDetailForManagerController?feedback_response_id=${response.feedbackID}&style_list=comment">
+                                                                            <div class="pipe-comment-item active">
+                                                                                <div class="pipe-item-heading">
+                                                                                    <div class="pipe-item-title-wrapper">
+                                                                                        <h3 class="pipe-item-title">
+                                                                                            Feedback ${response.feedbackID}
+                                                                                        </h3>
+                                                                                    </div>
+                                                                                    <div class="pipe-item-date">
+                                                                                        ${response.date}
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="pipe-item-bottom">
+                                                                                    <p class="pipe-bottom-item">
+                                                                                        <strong>Send by</strong>
+                                                                                        ${response.email}
+                                                                                    </p>
+                                                                                    <div class="pipe-item-bottom-form-wrapper">
+                                                                                        <form action="#" class="pipe-bottom-form">
+                                                                                            <button type="submit" class="btn--done">
+                                                                                                <ion-icon
+                                                                                                    name="checkbox-outline"
+                                                                                                    ></ion-icon>
+                                                                                            </button>
+                                                                                        </form>
+                                                                                        <form action="#" class="pipe-bottom-form">
+                                                                                            <button
+                                                                                                type="submit"
+                                                                                                class="btn--decline"
+                                                                                                >
+                                                                                                <ion-icon
+                                                                                                    name="close-circle-outline"
+                                                                                                    ></ion-icon>
+                                                                                            </button>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </a>
+                                                                    </c:when>
+                                                                    <c:when test="${response.feedbackID eq requestScope.RESPONE_ACTIVE}">
+                                                                        <a href="ShowFeedbackResponeDetailForManagerController?feedback_response_id=${response.feedbackID}&style_list=comment">
+                                                                            <div class="pipe-comment-item active">
+                                                                                <div class="pipe-item-heading">
+                                                                                    <div class="pipe-item-title-wrapper">
+                                                                                        <h3 class="pipe-item-title">
+                                                                                            Feedback ${response.feedbackID}
+                                                                                        </h3>
+                                                                                    </div>
+                                                                                    <div class="pipe-item-date">
+                                                                                        ${response.date}
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="pipe-item-bottom">
+                                                                                    <p class="pipe-bottom-item">
+                                                                                        <strong>Send by</strong>
+                                                                                        ${response.email}
+                                                                                    </p>
+                                                                                    <div class="pipe-item-bottom-form-wrapper">
+                                                                                        <form action="#" class="pipe-bottom-form">
+                                                                                            <button type="submit" class="btn--done">
+                                                                                                <ion-icon
+                                                                                                    name="checkbox-outline"
+                                                                                                    ></ion-icon>
+                                                                                            </button>
+                                                                                        </form>
+                                                                                        <form action="#" class="pipe-bottom-form">
+                                                                                            <button
+                                                                                                type="submit"
+                                                                                                class="btn--decline"
+                                                                                                >
+                                                                                                <ion-icon
+                                                                                                    name="close-circle-outline"
+                                                                                                    ></ion-icon>
+                                                                                            </button>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </a>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <a href="ShowFeedbackResponeDetailForManagerController?feedback_response_id=${response.feedbackID}&style_list=comment">
+                                                                            <div class="pipe-comment-item">
+                                                                                <div class="pipe-item-heading">
+                                                                                    <div class="pipe-item-title-wrapper">
+                                                                                        <h3 class="pipe-item-title">
+                                                                                            Feedback ${response.feedbackID}
+                                                                                        </h3>
+                                                                                    </div>
+                                                                                    <div class="pipe-item-date">
+                                                                                        ${response.date}
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="pipe-item-bottom">
+                                                                                    <p class="pipe-bottom-item">
+                                                                                        <strong>Send by</strong>
+                                                                                        ${response.email}
+                                                                                    </p>
+                                                                                    <div class="pipe-item-bottom-form-wrapper">
+                                                                                        <form action="#" class="pipe-bottom-form">
+                                                                                            <button type="submit" class="btn--done">
+                                                                                                <ion-icon
+                                                                                                    name="checkbox-outline"
+                                                                                                    ></ion-icon>
+                                                                                            </button>
+                                                                                        </form>
+                                                                                        <form action="#" class="pipe-bottom-form">
+                                                                                            <button
+                                                                                                type="submit"
+                                                                                                class="btn--decline"
+                                                                                                >
+                                                                                                <ion-icon
+                                                                                                    name="close-circle-outline"
+                                                                                                    ></ion-icon>
+                                                                                            </button>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </a>
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                            </c:forEach>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -738,156 +787,172 @@
                                                         >
                                                         <ion-icon name="chevron-forward-outline"></ion-icon>
                                                     </div>
-                                                    <div
-                                                        class="detail-wrapper task-detail active"
-                                                        data-index="1"
-                                                        >
-                                                        <div class="feedback-detail-header">
-                                                            <h2 class="feedback-detail-tittle">Feedback 1</h2>
-                                                        </div>
-                                                        <div class="feedback-detail-showcase">
-                                                            <div class="feedback-detail-input">
-                                                                <div class="input-wrapper">
-                                                                    <input
-                                                                        type="text"
-                                                                        name="device"
-                                                                        id="device"
-                                                                        value="Bui Duc Uy Dung"
-                                                                        readonly
-                                                                        />
-                                                                    <label class="input-label">Device Name</label>
-                                                                </div>
-                                                                <div class="input-wrapper">
-                                                                    <input
-                                                                        type="text"
-                                                                        name="location"
-                                                                        id="location"
-                                                                        value="Room 302"
-                                                                        readonly
-                                                                        />
-                                                                    <label class="input-label">Location</label>
-                                                                </div>
-                                                                <div class="input-wrapper">
-                                                                    <input
-                                                                        type="text"
-                                                                        name="quantity"
-                                                                        id="quantity"
-                                                                        value="2"
-                                                                        readonly
-                                                                        />
-                                                                    <label class="input-label">Quantity</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="feedback-detail-textarea">
-                                                                <div class="textarea-wrapper">
-                                                                    <textarea
-                                                                        name="description"
-                                                                        id="description"
-                                                                        readonly
-                                                                        >At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.</textarea
+                                                    <c:forEach var="reponseDetail" items="${sessionScope.RESPONE_DETAIL_LIST}" varStatus="counter">
+                                                        <c:choose>
+                                                            <c:when test="${counter.count == 1}">
+                                                                <div
+                                                                    class="detail-wrapper task-detail active"
+                                                                    data-index="${counter.count}"
                                                                     >
-                                                                    <label class="input-label">Description</label>
+                                                                    <div class="feedback-detail-header">
+                                                                        <h2 class="feedback-detail-tittle">Reponse ${counter.count}</h2>
+                                                                    </div>
+                                                                    <div class="feedback-detail-showcase">
+                                                                        <div class="feedback-detail-input">
+                                                                            <div class="input-wrapper">
+                                                                                <input
+                                                                                    type="text"
+                                                                                    name="device"
+                                                                                    id="device"
+                                                                                    value="${reponseDetail.deviceName}"
+                                                                                    readonly
+                                                                                    />
+                                                                                <label class="input-label">Device Name</label>
+                                                                            </div>
+                                                                            <div class="input-wrapper">
+                                                                                <input
+                                                                                    type="text"
+                                                                                    name="location"
+                                                                                    id="location"
+                                                                                    value="Room ${reponseDetail.location}"
+                                                                                    readonly
+                                                                                    />
+                                                                                <label class="input-label">Location</label>
+                                                                            </div>
+                                                                            <div class="input-wrapper">
+                                                                                <input
+                                                                                    type="text"
+                                                                                    name="employee"
+                                                                                    id="employee"
+                                                                                    value="${reponseDetail.userName}"
+                                                                                    readonly
+                                                                                    />
+                                                                                <label class="input-label">Employee</label>
+                                                                            </div>
+                                                                            <div class="input-wrapper">
+                                                                                <input
+                                                                                    type="text"
+                                                                                    name="date"
+                                                                                    id="date"
+                                                                                    value="${reponseDetail.date}"
+                                                                                    readonly
+                                                                                    />
+                                                                                <label class="input-label">Date</label>
+                                                                            </div>
+                                                                            <div class="input-wrapper">
+                                                                                <input
+                                                                                    type="text"
+                                                                                    name="quantity"
+                                                                                    id="quantity"
+                                                                                    value="${reponseDetail.quantity}"
+                                                                                    readonly
+                                                                                    />
+                                                                                <label class="input-label">Quantity</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="feedback-detail-textarea">
+                                                                            <div class="textarea-wrapper">
+                                                                                <textarea
+                                                                                    name="description"
+                                                                                    id="description"
+                                                                                    readonly
+                                                                                    >${reponseDetail.des}</textarea
+                                                                                >
+                                                                                <label class="input-label">Description</label>
+                                                                            </div>
+                                                                            <div class="feedback-detail-image-wrapper">
+                                                                                <img
+                                                                                    src="data:image/jpg/png;base64,${reponseDetail.image}"
+                                                                                    alt=""
+                                                                                    />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="feedback-detail-image-wrapper">
-                                                                    <img
-                                                                        src="https://images.unsplash.com/photo-1633430590464-4914c1fbab92?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                                                                        alt=""
-                                                                        />
-                                                                    <img
-                                                                        src="https://images.unsplash.com/photo-1489914099268-1dad649f76bf?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8MTkyMHgxMDgwfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                                                                        alt=""
-                                                                        />
-                                                                    <img
-                                                                        src="https://images.unsplash.com/photo-1633430590464-4914c1fbab92?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                                                                        alt=""
-                                                                        />
-                                                                    <img
-                                                                        src="https://images.unsplash.com/photo-1489914099268-1dad649f76bf?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8MTkyMHgxMDgwfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                                                                        alt=""
-                                                                        />
-                                                                    <img
-                                                                        src="https://images.unsplash.com/photo-1620121478247-ec786b9be2fa?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fDE5MjB4MTA4MHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                                                                        alt=""
-                                                                        />
-                                                                    <img
-                                                                        src="https://images.unsplash.com/photo-1620121478247-ec786b9be2fa?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fDE5MjB4MTA4MHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                                                                        alt=""
-                                                                        />
-                                                                    <img
-                                                                        src="https://images.unsplash.com/photo-1633430590464-4914c1fbab92?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                                                                        alt=""
-                                                                        />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="detail-wrapper task-detail"
-                                                        data-index="2"
-                                                        >
-                                                        <div class="feedback-detail-header">
-                                                            <h2 class="feedback-detail-tittle">Feedback 1</h2>
-                                                        </div>
-                                                        <div class="feedback-detail-showcase">
-                                                            <div class="feedback-detail-input">
-                                                                <div class="input-wrapper">
-                                                                    <input
-                                                                        type="text"
-                                                                        name="device"
-                                                                        id="device"
-                                                                        value="Bui Duc Uy Dung"
-                                                                        readonly
-                                                                        />
-                                                                    <label class="input-label">Device Name</label>
-                                                                </div>
-                                                                <div class="input-wrapper">
-                                                                    <input
-                                                                        type="text"
-                                                                        name="location"
-                                                                        id="location"
-                                                                        value="Room 302"
-                                                                        readonly
-                                                                        />
-                                                                    <label class="input-label">Location</label>
-                                                                </div>
-                                                                <div class="input-wrapper">
-                                                                    <input
-                                                                        type="text"
-                                                                        name="quantity"
-                                                                        id="quantity"
-                                                                        value="2"
-                                                                        readonly
-                                                                        />
-                                                                    <label class="input-label">Quantity</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="feedback-detail-textarea">
-                                                                <div class="textarea-wrapper">
-                                                                    <textarea
-                                                                        name="description"
-                                                                        id="description"
-                                                                        readonly
-                                                                        >Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia corrupti magnam aut quidem saepe totam eos illo cum quas molestiae odit suscipit inventore, placeat laboriosam odio dicta, sit, sunt quam?</textarea
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <div
+                                                                    class="detail-wrapper task-detail"
+                                                                    data-index="${counter.count}"
                                                                     >
-                                                                    <label class="input-label">Description</label>
+                                                                    <div class="feedback-detail-header">
+                                                                        <h2 class="feedback-detail-tittle">Reponse ${counter.count}</h2>
+                                                                    </div>
+                                                                    <div class="feedback-detail-showcase">
+                                                                        <div class="feedback-detail-input">
+                                                                            <div class="input-wrapper">
+                                                                                <input
+                                                                                    type="text"
+                                                                                    name="device"
+                                                                                    id="device"
+                                                                                    value="${reponseDetail.deviceName}"
+                                                                                    readonly
+                                                                                    />
+                                                                                <label class="input-label">Device Name</label>
+                                                                            </div>
+                                                                            <div class="input-wrapper">
+                                                                                <input
+                                                                                    type="text"
+                                                                                    name="location"
+                                                                                    id="location"
+                                                                                    value="Room ${reponseDetail.location}"
+                                                                                    readonly
+                                                                                    />
+                                                                                <label class="input-label">Location</label>
+                                                                            </div>
+                                                                            <div class="input-wrapper">
+                                                                                <input
+                                                                                    type="text"
+                                                                                    name="employee"
+                                                                                    id="quantity"
+                                                                                    value="${reponseDetail.userName}"
+                                                                                    readonly
+                                                                                    />
+                                                                                <label class="input-label">Employee</label>
+                                                                            </div>
+                                                                            <div class="input-wrapper">
+                                                                                <input
+                                                                                    type="text"
+                                                                                    name="date"
+                                                                                    id="date"
+                                                                                    value="${reponseDetail.date}"
+                                                                                    readonly
+                                                                                    />
+                                                                                <label class="input-label">Date</label>
+                                                                            </div>
+                                                                            <div class="input-wrapper">
+                                                                                <input
+                                                                                    type="text"
+                                                                                    name="quantity"
+                                                                                    id="quantity"
+                                                                                    value="${reponseDetail.quantity}"
+                                                                                    readonly
+                                                                                    />
+                                                                                <label class="input-label">Quantity</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="feedback-detail-textarea">
+                                                                            <div class="textarea-wrapper">
+                                                                                <textarea
+                                                                                    name="description"
+                                                                                    id="description"
+                                                                                    readonly
+                                                                                    >${reponseDetail.des}</textarea
+                                                                                >
+                                                                                <label class="input-label">Description</label>
+                                                                            </div>
+                                                                            <div class="feedback-detail-image-wrapper">
+                                                                                <img
+                                                                                    src="data:image/jpg/png;base64,${reponseDetail.image}"
+                                                                                    alt=""
+                                                                                    />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="feedback-detail-image-wrapper">
-                                                                    <img
-                                                                        src="https://images.unsplash.com/photo-1633555234047-192d10238f5f?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1fHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                                                                        alt=""
-                                                                        />
-                                                                    <img
-                                                                        src="https://images.unsplash.com/photo-1633692301992-d27ca897ad65?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4fHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                                                                        alt=""
-                                                                        />
-                                                                    <img
-                                                                        src="https://images.unsplash.com/photo-1633532139011-ea6f0ecfab41?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                                                                        alt=""
-                                                                        />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </c:forEach>
                                                 </div>
                                             </div>
                                         </div>

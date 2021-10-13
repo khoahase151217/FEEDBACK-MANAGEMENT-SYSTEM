@@ -20,6 +20,8 @@ public class ResponseDTO {
     private String deviceName;
     private String location;
     private String userName;
+    private String quantity;
+    private String date;
 
     public ResponseDTO() {
     }
@@ -33,8 +35,30 @@ public class ResponseDTO {
         this.location = location;
         this.userName = userName;
     }
-    
-    
+
+    public ResponseDTO(String feedbackDetailID, String image, String des, String responseID, String deviceName, String location, String userName, String quantity) {
+        this.feedbackDetailID = feedbackDetailID;
+        this.image = image;
+        this.des = des;
+        this.responseID = responseID;
+        this.deviceName = deviceName;
+        this.location = location;
+        this.userName = userName;
+        this.quantity = quantity;
+    }
+
+    public ResponseDTO(String feedbackDetailID, String userID, String image, String des, String statusID, String deviceName, String location, String userName, String quantity, String date) {
+        this.feedbackDetailID = feedbackDetailID;
+        this.userID = userID;
+        this.image = image;
+        this.des = des;
+        this.statusID = statusID;
+        this.deviceName = deviceName;
+        this.location = location;
+        this.userName = userName;
+        this.quantity = quantity;
+        this.date = date;
+    }
 
     public ResponseDTO(String feedbackDetailID, String userID, String des, String statusID) {
         this.feedbackDetailID = feedbackDetailID;
@@ -131,6 +155,21 @@ public class ResponseDTO {
     public void setUserName(String userName) {
         this.userName = userName;
     }
-    
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
 }

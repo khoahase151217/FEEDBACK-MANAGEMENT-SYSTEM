@@ -244,7 +244,7 @@ public class EmployeesDAO {
         }
         return dto;
     }
-    
+
     public List<FeedbackDetailDTO> showHistoryListFeedbackDetail(String userID, String feedbackID) throws SQLException {
         List<FeedbackDetailDTO> dto = new ArrayList<>();
         Connection conn = null;
@@ -382,8 +382,8 @@ public class EmployeesDAO {
         }
         return list;
     }
-    
-     public List<FeedbackDTO> showListFeedbackResponse() throws SQLException {
+
+    public List<FeedbackDTO> showListFeedbackResponse() throws SQLException {
         List<FeedbackDTO> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement stm = null;
@@ -395,9 +395,9 @@ public class EmployeesDAO {
                         + " JOIN tblFeedbackDetail t2  ON t1.FeedbackID = t2.FeedbackID "
                         + " JOIN tblUser t3    ON t1.UserID = t3.UserID "
                         + " JOIN tblFeedbackStatus t4 ON t1.statusID = t4.FeedbackStatusID "
-                        + " WHERE t2.flag = 'true' AND t1.statusID != 'decline' "
+                        + " WHERE t2.flag = 'true' AND t1.statusID not in ('decline', 'done') "
                         + " group by t1.Date ,t1.FeedbackID,t1.statusID, t1.UserID, t3.Email, t3.FullName, t4.Name "
-                        + " ORDER BY t1.DATE";
+                        + " ORDER BY t1.DATE ";
                 stm = conn.prepareCall(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {

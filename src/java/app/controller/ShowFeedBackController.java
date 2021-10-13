@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
  */
 public class ShowFeedBackController extends HttpServlet {
 
-    private static final String SUCCESS = "adminPage.jsp";
+    private static final String SUCCESS = "ShowFeedbackResponeForManagerController";
     private static final String ERROR = "error.jsp";
     private static final String SEARCH = "SearchFeedbackController";
 
@@ -65,6 +65,7 @@ public class ShowFeedBackController extends HttpServlet {
                 request.setAttribute("STYLE_PIPE", "active");
                 request.setAttribute("STYLE_LIST_ALL", "active");
             }
+            request.setAttribute("STYLE_TASK", "active");
             url = SUCCESS;
             
         } catch (Exception e) {

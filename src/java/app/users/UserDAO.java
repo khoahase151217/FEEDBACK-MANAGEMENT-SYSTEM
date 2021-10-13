@@ -21,6 +21,7 @@ import java.util.List;
  * @author ASUS
  */
 public class UserDAO {
+//Login User
 
     public String getUserIdByName(String fullname) throws SQLException {
         String result = "";
@@ -231,295 +232,6 @@ public class UserDAO {
             }
         }
         return false;
-    }
-
-    public List<UserDTO> showAllStudentListAsc() throws SQLException {
-
-        List<UserDTO> list = new ArrayList<>();
-        Connection conn = null;
-        PreparedStatement stm = null;
-        ResultSet rs = null;
-        try {
-            conn = DBUtils.getConnection();
-            if (conn != null) {
-                String sql = "SELECT *"
-                        + " FROM tblUser "
-                        + " WHERE RoleID = 'US' "
-                        + " order by FullName asc ";
-                stm = conn.prepareCall(sql);
-                rs = stm.executeQuery();
-                while (rs.next()) {
-                    String userID = rs.getString("UserID");
-                    String name = rs.getString("FullName");
-                    String email = rs.getString("Email");
-                    String RoleID = rs.getString("RoleID");
-                    String StatusID = rs.getString("StatusID");
-                    String Image = rs.getString("Image");
-                    list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image)));
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (stm != null) {
-                stm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
-        }
-        return list;
-    }
-
-    public List<UserDTO> showAllStudentListDesc() throws SQLException {
-
-        List<UserDTO> list = new ArrayList<>();
-        Connection conn = null;
-        PreparedStatement stm = null;
-        ResultSet rs = null;
-        try {
-            conn = DBUtils.getConnection();
-            if (conn != null) {
-                String sql = "SELECT *"
-                        + " FROM tblUser "
-                        + " WHERE RoleID = 'US' "
-                        + " order by FullName desc ";
-                stm = conn.prepareCall(sql);
-                rs = stm.executeQuery();
-                while (rs.next()) {
-                    String userID = rs.getString("UserID");
-                    String name = rs.getString("FullName");
-                    String email = rs.getString("Email");
-                    String RoleID = rs.getString("RoleID");
-                    String StatusID = rs.getString("StatusID");
-                    String Image = rs.getString("Image");
-                    list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image)));
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (stm != null) {
-                stm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
-        }
-        return list;
-    }
-
-    public List<UserDTO> showStudentListActiveAsc() throws SQLException {
-
-        List<UserDTO> list = new ArrayList<>();
-        Connection conn = null;
-        PreparedStatement stm = null;
-        ResultSet rs = null;
-        try {
-            conn = DBUtils.getConnection();
-            if (conn != null) {
-                String sql = "SELECT *"
-                        + " FROM tblUser "
-                        + " WHERE RoleID = 'US' and StatusID ='AC' "
-                        + " order by FullName asc ";
-                stm = conn.prepareCall(sql);
-                rs = stm.executeQuery();
-                while (rs.next()) {
-                    String userID = rs.getString("UserID");
-                    String name = rs.getString("FullName");
-                    String email = rs.getString("Email");
-                    String RoleID = rs.getString("RoleID");
-                    String StatusID = rs.getString("StatusID");
-                    String Image = rs.getString("Image");
-                    list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image)));
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (stm != null) {
-                stm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
-        }
-        return list;
-    }
-
-    public List<UserDTO> showStudentListActiveDesc() throws SQLException {
-
-        List<UserDTO> list = new ArrayList<>();
-        Connection conn = null;
-        PreparedStatement stm = null;
-        ResultSet rs = null;
-        try {
-            conn = DBUtils.getConnection();
-            if (conn != null) {
-                String sql = "SELECT *"
-                        + " FROM tblUser "
-                        + " WHERE RoleID = 'US' and StatusID ='AC'"
-                        + " order by FullName desc ";
-                stm = conn.prepareCall(sql);
-                rs = stm.executeQuery();
-                while (rs.next()) {
-                    String userID = rs.getString("UserID");
-                    String name = rs.getString("FullName");
-                    String email = rs.getString("Email");
-                    String RoleID = rs.getString("RoleID");
-                    String StatusID = rs.getString("StatusID");
-                    String Image = rs.getString("Image");
-                    list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image)));
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (stm != null) {
-                stm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
-        }
-        return list;
-    }
-
-    public List<UserDTO> showStudentListInactiveAsc() throws SQLException {
-
-        List<UserDTO> list = new ArrayList<>();
-        Connection conn = null;
-        PreparedStatement stm = null;
-        ResultSet rs = null;
-        try {
-            conn = DBUtils.getConnection();
-            if (conn != null) {
-                String sql = "SELECT *"
-                        + " FROM tblUser "
-                        + " WHERE RoleID = 'US' and StatusID ='IN'"
-                        + " order by FullName asc ";
-                stm = conn.prepareCall(sql);
-                rs = stm.executeQuery();
-                while (rs.next()) {
-                    String userID = rs.getString("UserID");
-                    String name = rs.getString("FullName");
-                    String email = rs.getString("Email");
-                    String RoleID = rs.getString("RoleID");
-                    String StatusID = rs.getString("StatusID");
-                    String Image = rs.getString("Image");
-                    list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image)));
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (stm != null) {
-                stm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
-        }
-        return list;
-    }
-
-    public List<UserDTO> showStudentListInactiveDesc() throws SQLException {
-
-        List<UserDTO> list = new ArrayList<>();
-        Connection conn = null;
-        PreparedStatement stm = null;
-        ResultSet rs = null;
-        try {
-            conn = DBUtils.getConnection();
-            if (conn != null) {
-                String sql = "SELECT *"
-                        + " FROM tblUser "
-                        + " WHERE RoleID = 'US' and StatusID ='IN'"
-                        + " order by FullName desc ";
-                stm = conn.prepareCall(sql);
-                rs = stm.executeQuery();
-                while (rs.next()) {
-                    String userID = rs.getString("UserID");
-                    String name = rs.getString("FullName");
-                    String email = rs.getString("Email");
-                    String RoleID = rs.getString("RoleID");
-                    String StatusID = rs.getString("StatusID");
-                    String Image = rs.getString("Image");
-                    list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image)));
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (stm != null) {
-                stm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
-        }
-        return list;
-    }
-
-    public List<UserDTO> getListStudent(String search) throws SQLException {
-        List<UserDTO> list = new ArrayList<>();
-        Connection conn = null;
-        PreparedStatement stm = null;
-        ResultSet rs = null;
-        try {
-            conn = DBUtils.getConnection();
-            if (conn != null) {
-                String sql = "SELECT t1.* , t2.Name as StatusName "
-                        + " FROM tblUser t1 "
-                        + " JOIN tblUserStatus t2 on t1.StatusID = t2.StatusID "
-                        + " WHERE t1.FullName like ?";
-                stm = conn.prepareCall(sql);
-                stm.setString(1, "%" + search + "%");
-                rs = stm.executeQuery();
-                while (rs.next()) {
-                    String userID = rs.getString("UserID");
-                    String name = rs.getString("FullName");
-                    String email = rs.getString("Email");
-                    String RoleID = rs.getString("RoleID");
-                    String StatusID = rs.getString("StatusID");
-                    String statusName = rs.getString("StatusName");
-                    String image = rs.getString(("Image"));
-
-                    list.add((new UserDTO(userID, name, "***", email, RoleID, StatusID, image, RoleID, statusName)));
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (stm != null) {
-                stm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
-        }
-        return list;
     }
 
     //Begin of sort User
@@ -951,6 +663,7 @@ public class UserDAO {
         }
         return list;
     }
+//Show list user
 
     public List<UserDTO> showAllUserAsc() throws SQLException {
 
@@ -1028,6 +741,24 @@ public class UserDAO {
                     String RoleID = rs.getString("RoleID");
                     String StatusID = rs.getString("StatusID");
                     String Image = rs.getString("Image");
+                    //
+                    String RoleName = rs.getString("roleName");
+                    String StatusName = rs.getString("statusName");
+                    byte[] tmp = rs.getBytes("BinaryImage");
+                    if (tmp != null) {
+                        String base64Image = Base64.getEncoder().encodeToString(tmp);
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, RoleName, StatusName)));
+                    } else {
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, RoleName, StatusName)));
+                    }
+                }
+                while (rs.next()) {
+                    String userID = rs.getString("UserID");
+                    String name = rs.getString("FullName");
+                    String email = rs.getString("Email");
+                    String RoleID = rs.getString("RoleID");
+                    String StatusID = rs.getString("StatusID");
+                    String Image = rs.getString("Image");
                     String RoleName = rs.getString("roleName");
                     String StatusName = rs.getString("statusName");
                     list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, RoleName, StatusName)));
@@ -1074,9 +805,16 @@ public class UserDAO {
                     String RoleID = rs.getString("RoleID");
                     String StatusID = rs.getString("StatusID");
                     String Image = rs.getString("Image");
+                    //
                     String RoleName = rs.getString("roleName");
                     String StatusName = rs.getString("statusName");
-                    list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, RoleName, StatusName)));
+                    byte[] tmp = rs.getBytes("BinaryImage");
+                    if (tmp != null) {
+                        String base64Image = Base64.getEncoder().encodeToString(tmp);
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, RoleName, StatusName)));
+                    } else {
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, RoleName, StatusName)));
+                    }
                 }
             }
         } catch (Exception e) {
@@ -1120,9 +858,16 @@ public class UserDAO {
                     String RoleID = rs.getString("RoleID");
                     String StatusID = rs.getString("StatusID");
                     String Image = rs.getString("Image");
+                    //
                     String RoleName = rs.getString("roleName");
                     String StatusName = rs.getString("statusName");
-                    list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, RoleName, StatusName)));
+                    byte[] tmp = rs.getBytes("BinaryImage");
+                    if (tmp != null) {
+                        String base64Image = Base64.getEncoder().encodeToString(tmp);
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, RoleName, StatusName)));
+                    } else {
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, RoleName, StatusName)));
+                    }
                 }
             }
         } catch (Exception e) {
@@ -1166,9 +911,16 @@ public class UserDAO {
                     String RoleID = rs.getString("RoleID");
                     String StatusID = rs.getString("StatusID");
                     String Image = rs.getString("Image");
+                    //
                     String RoleName = rs.getString("roleName");
                     String StatusName = rs.getString("statusName");
-                    list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, RoleName, StatusName)));
+                    byte[] tmp = rs.getBytes("BinaryImage");
+                    if (tmp != null) {
+                        String base64Image = Base64.getEncoder().encodeToString(tmp);
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, RoleName, StatusName)));
+                    } else {
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, RoleName, StatusName)));
+                    }
                 }
             }
         } catch (Exception e) {
@@ -1212,9 +964,16 @@ public class UserDAO {
                     String RoleID = rs.getString("RoleID");
                     String StatusID = rs.getString("StatusID");
                     String Image = rs.getString("Image");
+                    //
                     String RoleName = rs.getString("roleName");
                     String StatusName = rs.getString("statusName");
-                    list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, RoleName, StatusName)));
+                    byte[] tmp = rs.getBytes("BinaryImage");
+                    if (tmp != null) {
+                        String base64Image = Base64.getEncoder().encodeToString(tmp);
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, RoleName, StatusName)));
+                    } else {
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, RoleName, StatusName)));
+                    }
                 }
             }
         } catch (Exception e) {
@@ -1258,9 +1017,16 @@ public class UserDAO {
                     String RoleID = rs.getString("RoleID");
                     String StatusID = rs.getString("StatusID");
                     String Image = rs.getString("Image");
+                    //
                     String RoleName = rs.getString("roleName");
                     String StatusName = rs.getString("statusName");
-                    list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, RoleName, StatusName)));
+                    byte[] tmp = rs.getBytes("BinaryImage");
+                    if (tmp != null) {
+                        String base64Image = Base64.getEncoder().encodeToString(tmp);
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, RoleName, StatusName)));
+                    } else {
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, RoleName, StatusName)));
+                    }
                 }
             }
         } catch (Exception e) {
@@ -1304,9 +1070,16 @@ public class UserDAO {
                     String RoleID = rs.getString("RoleID");
                     String StatusID = rs.getString("StatusID");
                     String Image = rs.getString("Image");
+                    //
                     String RoleName = rs.getString("roleName");
                     String StatusName = rs.getString("statusName");
-                    list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, RoleName, StatusName)));
+                    byte[] tmp = rs.getBytes("BinaryImage");
+                    if (tmp != null) {
+                        String base64Image = Base64.getEncoder().encodeToString(tmp);
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, RoleName, StatusName)));
+                    } else {
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, RoleName, StatusName)));
+                    }
                 }
             }
         } catch (Exception e) {
@@ -1350,9 +1123,16 @@ public class UserDAO {
                     String RoleID = rs.getString("RoleID");
                     String StatusID = rs.getString("StatusID");
                     String Image = rs.getString("Image");
+                    //
                     String RoleName = rs.getString("roleName");
                     String StatusName = rs.getString("statusName");
-                    list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, RoleName, StatusName)));
+                    byte[] tmp = rs.getBytes("BinaryImage");
+                    if (tmp != null) {
+                        String base64Image = Base64.getEncoder().encodeToString(tmp);
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, RoleName, StatusName)));
+                    } else {
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, RoleName, StatusName)));
+                    }
                 }
             }
         } catch (Exception e) {
@@ -1396,9 +1176,366 @@ public class UserDAO {
                     String RoleID = rs.getString("RoleID");
                     String StatusID = rs.getString("StatusID");
                     String Image = rs.getString("Image");
+                    //
                     String RoleName = rs.getString("roleName");
                     String StatusName = rs.getString("statusName");
-                    list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, RoleName, StatusName)));
+                    byte[] tmp = rs.getBytes("BinaryImage");
+                    if (tmp != null) {
+                        String base64Image = Base64.getEncoder().encodeToString(tmp);
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, RoleName, StatusName)));
+                    } else {
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, RoleName, StatusName)));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<UserDTO> showAllStudentListAsc() throws SQLException {
+
+        List<UserDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT *"
+                        + " FROM tblUser "
+                        + " WHERE RoleID = 'US' "
+                        + " order by FullName asc ";
+                stm = conn.prepareCall(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String userID = rs.getString("UserID");
+                    String name = rs.getString("FullName");
+                    String email = rs.getString("Email");
+                    String RoleID = rs.getString("RoleID");
+                    String StatusID = rs.getString("StatusID");
+                    String Image = rs.getString("Image");
+                    //
+                    String RoleName = rs.getString("roleName");
+                    String StatusName = rs.getString("statusName");
+                    byte[] tmp = rs.getBytes("BinaryImage");
+                    if (tmp != null) {
+                        String base64Image = Base64.getEncoder().encodeToString(tmp);
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, RoleName, StatusName)));
+                    } else {
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, RoleName, StatusName)));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<UserDTO> showAllStudentListDesc() throws SQLException {
+
+        List<UserDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT *"
+                        + " FROM tblUser "
+                        + " WHERE RoleID = 'US' "
+                        + " order by FullName desc ";
+                stm = conn.prepareCall(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String userID = rs.getString("UserID");
+                    String name = rs.getString("FullName");
+                    String email = rs.getString("Email");
+                    String RoleID = rs.getString("RoleID");
+                    String StatusID = rs.getString("StatusID");
+                    String Image = rs.getString("Image");
+                    //
+                    String RoleName = rs.getString("roleName");
+                    String StatusName = rs.getString("statusName");
+                    byte[] tmp = rs.getBytes("BinaryImage");
+                    if (tmp != null) {
+                        String base64Image = Base64.getEncoder().encodeToString(tmp);
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, RoleName, StatusName)));
+                    } else {
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, RoleName, StatusName)));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<UserDTO> showStudentListActiveAsc() throws SQLException {
+
+        List<UserDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT *"
+                        + " FROM tblUser "
+                        + " WHERE RoleID = 'US' and StatusID ='AC' "
+                        + " order by FullName asc ";
+                stm = conn.prepareCall(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String userID = rs.getString("UserID");
+                    String name = rs.getString("FullName");
+                    String email = rs.getString("Email");
+                    String RoleID = rs.getString("RoleID");
+                    String StatusID = rs.getString("StatusID");
+                    String Image = rs.getString("Image");
+                    //
+                    String RoleName = rs.getString("roleName");
+                    String StatusName = rs.getString("statusName");
+                    byte[] tmp = rs.getBytes("BinaryImage");
+                    if (tmp != null) {
+                        String base64Image = Base64.getEncoder().encodeToString(tmp);
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, RoleName, StatusName)));
+                    } else {
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, RoleName, StatusName)));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<UserDTO> showStudentListActiveDesc() throws SQLException {
+
+        List<UserDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT *"
+                        + " FROM tblUser "
+                        + " WHERE RoleID = 'US' and StatusID ='AC'"
+                        + " order by FullName desc ";
+                stm = conn.prepareCall(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String userID = rs.getString("UserID");
+                    String name = rs.getString("FullName");
+                    String email = rs.getString("Email");
+                    String RoleID = rs.getString("RoleID");
+                    String StatusID = rs.getString("StatusID");
+                    String Image = rs.getString("Image");
+                    //
+                    String RoleName = rs.getString("roleName");
+                    String StatusName = rs.getString("statusName");
+                    byte[] tmp = rs.getBytes("BinaryImage");
+                    if (tmp != null) {
+                        String base64Image = Base64.getEncoder().encodeToString(tmp);
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, RoleName, StatusName)));
+                    } else {
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, RoleName, StatusName)));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<UserDTO> showStudentListInactiveAsc() throws SQLException {
+
+        List<UserDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT *"
+                        + " FROM tblUser "
+                        + " WHERE RoleID = 'US' and StatusID ='IN'"
+                        + " order by FullName asc ";
+                stm = conn.prepareCall(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String userID = rs.getString("UserID");
+                    String name = rs.getString("FullName");
+                    String email = rs.getString("Email");
+                    String RoleID = rs.getString("RoleID");
+                    String StatusID = rs.getString("StatusID");
+                    String Image = rs.getString("Image");
+                    //
+                    String RoleName = rs.getString("roleName");
+                    String StatusName = rs.getString("statusName");
+                    byte[] tmp = rs.getBytes("BinaryImage");
+                    if (tmp != null) {
+                        String base64Image = Base64.getEncoder().encodeToString(tmp);
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, RoleName, StatusName)));
+                    } else {
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, RoleName, StatusName)));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<UserDTO> showStudentListInactiveDesc() throws SQLException {
+
+        List<UserDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT *"
+                        + " FROM tblUser "
+                        + " WHERE RoleID = 'US' and StatusID ='IN'"
+                        + " order by FullName desc ";
+                stm = conn.prepareCall(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String userID = rs.getString("UserID");
+                    String name = rs.getString("FullName");
+                    String email = rs.getString("Email");
+                    String RoleID = rs.getString("RoleID");
+                    String StatusID = rs.getString("StatusID");
+                    String Image = rs.getString("Image");
+                    //
+                    String RoleName = rs.getString("roleName");
+                    String StatusName = rs.getString("statusName");
+                    byte[] tmp = rs.getBytes("BinaryImage");
+                    if (tmp != null) {
+                        String base64Image = Base64.getEncoder().encodeToString(tmp);
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, RoleName, StatusName)));
+                    } else {
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, RoleName, StatusName)));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<UserDTO> getListStudent(String search) throws SQLException {
+        List<UserDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT t1.* , t2.Name as StatusName "
+                        + " FROM tblUser t1 "
+                        + " JOIN tblUserStatus t2 on t1.StatusID = t2.StatusID "
+                        + " WHERE t1.FullName like ?";
+                stm = conn.prepareCall(sql);
+                stm.setString(1, "%" + search + "%");
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String userID = rs.getString("UserID");
+                    String name = rs.getString("FullName");
+                    String email = rs.getString("Email");
+                    String RoleID = rs.getString("RoleID");
+                    String StatusID = rs.getString("StatusID");
+                    String Image = rs.getString("Image");
+                    //
+                    String RoleName = rs.getString("roleName");
+                    String StatusName = rs.getString("statusName");
+                    byte[] tmp = rs.getBytes("BinaryImage");
+                    if (tmp != null) {
+                        String base64Image = Base64.getEncoder().encodeToString(tmp);
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, RoleName, StatusName)));
+                    } else {
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, RoleName, StatusName)));
+                    }
                 }
             }
         } catch (Exception e) {
@@ -1481,4 +1618,5 @@ public class UserDAO {
         }
         return check;
     }
+
 }
