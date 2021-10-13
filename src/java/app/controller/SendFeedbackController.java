@@ -87,7 +87,7 @@ public class SendFeedbackController extends HttpServlet {
             String reason = "";
             String location = "";
             int count = 0;
-            int check =0; //3
+            int check = 0; //3
             boolean isMultiPart = ServletFileUpload.isMultipartContent(request);
             if (!isMultiPart) {
 
@@ -132,7 +132,7 @@ public class SendFeedbackController extends HttpServlet {
                         }
 
                     } else {
-                        if(count==check){
+                        if (count == check) {
                             break;
                         }
                         if (description.equals("") || facilityID.equals("") || quantity.equals("") || reason.equals("") || location.equals("")) {
@@ -140,6 +140,7 @@ public class SendFeedbackController extends HttpServlet {
                             Fdao.deleteDetail(feedbackId);
                             url = ERROR;
                             request.setAttribute("SEND_FAILURE", "active");
+                            request.setAttribute("SEND_SUCCESS", "");
                             break;
                         } else {
                             photo = (FileInputStream) item.getInputStream();
@@ -147,6 +148,7 @@ public class SendFeedbackController extends HttpServlet {
                             Fdao.insertFeedbackDetail(feedbackId, detail, photo);
                             count++;
                             request.setAttribute("SEND_SUCCESS", "active");
+                            request.setAttribute("SEND_FAILURE", "");
                             url = SUCCESS;
 
                         }
