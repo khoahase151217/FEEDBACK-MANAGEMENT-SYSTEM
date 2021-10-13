@@ -5,6 +5,7 @@
  */
 package app.controller;
 
+import app.feedback.FeedbackDAO;
 import app.feedback.FeedbackDTO;
 import app.feedback.FeedbackDetailDTO;
 import app.response.ResponseDAO;
@@ -34,6 +35,7 @@ public class ShowFeedbackResponeDetailForManagerController extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             ResponseDAO dao = new ResponseDAO();
+            FeedbackDAO dao2 = new FeedbackDAO();
             String feedbackID = (String) request.getParameter("feedback_response_id");
             String styleList = request.getParameter("style_list");
             if (feedbackID == null) {
@@ -46,10 +48,12 @@ public class ShowFeedbackResponeDetailForManagerController extends HttpServlet {
             }
             session.setAttribute("RESPONE_DETAIL_LIST", dto);
             request.setAttribute("RESPONE_ACTIVE", feedbackID);
-            request.setAttribute("STYLE_PIPE", "active");
-            request.setAttribute("STYLE_LIST_ALL", "active");
             if (styleList != null) {
                 request.setAttribute("STYLE_COMMENT", "active");
+                request.setAttribute("STYLE_PIPE", "active");
+                request.setAttribute("STYLE_LIST_ALL", "active");
+                List<FeedbackDTO> listAll = dao2.getAllListFeedbackByStatusAscForManager();
+                session.setAttribute("FEEDBACK_LIST_ALL", listAll);
             } else {
                 request.setAttribute("STYLE_TASK", "active");
             }

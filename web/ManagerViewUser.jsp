@@ -43,11 +43,23 @@
                     <form action="UpdateUserController" class="user-form-actual-form" method="post" enctype="multipart/form-data">
                         <div class="actual-form-heading">
                             <div class="avatar-wrap">
-                                <img
-                                    src="${requestScope.USER_UPDATE.image}"
-                                    class="avatar"
-                                    alt=""
-                                    />
+                                <c:set var="image" value="${requestScope.USER_UPDATE.image}"/>
+                                <c:choose>
+                                    <c:when test="${fn:startsWith(image, 'http')}">
+                                        <img
+                                            src="${requestScope.USER_UPDATE.image}"
+                                            alt=""
+                                            class="avatar"
+                                            />
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img
+                                            src="data:image/jpg/png;base64,${requestScope.USER_UPDATE.image}"
+                                            alt=""
+                                            class="avatar"
+                                            />
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                             <div class="input-file-wrap">
                                 <label>
@@ -130,9 +142,9 @@
                             <button type="submit" class="actual-form-footer-btn done">
                                 <ion-icon name="checkmark-circle-outline"></ion-icon>
                             </button>
-                            <button type="submit" class="actual-form-footer-btn decline">
-                                <ion-icon name="close-circle-outline"></ion-icon>
-                            </button>
+                            <!--                            <button type="submit" class="actual-form-footer-btn decline">
+                                                            <ion-icon name="close-circle-outline"></ion-icon>
+                                                        </button>-->
                         </div>
                         <input type="hidden" name="userID" value="${requestScope.USER_UPDATE.userID}"/>
                     </form>
@@ -290,7 +302,7 @@
                                                         <div class="user-item-bottom">
                                                             <form action="ShowUserFormController" method="post">
                                                                 <input type="hidden" name="userID" value="${user.userID}"/>
-                                                                <input type="hidden" name="image" value="${user.image}"/>
+                                                                <input type="hidden" name="image" value="${user.image}" />
                                                                 <input type="hidden" name="fullName" value="${user.fullName}"/>
                                                                 <input type="hidden" name="statusName" value="${user.statusName}"/>
                                                                 <input type="hidden" name="statusID" value="${user.statusID}"/>
@@ -613,7 +625,7 @@
             </section>
         </main>
         <script src="${pageContext.request.contextPath}/js/adminPage.js"></script>
-        <script src="${pageContext.request.contextPath}/js/ManagerUser.js"></script>
+        <script src="${pageContext.request.contextPath}/js/ManagerUser1.js"></script>
         <!-- Query -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>

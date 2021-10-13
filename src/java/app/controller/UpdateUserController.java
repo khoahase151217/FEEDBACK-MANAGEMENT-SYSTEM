@@ -45,6 +45,7 @@ public class UpdateUserController extends HttpServlet {
         String url = ERROR;
 
         try {
+            boolean flag = false;
             FileInputStream photo = null;
             String userID = "";
             String fullName = "";
@@ -86,7 +87,10 @@ public class UpdateUserController extends HttpServlet {
                         }
 
                     } else {
-                        photo = (FileInputStream) item.getInputStream();
+                        if (item.getContentType().contains("image")) {
+                            photo = (FileInputStream) item.getInputStream();
+                            flag = true;
+                        }
                     }
                 }
             }
@@ -96,7 +100,11 @@ public class UpdateUserController extends HttpServlet {
                 request.setAttribute("ADD_FAILURE", "active");
                 request.setAttribute("SEND_FAILURE", "active");
             } else {
-                dao.UpdateUser(userID, fullName, roleID, statusID, photo);
+                if (flag) {
+                    dao.UpdateUser(userID, fullName, roleID, statusID, photo);
+                }else {
+                    dao.UpdateUserNoPhoto(userID, fullName, roleID, statusID);
+                }
                 url = SUCCESS;
             }
 

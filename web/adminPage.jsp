@@ -43,10 +43,12 @@
                         <div class="detail-header">
                             <div class="all-wrapper">
                                 <c:forEach var="feedbackDetail" items="${sessionScope.LIST_DETAIL}">
-                                    <img
-                                        src="data:image/jpg/png;base64,${feedbackDetail.image}"
-                                        alt=""
-                                        />
+                                    <c:if test="${feedbackDetail.image ne ''}">
+                                        <img
+                                            src="data:image/jpg/png;base64,${feedbackDetail.image}"
+                                            alt=""
+                                            />
+                                    </c:if>
                                 </c:forEach>
 
                             </div>

@@ -1618,6 +1618,36 @@ public class UserDAO {
         }
         return check;
     }
+    
+    public boolean UpdateUserNoPhoto(String userID, String fullName, String roleID, String statusID) throws ClassNotFoundException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        boolean check = false;
+        try {
+
+            con = DBUtils.getConnection();
+            if (con != null) {
+                String sql = "UPDATE tblUser "
+                        + " set fullName=?,roleID=?,statusID=? "
+                        + " WHERE userID = ?";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, fullName);
+                stm.setString(2, roleID);
+                stm.setString(3, statusID);
+                stm.setString(4, userID);
+                check = stm.executeUpdate() > 0;
+            }
+        } finally {
+
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
+    }
 
     //Update User Status Fast
     public boolean UpdateUserStatusActive(String userID, String statusID) throws ClassNotFoundException, SQLException {

@@ -122,9 +122,11 @@ public class SearchFeedbackController extends HttpServlet {
                 } else {
                     request.setAttribute("STYLE_PIPE", "active");
                 }
+                request.setAttribute("STYLE_TASK", "active");
             } else {
                 request.setAttribute("STYLE_LIST", "active");
                 request.setAttribute("STYLE_LIST_ALL", "active");
+                request.setAttribute("STYLE_TASK", "active");
             }
 
             url = SUCCESS;

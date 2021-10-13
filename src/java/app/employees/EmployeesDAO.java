@@ -221,10 +221,10 @@ public class EmployeesDAO {
                     String reason = rs.getString("Reason");
                     String location = rs.getString("Location");
                     byte[] tmp = rs.getBytes("Image");
-                    if(tmp!=null){
+                    if (tmp != null) {
                         base64Image = Base64.getEncoder().encodeToString(tmp);
-                    }else{
-                        base64Image ="";
+                    } else {
+                        base64Image = "";
                     }
                     boolean flag = rs.getBoolean("flag");
                     String date = rs.getString("date");
@@ -259,7 +259,7 @@ public class EmployeesDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*, t2.Date as Date, t3.Name as FacilityName, t4.Description as des "
+                String sql = "SELECT t1.*, t2.Date as Date, t3.Name as FacilityName, t4.Description as des, t4.Image as img "
                         + "FROM tblFeedbackDetail t1 "
                         + " JOIN tblFeedback t2 "
                         + "  ON t1.FeedbackID = t2.FeedbackID "
@@ -277,11 +277,11 @@ public class EmployeesDAO {
                     String quantity = rs.getString("Quantity");
                     String reason = rs.getString("Reason");
                     String location = rs.getString("Location");
-                    byte[] tmp = rs.getBytes("Image");
-                    if(tmp!=null){
+                    byte[] tmp = rs.getBytes("img");
+                    if (tmp != null) {
                         base64Image = Base64.getEncoder().encodeToString(tmp);
-                    }else{
-                        base64Image ="";
+                    } else {
+                        base64Image = "";
                     }
                     boolean flag = rs.getBoolean("flag");
                     String date = rs.getString("date");

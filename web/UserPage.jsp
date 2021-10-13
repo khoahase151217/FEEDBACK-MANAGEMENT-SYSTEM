@@ -533,16 +533,16 @@
                                                         <%
                                                             int count = 1;
                                                             for (String img : feedback.getImageList()) {
-                                                                if (count == 1 || count == 2) {
+                                                                if (!img.equals("")) {
+                                                                    if (count == 1 || count == 2) {
+                                                        %>
 
-                                                        %>  
                                                         <div class="pipe-item-image">
                                                             <img
                                                                 src="data:image/jpg/png;base64,<%=img%>"
                                                                 alt=""
                                                                 />
                                                         </div>
-
 
 
                                                         <%                                                        } else if (feedback.getImageList().size() == 3) {
@@ -581,9 +581,10 @@
                                                             </div>
                                                         </div>
                                                         <%
-                                                                    break;
+                                                                        break;
+                                                                    }
+                                                                    count++;
                                                                 }
-                                                                count++;
                                                             }
                                                         %>  
                                                     </div>
@@ -595,6 +596,7 @@
                                                         <p class="pipe-bottom-item">Room: <%=feedback.getLocation()%></p>
                                                     </div>
                                                 </div>
+
                                                 <%
                                                     }
                                                 %> 
@@ -629,7 +631,8 @@
                                                         <%
                                                             int count = 1;
                                                             for (String img : feedback.getImageList()) {
-                                                                if (count == 1 || count == 2) {
+                                                                if (!img.equals("")) {
+                                                                    if (count == 1 || count == 2) {
 
                                                         %>  
                                                         <div class="pipe-item-image">
@@ -677,9 +680,10 @@
                                                             </div>
                                                         </div>
                                                         <%
-                                                                    break;
+                                                                        break;
+                                                                    }
+                                                                    count++;
                                                                 }
-                                                                count++;
                                                             }
                                                         %>  
                                                     </div>
@@ -725,7 +729,8 @@
                                                         <%
                                                             int count = 1;
                                                             for (String img : feedback.getImageList()) {
-                                                                if (count == 1 || count == 2) {
+                                                                if (!img.equals("")) {
+                                                                    if (count == 1 || count == 2) {
 
                                                         %>  
                                                         <div class="pipe-item-image">
@@ -773,9 +778,10 @@
                                                             </div>
                                                         </div>
                                                         <%
-                                                                    break;
+                                                                        break;
+                                                                    }
+                                                                    count++;
                                                                 }
-                                                                count++;
                                                             }
                                                         %>  
                                                     </div>

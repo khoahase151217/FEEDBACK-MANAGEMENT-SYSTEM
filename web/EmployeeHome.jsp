@@ -396,10 +396,12 @@
                                                                                 <label class="input-label">Description</label>
                                                                             </div>
                                                                             <div class="feedback-detail-image-wrapper">
-                                                                                <img
-                                                                                    src="data:image/jpg/png;base64,${feedbackDetail.image}"
-                                                                                    alt=""
-                                                                                    />
+                                                                                <c:if test="${feedbackDetail.image ne ''}">
+                                                                                    <img
+                                                                                        src="data:image/jpg/png;base64,${feedbackDetail.image}"
+                                                                                        alt=""
+                                                                                        />
+                                                                                </c:if>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -469,10 +471,12 @@
                                                                                 <label class="input-label">Description</label>
                                                                             </div>
                                                                             <div class="feedback-detail-image-wrapper">
-                                                                                <img
-                                                                                    src="data:image/jpg/png;base64,${feedbackDetail.image}"
-                                                                                    alt=""
-                                                                                    />
+                                                                                <c:if test="${feedbackDetail.image ne ''}">
+                                                                                    <img
+                                                                                        src="data:image/jpg/png;base64,${feedbackDetail.image}"
+                                                                                        alt=""
+                                                                                        />
+                                                                                </c:if>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -542,10 +546,12 @@
                                                                                 <label class="input-label">Description</label>
                                                                             </div>
                                                                             <div class="feedback-detail-image-wrapper">
-                                                                                <img
-                                                                                    src="data:image/jpg/png;base64,${feedbackDetail.image}"
-                                                                                    alt=""
-                                                                                    />
+                                                                                <c:if test="${feedbackDetail.image ne ''}">
+                                                                                    <img
+                                                                                        src="data:image/jpg/png;base64,${feedbackDetail.image}"
+                                                                                        alt=""
+                                                                                        />
+                                                                                </c:if>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -692,10 +698,12 @@
                                                                             <label class="input-label">Description</label>
                                                                         </div>
                                                                         <div class="feedback-detail-image-wrapper">
-                                                                            <img
-                                                                                src="data:image/jpg/png;base64,${feedbackDetail.image}"
-                                                                                alt=""
-                                                                                />
+                                                                            <c:if test="${feedbackDetail.image ne ''}">
+                                                                                <img
+                                                                                    src="data:image/jpg/png;base64,${feedbackDetail.image}"
+                                                                                    alt=""
+                                                                                    />
+                                                                            </c:if>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -753,10 +761,12 @@
                                                                             <label class="input-label">Description</label>
                                                                         </div>
                                                                         <div class="feedback-detail-image-wrapper">
-                                                                            <img
-                                                                                src="data:image/jpg/png;base64,${feedbackDetail.image}"
-                                                                                alt=""
-                                                                                />
+                                                                            <c:if test="${feedbackDetail.image ne ''}">
+                                                                                <img
+                                                                                    src="data:image/jpg/png;base64,${feedbackDetail.image}"
+                                                                                    alt=""
+                                                                                    />
+                                                                            </c:if>
                                                                         </div>
                                                                     </div>
                                                                 </div>

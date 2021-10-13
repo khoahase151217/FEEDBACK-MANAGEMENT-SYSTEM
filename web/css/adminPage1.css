@@ -650,6 +650,8 @@ img {
 .user-list .user-item-image img {
     margin: 0 auto;
     height: 100%;
+    width: 100%;
+    object-fit: cover;
 }
 .user-list .user-item-heading {
     margin-top: 20px;
@@ -685,16 +687,18 @@ img {
     margin-top: auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    border-radius: 0 0 15px 15px;
+    overflow: hidden;
 }
-.user-list .user-item-bottom .user-item-link:first-child {
-    border-radius: 0 0 0 15px;
-}
-.user-list .user-item-bottom .user-item-link:last-child {
-    border-radius: 0 0 0 15px;
-}
-.user-list .user-item-bottom .user-item-link:nth-last-child(2) {
+/*.user-list .user-item-bottom .user-item-link:first-child {
     border-radius: 0 0 15px 0;
-}
+}*/
+/*.user-list .user-item-bottom .user-item-link:last-child {
+    border-radius: 0 0 0 15px;
+}*/
+/*.user-list .user-item-bottom .user-item-link:nth-child(2) {
+    border-radius: 0 0 15px 0;
+}*/
 .user-list .user-item-link {
     padding: 10px 0;
     display: flex;
