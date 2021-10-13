@@ -26,6 +26,14 @@ public class ResponseDTO {
     public ResponseDTO() {
     }
 
+    public ResponseDTO(String feedbackDetailID, String userID, String des, String statusID, String date) {
+        this.feedbackDetailID = feedbackDetailID;
+        this.userID = userID;
+        this.des = des;
+        this.statusID = statusID;
+        this.date = date;
+    }
+
     public ResponseDTO(String feedbackDetailID, String image, String des, String responseID, String deviceName, String location, String userName) {
         this.feedbackDetailID = feedbackDetailID;
         this.image = image;
@@ -36,7 +44,20 @@ public class ResponseDTO {
         this.userName = userName;
     }
 
-    public ResponseDTO(String feedbackDetailID, String image, String des, String responseID, String deviceName, String location, String userName, String quantity) {
+    public ResponseDTO(String feedbackDetailID, String image, String des, String statusID, String responseID, String deviceName, String location, String userName, String quantity, String date) {
+        this.feedbackDetailID = feedbackDetailID;
+        this.image = image;
+        this.des = des;
+        this.statusID = statusID;
+        this.responseID = responseID;
+        this.deviceName = deviceName;
+        this.location = location;
+        this.userName = userName;
+        this.quantity = quantity;
+        this.date = date;
+    }
+
+    public ResponseDTO(String feedbackDetailID, String image, String des, String responseID, String deviceName, String location, String userName, String quantity, String date) {
         this.feedbackDetailID = feedbackDetailID;
         this.image = image;
         this.des = des;
@@ -45,20 +66,10 @@ public class ResponseDTO {
         this.location = location;
         this.userName = userName;
         this.quantity = quantity;
-    }
-
-    public ResponseDTO(String feedbackDetailID, String userID, String image, String des, String statusID, String deviceName, String location, String userName, String quantity, String date) {
-        this.feedbackDetailID = feedbackDetailID;
-        this.userID = userID;
-        this.image = image;
-        this.des = des;
-        this.statusID = statusID;
-        this.deviceName = deviceName;
-        this.location = location;
-        this.userName = userName;
-        this.quantity = quantity;
         this.date = date;
     }
+
+ 
 
     public ResponseDTO(String feedbackDetailID, String userID, String des, String statusID) {
         this.feedbackDetailID = feedbackDetailID;
@@ -67,13 +78,7 @@ public class ResponseDTO {
         this.statusID = statusID;
     }
 
-    public ResponseDTO(String feedbackDetailID, String userID, String image, String des, String statusID) {
-        this.feedbackDetailID = feedbackDetailID;
-        this.userID = userID;
-        this.image = image;
-        this.des = des;
-        this.statusID = statusID;
-    }
+ 
 
     public ResponseDTO(String feedbackDetailID, String userID, String image, String des, String statusID, String responseID) {
         this.feedbackDetailID = feedbackDetailID;
