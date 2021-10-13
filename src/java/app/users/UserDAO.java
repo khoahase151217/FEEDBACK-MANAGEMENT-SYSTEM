@@ -1512,9 +1512,10 @@ public class UserDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.* , t2.Name as StatusName "
+                String sql = "SELECT t1.* , t2.Name as StatusName,t3.Name as roleName "
                         + " FROM tblUser t1 "
                         + " JOIN tblUserStatus t2 on t1.StatusID = t2.StatusID "
+                        + " JOIN tblRole t3 on t1.RoleID=t3.RoleID "
                         + " WHERE t1.FullName like ?";
                 stm = conn.prepareCall(sql);
                 stm.setString(1, "%" + search + "%");
@@ -1526,7 +1527,6 @@ public class UserDAO {
                     String RoleID = rs.getString("RoleID");
                     String StatusID = rs.getString("StatusID");
                     String Image = rs.getString("Image");
-                    //
                     String RoleName = rs.getString("roleName");
                     String StatusName = rs.getString("statusName");
                     byte[] tmp = rs.getBytes("BinaryImage");
