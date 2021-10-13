@@ -5,64 +5,42 @@
  */
 package app.controller;
 
-import app.feedback.FeedbackDTO;
-import app.feedback.FeedbackDetailDTO;
-import app.response.ResponseDAO;
-import app.response.ResponseDTO;
+import app.feedback.FeedbackDAO;
 import java.io.IOException;
-import java.util.List;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author ASUS
  */
-@WebServlet(name = "ShowFeedbackResponeDetailForManagerController", urlPatterns = {"/ShowFeedbackResponeDetailForManagerController"})
-public class ShowFeedbackResponeDetailForManagerController extends HttpServlet {
-
+@WebServlet(name = "UpdateFeedbackDeclineController", urlPatterns = {"/UpdateFeedbackDeclineController"})
+public class UpdateFeedbackDeclineController extends HttpServlet {
+  private static final String SUCCESS = "##";
     private static final String ERROR = "##";
-    private static final String SUCCESS = "adminPage.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            HttpSession session = request.getSession();
-            ResponseDAO dao = new ResponseDAO();
-            String feedbackID = (String) request.getParameter("feedback_response_id");
-            String styleList = request.getParameter("style_list");
-            if (feedbackID == null) {
-                feedbackID = (String) request.getAttribute("FEEDBACK_RESPONE_ID");
+            String feedbackID = request.getParameter("feedbackID");
+            FeedbackDAO dao = new FeedbackDAO();
+            if(dao.updateDecline(feedbackID)){
+                url = SUCCESS;
             }
-            List<ResponseDTO> dto = dao.showListResponeDetail(feedbackID);
-            int count = dao.countDetail(feedbackID);
-            if (count == dto.size()) {
-                request.setAttribute("COMPLETED_LIST_TRUE", "active");
-            }
-            session.setAttribute("RESPONE_DETAIL_LIST", dto);
-            request.setAttribute("RESPONE_ACTIVE", feedbackID);
-            request.setAttribute("STYLE_PIPE", "active");
-            request.setAttribute("STYLE_LIST_ALL", "active");
-            if (styleList != null) {
-                request.setAttribute("STYLE_COMMENT", "active");
-            } else {
-                request.setAttribute("STYLE_TASK", "active");
-            }
-            url = SUCCESS;
         } catch (Exception e) {
-            log("Error at ShowFeedbackResponeDetailForManagerController" + e.toString());
-        } finally {
+            log("Error at UpdateFeedbackDeclineController:" + e.toString());
+        }finally{
             request.getRequestDispatcher(url).forward(request, response);
-        }
-
+    }
     }
 
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

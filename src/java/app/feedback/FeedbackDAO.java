@@ -1225,4 +1225,54 @@ public class FeedbackDAO {
         }
         return list;
     }
+    public boolean updateDone(String feedbackId) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " UPDATE tblFeedback "
+                        + " SET statusID='done' "
+                        + " WHERE FeedbackID=? ";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, feedbackId);
+                check = ps.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+    public boolean updateDecline(String feedbackId) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " UPDATE tblFeedback "
+                        + " SET statusID='decline' "
+                        + " WHERE FeedbackID=? ";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, feedbackId);
+                check = ps.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
 }
