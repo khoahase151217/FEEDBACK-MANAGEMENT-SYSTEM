@@ -31,7 +31,7 @@
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
         ></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage2.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage1.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ManagerViewUser.css" />
     </head>
     <body>
@@ -298,7 +298,7 @@
                                                                 <input type="hidden" name="roleID" value="${user.roleID}"/>
                                                                 <input type="hidden" name="search" value="${requestScope.SEARCH}"/>
                                                                 <input type="hidden" name="style_flag" value="all"/>
-                                                                <button type="submit">
+                                                                <button type="submit" class="user-item-link">
                                                                     <ion-icon name="create-outline"></ion-icon>
                                                                     Edit Profile
                                                                 </button>
@@ -368,7 +368,7 @@
                                                                 <input type="hidden" name="roleID" value="${user.roleID}"/>
                                                                 <input type="hidden" name="search" value="${requestScope.SEARCH}"/>
                                                                 <input type="hidden" name="style_flag" value="all"/>
-                                                                <button type="submit">
+                                                                <button type="submit" class="user-item-link">
                                                                     <ion-icon name="create-outline"></ion-icon>
                                                                     Edit Profile
                                                                 </button>
@@ -441,7 +441,7 @@
                                                                 <input type="hidden" name="roleID" value="${user.roleID}"/>
                                                                 <input type="hidden" name="search" value="${requestScope.SEARCH}"/>
                                                                 <input type="hidden" name="style_flag" value="all"/>
-                                                                <button type="submit">
+                                                                <button type="submit" class="user-item-link">
                                                                     <ion-icon name="create-outline"></ion-icon>
                                                                     Edit Profile
                                                                 </button>
@@ -511,7 +511,7 @@
                                                                 <input type="hidden" name="roleID" value="${user.roleID}"/>
                                                                 <input type="hidden" name="search" value="${requestScope.SEARCH}"/>
                                                                 <input type="hidden" name="style_flag" value="all"/>
-                                                                <button type="submit">
+                                                                <button type="submit" class="user-item-link">
                                                                     <ion-icon name="create-outline"></ion-icon>
                                                                     Edit Profile
                                                                 </button>
@@ -581,7 +581,7 @@
                                                                 <input type="hidden" name="roleID" value="${user.roleID}"/>
                                                                 <input type="hidden" name="search" value="${requestScope.SEARCH}"/>
                                                                 <input type="hidden" name="style_flag" value="all"/>
-                                                                <button type="submit">
+                                                                <button type="submit" class="user-item-link">
                                                                     <ion-icon name="create-outline"></ion-icon>
                                                                     Edit Profile
                                                                 </button>

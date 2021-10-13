@@ -1619,4 +1619,56 @@ public class UserDAO {
         return check;
     }
 
+    //Update User Status Fast
+    public boolean UpdateUserStatusActive(String userID, String statusID) throws ClassNotFoundException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        boolean check = false;
+        try {
+
+            con = DBUtils.getConnection();
+            if (con != null) {
+                String sql = " Update tblUser set StatusID='active' "
+                        + " WHERE userID = ?";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, userID);
+                check = stm.executeUpdate() > 0;
+            }
+        } finally {
+
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
+    }
+
+    public boolean UpdateUserStatusInactive(String userID, String statusID) throws ClassNotFoundException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        boolean check = false;
+        try {
+
+            con = DBUtils.getConnection();
+            if (con != null) {
+                String sql = " Update tblUser set StatusID='inactive' "
+                        + " WHERE userID = ?";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, userID);
+                check = stm.executeUpdate() > 0;
+            }
+        } finally {
+
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
+    }
 }
