@@ -23,8 +23,26 @@ public class FeedbackDetailDTO {
     private String deviceName;
     private String date;
     private String employeeName;
+    private String responseDes;
+
 
     public FeedbackDetailDTO() {
+    }
+
+    public FeedbackDetailDTO(String feedbackDetailID, String facilityID, String userID, String feedbackID, String quanity, String reason, String location, String image, boolean flag, String deviceName, String date, String employeeName, String responseDes) {
+        this.feedbackDetailID = feedbackDetailID;
+        this.facilityID = facilityID;
+        this.userID = userID;
+        this.feedbackID = feedbackID;
+        this.quanity = quanity;
+        this.reason = reason;
+        this.location = location;
+        this.image = image;
+        this.flag = flag;
+        this.deviceName = deviceName;
+        this.date = date;
+        this.employeeName = employeeName;
+        this.responseDes = responseDes;
     }
 
     public FeedbackDetailDTO(String facilityID, String userID, String feedbackID, String quanity, String reason, String location, boolean flag) {
@@ -78,6 +96,14 @@ public class FeedbackDetailDTO {
         this.location = location;
         this.image = image;
         this.flag = flag;
+    }
+
+    public String getResponseDes() {
+        return responseDes;
+    }
+
+    public void setResponseDes(String responseDes) {
+        this.responseDes = responseDes;
     }
 
 

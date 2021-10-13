@@ -591,7 +591,7 @@ public class FeedbackDAO {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-
+        String base64Image;
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
@@ -617,21 +617,12 @@ public class FeedbackDAO {
                     String statusName = rs.getString("statusName");
                     String deviceName = rs.getString("deviceName");
                     String location = rs.getString("location");
-                    Blob blob = rs.getBlob("image");
-                    InputStream inputStream = blob.getBinaryStream();
-                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                    byte[] buffer = new byte[4096];
-                    int bytesRead = -1;
-
-                    while ((bytesRead = inputStream.read(buffer)) != -1) {
-                        outputStream.write(buffer, 0, bytesRead);
+                    byte[] tmp = rs.getBytes("Image");
+                    if(tmp!=null){
+                        base64Image = Base64.getEncoder().encodeToString(tmp);
+                    }else{
+                        base64Image ="";
                     }
-
-                    byte[] imageBytes = outputStream.toByteArray();
-                    String base64Image = Base64.getEncoder().encodeToString(imageBytes);
-
-                    inputStream.close();
-                    outputStream.close();
                     list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
                 }
             }
@@ -659,7 +650,7 @@ public class FeedbackDAO {
         InputStream inputStream = null;
         ByteArrayOutputStream outputStream = null;
         Blob blob = null;
-
+String base64Image;
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
@@ -682,7 +673,11 @@ public class FeedbackDAO {
                     String reason = rs.getString("Reason");
                     String location = rs.getString("Location");
                     byte[] tmp = rs.getBytes("Image");
-                    String base64Image = Base64.getEncoder().encodeToString(tmp);
+                    if(tmp!=null){
+                        base64Image = Base64.getEncoder().encodeToString(tmp);
+                    }else{
+                        base64Image ="";
+                    }
                     boolean flag = rs.getBoolean("flag");
                     String date = rs.getString("date");
                     String facilityName = rs.getString("FacilityName");
@@ -722,6 +717,7 @@ public class FeedbackDAO {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
+        String base64Image;
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
@@ -743,21 +739,12 @@ public class FeedbackDAO {
                     String quantity = rs.getString("Quantity");
                     String reason = rs.getString("Reason");
                     String location = rs.getString("Location");
-                    Blob blob = rs.getBlob("Image");
-                    InputStream inputStream = blob.getBinaryStream();
-                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                    byte[] buffer = new byte[4096];
-                    int bytesRead = -1;
-
-                    while ((bytesRead = inputStream.read(buffer)) != -1) {
-                        outputStream.write(buffer, 0, bytesRead);
+                    byte[] tmp = rs.getBytes("Image");
+                    if(tmp!=null){
+                        base64Image = Base64.getEncoder().encodeToString(tmp);
+                    }else{
+                        base64Image ="";
                     }
-
-                    byte[] imageBytes = outputStream.toByteArray();
-                    String base64Image = Base64.getEncoder().encodeToString(imageBytes);
-
-                    inputStream.close();
-                    outputStream.close();
                     boolean flag = rs.getBoolean("flag");
                     String date = rs.getString("date");
                     String facilityName = rs.getString("FacilityName");

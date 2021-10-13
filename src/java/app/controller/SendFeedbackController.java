@@ -80,14 +80,14 @@ public class SendFeedbackController extends HttpServlet {
             String date = sdf.format(new Date());
             Fdao.insertFeedback(user.getUserID(), date);
             String feedbackId = Fdao.getFeedbackID(user.getUserID());
-
+            String tmp;
             String description = "";
             String facilityID = "";
             String quantity = "";
             String reason = "";
             String location = "";
             int count = 0;
-            int check =0; //3
+            int check = 0; //3
             boolean isMultiPart = ServletFileUpload.isMultipartContent(request);
             if (!isMultiPart) {
 
@@ -132,7 +132,7 @@ public class SendFeedbackController extends HttpServlet {
                         }
 
                     } else {
-                        if(count==check){
+                        if (count == check) {
                             break;
                         }
                         if (description.equals("") || facilityID.equals("") || quantity.equals("") || reason.equals("") || location.equals("")) {
@@ -140,14 +140,26 @@ public class SendFeedbackController extends HttpServlet {
                             Fdao.deleteDetail(feedbackId);
                             url = ERROR;
                             request.setAttribute("SEND_FAILURE", "active");
+                            request.setAttribute("SEND_SUCCESS", "");
                             break;
                         } else {
-                            photo = (FileInputStream) item.getInputStream();
-                            detail = new FeedbackDetailDTO(facilityID, user.getUserID(), feedbackId, quantity, reason, location, false);
-                            Fdao.insertFeedbackDetail(feedbackId, detail, photo);
-                            count++;
-                            request.setAttribute("SEND_SUCCESS", "active");
-                            url = SUCCESS;
+                            tmp = item.getContentType();
+                            if (tmp.contains("image")) {
+                                photo = (FileInputStream) item.getInputStream();
+                                detail = new FeedbackDetailDTO(facilityID, user.getUserID(), feedbackId, quantity, reason, location, false);
+                                Fdao.insertFeedbackDetail(feedbackId, detail, photo);
+                                count++;
+                                request.setAttribute("SEND_SUCCESS", "active");
+                                request.setAttribute("SEND_FAILURE", "");
+                                url = SUCCESS;
+                            } else {
+                                detail = new FeedbackDetailDTO(facilityID, user.getUserID(), feedbackId, quantity, reason, location, false);
+                                Fdao.insertFeedbackDetail(feedbackId, detail, null);
+                                count++;
+                                request.setAttribute("SEND_SUCCESS", "active");
+                                request.setAttribute("SEND_FAILURE", "");
+                                url = SUCCESS;
+                            }
 
                         }
                     }

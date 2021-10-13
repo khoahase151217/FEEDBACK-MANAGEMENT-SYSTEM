@@ -200,6 +200,7 @@ public class EmployeesDAO {
         Connection conn = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
+        String base64Image;
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
@@ -220,7 +221,11 @@ public class EmployeesDAO {
                     String reason = rs.getString("Reason");
                     String location = rs.getString("Location");
                     byte[] tmp = rs.getBytes("Image");
-                    String base64Image = Base64.getEncoder().encodeToString(tmp);
+                    if(tmp!=null){
+                        base64Image = Base64.getEncoder().encodeToString(tmp);
+                    }else{
+                        base64Image ="";
+                    }
                     boolean flag = rs.getBoolean("flag");
                     String date = rs.getString("date");
                     String facilityName = rs.getString("FacilityName");
@@ -250,15 +255,18 @@ public class EmployeesDAO {
         Connection conn = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
+        String base64Image;
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*, t2.Date as Date, t3.Name as FacilityName "
+                String sql = "SELECT t1.*, t2.Date as Date, t3.Name as FacilityName, t4.Description as des "
                         + "FROM tblFeedbackDetail t1 "
-                        + "JOIN tblFeedback t2 "
+                        + " JOIN tblFeedback t2 "
                         + "  ON t1.FeedbackID = t2.FeedbackID "
-                        + "JOIN tblFacilities t3 "
+                        + " JOIN tblFacilities t3 "
                         + "  ON t1.FacilityID = t3.FacilityID "
+                        + " JOIN tblResponseFeedback t4 "
+                        + " ON t1.FeedbackDetailID = t4.FeedbackDetailID "
                         + " WHERE t1.UserID = ? AND t1.flag='true' AND t1.FeedbackID = ?";
                 stm = conn.prepareCall(sql);
                 stm.setString(1, userID);
@@ -270,12 +278,17 @@ public class EmployeesDAO {
                     String reason = rs.getString("Reason");
                     String location = rs.getString("Location");
                     byte[] tmp = rs.getBytes("Image");
-                    String base64Image = Base64.getEncoder().encodeToString(tmp);
+                    if(tmp!=null){
+                        base64Image = Base64.getEncoder().encodeToString(tmp);
+                    }else{
+                        base64Image ="";
+                    }
                     boolean flag = rs.getBoolean("flag");
                     String date = rs.getString("date");
                     String facilityName = rs.getString("FacilityName");
                     String feedbackDetailID = rs.getString("feedbackDetailID");
-                    dto.add(new FeedbackDetailDTO(feedbackDetailID, facilityID, userID, feedbackID, quantity, reason, location, base64Image, flag, facilityName, date));
+                    String des = rs.getString("des");
+                    dto.add(new FeedbackDetailDTO(feedbackDetailID, facilityID, userID, feedbackID, quantity, reason, location, base64Image, flag, facilityName, date, "", des));
                 }
             }
 

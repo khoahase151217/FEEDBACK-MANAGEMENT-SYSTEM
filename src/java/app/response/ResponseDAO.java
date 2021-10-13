@@ -195,6 +195,7 @@ public class ResponseDAO {
         Connection conn = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
+        String base64Image;
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
@@ -220,7 +221,11 @@ public class ResponseDAO {
                     String des = rs.getString("Description");
                     String quantity = rs.getString("quantity");
                     byte[] tmp = rs.getBytes("Image");
-                    String base64Image = Base64.getEncoder().encodeToString(tmp);
+                    if(tmp!=null){
+                        base64Image = Base64.getEncoder().encodeToString(tmp);
+                    }else{
+                        base64Image ="";
+                    }
                     String location = rs.getString("location");
                     String deviceName = rs.getString("deivcename");
                     dto.add(new ResponseDTO(feedbackDetailID, base64Image, des, responseID, deviceName, location, userName, quantity, date));

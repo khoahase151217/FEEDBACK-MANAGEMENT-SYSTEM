@@ -687,7 +687,7 @@
                                                                                 name="description"
                                                                                 id="description"
                                                                                 readonly
-                                                                                >${feedbackDetail.reason}</textarea
+                                                                                >${feedbackDetail.responseDes}</textarea
                                                                             >
                                                                             <label class="input-label">Description</label>
                                                                         </div>
@@ -748,7 +748,7 @@
                                                                                 name="description"
                                                                                 id="description"
                                                                                 readonly
-                                                                                >${feedbackDetail.reason}</textarea
+                                                                                >${feedbackDetail.responseDes}</textarea
                                                                             >
                                                                             <label class="input-label">Description</label>
                                                                         </div>
