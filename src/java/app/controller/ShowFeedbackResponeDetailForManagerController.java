@@ -5,6 +5,7 @@
  */
 package app.controller;
 
+import app.feedback.FeedbackDTO;
 import app.feedback.FeedbackDetailDTO;
 import app.response.ResponseDAO;
 import app.response.ResponseDTO;
@@ -39,13 +40,17 @@ public class ShowFeedbackResponeDetailForManagerController extends HttpServlet {
                 feedbackID = (String) request.getAttribute("FEEDBACK_RESPONE_ID");
             }
             List<ResponseDTO> dto = dao.showListResponeDetail(feedbackID);
+            int count = dao.countDetail(feedbackID);
+            if (count == dto.size()) {
+                request.setAttribute("COMPLETED_LIST_ACTIVE", "active");
+            }
             session.setAttribute("RESPONE_DETAIL_LIST", dto);
             request.setAttribute("RESPONE_ACTIVE", feedbackID);
             request.setAttribute("STYLE_PIPE", "active");
             request.setAttribute("STYLE_LIST_ALL", "active");
             if (styleList != null) {
                 request.setAttribute("STYLE_COMMENT", "active");
-            }else {
+            } else {
                 request.setAttribute("STYLE_TASK", "active");
             }
             url = SUCCESS;
@@ -57,7 +62,7 @@ public class ShowFeedbackResponeDetailForManagerController extends HttpServlet {
 
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

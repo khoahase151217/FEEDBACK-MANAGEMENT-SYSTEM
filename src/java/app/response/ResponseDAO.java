@@ -241,5 +241,39 @@ public class ResponseDAO {
         }
         return dto;
     }
+    
+    public int countDetail(String feedbackID) throws SQLException {
+        int count = 0;
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT COUNT(FeedbackDetailID) as count"
+                        + " FROM tblFeedbackDetail  "
+                        + " WHERE FeedbackID = ? ";
+                stm = conn.prepareCall(sql);
+                stm.setString(1, feedbackID);
+                rs = stm.executeQuery();
+                count = rs.getInt(count);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return count;
+    }
+    
 
 }

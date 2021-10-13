@@ -393,7 +393,7 @@ public class EmployeesDAO {
             if (conn != null) {
                 String sql = " SELECT t1.*,t3.Email as email ,t3.FullName as fullName ,t4.Name as statusName FROM tblFeedback t1 "
                         + " JOIN tblFeedbackDetail t2  ON t1.FeedbackID = t2.FeedbackID "
-                        + " JOIN tblUser t3    ON t1.UserID = t3.UserID "
+                        + " JOIN tblUser t3 ON t1.UserID = t3.UserID "
                         + " JOIN tblFeedbackStatus t4 ON t1.statusID = t4.FeedbackStatusID "
                         + " WHERE t2.flag = 'true' AND t1.statusID not in ('decline', 'done') "
                         + " group by t1.Date ,t1.FeedbackID,t1.statusID, t1.UserID, t3.Email, t3.FullName, t4.Name "
