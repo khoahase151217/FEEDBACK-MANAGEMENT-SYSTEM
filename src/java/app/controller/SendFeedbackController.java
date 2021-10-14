@@ -135,7 +135,7 @@ public class SendFeedbackController extends HttpServlet {
                         if (count == check) {
                             break;
                         }
-                        if (description.equals("") || facilityID.equals("") || quantity.equals("") || reason.equals("") || location.equals("")) {
+                        if (facilityID.equals("") || quantity.equals("") || reason.equals("") || location.equals("")) {
                             Fdao.deleteFeedback(feedbackId);
                             Fdao.deleteDetail(feedbackId);
                             url = ERROR;
@@ -146,14 +146,14 @@ public class SendFeedbackController extends HttpServlet {
                             tmp = item.getContentType();
                             if (tmp.contains("image")) {
                                 photo = (FileInputStream) item.getInputStream();
-                                detail = new FeedbackDetailDTO(facilityID, user.getUserID(), feedbackId, quantity, reason, location, false);
+                                detail = new FeedbackDetailDTO(facilityID, user.getUserID(), feedbackId, quantity, reason, location,false, description);
                                 Fdao.insertFeedbackDetail(feedbackId, detail, photo);
                                 count++;
                                 request.setAttribute("SEND_SUCCESS", "active");
                                 request.setAttribute("SEND_FAILURE", "");
                                 url = SUCCESS;
                             } else {
-                                detail = new FeedbackDetailDTO(facilityID, user.getUserID(), feedbackId, quantity, reason, location, false);
+                                detail = new FeedbackDetailDTO(facilityID, user.getUserID(), feedbackId, quantity, reason, location,false, description);
                                 Fdao.insertFeedbackDetail(feedbackId, detail, null);
                                 count++;
                                 request.setAttribute("SEND_SUCCESS", "active");

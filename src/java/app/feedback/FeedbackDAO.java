@@ -133,8 +133,8 @@ public class FeedbackDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = " INSERT INTO tblFeedbackDetail( FacilityID, Quantity, Reason, Location, Image, FeedbackID, UserID, flag ) "
-                        + " VALUES(?,?,?,?,?,?,?,?) ";
+                String sql = " INSERT INTO tblFeedbackDetail( FacilityID, Quantity, Reason, Location, Image, FeedbackID, UserID, flag, Description ) "
+                        + " VALUES(?,?,?,?,?,?,?,?,?) ";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, detail.getFacilityID());
                 ps.setString(2, detail.getQuanity());
@@ -144,6 +144,7 @@ public class FeedbackDAO {
                 ps.setString(6, feedbackID);
                 ps.setString(7, detail.getUserID());
                 ps.setBoolean(8, detail.isFlag());
+                ps.setString(9, detail.getDescription());
                 check = ps.executeUpdate() > 0;
             }
         } catch (Exception e) {
@@ -672,6 +673,7 @@ String base64Image;
                     String quantity = rs.getString("Quantity");
                     String reason = rs.getString("Reason");
                     String location = rs.getString("Location");
+                    String des = rs.getString("Description");
                     byte[] tmp = rs.getBytes("Image");
                     if(tmp!=null){
                         base64Image = Base64.getEncoder().encodeToString(tmp);
@@ -681,7 +683,7 @@ String base64Image;
                     boolean flag = rs.getBoolean("flag");
                     String date = rs.getString("date");
                     String facilityName = rs.getString("FacilityName");
-                    list.add(new FeedbackDetailDTO(feedbackDetailId, facilityID, userId, feedbackID, quantity, reason, location, base64Image, flag, facilityName, date));
+                    list.add(new FeedbackDetailDTO(feedbackDetailId, facilityID, userId, feedbackID, quantity, reason, location, base64Image, flag, facilityName, date, des));
 
                 }
             }
@@ -739,6 +741,7 @@ String base64Image;
                     String quantity = rs.getString("Quantity");
                     String reason = rs.getString("Reason");
                     String location = rs.getString("Location");
+                    String des = rs.getString("Description");
                     byte[] tmp = rs.getBytes("Image");
                     if(tmp!=null){
                         base64Image = Base64.getEncoder().encodeToString(tmp);
@@ -749,7 +752,7 @@ String base64Image;
                     String date = rs.getString("date");
                     String facilityName = rs.getString("FacilityName");
                     String fullName = rs.getString("fullName");
-                    list.add(new FeedbackDetailDTO(feedbackDetailId, facilityID, userId, feedbackID, quantity, reason, location, base64Image, flag, facilityName, date, fullName));
+                    list.add(new FeedbackDetailDTO(feedbackDetailId, facilityID, userId, feedbackID, quantity, reason, location, base64Image, flag, facilityName, date, fullName, des));
 
                 }
             }

@@ -220,6 +220,7 @@ public class EmployeesDAO {
                     String quantity = rs.getString("Quantity");
                     String reason = rs.getString("Reason");
                     String location = rs.getString("Location");
+                    String des = rs.getString("Description");
                     byte[] tmp = rs.getBytes("Image");
                     if (tmp != null) {
                         base64Image = Base64.getEncoder().encodeToString(tmp);
@@ -230,7 +231,7 @@ public class EmployeesDAO {
                     String date = rs.getString("date");
                     String facilityName = rs.getString("FacilityName");
                     String feedbackDetailID = rs.getString("feedbackDetailID");
-                    dto.add(new FeedbackDetailDTO(feedbackDetailID, facilityID, userID, feedbackID, quantity, reason, location, base64Image, flag, facilityName, date));
+                    dto.add(new FeedbackDetailDTO(feedbackDetailID, facilityID, userID, feedbackID, quantity, reason, location, base64Image, flag, facilityName, date, des));
                 }
             }
 

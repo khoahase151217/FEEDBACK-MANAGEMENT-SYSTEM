@@ -24,12 +24,14 @@ public class FeedbackDetailDTO {
     private String date;
     private String employeeName;
     private String responseDes;
+    private String description;
+
 
 
     public FeedbackDetailDTO() {
     }
 
-    public FeedbackDetailDTO(String feedbackDetailID, String facilityID, String userID, String feedbackID, String quanity, String reason, String location, String image, boolean flag, String deviceName, String date, String employeeName, String responseDes) {
+    public FeedbackDetailDTO(String feedbackDetailID, String facilityID, String userID, String feedbackID, String quanity, String reason, String location, String image, boolean flag, String deviceName, String date, String employeeName, String description) {
         this.feedbackDetailID = feedbackDetailID;
         this.facilityID = facilityID;
         this.userID = userID;
@@ -42,8 +44,36 @@ public class FeedbackDetailDTO {
         this.deviceName = deviceName;
         this.date = date;
         this.employeeName = employeeName;
-        this.responseDes = responseDes;
+        this.description = description;
     }
+
+    public FeedbackDetailDTO(String feedbackDetailID, String facilityID, String userID, String feedbackID, String quanity, String reason, String location, String image, boolean flag, String deviceName, String date, String description) {
+        this.feedbackDetailID = feedbackDetailID;
+        this.facilityID = facilityID;
+        this.userID = userID;
+        this.feedbackID = feedbackID;
+        this.quanity = quanity;
+        this.reason = reason;
+        this.location = location;
+        this.image = image;
+        this.flag = flag;
+        this.deviceName = deviceName;
+        this.date = date;
+        this.description = description;
+    }
+
+    public FeedbackDetailDTO( String facilityID, String userID, String feedbackID, String quanity, String reason, String location, boolean flag, String description) {
+        this.facilityID = facilityID;
+        this.userID = userID;
+        this.feedbackID = feedbackID;
+        this.quanity = quanity;
+        this.reason = reason;
+        this.location = location;
+        this.flag = flag;
+        this.description = description;
+    }
+
+ 
 
     public FeedbackDetailDTO(String facilityID, String userID, String feedbackID, String quanity, String reason, String location, boolean flag) {
         this.facilityID = facilityID;
@@ -57,20 +87,7 @@ public class FeedbackDetailDTO {
     
     
 
-    public FeedbackDetailDTO(String feedbackDetailID, String facilityID, String userID, String feedbackID, String quanity, String reason, String location, String image, boolean flag, String deviceName, String date, String employeeName) {
-        this.feedbackDetailID = feedbackDetailID;
-        this.facilityID = facilityID;
-        this.userID = userID;
-        this.feedbackID = feedbackID;
-        this.quanity = quanity;
-        this.reason = reason;
-        this.location = location;
-        this.image = image;
-        this.flag = flag;
-        this.deviceName = deviceName;
-        this.date = date;
-        this.employeeName = employeeName;
-    }
+   
 
     public FeedbackDetailDTO(String feedbackDetailID, String facilityID, String userID, String feedbackID, String quanity, String reason, String location, String image, boolean flag, String deviceName, String date) {
         this.feedbackDetailID = feedbackDetailID;
@@ -204,6 +221,14 @@ public class FeedbackDetailDTO {
 
     public void setEmployeeName(String employeeName) {
         this.employeeName = employeeName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
     
     
