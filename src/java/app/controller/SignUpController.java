@@ -70,6 +70,8 @@ public class SignUpController extends HttpServlet {
                 UserDAO dao = new UserDAO();
                 if (dao.signUp(new UserDTO(fullName, password, user.getEmail(), "US", "active", user.getImage()))) {
                     url = SUCCESS;
+                    UserDTO member= dao.GetMemberSignup(new UserDTO(fullName, password, user.getEmail(), "US", "active", user.getImage()));
+                    session.setAttribute("LOGIN_USER", member);
                 }
             }
         } catch (Exception e) {

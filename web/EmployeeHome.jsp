@@ -90,7 +90,7 @@
                         </div>
                         <h1 class="status">Thank You</h1>
                         <p class="desc">
-                            You have already cancel this feedback successfully !
+                            You have already response to this feedback successfully !
                         </p>
                     </div>
                     <div class="form-message-item ${requestScope.SEND_FAILURE}">

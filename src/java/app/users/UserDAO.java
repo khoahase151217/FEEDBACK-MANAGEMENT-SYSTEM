@@ -281,6 +281,51 @@ public class UserDAO {
         }
         return list;
     }
+    public UserDTO GetMemberSignup(UserDTO member) throws SQLException {
+        UserDTO user=new UserDTO();
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "select * from tblUser "
+                        + " where Email=? and FullName=? and roleID=? and statusID=? and password=? and image=? ";
+                       
+                st = conn.prepareStatement(sql);
+                st.setString(1, member.getEmail());
+                st.setString(2, member.getFullName());
+                st.setString(3, member.getRoleID());
+                st.setString(4, member.getStatusID());
+                st.setString(5, member.getPassword());
+                st.setString(6, member.getImage());
+                rs = st.executeQuery();
+                if (rs.next()) {
+                    String fullName = rs.getString("fullName");
+                    String email = rs.getString("email");
+                    String roleID = rs.getString("RoleID");
+                    String statusID = rs.getString("StatusID");
+                    String image = rs.getString("Image");
+                    String userID=rs.getString("userID");
+                    user=new UserDTO(userID, fullName, "****", email, roleID, statusID, image);
+                }
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (st != null) {
+                st.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return user;
+    }
 
     public List<UserDTO> sortUserNameDesc() throws SQLException {
         List<UserDTO> list = new ArrayList();
