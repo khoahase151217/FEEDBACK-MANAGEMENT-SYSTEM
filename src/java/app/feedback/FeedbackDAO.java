@@ -606,7 +606,7 @@ public class FeedbackDAO {
                         + "  ON t1.UserID = t4.UserID "
                         + " JOIN tblFeedbackStatus t5 "
                         + "  ON t1.StatusID = t5.FeedbackStatusID"
-                        + " WHERE t1.UserID = ? "
+                        + " WHERE t1.UserID = ? AND t2.StatusID = 'active' "
                         + " Order by t1.Date";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, userId);
