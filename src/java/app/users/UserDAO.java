@@ -215,7 +215,7 @@ public class UserDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "Insert into tblUser "
+                String sql = "Insert into tblUser(UserID, FullName, Password, Email, RoleID, StatusID, Image) "
                         + " values(default,?,?,?,?,?,?)";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, user.getFullName());

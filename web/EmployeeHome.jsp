@@ -42,6 +42,7 @@
                 <div class="reponse-form-main">
                     <h2 class="reponse-form-heading">Feedback Detail ${requestScope.COUNT}</h2>
                     <form action="AddResponseController" class="reponse-form-actual-form" enctype="multipart/form-data" method="post">
+                        <input type="hidden" name="feedbackDetailID" value="${requestScope.FEEDBACK_DETAIL_ID}" />
                         <div class="reponse-form-textarea-wrapper">
                             <textarea
                                 name="description"
@@ -70,7 +71,7 @@
                                 </label>
                             </div>
                         </div>
-                        <input type="hidden" name="feedbackDetailID" value="${requestScope.FEEDBACK_DETAIL_ID}" />
+                        
                         <input type="submit" value="Send" class="submit-btn" />
                     </form>
                 </div>
