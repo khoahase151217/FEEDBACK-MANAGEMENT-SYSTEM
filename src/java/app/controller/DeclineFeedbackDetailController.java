@@ -64,7 +64,7 @@ public class DeclineFeedbackDetailController extends HttpServlet {
 //                    request.setAttribute("STYLE_LIST_ONGOING", "active");
 //                }
                 if(dao.countInactiveDetail(feedbackID)==0){
-                    dao.updateDecline(feedbackID);
+                    dao.updateInactive(feedbackID);
                     url = FEEDBACK;
                 }else{
                 url = DETAIL;

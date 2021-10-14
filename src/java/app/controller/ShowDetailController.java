@@ -51,7 +51,9 @@ public class ShowDetailController extends HttpServlet {
             List<FeedbackDetailDTO> list = dao.getListFeedbackDetail(feedbackID);
             if (!list.isEmpty()) {
                 session.setAttribute("LIST_DETAIL", list);
-                request.setAttribute("CLASS_NAME", "pending");
+                if (statusID.equalsIgnoreCase("pending")) {
+                    request.setAttribute("CLASS_NAME", "pending");
+                }
                 request.setAttribute("statusID", statusID);
                 request.setAttribute("statusName", statusName);
                 url = SUCCESS;

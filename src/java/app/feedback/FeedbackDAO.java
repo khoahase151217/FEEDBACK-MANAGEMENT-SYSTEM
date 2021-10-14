@@ -619,10 +619,10 @@ public class FeedbackDAO {
                     String deviceName = rs.getString("deviceName");
                     String location = rs.getString("location");
                     byte[] tmp = rs.getBytes("Image");
-                    if(tmp!=null){
+                    if (tmp != null) {
                         base64Image = Base64.getEncoder().encodeToString(tmp);
-                    }else{
-                        base64Image ="";
+                    } else {
+                        base64Image = "";
                     }
                     list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
                 }
@@ -651,7 +651,7 @@ public class FeedbackDAO {
         InputStream inputStream = null;
         ByteArrayOutputStream outputStream = null;
         Blob blob = null;
-String base64Image;
+        String base64Image;
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
@@ -675,10 +675,10 @@ String base64Image;
                     String location = rs.getString("Location");
                     String des = rs.getString("Description");
                     byte[] tmp = rs.getBytes("Image");
-                    if(tmp!=null){
+                    if (tmp != null) {
                         base64Image = Base64.getEncoder().encodeToString(tmp);
-                    }else{
-                        base64Image ="";
+                    } else {
+                        base64Image = "";
                     }
                     boolean flag = rs.getBoolean("flag");
                     String date = rs.getString("date");
@@ -743,10 +743,10 @@ String base64Image;
                     String location = rs.getString("Location");
                     String des = rs.getString("Description");
                     byte[] tmp = rs.getBytes("Image");
-                    if(tmp!=null){
+                    if (tmp != null) {
                         base64Image = Base64.getEncoder().encodeToString(tmp);
-                    }else{
-                        base64Image ="";
+                    } else {
+                        base64Image = "";
                     }
                     boolean flag = rs.getBoolean("flag");
                     String date = rs.getString("date");
@@ -861,7 +861,7 @@ String base64Image;
             if (conn != null) {
                 String sql = "select tblUser.RoleID as roleID from tblFeedbackDetail "
                         + " join tblUser on tblFeedbackDetail.UserID = tblUser.UserID "
-                        + " where FeedbackID = ? and tblUser.RoleID in ('ad','us')";
+                        + " where FeedbackID = ? and tblUser.RoleID in ('ad','us') and tblFeedbackDetail.statusID = 'active'";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, feedbackId);
                 rs = ps.executeQuery();
@@ -1215,6 +1215,7 @@ String base64Image;
         }
         return list;
     }
+
     public boolean updateDone(String feedbackId) throws SQLException {
         boolean check = false;
         Connection conn = null;
@@ -1240,6 +1241,7 @@ String base64Image;
         }
         return check;
     }
+
     public boolean updateDecline(String feedbackId) throws SQLException {
         boolean check = false;
         Connection conn = null;
@@ -1249,13 +1251,9 @@ String base64Image;
             if (conn != null) {
                 String sql = " UPDATE tblFeedback "
                         + " SET statusID='decline' "
-                        + " WHERE FeedbackID=? "
-                        + " UPDATE tblFeedbackDetail "
-                        + " SET StatusID='active' "
                         + " WHERE FeedbackID=? ";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, feedbackId);
-                ps.setString(2, feedbackId);
                 check = ps.executeUpdate() > 0;
             }
         } catch (Exception e) {
@@ -1270,22 +1268,22 @@ String base64Image;
         return check;
     }
     
-    public boolean declineDetail(String feedbackDetailID) throws SQLException{
-        boolean check= false;
+    public boolean updateInactive(String feedbackId) throws SQLException {
+        boolean check = false;
         Connection conn = null;
         PreparedStatement ps = null;
         try {
-            conn =DBUtils.getConnection();
-            if(conn!=null){
-                String sql = " UPDATE tblFeedbackDetail "
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " UPDATE tblFeedback "
                         + " SET statusID='inactive' "
-                        + " WHERE FeedbackDetailID=? ";
+                        + " WHERE FeedbackID=? ";
                 ps = conn.prepareStatement(sql);
-                ps.setString(1, feedbackDetailID);
+                ps.setString(1, feedbackId);
                 check = ps.executeUpdate() > 0;
             }
         } catch (Exception e) {
-        }finally{
+        } finally {
             if (ps != null) {
                 ps.close();
             }
@@ -1295,6 +1293,33 @@ String base64Image;
         }
         return check;
     }
+
+    public boolean declineDetail(String feedbackDetailID) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " UPDATE tblFeedbackDetail "
+                        + " SET statusID='inactive' "
+                        + " WHERE FeedbackDetailID=? ";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, feedbackDetailID);
+                check = ps.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+
     public int countInactiveDetail(String feedbackID) throws SQLException {
         int count = 0;
         Connection conn = null;
@@ -1329,5 +1354,5 @@ String base64Image;
         }
         return count;
     }
-    
+
 }
