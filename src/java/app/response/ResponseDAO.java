@@ -259,7 +259,7 @@ public class ResponseDAO {
             if (conn != null) {
                 String sql = "SELECT COUNT(FeedbackDetailID) as count"
                         + " FROM tblFeedbackDetail  "
-                        + " WHERE FeedbackID = ? ";
+                        + " WHERE FeedbackID = ? AND StatusID='active' ";
                 stm = conn.prepareCall(sql);
                 stm.setString(1, feedbackID);
                 rs = stm.executeQuery();
