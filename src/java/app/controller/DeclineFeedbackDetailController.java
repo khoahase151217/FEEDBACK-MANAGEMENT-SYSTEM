@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "DeclineFeedbackDetailController", urlPatterns = {"/DeclineFeedbackDetailController"})
 public class DeclineFeedbackDetailController extends HttpServlet {
-    private static final String FEEDBACK="ShowFeedbackController";
+    private static final String FEEDBACK="ShowFeedBackController";
     private static final String DETAIL="ShowDetailController";
     
     /**
