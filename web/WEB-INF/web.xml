@@ -92,6 +92,10 @@
         <servlet-name>AUController</servlet-name>
         <servlet-class>app.controller.AUController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeclineFeedbackDetailController</servlet-name>
+        <servlet-class>app.controller.DeclineFeedbackDetailController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -195,6 +199,10 @@
     <servlet-mapping>
         <servlet-name>AUController</servlet-name>
         <url-pattern>/AUController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeclineFeedbackDetailController</servlet-name>
+        <url-pattern>/DeclineFeedbackDetailController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

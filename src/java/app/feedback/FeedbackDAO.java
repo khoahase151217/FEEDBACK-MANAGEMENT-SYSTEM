@@ -133,8 +133,8 @@ public class FeedbackDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = " INSERT INTO tblFeedbackDetail( FacilityID, Quantity, Reason, Location, Image, FeedbackID, UserID, flag, Description ) "
-                        + " VALUES(?,?,?,?,?,?,?,?,?) ";
+                String sql = " INSERT INTO tblFeedbackDetail( FacilityID, Quantity, Reason, Location, Image, FeedbackID, UserID, flag, Description, StatusID ) "
+                        + " VALUES(?,?,?,?,?,?,?,?,?,'active') ";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, detail.getFacilityID());
                 ps.setString(2, detail.getQuanity());
@@ -662,7 +662,7 @@ String base64Image;
                         + " JOIN tblFacilities t3 "
                         + "  ON t1.FacilityID = t3.FacilityID "
                         + " JOIN tblUser t5 ON t1.UserID = t5.UserID "
-                        + " WHERE t1.FeedbackID = ? AND t5.RoleID in ('AD','US')";
+                        + " WHERE t1.FeedbackID = ? AND t5.RoleID in ('AD','US') AND t1.StatusID ='active' ";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, feedbackID);
                 rs = ps.executeQuery();
@@ -730,7 +730,7 @@ String base64Image;
                         + " JOIN tblFacilities t3 "
                         + "  ON t1.FacilityID = t3.FacilityID "
                         + " JOIN tblUser t5 ON t1.UserID = t5.UserID "
-                        + " WHERE t1.FeedbackID = ? AND t5.RoleID not in ('AD','US')";
+                        + " WHERE t1.FeedbackID = ? AND t5.RoleID not in ('AD','US') AND t1.StatusID ='active' ";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, feedbackID);
                 rs = ps.executeQuery();
@@ -1256,6 +1256,32 @@ String base64Image;
             }
         } catch (Exception e) {
         } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+    
+    public boolean declineDetail(String feedbackDetailID) throws SQLException{
+        boolean check= false;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            conn =DBUtils.getConnection();
+            if(conn!=null){
+                String sql = " UPDATE tblFeedbackDetail "
+                        + " SET statusID='inactive' "
+                        + " WHERE FeedbackDetailID=? ";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, feedbackDetailID);
+                check = ps.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+        }finally{
             if (ps != null) {
                 ps.close();
             }

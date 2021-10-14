@@ -210,7 +210,7 @@ public class EmployeesDAO {
                         + "  ON t1.FeedbackID = t2.FeedbackID "
                         + "JOIN tblFacilities t3 "
                         + "  ON t1.FacilityID = t3.FacilityID "
-                        + " WHERE t1.UserID = ? AND t1.flag='false' AND t1.FeedbackID = ?";
+                        + " WHERE t1.UserID = ? AND t1.flag='false' AND t1.FeedbackID = ? AND t1.StatusID ='active' ";
                 stm = conn.prepareCall(sql);
                 stm.setString(1, userID);
                 stm.setString(2, feedbackID);
@@ -268,7 +268,7 @@ public class EmployeesDAO {
                         + "  ON t1.FacilityID = t3.FacilityID "
                         + " JOIN tblResponseFeedback t4 "
                         + " ON t1.FeedbackDetailID = t4.FeedbackDetailID "
-                        + " WHERE t1.UserID = ? AND t1.flag='true' AND t1.FeedbackID = ?";
+                        + " WHERE t1.UserID = ? AND t1.flag='true' AND t1.FeedbackID = ? AND t1.StatusID ='active' " ;
                 stm = conn.prepareCall(sql);
                 stm.setString(1, userID);
                 stm.setString(2, feedbackID);
