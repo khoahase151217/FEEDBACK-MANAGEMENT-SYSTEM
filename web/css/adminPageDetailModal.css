@@ -117,6 +117,7 @@
 .detail-items .detail-wrapper {
     display: flex;
     justify-content: space-between;
+    position: relative;
 }
 .detail-items .detail-wrapper .detail-info {
     font-size: small;
@@ -189,6 +190,28 @@
 .detail-items .detail-wrapper .employee-name .assign-wrapper select {
     width: 25rem;
 }
+
+.detail-items .detail-wrapper .detail-links {
+    position: absolute;
+    right: 1rem;
+    top: 0.5rem;
+    font-size: 1.5rem;
+}
+
+.detail-items .detail-wrapper .detail-links ion-icon {
+    color: #151111;
+    transition: color 0.3s;
+    display: none;
+}
+
+.detail-items .detail-wrapper .detail-links ion-icon:hover {
+    color: #e71e1e;
+}
+
+.detail-items.pending .detail-wrapper .detail-links ion-icon{
+    display: block;
+}
+
 .detail-items .description {
     display: flex;
     margin: 1rem;

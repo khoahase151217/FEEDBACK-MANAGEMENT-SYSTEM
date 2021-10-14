@@ -47,6 +47,7 @@ public class ShowDetailController extends HttpServlet {
             String pipeOrList = request.getParameter("style_flag");
             String statusID = request.getParameter("statusID");
             String statusName = request.getParameter("statusName");
+            String flag = request.getParameter("flag");
             List<FeedbackDetailDTO> list = dao.getListFeedbackDetail(feedbackID);
             if (!list.isEmpty()) {
                 session.setAttribute("LIST_DETAIL", list);
@@ -60,9 +61,11 @@ public class ShowDetailController extends HttpServlet {
                 if (dao.getFeedbackStatusID(feedbackID).equals("onGoing")) {
                     request.setAttribute("CLASS_NAME", "onGoing");
                 }
-                if (statusID.equalsIgnoreCase("pending") && statusName.equalsIgnoreCase("pending")) {
-                    request.setAttribute("statusID", "onGoing");
-                    request.setAttribute("statusName", "On-Going");
+                if (!Boolean.parseBoolean(flag)) {
+                    if (statusID.equalsIgnoreCase("pending") && statusName.equalsIgnoreCase("pending")) {
+                        request.setAttribute("statusID", "onGoing");
+                        request.setAttribute("statusName", "On-Going");
+                    }
                 }
                 list = dao.getListFeedbackDetailShowEmployee(feedbackID);
                 session.setAttribute("LIST_DETAIL", list);

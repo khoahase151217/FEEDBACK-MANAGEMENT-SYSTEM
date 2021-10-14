@@ -77,3 +77,7 @@ taskChervonForward.addEventListener("mouseover", (e) => {
 taskChervonForward.addEventListener("mouseout", (e) => {
     e.target.closest(".feedback-detail").style.borderRadius = `15px`;
 });
+
+if(Array.from(pipeCommentItems).length === 0) {
+    document.querySelector('.feedback-detail').style.display = 'none';
+};

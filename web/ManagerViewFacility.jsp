@@ -177,6 +177,9 @@
                                                             </div>
                                                         </div>
                                                         <div class="pipe-list">
+                                                            <c:if test="${empty sessionScope.FACILTIES_LIST_AVAILABLE}">
+                                                                <p class="showcase-desc">No result can be found ...</p>
+                                                            </c:if>
                                                             <c:forEach var="facility" items="${sessionScope.FACILTIES_LIST_AVAILABLE}">
                                                                 <div class="pipe-item">
                                                                     <div class="pipe-item-heading">
@@ -218,6 +221,9 @@
                                                             </div>
                                                         </div>
                                                         <div class="pipe-list">
+                                                            <c:if test="${empty sessionScope.FACILTIES_LIST_UNAVAILABLE}">
+                                                                <p class="showcase-desc">No result can be found ...</p>
+                                                            </c:if>
                                                             <c:forEach var="facility" items="${sessionScope.FACILTIES_LIST_UNAVAILABLE}">
                                                                 <div class="pipe-item">
                                                                     <div class="pipe-item-heading">

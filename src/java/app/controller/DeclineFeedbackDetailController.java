@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "DeclineFeedbackDetailController", urlPatterns = {"/DeclineFeedbackDetailController"})
 public class DeclineFeedbackDetailController extends HttpServlet {
     private static final String ERROR="##";
-    private static final String SUCCESS="##";
+    private static final String SUCCESS="ShowDetailController";
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,33 +39,30 @@ public class DeclineFeedbackDetailController extends HttpServlet {
         try {
             String feedbackDetailID = request.getParameter("feedbackDetailID");
             FeedbackDAO dao = new FeedbackDAO();
-            String pipeStyle = request.getParameter("stylePipe");
-            String listStyle = request.getParameter("styleList");
-            if (!pipeStyle.equals("")) {
-                request.setAttribute("STYLE_PIPE", "active");
-            }
-
-            if (!listStyle.equals("")) {
-                request.setAttribute("STYLE_LIST", "active");
-            }
-
-            String categoryAll = request.getParameter("style_list_category_all");
-            String categoryPending = request.getParameter("style_list_category_pending");
-            String categoryOnGoing = request.getParameter("style_list_category_onGoing");
+//            String pipeStyle = request.getParameter("stylePipe");
+//            String listStyle = request.getParameter("styleList");
+//            if (!pipeStyle.equals("")) {
+//                request.setAttribute("STYLE_PIPE", "active");
+//            }
+//
+//            if (!listStyle.equals("")) {
+//                request.setAttribute("STYLE_LIST", "active");
+//            }
+//
+//            String categoryAll = request.getParameter("style_list_category_all");
+//            String categoryPending = request.getParameter("style_list_category_pending");
+//            String categoryOnGoing = request.getParameter("style_list_category_onGoing");
             if (dao.declineDetail(feedbackDetailID)) {
-                if (!categoryAll.equals("")) {
-                    request.setAttribute("STYLE_LIST_ALL", "active");
-                }
-                if (!categoryPending.equals("")) {
-                    request.setAttribute("STYLE_LIST_PENDING", "active");
-                }
-                if (!categoryOnGoing.equals("")) {
-                    request.setAttribute("STYLE_LIST_ONGOING", "active");
-                }
+//                if (!categoryAll.equals("")) {
+//                    request.setAttribute("STYLE_LIST_ALL", "active");
+//                }
+//                if (!categoryPending.equals("")) {
+//                    request.setAttribute("STYLE_LIST_PENDING", "active");
+//                }
+//                if (!categoryOnGoing.equals("")) {
+//                    request.setAttribute("STYLE_LIST_ONGOING", "active");
+//                }
                 url = SUCCESS;
-            }
-            if(dao.declineDetail(feedbackDetailID)){
-                url=SUCCESS;
             }
         } catch (Exception e) {
         }finally{

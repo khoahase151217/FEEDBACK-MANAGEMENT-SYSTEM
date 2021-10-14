@@ -33,7 +33,7 @@
         ></script>
 
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage1.css" />
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPageDetailModal1.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPageDetailModal.css" />
     </head>
     <body>
         <!-- if you want to open modal, you add class for div[class = 'feedbackDetail'] value: 'open' -->
@@ -75,6 +75,7 @@
                                         <p class="device">${feedbackDetail.deviceName}</p>
                                         <p>Room ${feedbackDetail.location}</p>
                                         <p>Quantity: ${feedbackDetail.quanity}</p>
+                                        <p>Reason: ${feedbackDetail.reason}</p>
                                     </div>
                                     <div class="employee-name">
                                         <div class="employee-name-heading">
@@ -112,11 +113,14 @@
                                             </div>
                                         </form>
                                     </div>
+                                    <a href="DeclineFeedbackDetailController?feedbackDetailID=${feedbackDetail.feedbackDetailID}&feedbackID=${param.feedbackID}${requestScope.feedbackID}&statusID=${requestScope.statusID}&statusName=${requestScope.statusName}&email=${param.email}${requestScope.email}&date=${param.date}${requestScope.date}&flag=true" class="detail-links" onclick="return confirm('Do you really want to inactivate ?')">
+                                        <ion-icon name="ban"></ion-icon>
+                                    </a>
                                 </div>
                                 <div class="description">
                                     <p class="des">Description:</p>
                                     <p class="content">
-                                        ${feedbackDetail.reason}
+                                        ${feedbackDetail.description}
                                     </p>
                                 </div>
                             </div>
@@ -776,6 +780,9 @@
                                                                     </c:otherwise>
                                                                 </c:choose>
                                                             </c:forEach>
+                                                            <c:if test="${empty sessionScope.FEEDBACK_RESPONE_LIST}">
+                                                                <p class="pipe-item-date">No result can be found ...</p>
+                                                            </c:if>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -969,6 +976,6 @@
             </section>
         </main>
         <script src="${pageContext.request.contextPath}/js/adminPage1.js"></script>
-        <script src="${pageContext.request.contextPath}/js/ManagerFB1.js"></script>
+        <script src="${pageContext.request.contextPath}/js/ManagerFB.js"></script>
     </body>
 </html>

@@ -388,6 +388,16 @@
                                                                             </div>
                                                                             <div class="input-wrapper">
                                                                                 <input
+                                                                                    type="text"
+                                                                                    name="reason"
+                                                                                    id="reason"
+                                                                                    value="${feedbackDetail.reason}"
+                                                                                    readonly
+                                                                                    />
+                                                                                <label class="input-label">Reason</label>
+                                                                            </div>
+                                                                            <div class="input-wrapper">
+                                                                                <input
                                                                                     type="number"
                                                                                     name="quantity"
                                                                                     id="quantity"
@@ -403,7 +413,7 @@
                                                                                     name="description"
                                                                                     id="description"
                                                                                     readonly
-                                                                                    >${feedbackDetail.reason}</textarea
+                                                                                    >${feedbackDetail.description}</textarea
                                                                                 >
                                                                                 <label class="input-label">Description</label>
                                                                             </div>
@@ -463,6 +473,16 @@
                                                                             </div>
                                                                             <div class="input-wrapper">
                                                                                 <input
+                                                                                    type="text"
+                                                                                    name="reason"
+                                                                                    id="reason"
+                                                                                    value="${feedbackDetail.reason}"
+                                                                                    readonly
+                                                                                    />
+                                                                                <label class="input-label">Reason</label>
+                                                                            </div>
+                                                                            <div class="input-wrapper">
+                                                                                <input
                                                                                     type="number"
                                                                                     name="quantity"
                                                                                     id="quantity"
@@ -478,7 +498,7 @@
                                                                                     name="description"
                                                                                     id="description"
                                                                                     readonly
-                                                                                    >${feedbackDetail.reason}</textarea
+                                                                                    >${feedbackDetail.description}</textarea
                                                                                 >
                                                                                 <label class="input-label">Description</label>
                                                                             </div>
@@ -538,6 +558,16 @@
                                                                             </div>
                                                                             <div class="input-wrapper">
                                                                                 <input
+                                                                                    type="text"
+                                                                                    name="reason"
+                                                                                    id="reason"
+                                                                                    value="${feedbackDetail.reason}"
+                                                                                    readonly
+                                                                                    />
+                                                                                <label class="input-label">Reason</label>
+                                                                            </div>
+                                                                            <div class="input-wrapper">
+                                                                                <input
                                                                                     type="number"
                                                                                     name="quantity"
                                                                                     id="quantity"
@@ -553,7 +583,7 @@
                                                                                     name="description"
                                                                                     id="description"
                                                                                     readonly
-                                                                                    >${feedbackDetail.reason}</textarea
+                                                                                    >${feedbackDetail.description}</textarea
                                                                                 >
                                                                                 <label class="input-label">Description</label>
                                                                             </div>

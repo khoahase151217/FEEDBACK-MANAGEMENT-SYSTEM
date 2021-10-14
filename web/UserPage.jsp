@@ -527,6 +527,9 @@
                                                 </div>
                                             </div>
                                             <div class="pipe-list">
+                                                <c:if test="${empty sessionScope.HISTORY_DONE}">
+                                                    <p class="pipe-item-date">No result can be found ...</p>
+                                                </c:if>
                                                 <%
                                                     List<UserHistoryDTO> listDone = (List<UserHistoryDTO>) session.getAttribute("HISTORY_DONE");
                                                     if (listDone != null) {
@@ -628,6 +631,9 @@
                                                 </div>
                                             </div>
                                             <div class="pipe-list">
+                                                <c:if test="${empty sessionScope.HISTORY_ONGOING}">
+                                                    <p class="pipe-item-date">No result can be found ...</p>
+                                                </c:if>
                                                 <%
                                                     List<UserHistoryDTO> listOngoing = (List<UserHistoryDTO>) session.getAttribute("HISTORY_ONGOING");
                                                     if (listOngoing != null) {
@@ -728,6 +734,9 @@
                                                 </div>
                                             </div>
                                             <div class="pipe-list">
+                                                <c:if test="${empty sessionScope.HISTORY_DENY}">
+                                                    <p class="pipe-item-date">No result can be found ...</p>
+                                                </c:if>
                                                 <%
                                                     List<UserHistoryDTO> listDeny = (List<UserHistoryDTO>) session.getAttribute("HISTORY_DENY");
                                                     if (listDeny != null) {
