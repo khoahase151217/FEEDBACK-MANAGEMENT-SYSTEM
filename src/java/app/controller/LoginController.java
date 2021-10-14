@@ -47,7 +47,6 @@ public class LoginController extends HttpServlet {
 
             if (user != null) {
                 session.setAttribute("LOGIN_USER", user);
-
                 String roleID = user.getRoleID();
 
                 if ("AD".equals(roleID)) {
@@ -56,6 +55,12 @@ public class LoginController extends HttpServlet {
                     url = USER_PAGE;
                 } else {
                     url = EMPLOYEE_PAGE;
+                }
+                if(user.getStatusID().equalsIgnoreCase("inactive")){
+                    request.setAttribute("flag", null);
+                    request.setAttribute("INVALID", "invalid");
+                    request.setAttribute("ERROR_MESSAGE", "Your account is not authorized");
+                    url=ERROR;
                 }
             } else {
                 request.setAttribute("ERROR_MESSAGE", "Incorrect UserName or Password!");
