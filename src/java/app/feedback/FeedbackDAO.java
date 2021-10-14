@@ -1249,9 +1249,13 @@ String base64Image;
             if (conn != null) {
                 String sql = " UPDATE tblFeedback "
                         + " SET statusID='decline' "
+                        + " WHERE FeedbackID=? "
+                        + " UPDATE tblFeedbackDetail "
+                        + " SET StatusID='active' "
                         + " WHERE FeedbackID=? ";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, feedbackId);
+                ps.setString(2, feedbackId);
                 check = ps.executeUpdate() > 0;
             }
         } catch (Exception e) {
