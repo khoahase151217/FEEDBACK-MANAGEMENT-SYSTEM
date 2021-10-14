@@ -79,7 +79,9 @@ public class LoginGoogleController extends HttpServlet {
                             url = EMPLOYEE;
                         }
                     } else {
-                        session.setAttribute("MESSAGE", "inactive-mode");
+                        request.setAttribute("flag", null);
+                        request.setAttribute("INVALID", "invalid");
+                        request.setAttribute("ERROR_MESSAGE", "Your account is not authorized");
                     }
                 }
             } catch (SQLException ex) {
