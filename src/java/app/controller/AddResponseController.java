@@ -82,10 +82,12 @@ public class AddResponseController extends HttpServlet {
                         }
 
                     } else {
-                        if (des.equals("")) {
+                        String tmp = item.getContentType();
+                        if (des.equals("")||!tmp.contains("image")) {
                             url = ERROR;
                             request.setAttribute("ADD_FAILURE", "active");
                             request.setAttribute("SEND_FAILURE", "active");
+                            request.setAttribute("SEND_FEEDBACK_FLAG", "open");
                             request.setAttribute("FEEDBACK_DETAIL_ID", feedbackDetailId);
                             break;
                         }
