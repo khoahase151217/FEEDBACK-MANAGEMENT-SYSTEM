@@ -44,7 +44,6 @@ public class ShowFeedBackController extends HttpServlet {
             HttpSession session = request.getSession();
             List<FeedbackDTO> listAll = dao.getAllListFeedbackByStatusAscForManager();
             session.setAttribute("FEEDBACK_LIST_ALL", listAll);
-
             List<FeedbackDTO> listDone = dao.getListFeedbackByStatusDoneAscForManager();
             session.setAttribute("FEEDBACK_LIST_DONE", listDone);
 

@@ -20,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "DeclineFeedbackDetailController", urlPatterns = {"/DeclineFeedbackDetailController"})
 public class DeclineFeedbackDetailController extends HttpServlet {
-    private static final String ERROR="##";
-    private static final String SUCCESS="ShowDetailController";
+    private static final String FEEDBACK="ShowFeedbackController";
+    private static final String DETAIL="ShowDetailController";
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,9 +35,10 @@ public class DeclineFeedbackDetailController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url=ERROR;
+        String url=FEEDBACK;
         try {
             String feedbackDetailID = request.getParameter("feedbackDetailID");
+            String feedbackID = request.getParameter("feedbackID");
             FeedbackDAO dao = new FeedbackDAO();
 //            String pipeStyle = request.getParameter("stylePipe");
 //            String listStyle = request.getParameter("styleList");
@@ -62,7 +63,12 @@ public class DeclineFeedbackDetailController extends HttpServlet {
 //                if (!categoryOnGoing.equals("")) {
 //                    request.setAttribute("STYLE_LIST_ONGOING", "active");
 //                }
-                url = SUCCESS;
+                if(dao.countInactiveDetail(feedbackID)==0){
+                    dao.updateDecline(feedbackID);
+                    url = FEEDBACK;
+                }else{
+                url = DETAIL;
+                }
             }
         } catch (Exception e) {
         }finally{
