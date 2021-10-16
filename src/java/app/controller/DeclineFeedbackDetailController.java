@@ -20,29 +20,54 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "DeclineFeedbackDetailController", urlPatterns = {"/DeclineFeedbackDetailController"})
 public class DeclineFeedbackDetailController extends HttpServlet {
-    private static final String FEEDBACK="ShowFeedBackController";
-    private static final String DETAIL="ShowDetailController";
-    
+
+    private static final String FEEDBACK = "ShowFeedBackController";
+    private static final String DETAIL = "ShowDetailController";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url=FEEDBACK;
+        String url = FEEDBACK;
         try {
             String feedbackDetailID = request.getParameter("feedbackDetailID");
             String ReasonFeedback = request.getParameter("description");
             String feedbackID = request.getParameter("feedbackID");
+            String pipeOrList = request.getParameter("style_flag");
+            String style_list_category = request.getParameter("style_list_category");
             FeedbackDAO dao = new FeedbackDAO();
             if (dao.declineDetail(feedbackDetailID)) {
-                dao.insertDeclineRespone(feedbackDetailID,ReasonFeedback);
-                if(dao.countInactiveDetail(feedbackID)==0){
+                dao.insertDeclineRespone(feedbackDetailID, ReasonFeedback);
+                if (dao.countInactiveDetail(feedbackID) == 0) {
                     dao.updateInactive(feedbackID);
+                    if (pipeOrList.equalsIgnoreCase("pipe")) {
+                        request.setAttribute("STYLE_PIPE", "active");
+                    } else {
+                        request.setAttribute("STYLE_LIST", "active");
+                        switch (style_list_category) {
+                            case "all":
+                                request.setAttribute("STYLE_LIST_ALL", "active");
+                                break;
+                            case "pending":
+                                request.setAttribute("STYLE_LIST_PENDING", "active");
+                                break;
+                            case "onGoing":
+                                request.setAttribute("STYLE_LIST_ONGOING", "active");
+                                break;
+                            case "decline":
+                                request.setAttribute("STYLE_LIST_DECLINE", "active");
+                                break;
+                            default:
+                                request.setAttribute("STYLE_LIST_DONE", "active");
+                                break;
+                        }
+                    }
                     url = FEEDBACK;
-                }else{
-                url = DETAIL;
+                } else {
+                    url = DETAIL;
                 }
             }
         } catch (Exception e) {
-        }finally{
+        } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

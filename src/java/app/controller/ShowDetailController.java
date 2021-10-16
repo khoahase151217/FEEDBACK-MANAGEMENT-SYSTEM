@@ -45,6 +45,7 @@ public class ShowDetailController extends HttpServlet {
             FeedbackDAO dao = new FeedbackDAO();
             String feedbackID = request.getParameter("feedbackID");
             String pipeOrList = request.getParameter("style_flag");
+            request.setAttribute("style_flag", pipeOrList);
             String statusID = request.getParameter("statusID");
             String statusName = request.getParameter("statusName");
             String flag = request.getParameter("flag");
@@ -81,6 +82,7 @@ public class ShowDetailController extends HttpServlet {
             } else {
                 request.setAttribute("STYLE_LIST", "active");
                 String category = request.getParameter("style_list_category");
+                request.setAttribute("style_list_category", category);
                 switch (category) {
                     case "all":
                         request.setAttribute("STYLE_LIST_ALL", "active");

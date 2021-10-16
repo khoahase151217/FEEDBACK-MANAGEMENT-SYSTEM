@@ -32,13 +32,15 @@ public class ShowFormDeclineController extends HttpServlet {
             String email = request.getParameter("email");
             String date = request.getParameter("date");
             String pipeOrList = request.getParameter("style_flag");
+            String style_list_category = request.getParameter("style_list_category");
             request.setAttribute("FEEDBACK_DETAIL_ID", feedbackDetailID);
             request.setAttribute("FEEDBACK_ID", feedbackID);
             request.setAttribute("statusID", statusID);
             request.setAttribute("statusName", statusName);
-            request.setAttribute("EMAIL", statusName);
-            request.setAttribute("DATE", statusName);
+            request.setAttribute("EMAIL", email);
+            request.setAttribute("DATE", date);
             request.setAttribute("PIPE_OR_LIST", pipeOrList);
+            request.setAttribute("style_list_category", style_list_category);
             request.setAttribute("ban_flag", "open");
             request.setAttribute("flag", "open");
             url = SUCCESS;

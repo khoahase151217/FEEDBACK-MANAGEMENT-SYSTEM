@@ -132,7 +132,7 @@
                                             </div>
                                         </form>
                                     </div>
-                                    <a href="ShowFormDeclineController?feedbackDetailID=${feedbackDetail.feedbackDetailID}&feedbackID=${param.feedbackID}&statusID=${param.statusID}&statusName=${param.statusName}&email=${param.email}&date=${param.date}&style_flag=pipe" class="detail-links" onclick="return confirm('Do you really want to inactivate ?')">
+                                                <a href="ShowFormDeclineController?feedbackDetailID=${feedbackDetail.feedbackDetailID}&feedbackID=${param.feedbackID}&statusID=${param.statusID}&statusName=${param.statusName}&email=${param.email}&date=${param.date}&style_flag=${requestScope.style_flag}&style_list_category=${requestScope.style_list_category}" class="detail-links" onclick="return confirm('Do you really want to inactivate ?')">
                                         <ion-icon name="ban"></ion-icon>
                                     </a>
                                 </div>
@@ -277,6 +277,7 @@
                         <input type="hidden" name="email" value="${requestScope.EMAIL}" />
                         <input type="hidden" name="date" value="${requestScope.DATE}" />
                         <input type="hidden" name="style_flag" value="${requestScope.PIPE_OR_LIST}" />
+                        <input type="hidden" name="style_list_category" value="${requestScope.style_list_category}" />
                         <div class="reponse-form-textarea-wrapper">
                             <textarea
                                 name="description"
