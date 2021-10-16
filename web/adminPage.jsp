@@ -32,7 +32,7 @@
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
         ></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage5.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage10.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPageDetailModal.css" />
     </head>
     <body>
@@ -86,9 +86,28 @@
                                             <div class="assign-wrapper">
                                                 <select name="employee" id="" class="form-select" required>
                                                     <option value="" selected hidden>Choose employee name</option>
-                                                    <c:forEach var="employee" items="${sessionScope.EMPLOYEE_LIST}">
-                                                        <option value="${employee.userID}">${employee.fullName}</option>
-                                                    </c:forEach>
+                                                    <c:choose>
+                                                        <c:when test="${feedbackDetail.categoryDevice eq 'TD'}">
+                                                            <c:forEach var="employee" items="${sessionScope.EMPLOYEE_ELETRIC_LIST}">
+                                                                <option value="${employee.userID}">${employee.fullName}</option>
+                                                            </c:forEach>
+                                                        </c:when>
+                                                        <c:when test="${feedbackDetail.categoryDevice eq 'TN'}">
+                                                            <c:forEach var="employee" items="${sessionScope.EMPLOYEE_WATER_LIST}">
+                                                                <option value="${employee.userID}">${employee.fullName}</option>
+                                                            </c:forEach>
+                                                        </c:when>
+                                                        <c:when test="${feedbackDetail.categoryDevice eq 'EN'}">
+                                                            <c:forEach var="employee" items="${sessionScope.EMPLOYEE_ENVIROMENT_LIST}">
+                                                                <option value="${employee.userID}">${employee.fullName}</option>
+                                                            </c:forEach>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <c:forEach var="employee" items="${sessionScope.EMPLOYEE_OTHER_LIST}">
+                                                                <option value="${employee.userID}">${employee.fullName}</option>
+                                                            </c:forEach>
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                 </select>
                                                 <div class="assign">
                                                     <button type="submit" class="icon-block">
@@ -113,7 +132,7 @@
                                             </div>
                                         </form>
                                     </div>
-                                    <a href="DeclineFeedbackDetailController?feedbackDetailID=${feedbackDetail.feedbackDetailID}&feedbackID=${param.feedbackID}${requestScope.feedbackID}&statusID=${requestScope.statusID}&statusName=${requestScope.statusName}&email=${param.email}${requestScope.email}&date=${param.date}${requestScope.date}&flag=true" class="detail-links" onclick="return confirm('Do you really want to inactivate ?')">
+                                    <a href="ShowFormDeclineController?feedbackDetailID=${feedbackDetail.feedbackDetailID}&feedbackID=${param.feedbackID}&statusID=${param.statusID}&statusName=${param.statusName}&email=${param.email}&date=${param.date}&style_flag=pipe" class="detail-links" onclick="return confirm('Do you really want to inactivate ?')">
                                         <ion-icon name="ban"></ion-icon>
                                     </a>
                                 </div>
@@ -245,6 +264,33 @@
                 </div>
             </div>
         </div>
+
+        <div class="reponse-form ${requestScope.ban_flag}">
+            <div class="modal">
+                <div class="reponse-form-main">
+                    <h2 class="reponse-form-heading">Reason ban feedback detail ${requestScope.FEEDBACK_DETAIL_ID}</h2>
+                    <form action="DeclineFeedbackDetailController" class="reponse-form-actual-form" method="post">
+                        <input type="hidden" name="feedbackDetailID" value="${requestScope.FEEDBACK_DETAIL_ID}" />
+                        <input type="hidden" name="feedbackID" value="${requestScope.FEEDBACK_ID}" />
+                        <input type="hidden" name="statusID" value="${requestScope.statusID}" />
+                        <input type="hidden" name="statusName" value="${requestScope.statusName}" />
+                        <input type="hidden" name="email" value="${requestScope.EMAIL}" />
+                        <input type="hidden" name="date" value="${requestScope.DATE}" />
+                        <input type="hidden" name="style_flag" value="${requestScope.PIPE_OR_LIST}" />
+                        <div class="reponse-form-textarea-wrapper">
+                            <textarea
+                                name="description"
+                                id="description"
+                                class="reponse-form-textarea"
+                                placeholder="Enter message ..."
+                                ></textarea>
+                            <label>Description</label>
+                        </div>
+                        <input type="submit" value="Send" class="submit-btn" />
+                    </form>
+                </div>
+            </div>
+        </div>            
 
         <main>
             <section class="showcase">
@@ -1101,8 +1147,8 @@
                 </div>
             </section>
         </main>
-        <script src="${pageContext.request.contextPath}/js/adminPage.js"></script>
-        <script src="${pageContext.request.contextPath}/js/ManagerFB.js"></script>
+        <script src="${pageContext.request.contextPath}/js/adminPage1.js"></script>
+        <script src="${pageContext.request.contextPath}/js/ManagerFB1.js"></script>
         <!-- Query -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>

@@ -5,45 +5,47 @@
  */
 package app.controller;
 
-import app.feedback.FeedbackDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author ADMIN
+ * @author Admin
  */
-@WebServlet(name = "DeclineFeedbackDetailController", urlPatterns = {"/DeclineFeedbackDetailController"})
-public class DeclineFeedbackDetailController extends HttpServlet {
-    private static final String FEEDBACK="ShowFeedBackController";
-    private static final String DETAIL="ShowDetailController";
-    
+public class ShowFormDeclineController extends HttpServlet {
+
+    private static final String SUCCESS = "ShowDetailController";
+    private static final String ERROR = "##";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url=FEEDBACK;
+        String url = ERROR;
         try {
             String feedbackDetailID = request.getParameter("feedbackDetailID");
-            String ReasonFeedback = request.getParameter("description");
             String feedbackID = request.getParameter("feedbackID");
-            FeedbackDAO dao = new FeedbackDAO();
-            if (dao.declineDetail(feedbackDetailID)) {
-                dao.insertDeclineRespone(feedbackDetailID,ReasonFeedback);
-                if(dao.countInactiveDetail(feedbackID)==0){
-                    dao.updateInactive(feedbackID);
-                    url = FEEDBACK;
-                }else{
-                url = DETAIL;
-                }
-            }
+            String statusID = request.getParameter("statusID");
+            String statusName = request.getParameter("statusName");
+            String email = request.getParameter("email");
+            String date = request.getParameter("date");
+            String pipeOrList = request.getParameter("style_flag");
+            request.setAttribute("FEEDBACK_DETAIL_ID", feedbackDetailID);
+            request.setAttribute("FEEDBACK_ID", feedbackID);
+            request.setAttribute("statusID", statusID);
+            request.setAttribute("statusName", statusName);
+            request.setAttribute("EMAIL", statusName);
+            request.setAttribute("DATE", statusName);
+            request.setAttribute("PIPE_OR_LIST", pipeOrList);
+            request.setAttribute("ban_flag", "open");
+            request.setAttribute("flag", "open");
+            url = SUCCESS;
         } catch (Exception e) {
-        }finally{
-            request.getRequestDispatcher(url).forward(request, response);
+        }
+        finally{
+            request.getRequestDispatcher(url).forward(request,response);
         }
     }
 

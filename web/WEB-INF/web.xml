@@ -96,6 +96,10 @@
         <servlet-name>DeclineFeedbackDetailController</servlet-name>
         <servlet-class>app.controller.DeclineFeedbackDetailController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ShowFormDeclineController</servlet-name>
+        <servlet-class>app.controller.ShowFormDeclineController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -203,6 +207,10 @@
     <servlet-mapping>
         <servlet-name>DeclineFeedbackDetailController</servlet-name>
         <url-pattern>/DeclineFeedbackDetailController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowFormDeclineController</servlet-name>
+        <url-pattern>/ShowFormDeclineController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

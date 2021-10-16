@@ -966,6 +966,7 @@ img {
     display: flex;
     animation: fadeIn linear 0.2s;
     overflow: auto;
+    z-index: 3;
 }
 .feedbackDetail-main {
     margin: auto;
@@ -1102,6 +1103,137 @@ img {
     font-size: 4rem;
 }
 .user-form.open {
+    display: block;
+}
+
+.reponse-form {
+    display: none;
+}
+.reponse-form .modal {
+    background-color: rgba(0, 0, 0, 0.2);
+    animation: fadeIn linear 0.3s;
+    display: flex;
+    z-index: 4;
+}
+.reponse-form-main {
+    margin: auto;
+    width: 450px;
+    height: 430px;
+    background: #fff;
+    animation: scale ease-in-out 0.4s;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+}
+.reponse-form-heading {
+    font-size: 2.25rem;
+    font-weight: 600;
+}
+.reponse-form-actual-form {
+    margin-top: 2rem;
+}
+.reponse-form-textarea-wrapper {
+    position: relative;
+}
+.reponse-form-textarea-wrapper label {
+    background-color: #fff;
+    font-size: 1.2rem;
+    color: #a7a7a7;
+    position: absolute;
+    bottom: 100%;
+    left: 10px;
+    padding: 0 0.5rem;
+    transform: translateY(50%);
+}
+.reponse-form-textarea {
+    width: 100%;
+    height: 150px;
+    border: 1px solid #9c9c9c;
+    border-radius: 5px;
+    resize: none;
+    color: #151111;
+    font-family: "Poppins", sans-serif;
+    font-size: 1.2rem;
+    padding: 1rem 1.2rem;
+    outline: 0;
+}
+.reponse-form-image-wrapper {
+    width: 100%;
+    max-height: 15rem;
+    height: 100%;
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.reponse-form-image-show {
+    max-width: 250px;
+    width: 100%;
+    height: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    border-radius: 5px;
+    white-space: nowrap;
+}
+.reponse-form-image-show img {
+    width: 10rem;
+    height: 10rem;
+    object-fit: cover;
+    display: inline;
+    border-radius: inherit;
+}
+.reponse-form-image-show img:not(:last-child) {
+    margin-right: 1.5rem;
+}
+.reponse-form-drag-area {
+    border: 2px dashed #5256ad;
+    height: 12rem;
+    width: 15rem;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 1rem;
+}
+.reponse-form-drag-area.active {
+    border: 2px solid #5256ad;
+}
+.reponse-form-drag-area .icon {
+    font-size: 30px;
+    color: #151111;
+}
+.reponse-form-drag-area header {
+    font-weight: 500;
+    color: #151111;
+}
+.reponse-form-drag-area span {
+    font-weight: 500;
+    color: #151111;
+    margin: 10px 0 10px 0;
+}
+.reponse-form-drag-area p {
+    padding: 1rem;
+    font-weight: 500;
+    border: none;
+    outline: none;
+    background: #5256ad;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.reponse-form .submit-btn {
+    margin-top: 3rem;
+    padding: 1rem 3rem;
+    border: none;
+    background: #e6bb7a;
+    color: #fff;
+    border-radius: 5px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+}
+.reponse-form.open {
     display: block;
 }
 

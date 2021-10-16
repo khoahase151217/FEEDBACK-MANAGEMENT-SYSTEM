@@ -81,3 +81,9 @@ taskChervonForward.addEventListener("mouseout", (e) => {
 if(Array.from(pipeCommentItems).length === 0) {
     document.querySelector('.feedback-detail').style.display = 'none';
 };
+
+document.querySelector(".reponse-form").addEventListener("click", (e) => {
+    if (!e.target.classList.contains("modal"))
+        return;
+    e.target.closest(".reponse-form").classList.remove("open");
+});
