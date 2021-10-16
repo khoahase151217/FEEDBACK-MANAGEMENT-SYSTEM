@@ -101,7 +101,7 @@ public class FeedbackDAO {
                         + " FROM tblFeedbackDetail "
                         + " WHERE FeedbackID in (SELECT FeedbackID "
                         + " FROM tblFeedbackDetail "
-                        + " WHERE feedbackDetailID = ?) and flag = 'false' "
+                        + " WHERE feedbackDetailID = ?) and flag = 'false' and statusID = 'active' "
                         + " group by FeedbackID";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, feedbackDetailID);

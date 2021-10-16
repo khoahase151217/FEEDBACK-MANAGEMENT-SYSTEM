@@ -43,10 +43,13 @@ public class ShowFeedbackForEmpController extends HttpServlet {
             historyList = dao.showHistoryFeedback(user.getUserID());
             String history = "";
             String feedback = "";
+            
+            //View truyen ve
             String feedbackID = (String) request.getAttribute("FEEDBACK_ID");
             String historyID = request.getParameter("history");
 
             if (!historyList.isEmpty() && historyID == null) {
+                //first 
                 history = historyList.get(0).getFeedbackID();
             } else if (!list.isEmpty() && historyID != null) {
                 history = historyID;
