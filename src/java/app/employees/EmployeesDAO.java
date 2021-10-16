@@ -113,7 +113,7 @@ public class EmployeesDAO {
             if (conn != null) {
                 String sql = "SELECT FullName,UserID,RoleID "
                         + " FROM tblUser "
-                        + " WHERE NOT RoleID = 'AD' AND statusID= 'active' AND NOT ROLEID ='US' ROLEID ='TD' ";
+                        + " WHERE NOT RoleID = 'AD' AND statusID= 'active' AND NOT ROLEID ='US'AND ROLEID ='TD' ";
                 stm = conn.prepareCall(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
@@ -149,7 +149,7 @@ public class EmployeesDAO {
             if (conn != null) {
                 String sql = "SELECT FullName,UserID,RoleID "
                         + " FROM tblUser "
-                        + " WHERE NOT RoleID = 'AD' AND statusID= 'active' AND NOT ROLEID ='US' ROLEID ='TN' ";
+                        + " WHERE NOT RoleID = 'AD' AND statusID= 'active' AND NOT ROLEID ='US' AND ROLEID ='TN' ";
                 stm = conn.prepareCall(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
@@ -185,7 +185,7 @@ public class EmployeesDAO {
             if (conn != null) {
                 String sql = "SELECT FullName,UserID,RoleID "
                         + " FROM tblUser "
-                        + " WHERE NOT RoleID = 'AD' AND statusID= 'active' AND NOT ROLEID ='US' ROLEID ='EN' ";
+                        + " WHERE NOT RoleID = 'AD' AND statusID= 'active' AND NOT ROLEID ='US' AND ROLEID ='EN' ";
                 stm = conn.prepareCall(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
