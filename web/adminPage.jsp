@@ -32,7 +32,7 @@
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
         ></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage10.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage1.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPageDetailModal.css" />
     </head>
     <body>
@@ -132,7 +132,7 @@
                                             </div>
                                         </form>
                                     </div>
-                                                <a href="ShowFormDeclineController?feedbackDetailID=${feedbackDetail.feedbackDetailID}&feedbackID=${param.feedbackID}&statusID=${param.statusID}&statusName=${param.statusName}&email=${param.email}&date=${param.date}&style_flag=${requestScope.style_flag}&style_list_category=${requestScope.style_list_category}" class="detail-links" onclick="return confirm('Do you really want to inactivate ?')">
+                                    <a href="ShowFormDeclineController?feedbackDetailID=${feedbackDetail.feedbackDetailID}&feedbackID=${param.feedbackID}&statusID=${param.statusID}&statusName=${param.statusName}&email=${param.email}&date=${param.date}&style_flag=${requestScope.style_flag}&style_list_category=${requestScope.style_list_category}" class="detail-links" onclick="return confirm('Do you really want to inactivate ?')">
                                         <ion-icon name="ban"></ion-icon>
                                     </a>
                                 </div>
@@ -867,17 +867,6 @@
                                                                                                         ></ion-icon>
                                                                                                 </button>
                                                                                             </form>
-                                                                                            <form action="UpdateFeedbackDeclineController" class="pipe-bottom-form">
-                                                                                                <input type="hidden" name="feedbackID" value="${response.feedbackID}"/>
-                                                                                                <button
-                                                                                                    type="submit"
-                                                                                                    class="btn--decline"
-                                                                                                    >
-                                                                                                    <ion-icon
-                                                                                                        name="close-circle-outline"
-                                                                                                        ></ion-icon>
-                                                                                                </button>
-                                                                                            </form>
                                                                                         </div>
                                                                                     </c:if>
                                                                                 </div>
@@ -909,17 +898,6 @@
                                                                                                 <button type="submit" class="btn--done">
                                                                                                     <ion-icon
                                                                                                         name="checkbox-outline"
-                                                                                                        ></ion-icon>
-                                                                                                </button>
-                                                                                            </form>
-                                                                                            <form action="UpdateFeedbackDeclineController" class="pipe-bottom-form">
-                                                                                                <input type="hidden" name="feedbackID" value="${response.feedbackID}"/>
-                                                                                                <button
-                                                                                                    type="submit"
-                                                                                                    class="btn--decline"
-                                                                                                    >
-                                                                                                    <ion-icon
-                                                                                                        name="close-circle-outline"
                                                                                                         ></ion-icon>
                                                                                                 </button>
                                                                                             </form>
@@ -980,6 +958,19 @@
                                                                     >
                                                                     <div class="feedback-detail-header">
                                                                         <h2 class="feedback-detail-tittle">Reponse ${counter.count}</h2>
+                                                                        <div class="pipe-item-bottom-form-wrapper">
+                                                                            <form action="UpdateFeedbackDeclineController" class="pipe-bottom-form">
+                                                                                <input type="hidden" name="feedbackID" value="${response.feedbackID}"/>
+                                                                                <button
+                                                                                    type="submit"
+                                                                                    class="btn--decline"
+                                                                                    >
+                                                                                    <ion-icon
+                                                                                        name="close-circle-outline"
+                                                                                        ></ion-icon>
+                                                                                </button>
+                                                                            </form>
+                                                                        </div>
                                                                     </div>
                                                                     <div class="feedback-detail-showcase">
                                                                         <div class="feedback-detail-input">

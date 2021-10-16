@@ -8,6 +8,7 @@ package app.controller;
 import app.feedback.FeedbackDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,6 +38,7 @@ public class DeclineFeedbackDetailController extends HttpServlet {
             FeedbackDAO dao = new FeedbackDAO();
             if (dao.declineDetail(feedbackDetailID)) {
                 dao.insertDeclineRespone(feedbackDetailID, ReasonFeedback);
+                List<String> roleIDList = dao.getRoleID(feedbackID);
                 if (dao.countInactiveDetail(feedbackID) == 0) {
                     dao.updateInactive(feedbackID);
                     if (pipeOrList.equalsIgnoreCase("pipe")) {
@@ -62,6 +64,8 @@ public class DeclineFeedbackDetailController extends HttpServlet {
                         }
                     }
                     url = FEEDBACK;
+                } else if (roleIDList.isEmpty()) {
+                    dao.updateStatusIDFeedback(feedbackID);
                 } else {
                     url = DETAIL;
                 }

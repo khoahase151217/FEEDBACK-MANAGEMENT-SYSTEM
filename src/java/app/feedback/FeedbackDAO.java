@@ -724,7 +724,7 @@ public class FeedbackDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*, t2.Date as Date, t3.Name as FacilityName, t5.FullName as fullName "
+                String sql = "SELECT t1.*, t2.Date as Date, t3.Name as FacilityName, t5.FullName as fullName, t3.categoryID as categoryID "
                         + " FROM tblFeedbackDetail t1 "
                         + " JOIN tblFeedback t2 "
                         + "  ON t1.FeedbackID = t2.FeedbackID "
@@ -743,6 +743,7 @@ public class FeedbackDAO {
                     String reason = rs.getString("Reason");
                     String location = rs.getString("Location");
                     String des = rs.getString("Description");
+                    String categoryID = rs.getString("categoryID");
                     byte[] tmp = rs.getBytes("Image");
                     if (tmp != null) {
                         base64Image = Base64.getEncoder().encodeToString(tmp);
@@ -753,8 +754,7 @@ public class FeedbackDAO {
                     String date = rs.getString("date");
                     String facilityName = rs.getString("FacilityName");
                     String fullName = rs.getString("fullName");
-                    list.add(new FeedbackDetailDTO(feedbackDetailId, facilityID, userId, feedbackID, quantity, reason, location, base64Image, flag, facilityName, date, fullName, des));
-
+                    list.add(new FeedbackDetailDTO(feedbackDetailId, facilityID, userId, feedbackID, quantity, reason, location, base64Image, flag, facilityName, date, fullName, "", des, categoryID));
                 }
             }
 
