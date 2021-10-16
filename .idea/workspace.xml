@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="cd2ed68e-6d95-47a9-af9b-b7db37498d03" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/nbproject/ant-deploy.xml" beforeDir="false" afterPath="$PROJECT_DIR$/nbproject/ant-deploy.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nbproject/build-impl.xml" beforeDir="false" afterPath="$PROJECT_DIR$/nbproject/build-impl.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nbproject/genfiles.properties" beforeDir="false" afterPath="$PROJECT_DIR$/nbproject/genfiles.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nbproject/project.properties" beforeDir="false" afterPath="$PROJECT_DIR$/nbproject/project.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nbproject/project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/nbproject/project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/app/controller/DeclineFeedbackDetailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/app/controller/DeclineFeedbackDetailController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/app/controller/ShowDetailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/app/controller/ShowDetailController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/app/controller/ShowEmployeeActiveController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/app/controller/ShowEmployeeActiveController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/app/employees/EmployeesDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/app/employees/EmployeesDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/app/feedback/FeedbackDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/app/feedback/FeedbackDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/app/feedback/FeedbackDetailDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/app/feedback/FeedbackDetailDTO.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1zZtD4rVTsnxcQvBe6m4TU0qDyI" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cd2ed68e-6d95-47a9-af9b-b7db37498d03" name="Default Changelist" comment="" />
+      <created>1634367314723</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1634367314723</updated>
+      <workItem from="1634367316497" duration="59000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

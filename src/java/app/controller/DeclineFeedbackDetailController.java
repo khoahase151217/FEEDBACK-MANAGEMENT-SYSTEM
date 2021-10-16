@@ -23,46 +23,17 @@ public class DeclineFeedbackDetailController extends HttpServlet {
     private static final String FEEDBACK="ShowFeedBackController";
     private static final String DETAIL="ShowDetailController";
     
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url=FEEDBACK;
         try {
             String feedbackDetailID = request.getParameter("feedbackDetailID");
+            String ReasonFeedback = request.getParameter("ReasonFeedback");
             String feedbackID = request.getParameter("feedbackID");
             FeedbackDAO dao = new FeedbackDAO();
-//            String pipeStyle = request.getParameter("stylePipe");
-//            String listStyle = request.getParameter("styleList");
-//            if (!pipeStyle.equals("")) {
-//                request.setAttribute("STYLE_PIPE", "active");
-//            }
-//
-//            if (!listStyle.equals("")) {
-//                request.setAttribute("STYLE_LIST", "active");
-//            }
-//
-//            String categoryAll = request.getParameter("style_list_category_all");
-//            String categoryPending = request.getParameter("style_list_category_pending");
-//            String categoryOnGoing = request.getParameter("style_list_category_onGoing");
             if (dao.declineDetail(feedbackDetailID)) {
-//                if (!categoryAll.equals("")) {
-//                    request.setAttribute("STYLE_LIST_ALL", "active");
-//                }
-//                if (!categoryPending.equals("")) {
-//                    request.setAttribute("STYLE_LIST_PENDING", "active");
-//                }
-//                if (!categoryOnGoing.equals("")) {
-//                    request.setAttribute("STYLE_LIST_ONGOING", "active");
-//                }
+                dao.insertDeclineRespone(feedbackID,ReasonFeedback);
                 if(dao.countInactiveDetail(feedbackID)==0){
                     dao.updateInactive(feedbackID);
                     url = FEEDBACK;

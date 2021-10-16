@@ -48,6 +48,7 @@ public class ShowDetailController extends HttpServlet {
             String statusID = request.getParameter("statusID");
             String statusName = request.getParameter("statusName");
             String flag = request.getParameter("flag");
+            //add thêm field cateID
             List<FeedbackDetailDTO> list = dao.getListFeedbackDetail(feedbackID);
             if (!list.isEmpty()) {
                 session.setAttribute("LIST_DETAIL", list);

@@ -25,27 +25,26 @@ public class FeedbackDetailDTO {
     private String employeeName;
     private String responseDes;
     private String description;
-
-
+    private String categoryDevice;
 
     public FeedbackDetailDTO() {
     }
 
-    public FeedbackDetailDTO(String feedbackDetailID, String facilityID, String userID, String feedbackID, String quanity, String reason, String location, String image, boolean flag, String deviceName, String date, String employeeName, String description) {
-        this.feedbackDetailID = feedbackDetailID;
-        this.facilityID = facilityID;
-        this.userID = userID;
-        this.feedbackID = feedbackID;
-        this.quanity = quanity;
-        this.reason = reason;
-        this.location = location;
-        this.image = image;
-        this.flag = flag;
-        this.deviceName = deviceName;
-        this.date = date;
-        this.employeeName = employeeName;
-        this.description = description;
-    }
+//    public FeedbackDetailDTO(String feedbackDetailID, String facilityID, String userID, String feedbackID, String quanity, String reason, String location, String image, boolean flag, String deviceName, String date, String employeeName, String description) {
+//        this.feedbackDetailID = feedbackDetailID;
+//        this.facilityID = facilityID;
+//        this.userID = userID;
+//        this.feedbackID = feedbackID;
+//        this.quanity = quanity;
+//        this.reason = reason;
+//        this.location = location;
+//        this.image = image;
+//        this.flag = flag;
+//        this.deviceName = deviceName;
+//        this.date = date;
+//        this.employeeName = employeeName;
+//        this.description = description;
+//    }
 
     public FeedbackDetailDTO(String feedbackDetailID, String facilityID, String userID, String feedbackID, String quanity, String reason, String location, String image, boolean flag, String deviceName, String date, String description) {
         this.feedbackDetailID = feedbackDetailID;
@@ -62,7 +61,7 @@ public class FeedbackDetailDTO {
         this.description = description;
     }
 
-    public FeedbackDetailDTO( String facilityID, String userID, String feedbackID, String quanity, String reason, String location, boolean flag, String description) {
+    public FeedbackDetailDTO(String facilityID, String userID, String feedbackID, String quanity, String reason, String location, boolean flag, String description) {
         this.facilityID = facilityID;
         this.userID = userID;
         this.feedbackID = feedbackID;
@@ -73,7 +72,23 @@ public class FeedbackDetailDTO {
         this.description = description;
     }
 
- 
+    public FeedbackDetailDTO(String feedbackDetailID, String facilityID, String userID, String feedbackID, String quanity, String reason, String location, String image, boolean flag, String deviceName, String date, String description, String categoryDevice) {
+        this.feedbackDetailID = feedbackDetailID;
+        this.facilityID = facilityID;
+        this.userID = userID;
+        this.feedbackID = feedbackID;
+        this.quanity = quanity;
+        this.reason = reason;
+        this.location = location;
+        this.image = image;
+        this.flag = flag;
+        this.deviceName = deviceName;
+        this.date = date;
+        this.description = description;
+        this.categoryDevice = categoryDevice;
+    }
+
+   
 
     public FeedbackDetailDTO(String facilityID, String userID, String feedbackID, String quanity, String reason, String location, boolean flag) {
         this.facilityID = facilityID;
@@ -84,10 +99,6 @@ public class FeedbackDetailDTO {
         this.location = location;
         this.flag = flag;
     }
-    
-    
-
-   
 
     public FeedbackDetailDTO(String feedbackDetailID, String facilityID, String userID, String feedbackID, String quanity, String reason, String location, String image, boolean flag, String deviceName, String date) {
         this.feedbackDetailID = feedbackDetailID;
@@ -122,9 +133,6 @@ public class FeedbackDetailDTO {
     public void setResponseDes(String responseDes) {
         this.responseDes = responseDes;
     }
-
-
-
 
     public boolean isFlag() {
         return flag;
@@ -165,7 +173,6 @@ public class FeedbackDetailDTO {
     public void setFeedbackID(String feedbackID) {
         this.feedbackID = feedbackID;
     }
-
 
     public String getQuanity() {
         return quanity;
@@ -230,6 +237,13 @@ public class FeedbackDetailDTO {
     public void setDescription(String description) {
         this.description = description;
     }
-    
-    
+
+    public String getCategoryDevice() {
+        return categoryDevice;
+    }
+
+    public void setCategoryDevice(String categoryDevice) {
+        this.categoryDevice = categoryDevice;
+    }
+
 }

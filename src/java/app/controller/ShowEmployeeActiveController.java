@@ -31,11 +31,19 @@ public class ShowEmployeeActiveController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
+        HttpSession session = request.getSession();
         try {
             EmployeesDAO dao = new EmployeesDAO();
-            List<UserDTO> list = dao.showEmployeesListWithCondition();
-            HttpSession session = request.getSession();
-            session.setAttribute("EMPLOYEE_LIST", list);
+            List<UserDTO> listOther = dao.showEmployeesListOther();
+            List<UserDTO> listEletric = dao.showEmployeesListElectric();
+            List<UserDTO> listWater = dao.showEmployeesListWater();
+            List<UserDTO> listEnviroment = dao.showEmployeesListEnv();
+
+            session.setAttribute("EMPLOYEE_OTHER_LIST", listOther);
+            session.setAttribute("EMPLOYEE_ELETRIC_LIST", listEletric);
+            session.setAttribute("EMPLOYEE_WATER_LIST", listWater);
+            session.setAttribute("EMPLOYEE_ENVIROMENT_LIST", listEnviroment);
+
             url = SUCCESS;
         } catch (Exception e) {
             log("Error at ShowEmployeeActiveController" + e.toString());

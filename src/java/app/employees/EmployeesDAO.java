@@ -66,7 +66,7 @@ public class EmployeesDAO {
         return list;
     }
 
-    public List<UserDTO> showEmployeesListWithCondition() throws SQLException {
+    public List<UserDTO> showEmployeesListOther() throws SQLException {
 
         List<UserDTO> list = new ArrayList<>();
         Connection conn = null;
@@ -77,7 +77,115 @@ public class EmployeesDAO {
             if (conn != null) {
                 String sql = "SELECT FullName,UserID,RoleID "
                         + " FROM tblUser "
-                        + " WHERE NOT RoleID = 'AD' AND statusID= 'active' AND NOT ROLEID ='US' ";
+                        + " WHERE NOT RoleID = 'AD' AND statusID= 'active' AND NOT ROLEID ='US' AND ROLEID ='OT' ";
+                stm = conn.prepareCall(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String userID = rs.getString("UserID");
+                    String name = rs.getString("FullName");
+                    String roleID = rs.getString("RoleID");
+                    list.add(new UserDTO(userID, name, roleID));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+     public List<UserDTO> showEmployeesListElectric() throws SQLException {
+
+        List<UserDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT FullName,UserID,RoleID "
+                        + " FROM tblUser "
+                        + " WHERE NOT RoleID = 'AD' AND statusID= 'active' AND NOT ROLEID ='US' ROLEID ='TD' ";
+                stm = conn.prepareCall(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String userID = rs.getString("UserID");
+                    String name = rs.getString("FullName");
+                    String roleID = rs.getString("RoleID");
+                    list.add(new UserDTO(userID, name, roleID));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+      public List<UserDTO> showEmployeesListWater() throws SQLException {
+
+        List<UserDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT FullName,UserID,RoleID "
+                        + " FROM tblUser "
+                        + " WHERE NOT RoleID = 'AD' AND statusID= 'active' AND NOT ROLEID ='US' ROLEID ='TN' ";
+                stm = conn.prepareCall(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String userID = rs.getString("UserID");
+                    String name = rs.getString("FullName");
+                    String roleID = rs.getString("RoleID");
+                    list.add(new UserDTO(userID, name, roleID));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+       public List<UserDTO> showEmployeesListEnv() throws SQLException {
+
+        List<UserDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT FullName,UserID,RoleID "
+                        + " FROM tblUser "
+                        + " WHERE NOT RoleID = 'AD' AND statusID= 'active' AND NOT ROLEID ='US' ROLEID ='EN' ";
                 stm = conn.prepareCall(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {

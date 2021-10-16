@@ -655,7 +655,7 @@ public class FeedbackDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*, t2.Date as Date, t3.Name as FacilityName "
+                String sql = "SELECT t1.*, t2.Date as Date, t3.Name as FacilityName ,t3.CategoryID as categoryID "
                         + " FROM tblFeedbackDetail t1 "
                         + " JOIN tblFeedback t2 "
                         + "  ON t1.FeedbackID = t2.FeedbackID "
@@ -674,6 +674,7 @@ public class FeedbackDAO {
                     String reason = rs.getString("Reason");
                     String location = rs.getString("Location");
                     String des = rs.getString("Description");
+                    String categoryID = rs.getString("categoryID");
                     byte[] tmp = rs.getBytes("Image");
                     if (tmp != null) {
                         base64Image = Base64.getEncoder().encodeToString(tmp);
@@ -683,7 +684,7 @@ public class FeedbackDAO {
                     boolean flag = rs.getBoolean("flag");
                     String date = rs.getString("date");
                     String facilityName = rs.getString("FacilityName");
-                    list.add(new FeedbackDetailDTO(feedbackDetailId, facilityID, userId, feedbackID, quantity, reason, location, base64Image, flag, facilityName, date, des));
+                    list.add(new FeedbackDetailDTO(feedbackDetailId, facilityID, userId, feedbackID, quantity, reason, location, base64Image, flag, facilityName, date, des,categoryID));
 
                 }
             }
@@ -1280,6 +1281,32 @@ public class FeedbackDAO {
                         + " WHERE FeedbackID=? ";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, feedbackId);
+                check = ps.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+    
+      public boolean insertDeclineRespone(String feedbackId,String ReasonFeedback) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " Insert into tblBannedFeedbackDetail (BanReason,FeedbackDetailID) "
+                        + " VALUES (?,?) ";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, feedbackId);
+                ps.setString(2, ReasonFeedback);
                 check = ps.executeUpdate() > 0;
             }
         } catch (Exception e) {
