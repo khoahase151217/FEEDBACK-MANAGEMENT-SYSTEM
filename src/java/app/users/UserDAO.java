@@ -55,6 +55,56 @@ public class UserDAO {
         return result;
     }
 
+    public UserDTO getUserIdByUserID(String userID) throws SQLException {
+        UserDTO user = null;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "select FullName,email, password, tblUser.RoleID as RoleID, tblRole.name as roleName, tblUser.StatusID as StatusID, tblUserStatus.Name as statusName, Image, BinaryImage from "
+                        + " tblUser join tblRole on tblUser.roleID = tblRole.roleID "
+                        + " join tblUserStatus on tblUser.statusID = tblUserStatus.statusID "
+                        + " WHERE userID = ? ";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, userID);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    String fullName = rs.getString("fullName");
+                    String email = rs.getString("email");
+                    String roleID = rs.getString("RoleID");
+                    String statusID = rs.getString("StatusID");
+                    String roleName = rs.getString("roleName");
+                    String statusName = rs.getString("statusName");
+                    String password = rs.getString("password");
+                    byte[] tmp = rs.getBytes("BinaryImage");
+                    String image = rs.getString("Image");
+                    if (tmp != null) {
+                        String base64Image = Base64.getEncoder().encodeToString(tmp);
+                        user = new UserDTO(userID, fullName, password, email, roleID, statusID, base64Image, roleName, statusName);
+                    } else {
+                        user = new UserDTO(userID, fullName, password, email, roleID, statusID, image, roleName, statusName);
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return user;
+    }
+
     public UserDTO checkLoginGoogle(String email) throws SQLException {
         UserDTO user = null;
         Connection conn = null;
@@ -63,19 +113,29 @@ public class UserDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT USERID,FullName,Email,StatusID,Image,RoleID "
-                        + " FROM tblUser "
+                String sql = "select userID, FullName, password, tblUser.RoleID as RoleID, tblRole.name as roleName, tblUser.StatusID as StatusID, tblUserStatus.Name as statusName, Image, BinaryImage from "
+                        + " tblUser join tblRole on tblUser.roleID = tblRole.roleID "
+                        + " join tblUserStatus on tblUser.statusID = tblUserStatus.statusID "
                         + " WHERE Email =? ";
                 stm = conn.prepareStatement(sql);
                 stm.setString(1, email);
                 rs = stm.executeQuery();
                 if (rs.next()) {
-                    String userID = rs.getString("USERID");
-                    String fullName = rs.getString("FullName");
-                    String statusID = rs.getString("StatusID");
-                    String image = rs.getString("Image");
+                    String userID = rs.getString("userID");
+                    String fullName = rs.getString("fullName");
                     String roleID = rs.getString("RoleID");
-                    user = new UserDTO(userID, fullName, "****", email, roleID, statusID, image);
+                    String statusID = rs.getString("StatusID");
+                    String roleName = rs.getString("roleName");
+                    String statusName = rs.getString("statusName");
+                    String password = rs.getString("password");
+                    byte[] tmp = rs.getBytes("BinaryImage");
+                    String image = rs.getString("Image");
+                    if (tmp != null) {
+                        String base64Image = Base64.getEncoder().encodeToString(tmp);
+                        user = new UserDTO(userID, fullName, password, email, roleID, statusID, base64Image, roleName, statusName);
+                    } else {
+                        user = new UserDTO(userID, fullName, password, email, roleID, statusID, image, roleName, statusName);
+                    }
                 }
             }
         } catch (Exception e) {
@@ -170,8 +230,10 @@ public class UserDAO {
 
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "select userID, FullName, RoleID, StatusID, Image, BinaryImage from "
-                        + "tblUser where Email=? and Password=? ";
+                String sql = "select userID, FullName, tblUser.RoleID as RoleID, tblRole.name as roleName, tblUser.StatusID as StatusID, tblUserStatus.Name as statusName, Image, BinaryImage from "
+                        + "tblUser join tblRole on tblUser.roleID = tblRole.roleID "
+                        + " join tblUserStatus on tblUser.statusID = tblUserStatus.statusID "
+                        + " where Email=? and Password=? ";
                 st = conn.prepareStatement(sql);
                 st.setString(1, email);
                 st.setString(2, password);
@@ -181,13 +243,15 @@ public class UserDAO {
                     String fullName = rs.getString("fullName");
                     String roleID = rs.getString("RoleID");
                     String statusID = rs.getString("StatusID");
+                    String roleName = rs.getString("roleName");
+                    String statusName = rs.getString("statusName");
                     byte[] tmp = rs.getBytes("BinaryImage");
                     String image = rs.getString("Image");
                     if (tmp != null) {
                         String base64Image = Base64.getEncoder().encodeToString(tmp);
-                        user = new UserDTO(userID, fullName, "******", email, roleID, statusID, base64Image);
+                        user = new UserDTO(userID, fullName, password, email, roleID, statusID, base64Image, roleName, statusName);
                     } else {
-                        user = new UserDTO(userID, fullName, "******", email, roleID, statusID, image);
+                        user = new UserDTO(userID, fullName, password, email, roleID, statusID, image, roleName, statusName);
                     }
 
                 }
@@ -281,8 +345,9 @@ public class UserDAO {
         }
         return list;
     }
+
     public UserDTO GetMemberSignup(UserDTO member) throws SQLException {
-        UserDTO user=new UserDTO();
+        UserDTO user = new UserDTO();
         Connection conn = null;
         PreparedStatement st = null;
         ResultSet rs = null;
@@ -293,7 +358,7 @@ public class UserDAO {
             if (conn != null) {
                 String sql = "select * from tblUser "
                         + " where Email=? and FullName=? and roleID=? and statusID=? and password=? and image=? ";
-                       
+
                 st = conn.prepareStatement(sql);
                 st.setString(1, member.getEmail());
                 st.setString(2, member.getFullName());
@@ -308,8 +373,8 @@ public class UserDAO {
                     String roleID = rs.getString("RoleID");
                     String statusID = rs.getString("StatusID");
                     String image = rs.getString("Image");
-                    String userID=rs.getString("userID");
-                    user=new UserDTO(userID, fullName, "****", email, roleID, statusID, image);
+                    String userID = rs.getString("userID");
+                    user = new UserDTO(userID, fullName, "****", email, roleID, statusID, image);
                 }
             }
         } catch (ClassNotFoundException | SQLException e) {
@@ -1640,7 +1705,7 @@ public class UserDAO {
     }
 
     //Update user
-    public boolean UpdateUser(String userID, String fullName, String roleID, String statusID, FileInputStream image) throws ClassNotFoundException, SQLException {
+    public boolean UpdateUser(String userID, String fullName, String roleID, String statusID, String password, FileInputStream image) throws ClassNotFoundException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
         boolean check = false;
@@ -1649,14 +1714,15 @@ public class UserDAO {
             con = DBUtils.getConnection();
             if (con != null) {
                 String sql = "UPDATE tblUser "
-                        + " set fullName=?,roleID=?,statusID=?,binaryimage=? "
+                        + " set fullName=?,roleID=?,statusID=?,binaryimage=?,password=? "
                         + " WHERE userID = ?";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, fullName);
                 stm.setString(2, roleID);
                 stm.setString(3, statusID);
                 stm.setBinaryStream(4, image);
-                stm.setString(5, userID);
+                stm.setString(5, password);
+                stm.setString(6, userID);
                 check = stm.executeUpdate() > 0;
             }
         } finally {
@@ -1671,7 +1737,7 @@ public class UserDAO {
         return check;
     }
 
-    public boolean UpdateUserNoPhoto(String userID, String fullName, String roleID, String statusID) throws ClassNotFoundException, SQLException {
+    public boolean UpdateUserNoPhoto(String userID, String fullName, String roleID, String statusID, String password) throws ClassNotFoundException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
         boolean check = false;
@@ -1680,13 +1746,14 @@ public class UserDAO {
             con = DBUtils.getConnection();
             if (con != null) {
                 String sql = "UPDATE tblUser "
-                        + " set fullName=?,roleID=?,statusID=? "
+                        + " set fullName=?,roleID=?,statusID=?,password=? "
                         + " WHERE userID = ?";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, fullName);
                 stm.setString(2, roleID);
                 stm.setString(3, statusID);
-                stm.setString(4, userID);
+                stm.setString(4, password);
+                stm.setString(5, userID);
                 check = stm.executeUpdate() > 0;
             }
         } finally {

@@ -26,8 +26,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  * @author HieuTran
  */
 public class UpdateUserController extends HttpServlet {
-
-    private static final String SUCCESS = "ShowUserController";
+    
+    private static final String SUCCESS = "ShowUserFormController";
     private static final String ERROR = "#";
 
     /**
@@ -43,7 +43,7 @@ public class UpdateUserController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
-
+        
         try {
             boolean flag = false;
             FileInputStream photo = null;
@@ -51,11 +51,13 @@ public class UpdateUserController extends HttpServlet {
             String fullName = "";
             String roleID = "";
             String statusID = "";
+            String password = "";
+            String position = "";
             UserDAO dao = new UserDAO();
-
+            
             boolean isMultiPart = ServletFileUpload.isMultipartContent(request);
             if (!isMultiPart) {
-
+                
             } else {
                 FileItemFactory factory = new DiskFileItemFactory();
                 ServletFileUpload upload = new ServletFileUpload(factory);
@@ -76,6 +78,9 @@ public class UpdateUserController extends HttpServlet {
                         if (inputName.equalsIgnoreCase("userID")) {
                             userID = item.getString();
                         }
+                        if (inputName.equalsIgnoreCase("password")) {
+                            password = item.getString();
+                        }
                         if (inputName.equalsIgnoreCase("fullName")) {
                             fullName = item.getString();
                         }
@@ -85,7 +90,10 @@ public class UpdateUserController extends HttpServlet {
                         if (inputName.equalsIgnoreCase("StatusID")) {
                             statusID = item.getString();
                         }
-
+                        if (inputName.equalsIgnoreCase("position")) {
+                            position = item.getString();
+                        }
+                        
                     } else {
                         if (item.getContentType().contains("image")) {
                             photo = (FileInputStream) item.getInputStream();
@@ -94,20 +102,25 @@ public class UpdateUserController extends HttpServlet {
                     }
                 }
             }
-
-            if (fullName.equals("")) {
+            
+            if (fullName.equals("") || password.equals("")) {
                 url = ERROR;
                 request.setAttribute("ADD_FAILURE", "active");
                 request.setAttribute("SEND_FAILURE", "active");
             } else {
                 if (flag) {
-                    dao.UpdateUser(userID, fullName, roleID, statusID, photo);
-                }else {
-                    dao.UpdateUserNoPhoto(userID, fullName, roleID, statusID);
+                    dao.UpdateUser(userID, fullName, roleID, statusID, password, photo);
+                } else {
+                    dao.UpdateUserNoPhoto(userID, fullName, roleID, statusID, password);
+                }
+                HttpSession session = request.getSession();
+                session.setAttribute("LOGIN_USER", dao.getUserIdByUserID(userID));
+                if(position != null) {
+                    request.setAttribute("position", position);
                 }
                 url = SUCCESS;
             }
-
+            
         } catch (Exception e) {
             log("Error at Update Controller" + e.toString());
         } finally {

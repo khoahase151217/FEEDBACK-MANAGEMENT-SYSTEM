@@ -50,7 +50,6 @@ public class ShowFacilitiesController extends HttpServlet {
 
             List<FacilityDTO> listFacilitiesUnavailable = facilitiesDao.getListFacilityUnavailableAsc();
             session.setAttribute("FACILTIES_LIST_UNAVAILABLE", listFacilitiesUnavailable);
-            request.setAttribute("STYLE_PIPE", "active");
             request.setAttribute("STYLE_LIST_ALL", "active");
             url = SUCCESS;
         } catch (Exception e) {

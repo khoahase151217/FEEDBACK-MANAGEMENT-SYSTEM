@@ -118,7 +118,7 @@ function handleRemoveTab(e) {
         item.innerText = `Device ${++count}`;
     }
     );
-    
+
     if (Array.from(document.querySelectorAll(".tab-select-wrapper p")).length === 1) {
         tabListScrollbar.style.width = 0;
         tabListScrollbar.style.left = 0;
@@ -281,3 +281,10 @@ containerMain.addEventListener("click", (e) => {
         helpBtn.closest(".list-items-help").classList.remove("background-change");
     }
 });
+
+document.querySelector(".user-form .modal").addEventListener("click", (e) => {
+    if (!e.target.classList.contains("modal"))
+        return;
+    e.target.closest(".user-form").classList.remove("open");
+});
+

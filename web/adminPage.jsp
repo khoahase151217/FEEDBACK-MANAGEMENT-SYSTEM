@@ -32,7 +32,7 @@
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
         ></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage1.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage5.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPageDetailModal.css" />
     </head>
     <body>
@@ -130,6 +130,122 @@
             </div>
         </div>
 
+        <div class="user-form ${requestScope.edit_flag}">
+            <div class="modal">
+                <div class="user-form-main">
+                    <form action="UpdateUserController" class="user-form-actual-form" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="position" value="${requestScope.position}"/>
+                        <div class="actual-form-heading">
+                            <div class="avatar-wrap">
+                                <c:set var="image" value="${requestScope.USER_UPDATE.image}"/>
+                                <c:choose>
+                                    <c:when test="${fn:startsWith(image, 'http')}">
+                                        <img
+                                            src="${requestScope.USER_UPDATE.image}"
+                                            alt=""
+                                            class="avatar"
+                                            />
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img
+                                            src="data:image/jpg/png;base64,${requestScope.USER_UPDATE.image}"
+                                            alt=""
+                                            class="avatar"
+                                            />
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                            <div class="input-file-wrap">
+                                <label>
+                                    <ion-icon
+                                        name="image-outline"
+                                        class="input-file-select actual-form-heading-image"
+                                        ></ion-icon>
+                                    <input
+                                        type="file"
+                                        name="image"
+                                        id="image"
+                                        style="display: none"
+                                        />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="actual-form-content">
+                            <div class="actual-form-input-wrapper">
+                                <div class="input-wrap">
+                                    <input
+                                        type="text"
+                                        name="userName"
+                                        id="userName"
+                                        value="${requestScope.USER_UPDATE.email}"
+                                        readonly
+                                        />
+                                    <label>User Name</label>
+                                </div>
+                                <div class="input-wrap">
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        id="email"
+                                        value="${requestScope.USER_UPDATE.email}"
+                                        readonly
+                                        />
+                                    <label>Email</label>
+                                </div>
+                                <div class="input-wrap">
+                                    <input
+                                        type="text"
+                                        name="roleID"
+                                        id="roleID"
+                                        value="${requestScope.USER_UPDATE.roleID}"
+                                        readonly
+                                        />
+                                    <label>Role</label>
+                                </div>
+                            </div>
+                            <div class="actual-form-input-wrapper">
+                                <div class="input-wrap">
+                                    <input
+                                        type="text"
+                                        name="statusID"
+                                        id="statusID"
+                                        value="${requestScope.USER_UPDATE.statusID}"
+                                        readonly
+                                        />
+                                    <label>Status</label>
+                                </div>
+                                <div class="input-wrap">
+                                    <input
+                                        type="password"
+                                        name="password"
+                                        id="password"
+                                        value="${requestScope.USER_UPDATE.password}"
+                                        />
+                                    <label>Password</label>
+                                </div>
+                                <div class="input-wrap">
+                                    <input
+                                        type="text"
+                                        name="fullName"
+                                        id="fullName"
+                                        value="${requestScope.USER_UPDATE.fullName}"
+                                        placeholder="Enter full name ..."
+                                        />
+                                    <label>Full Name</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="actual-form-footer">
+                            <button type="submit" class="actual-form-footer-btn done">
+                                <ion-icon name="checkmark-circle-outline"></ion-icon>
+                            </button>
+                        </div>
+                        <input type="hidden" name="userID" value="${requestScope.USER_UPDATE.userID}"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <main>
             <section class="showcase">
                 <div class="container">
@@ -195,21 +311,31 @@
                             </ul>
                             <div class="showcase-profile">
                                 <div class="showcase-profile-image">
-                                    <c:set var="avatar" value="${sessionScope.LOGIN_USER.image}"></c:set>
-                                    <c:choose>
-                                        <c:when test="${fn:startsWith(avatar, 'http')}">
-                                            <img
-                                                src="${sessionScope.LOGIN_USER.image}"
-                                                alt=""
-                                                />
-                                        </c:when>
-                                        <c:otherwise>
-                                            <img
-                                                src="data:image/jpg/png;base64,${sessionScope.LOGIN_USER.image}"
-                                                alt=""
-                                                />
-                                        </c:otherwise>
-                                    </c:choose>
+                                    <div class="showcase-profile-dropdown">
+                                        <div class="showcase-profile-image">
+                                            <c:set var="avatar" value="${sessionScope.LOGIN_USER.image}"></c:set>
+                                            <c:choose>
+                                                <c:when test="${fn:startsWith(avatar, 'http')}">
+                                                    <img
+                                                        src="${sessionScope.LOGIN_USER.image}"
+                                                        alt=""
+                                                        />
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <img
+                                                        src="data:image/jpg/png;base64,${sessionScope.LOGIN_USER.image}"
+                                                        alt=""
+                                                        />
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </div>
+                                        <div class="showcase-profile-dropdown-list">
+                                            <a href="ShowUserFormController?position=adminPage" class="dropdown-item">
+                                                <ion-icon name="create-outline"></ion-icon>
+                                                Edit Profile
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                                 <a href="LogoutController">
                                     <ion-icon name="log-out-outline"></ion-icon>
@@ -975,7 +1101,33 @@
                 </div>
             </section>
         </main>
-        <script src="${pageContext.request.contextPath}/js/adminPage1.js"></script>
+        <script src="${pageContext.request.contextPath}/js/adminPage.js"></script>
         <script src="${pageContext.request.contextPath}/js/ManagerFB.js"></script>
+        <!-- Query -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script>
+                                        $(function () {
+                                            var imagesPreview2 = function (input, placeToInsertImagePreview) {
+                                                if (input.files) {
+                                                    var filesAmount = input.files.length;
+
+                                                    for (i = 0; i < filesAmount; i++) {
+                                                        var reader = new FileReader();
+
+                                                        reader.onload = function (event) {
+
+                                                            $(".avatar").attr("src", event.target.result);
+                                                        };
+
+                                                        reader.readAsDataURL(input.files[i]);
+                                                    }
+                                                }
+                                            };
+
+                                            $("#image").on("change", function (e) {
+                                                imagesPreview2(this);
+                                            });
+                                        });
+        </script>
     </body>
 </html>
