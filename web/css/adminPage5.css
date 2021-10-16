@@ -270,7 +270,8 @@ img {
 }
 .showcase-profile-image img {
     object-fit: cover;
-    height: auto;
+    height: 100%;
+    width: 100%;
 }
 .showcase-profile ion-icon {
     font-family: "Poppins", sans-serif;

@@ -32,7 +32,7 @@
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
         ></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage5.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPageDetailModal.css" />
     </head>
     <body>
@@ -1103,5 +1103,31 @@
         </main>
         <script src="${pageContext.request.contextPath}/js/adminPage.js"></script>
         <script src="${pageContext.request.contextPath}/js/ManagerFB.js"></script>
+        <!-- Query -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script>
+                                        $(function () {
+                                            var imagesPreview2 = function (input, placeToInsertImagePreview) {
+                                                if (input.files) {
+                                                    var filesAmount = input.files.length;
+
+                                                    for (i = 0; i < filesAmount; i++) {
+                                                        var reader = new FileReader();
+
+                                                        reader.onload = function (event) {
+
+                                                            $(".avatar").attr("src", event.target.result);
+                                                        };
+
+                                                        reader.readAsDataURL(input.files[i]);
+                                                    }
+                                                }
+                                            };
+
+                                            $("#image").on("change", function (e) {
+                                                imagesPreview2(this);
+                                            });
+                                        });
+        </script>
     </body>
 </html>

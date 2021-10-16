@@ -39,7 +39,6 @@ public class SearchFacilityController extends HttpServlet {
                 list = new ArrayList<>();
                 session.setAttribute("FACILTIES_LIST_ALL", list);
                 request.setAttribute("SEARCH", search);
-                request.setAttribute("STYLE_LIST", "active");
                 request.setAttribute("STYLE_LIST_ALL", "active");
                 request.getRequestDispatcher(url).forward(request, response);
                 return;
@@ -50,7 +49,6 @@ public class SearchFacilityController extends HttpServlet {
             list = dao.getListFacilityByName(search);
             session.setAttribute("FACILTIES_LIST_ALL", list);
             request.setAttribute("SEARCH", search);
-            request.setAttribute("STYLE_LIST", "active");
             request.setAttribute("STYLE_LIST_ALL", "active");
         } catch (Exception e) {
             log("Error at LoadController:" + e.toString());

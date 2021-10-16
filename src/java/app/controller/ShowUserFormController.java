@@ -26,8 +26,7 @@ public class ShowUserFormController extends HttpServlet {
     private static final String ADMIN_PAGE = "ShowFeedBackController";
     private static final String ADMIN_USER_PAGE = "ShowUserController";
     private static final String ADMIN_FACILITY_PAGE = "ShowFacilitiesController";
-    private static final String EMPLOYEE_PAGE = "ShowFacilityStudentController";
-    private static final String SEARCH = "SearchStudentController";
+    private static final String EMPLOYEE_PAGE = "ShowFeedbackForEmpController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -77,13 +76,11 @@ public class ShowUserFormController extends HttpServlet {
                     }
                     break;
                 default:
+                    url = EMPLOYEE_PAGE;
+                    request.setAttribute("edit_flag", "open");
                     break;
             }
 
-            String search = request.getParameter("search");
-            if (!search.equals("")) {
-                url = SEARCH;
-            }
         } catch (Exception e) {
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
