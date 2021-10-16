@@ -219,7 +219,49 @@ img {
     align-items: center;
     flex-direction: column;
     gap: 40px 0;
+    position: relative;
 }
+
+.showcase-profile-dropdown-list {
+    margin-top: 0.5rem;
+    position: absolute;
+    left: 50%;
+    width: 8rem;
+    height: auto;
+    transform: translateX(-50%);
+    opacity: 0;
+    pointer-events: none;
+}
+.showcase-profile-dropdown-list .dropdown-item {
+    padding: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: #fff;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 35px 0px;
+    border-radius: 4px;
+}
+.showcase-profile-dropdown-list .dropdown-item ion-icon {
+    font-size: 1.8rem;
+    color: #151111;
+}
+.showcase-profile-dropdown-list .dropdown-item:hover {
+    background: #e2e0e0;
+}
+.showcase-profile-dropdown-list::before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    width: 100%;
+    height: 0.5rem;
+    background-color: transparent;
+}
+.showcase-profile-dropdown:hover .showcase-profile-dropdown-list {
+    opacity: 1;
+    pointer-events: all;
+}
+
 .showcase-profile-image {
     width: 40px;
     height: 40px;
@@ -538,7 +580,7 @@ img {
 }
 
 .showcase-user-category {
-    width: 60%;
+    width: 70%;
     height: 40px;
     background-color: #fff;
     border-radius: 30px;
@@ -690,15 +732,7 @@ img {
     border-radius: 0 0 15px 15px;
     overflow: hidden;
 }
-/*.user-list .user-item-bottom .user-item-link:first-child {
-    border-radius: 0 0 15px 0;
-}*/
-/*.user-list .user-item-bottom .user-item-link:last-child {
-    border-radius: 0 0 0 15px;
-}*/
-/*.user-list .user-item-bottom .user-item-link:nth-child(2) {
-    border-radius: 0 0 15px 0;
-}*/
+
 .user-list .user-item-link {
     padding: 10px 0;
     display: flex;
@@ -719,23 +753,23 @@ img {
 .user-list .user-item-link:hover {
     background-color: rgba(0, 0, 0, 0.2);
 }
-.user-list .user-item .inactivate {
-    display: none;
+.user-list .user-item .active {
+    cursor: not-allowed;
+    pointer-events: none;
+    background-color: rgb(96 96 96 / 4%);
 }
-.user-list .user-item.inactive .inactivate {
-    display: none;
+.user-list .user-item.inactive .inactive {
+    cursor: not-allowed;
+    pointer-events: none;
+    background-color: rgb(96 96 96 / 4%);
 }
-.user-list .user-item.inactive .activate {
-    display: flex;
-
+.user-list .user-item.inactive .active {
+    background: transparent;
+    cursor: pointer;
+    pointer-events: all;
 }
-
-.user-list .user-item.active .inactivate {
-    display: flex;
-}
-.user-list .user-item.active .activate {
-    display: none;
-
+.user-list .user-item.inactive .active:hover {
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 .facility-heading-header {
@@ -865,7 +899,7 @@ img {
 }
 
 .facility-list-heading {
-    width: 30%;
+    width: 55%;
     height: 40px;
     background-color: #fff;
     border-radius: 30px;
@@ -1300,6 +1334,136 @@ img {
     left: 10px;
     padding: 0 0.5rem;
     transform: translateY(50%);
+}
+
+.user-form {
+    display: none;
+}
+.user-form .modal {
+    display: flex;
+    z-index: 3;
+    background-color: rgba(0, 0, 0, 0.27);
+}
+.user-form-main {
+    margin: auto;
+    max-width: 480px;
+    max-height: 520px;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    padding: 5px 0;
+    border-radius: 8px;
+    animation: scale linear 0.3s;
+}
+.user-form-actual-form {
+    padding: 20px;
+}
+.user-form-actual-form .actual-form-heading {
+    position: relative;
+}
+.user-form-actual-form .actual-form-heading .avatar-wrap {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto;
+}
+.user-form-actual-form .actual-form-heading .avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.user-form-actual-form .actual-form-heading-image {
+    font-size: 3rem;
+    color: #151111;
+    position: absolute;
+    top: 0;
+    left: 62%;
+    transform: translateX(-50%);
+    background-color: #d7d7d7;
+    padding: 0.45rem;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+}
+.user-form-actual-form .actual-form-heading-image:hover {
+    background-color: #bdbdbd;
+}
+.user-form-actual-form .actual-form-content {
+    margin-top: 2.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 0 2rem;
+}
+.user-form-actual-form .actual-form-content .input-wrap {
+    position: relative;
+    padding: 20px 0 0;
+}
+.user-form-actual-form .actual-form-content .input-wrap input,
+.user-form-actual-form .actual-form-content .input-wrap select {
+    font-family: "Poppins", sans-serif;
+    padding: 5px;
+    border-radius: 6px;
+    border: 1px solid #a7a7a7;
+    outline: 0;
+    color: #151111;
+    width: 100%;
+}
+.user-form-actual-form .actual-form-content .input-wrap input[readonly],
+.user-form-actual-form .actual-form-content .input-wrap select[readonly] {
+    background-color: #e6e6e6;
+}
+.user-form-actual-form .actual-form-content .input-wrap input::-webkit-input-placeholder,
+.user-form-actual-form .actual-form-content .input-wrap select::-webkit-input-placeholder {
+    color: #a7a7a7;
+}
+.user-form-actual-form .actual-form-content .input-wrap input::-moz-input-placeholder,
+.user-form-actual-form .actual-form-content .input-wrap select::-moz-input-placeholder {
+    color: #a7a7a7;
+}
+.user-form-actual-form .actual-form-content .input-wrap input:not([readonly]):focus,
+.user-form-actual-form .actual-form-content .input-wrap select:not([readonly]):focus {
+    outline: 1px solid #151111;
+}
+.user-form-actual-form .actual-form-content .input-wrap label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 1.5rem;
+    color: #9c9c9c;
+}
+.user-form-actual-form .actual-form-content .input-wrap:not(:last-child) {
+    margin-bottom: 2.5rem;
+}
+.user-form-actual-form .actual-form-footer {
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0 20px;
+}
+.user-form-actual-form .actual-form-footer button {
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    outline: 0;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.user-form-actual-form .actual-form-footer button.done {
+    background-color: #73fa5d;
+}
+.user-form-actual-form .actual-form-footer button.decline {
+    background-color: #d43a3ae5;
+}
+.user-form-actual-form .actual-form-footer ion-icon {
+    font-size: 4rem;
+}
+.user-form.open {
+    display: block;
 }
 
 @media screen and (max-width: 1600px) {

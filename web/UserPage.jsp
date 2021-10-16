@@ -49,7 +49,7 @@
             referrerpolicy="no-referrer"
             />
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/User1.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/User.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/FeedbackForm.css" />
     </head>
     <body>
@@ -397,6 +397,122 @@
             </div>
         </div>
 
+        <!-- if you want to open modal, you add class for div[class = 'user-form'] value: 'open' -->
+        <div class="user-form ${requestScope.flag}">
+            <div class="modal">
+                <div class="user-form-main">
+                    <form action="UpdateUserController" class="user-form-actual-form" method="post" enctype="multipart/form-data">
+                        <div class="actual-form-heading">
+                            <div class="avatar-wrap">
+                                <c:set var="image" value="${requestScope.USER_UPDATE.image}"/>
+                                <c:choose>
+                                    <c:when test="${fn:startsWith(image, 'http')}">
+                                        <img
+                                            src="${requestScope.USER_UPDATE.image}"
+                                            alt=""
+                                            class="avatar"
+                                            />
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img
+                                            src="data:image/jpg/png;base64,${requestScope.USER_UPDATE.image}"
+                                            alt=""
+                                            class="avatar"
+                                            />
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                            <div class="input-file-wrap">
+                                <label>
+                                    <ion-icon
+                                        name="image-outline"
+                                        class="input-file-select actual-form-heading-image"
+                                        ></ion-icon>
+                                    <input
+                                        type="file"
+                                        name="image"
+                                        id="image"
+                                        style="display: none"
+                                        />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="actual-form-content">
+                            <div class="actual-form-input-wrapper">
+                                <div class="input-wrap">
+                                    <input
+                                        type="text"
+                                        name="userName"
+                                        id="userName"
+                                        value="${requestScope.USER_UPDATE.email}"
+                                        readonly
+                                        />
+                                    <label>User Name</label>
+                                </div>
+                                <div class="input-wrap">
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        id="email"
+                                        value="${requestScope.USER_UPDATE.email}"
+                                        readonly
+                                        />
+                                    <label>Email</label>
+                                </div>
+                                <div class="input-wrap">
+                                    <input
+                                        type="text"
+                                        name="roleID"
+                                        id="roleID"
+                                        value="${requestScope.USER_UPDATE.roleID}"
+                                        readonly
+                                        />
+                                    <label>Role</label>
+                                </div>
+                            </div>
+                            <div class="actual-form-input-wrapper">
+                                <div class="input-wrap">
+                                    <input
+                                        type="text"
+                                        name="statusID"
+                                        id="statusID"
+                                        value="${requestScope.USER_UPDATE.statusID}"
+                                        readonly
+                                        />
+                                    <label>Status</label>
+                                </div>
+                                <div class="input-wrap">
+                                    <input
+                                        type="password"
+                                        name="password"
+                                        id="password"
+                                        value="${requestScope.USER_UPDATE.password}"
+                                        />
+                                    <label>Password</label>
+                                </div>
+                                <div class="input-wrap">
+                                    <input
+                                        type="text"
+                                        name="fullName"
+                                        id="fullName"
+                                        value="${requestScope.USER_UPDATE.fullName}"
+                                        placeholder="Enter full name ..."
+                                        />
+                                    <label>Full Name</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="actual-form-footer">
+                            <button type="submit" class="actual-form-footer-btn done">
+                                <ion-icon name="checkmark-circle-outline"></ion-icon>
+                            </button>
+                        </div>
+                        <input type="hidden" name="userID" value="${requestScope.USER_UPDATE.userID}"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <!-- Pop-up message when submit -->
         <!-- When back end return a message you can add class value 'open' to div [class='feedback-form-message'] -->
         <!-- you need have 2 difference attribute for success and failure, and add to two div[class='form-message-item']  -->
@@ -426,6 +542,7 @@
                 </div>
             </div>
         </div>
+
 
         <header class="header">
             <div class="container">
@@ -475,6 +592,10 @@
                                 </c:choose>
                             </div>
                             <div class="dropdown-list">
+                                <a href="ShowUserFormController" class="dropdown-item">
+                                    <ion-icon name="create-outline"></ion-icon>
+                                    Edit Profile
+                                </a>
                                 <a href="LogoutController" class="dropdown-item">
                                     <img
                                         src="https://cdn.discordapp.com/attachments/770804043794350100/888843284833779792/logout.png"
@@ -924,37 +1045,12 @@
                                                                                 log = numFiles > 1 ? numFiles + " files selected" : label;
                                                                         if (input.length) {
                                                                             input.val(log);
-                                                                        } else {
-                                                                            if (log)
-                                                                                alert(log);
                                                                         }
                                                                     });
                                                                 });
                                                             });
 
                                                             $(function () {
-                                                                // This code will attach `fileselect` event to all file inputs on the page
-                                                                $(document).on("change", ":file", function () {
-                                                                    var input = $(this),
-                                                                            numFiles = input.get(0).files ? input.get(0).files.length : 1,
-                                                                            label = input.val().replace(/\\/g, "/").replace(/.*\//, "");
-                                                                    input.trigger("fileselect", [numFiles, label]);
-                                                                });
-
-                                                                $(document).ready(function () {
-                                                                    //below code executes on file input change and append name in text control
-                                                                    $(":file").on("fileselect", function (event, numFiles, label) {
-                                                                        var input = $(this).parents(".input-file-wrap").find(":text"),
-                                                                                log = numFiles > 1 ? numFiles + " files selected" : label;
-
-                                                                        if (input.length) {
-                                                                            input.val(log);
-                                                                        } else {
-                                                                            if (log)
-                                                                                alert(log);
-                                                                        }
-                                                                    });
-                                                                });
 
                                                                 var imagesPreview = function (input, placeToInsertImagePreview) {
                                                                     if (input.files) {
@@ -967,6 +1063,23 @@
                                                                                 $($.parseHTML("<img>"))
                                                                                         .attr("src", event.target.result)
                                                                                         .appendTo(placeToInsertImagePreview);
+                                                                            };
+
+                                                                            reader.readAsDataURL(input.files[i]);
+                                                                        }
+                                                                    }
+                                                                };
+
+                                                                var imagesPreview2 = function (input, placeToInsertImagePreview) {
+                                                                    if (input.files) {
+                                                                        var filesAmount = input.files.length;
+
+                                                                        for (i = 0; i < filesAmount; i++) {
+                                                                            var reader = new FileReader();
+
+                                                                            reader.onload = function (event) {
+
+                                                                                $(".avatar").attr("src", event.target.result);
                                                                             };
 
                                                                             reader.readAsDataURL(input.files[i]);
@@ -988,6 +1101,10 @@
                                                                 $("#gallery-photo-add-4").on("change", function (e) {
                                                                     console.log(e.target);
                                                                     imagesPreview(this, "div.tab-img-4");
+                                                                });
+
+                                                                $("#image").on("change", function (e) {
+                                                                    imagesPreview2(this);
                                                                 });
                                                             });
         </script>

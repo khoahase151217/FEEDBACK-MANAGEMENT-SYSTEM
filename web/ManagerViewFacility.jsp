@@ -33,9 +33,126 @@
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
         ></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage1.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage3.css" />
     </head>
     <body>
+
+        <div class="user-form ${requestScope.edit_flag}">
+            <div class="modal">
+                <div class="user-form-main">
+                    <form action="UpdateUserController" class="user-form-actual-form" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="position" value="${requestScope.position}"/>
+                        <div class="actual-form-heading">
+                            <div class="avatar-wrap">
+                                <c:set var="image" value="${requestScope.USER_UPDATE.image}"/>
+                                <c:choose>
+                                    <c:when test="${fn:startsWith(image, 'http')}">
+                                        <img
+                                            src="${requestScope.USER_UPDATE.image}"
+                                            alt=""
+                                            class="avatar"
+                                            />
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img
+                                            src="data:image/jpg/png;base64,${requestScope.USER_UPDATE.image}"
+                                            alt=""
+                                            class="avatar"
+                                            />
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                            <div class="input-file-wrap">
+                                <label>
+                                    <ion-icon
+                                        name="image-outline"
+                                        class="input-file-select actual-form-heading-image"
+                                        ></ion-icon>
+                                    <input
+                                        type="file"
+                                        name="image"
+                                        id="image"
+                                        style="display: none"
+                                        />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="actual-form-content">
+                            <div class="actual-form-input-wrapper">
+                                <div class="input-wrap">
+                                    <input
+                                        type="text"
+                                        name="userName"
+                                        id="userName"
+                                        value="${requestScope.USER_UPDATE.email}"
+                                        readonly
+                                        />
+                                    <label>User Name</label>
+                                </div>
+                                <div class="input-wrap">
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        id="email"
+                                        value="${requestScope.USER_UPDATE.email}"
+                                        readonly
+                                        />
+                                    <label>Email</label>
+                                </div>
+                                <div class="input-wrap">
+                                    <input
+                                        type="text"
+                                        name="roleID"
+                                        id="roleID"
+                                        value="${requestScope.USER_UPDATE.roleID}"
+                                        readonly
+                                        />
+                                    <label>Role</label>
+                                </div>
+                            </div>
+                            <div class="actual-form-input-wrapper">
+                                <div class="input-wrap">
+                                    <input
+                                        type="text"
+                                        name="statusID"
+                                        id="statusID"
+                                        value="${requestScope.USER_UPDATE.statusID}"
+                                        readonly
+                                        />
+                                    <label>Status</label>
+                                </div>
+                                <div class="input-wrap">
+                                    <input
+                                        type="password"
+                                        name="password"
+                                        id="password"
+                                        value="${requestScope.USER_UPDATE.password}"
+                                        />
+                                    <label>Password</label>
+                                </div>
+                                <div class="input-wrap">
+                                    <input
+                                        type="text"
+                                        name="fullName"
+                                        id="fullName"
+                                        value="${requestScope.USER_UPDATE.fullName}"
+                                        placeholder="Enter full name ..."
+                                        />
+                                    <label>Full Name</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="actual-form-footer">
+                            <button type="submit" class="actual-form-footer-btn done">
+                                <ion-icon name="checkmark-circle-outline"></ion-icon>
+                            </button>
+                        </div>
+                        <input type="hidden" name="userID" value="${requestScope.USER_UPDATE.userID}"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <main>
             <section class="showcase">
                 <div class="container">
@@ -101,21 +218,31 @@
                             </ul>
                             <div class="showcase-profile">
                                 <div class="showcase-profile-image">
-                                    <c:set var="avatar" value="${sessionScope.LOGIN_USER.image}"></c:set>
-                                    <c:choose>
-                                        <c:when test="${fn:startsWith(avatar, 'http')}">
-                                            <img
-                                                src="${sessionScope.LOGIN_USER.image}"
-                                                alt=""
-                                                />
-                                        </c:when>
-                                        <c:otherwise>
-                                            <img
-                                                src="data:image/jpg/png;base64,${sessionScope.LOGIN_USER.image}"
-                                                alt=""
-                                                />
-                                        </c:otherwise>
-                                    </c:choose>
+                                    <div class="showcase-profile-dropdown">
+                                        <div class="showcase-profile-image">
+                                            <c:set var="avatar" value="${sessionScope.LOGIN_USER.image}"></c:set>
+                                            <c:choose>
+                                                <c:when test="${fn:startsWith(avatar, 'http')}">
+                                                    <img
+                                                        src="${sessionScope.LOGIN_USER.image}"
+                                                        alt=""
+                                                        />
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <img
+                                                        src="data:image/jpg/png;base64,${sessionScope.LOGIN_USER.image}"
+                                                        alt=""
+                                                        />
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </div>
+                                        <div class="showcase-profile-dropdown-list">
+                                            <a href="ShowUserFormController?position=ManagerFacilityPage" class="dropdown-item">
+                                                <ion-icon name="create-outline"></ion-icon>
+                                                Edit Profile
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                                 <a href="LogoutController">
                                     <ion-icon name="log-out-outline"></ion-icon>
@@ -146,123 +273,26 @@
                                 </div>
 
                                 <div class="content-item-main facility-content-main">
-                                    <div class="facility-item-heading">
-                                        <div class="show-category-facility">
-                                            <a href="#" class="${requestScope.STYLE_PIPE}" data-index="0">
-                                                <ion-icon name="apps-sharp"></ion-icon>
-                                            </a>
-                                            <a href="#" class="${requestScope.STYLE_LIST}" data-index="1">
-                                                <ion-icon name="list"></ion-icon>
-                                            </a>
-                                        </div>
-                                    </div>
 
                                     <div class="content-item-main-list">
                                         <div class="content-item-main-item active">
-                                            <!-- Pipe -->
-                                            <div class="content-item-main-category-item facility-item-main ${requestScope.STYLE_PIPE}">
-                                                <div class="pipe">
-                                                    <!-- Avalaible -->
-                                                    <div class="pipe-column">
-                                                        <div class="pipe-heading">
-                                                            <div class="pipe-title-wrapper">
-                                                                <span class="done"></span>
-                                                                <h2 class="pipe-title">Avalable</h2>
-                                                            </div>
-                                                            <div class="pipe-date">
-                                                                Quantity
-                                                                <ion-icon
-                                                                    name="chevron-down-outline"
-                                                                    ></ion-icon>
-                                                            </div>
-                                                        </div>
-                                                        <div class="pipe-list">
-                                                            <c:if test="${empty sessionScope.FACILTIES_LIST_AVAILABLE}">
-                                                                <p class="showcase-desc">No result can be found ...</p>
-                                                            </c:if>
-                                                            <c:forEach var="facility" items="${sessionScope.FACILTIES_LIST_AVAILABLE}">
-                                                                <div class="pipe-item">
-                                                                    <div class="pipe-item-heading">
-                                                                        <img
-                                                                            src="${facility.image}"
-                                                                            alt=""
-                                                                            />
-                                                                    </div>
-                                                                    <div class="pipe-item-bottom">
-                                                                        <div class="pipe-item-bottom-heading">
-                                                                            <h2 class="pipe-item-title">
-                                                                                ${facility.facilityName}
-                                                                            </h2>
-                                                                            <p class="pipe-item-desc">Quantity: ${facility.quantity}</p>
-                                                                        </div>
-                                                                        <div class="pipe-item-bottom-footer">
-                                                                            <p class="pipe-item-desc pipe-item-date">
-                                                                                Maintain Date: ${facility.maintenanceDate}
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </c:forEach>
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Unavalaible -->
-                                                    <div class="pipe-column">
-                                                        <div class="pipe-heading">
-                                                            <div class="pipe-title-wrapper">
-                                                                <span class="decline"></span>
-                                                                <h2 class="pipe-title">Out Of Stock</h2>
-                                                            </div>
-                                                            <div class="pipe-date">
-                                                                Maintain Date
-                                                                <ion-icon
-                                                                    name="chevron-down-outline"
-                                                                    ></ion-icon>
-                                                            </div>
-                                                        </div>
-                                                        <div class="pipe-list">
-                                                            <c:if test="${empty sessionScope.FACILTIES_LIST_UNAVAILABLE}">
-                                                                <p class="showcase-desc">No result can be found ...</p>
-                                                            </c:if>
-                                                            <c:forEach var="facility" items="${sessionScope.FACILTIES_LIST_UNAVAILABLE}">
-                                                                <div class="pipe-item">
-                                                                    <div class="pipe-item-heading">
-                                                                        <img
-                                                                            src="${facility.image}"
-                                                                            alt=""
-                                                                            />
-                                                                    </div>
-                                                                    <div class="pipe-item-bottom">
-                                                                        <div class="pipe-item-bottom-heading">
-                                                                            <h2 class="pipe-item-title">${facility.facilityName}</h2>
-                                                                            <p class="pipe-item-desc-error">
-                                                                                Out Of Stock
-                                                                            </p>
-                                                                        </div>
-                                                                        <div class="pipe-item-bottom-footer">
-                                                                            <p class="pipe-item-desc pipe-item-date">
-                                                                                Maintain Date: ${facility.maintenanceDate}
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </c:forEach>
-                                                        </div>
-                                                    </div>
-                                                    <span class="pipe-line-break"></span>
-                                                </div>
-                                            </div>
                                             <!-- List -->
-                                            <div class="content-item-main-category-item facility-item-main facility-list ${requestScope.STYLE_LIST}">
+                                            <div class="content-item-main-category-item facility-item-main facility-list active">
                                                 <ul class="facility-list-heading">
                                                     <li class="facility-list-item ${requestScope.STYLE_LIST_ALL}" data-index="0">
                                                         All
                                                     </li>
                                                     <li class="facility-list-item" data-index="1">
-                                                        Available
+                                                        Electronic
                                                     </li>
                                                     <li class="facility-list-item" data-index="2">
-                                                        UnAvailable
+                                                        Water
+                                                    </li>
+                                                    <li class="facility-list-item" data-index="3">
+                                                        Environment
+                                                    </li>
+                                                    <li class="facility-list-item" data-index="4">
+                                                        Others
                                                     </li>
                                                 </ul>
                                                 <div class="facility-list-showcase">
@@ -306,7 +336,7 @@
                                                             </c:forEach>
                                                         </div>
                                                     </div>
-                                                    <!-- list Available -->
+                                                    <!-- list Electronic -->
                                                     <div class="facility-list-showcase-item">
                                                         <div class="list">
                                                             <c:if test="${empty sessionScope.FACILTIES_LIST_AVAILABLE}">
@@ -339,7 +369,77 @@
                                                             </c:forEach>
                                                         </div>
                                                     </div>
-                                                    <!-- list UnAvailable -->
+                                                    <!-- list Water -->
+                                                    <div class="facility-list-showcase-item">
+                                                        <div class="list">
+                                                            <c:if test="${empty sessionScope.FACILTIES_LIST_UNAVAILABLE}">
+                                                                <p class="showcase-desc">
+                                                                    No result can be found ...
+                                                                </p>
+                                                            </c:if>
+                                                            <c:forEach var="facility" items="${sessionScope.FACILTIES_LIST_UNAVAILABLE}">
+                                                                <div class="pipe-item">
+                                                                    <div class="pipe-item-heading">
+                                                                        <img
+                                                                            src="${facility.image}"
+                                                                            alt=""
+                                                                            />
+                                                                    </div>
+                                                                    <div class="pipe-item-bottom">
+                                                                        <div class="pipe-item-bottom-heading">
+                                                                            <h2 class="pipe-item-title">
+                                                                                ${facility.facilityName}
+                                                                            </h2>
+                                                                            <p class="pipe-item-desc-error">
+                                                                                Out Of Stock
+                                                                            </p>
+                                                                        </div>
+                                                                        <div class="pipe-item-bottom-footer">
+                                                                            <p class="pipe-item-desc pipe-item-date">
+                                                                                Maintain Date: ${facility.maintenanceDate}
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </c:forEach>
+                                                        </div>
+                                                    </div>
+                                                    <!-- list Environment -->
+                                                    <div class="facility-list-showcase-item">
+                                                        <div class="list">
+                                                            <c:if test="${empty sessionScope.FACILTIES_LIST_UNAVAILABLE}">
+                                                                <p class="showcase-desc">
+                                                                    No result can be found ...
+                                                                </p>
+                                                            </c:if>
+                                                            <c:forEach var="facility" items="${sessionScope.FACILTIES_LIST_UNAVAILABLE}">
+                                                                <div class="pipe-item">
+                                                                    <div class="pipe-item-heading">
+                                                                        <img
+                                                                            src="${facility.image}"
+                                                                            alt=""
+                                                                            />
+                                                                    </div>
+                                                                    <div class="pipe-item-bottom">
+                                                                        <div class="pipe-item-bottom-heading">
+                                                                            <h2 class="pipe-item-title">
+                                                                                ${facility.facilityName}
+                                                                            </h2>
+                                                                            <p class="pipe-item-desc-error">
+                                                                                Out Of Stock
+                                                                            </p>
+                                                                        </div>
+                                                                        <div class="pipe-item-bottom-footer">
+                                                                            <p class="pipe-item-desc pipe-item-date">
+                                                                                Maintain Date: ${facility.maintenanceDate}
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </c:forEach>
+                                                        </div>
+                                                    </div>
+                                                    <!-- list Others -->
                                                     <div class="facility-list-showcase-item">
                                                         <div class="list">
                                                             <c:if test="${empty sessionScope.FACILTIES_LIST_UNAVAILABLE}">
@@ -386,8 +486,8 @@
             </section>
         </main>
 
-        <script src="${pageContext.request.contextPath}/js/adminPage1.js"></script>
-        <script src="${pageContext.request.contextPath}/js/ManagerFacility.js"></script>
+        <script src="${pageContext.request.contextPath}/js/adminPage.js"></script>
+        <script src="${pageContext.request.contextPath}/js/ManagerFacility1.js"></script>
     </body>
 </html>
 

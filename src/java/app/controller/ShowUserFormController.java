@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -21,7 +22,11 @@ import javax.servlet.http.HttpServletResponse;
 public class ShowUserFormController extends HttpServlet {
 
     private static final String ERROR = "#";
-    private static final String SUCCESS = "ShowUserController";
+    private static final String USER_PAGE = "ShowFacilityStudentController";
+    private static final String ADMIN_PAGE = "ShowFeedBackController";
+    private static final String ADMIN_USER_PAGE = "ShowUserController";
+    private static final String ADMIN_FACILITY_PAGE = "ShowFacilitiesController";
+    private static final String EMPLOYEE_PAGE = "ShowFacilityStudentController";
     private static final String SEARCH = "SearchStudentController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -30,18 +35,50 @@ public class ShowUserFormController extends HttpServlet {
         String url = ERROR;
         try {
             UserDAO dao = new UserDAO();
-            String userID = request.getParameter("userID");
-            String fullName = request.getParameter("fullName");
-            String image = request.getParameter("image");
-            String email = request.getParameter("email");
-            String statusID = request.getParameter("statusID");
-            String statusName = request.getParameter("statusName");
-            String roleID = request.getParameter("roleID");
-            String roleName = request.getParameter("roleName");
-            request.setAttribute("USER_UPDATE", new UserDTO(userID, fullName, "******", email, roleID, statusID, image, roleName, statusName));
-            request.setAttribute("flag", "open");
-            request.setAttribute("LIST_ROLE", dao.getListRoleID());
-            url = SUCCESS;
+            HttpSession session = request.getSession();
+            UserDTO login_user = (UserDTO) session.getAttribute("LOGIN_USER");
+            String userID = login_user.getUserID();
+            String password = login_user.getPassword();
+            String fullName = login_user.getFullName();
+            String image = login_user.getImage();
+            String email = login_user.getEmail();
+            String statusID = login_user.getStatusID();
+            String statusName = login_user.getStatusName();
+            String roleID = login_user.getRoleID();
+            String roleName = login_user.getRoleName();
+            String position = request.getParameter("position");
+            request.setAttribute("USER_UPDATE", new UserDTO(userID, fullName, password, email, roleID, statusID, image, roleName, statusName));
+            switch (login_user.getRoleID()) {
+                case "US":
+                    request.setAttribute("flag", "open");
+                    url = USER_PAGE;
+                    break;
+                case "AD":
+                    if (position != null) {
+                        request.setAttribute("position", position);
+                    } else {
+                        position = (String) request.getAttribute("position");
+                    }
+                    switch (position) {
+                        case "adminPage":
+                            request.setAttribute("edit_flag", "open");
+                            url = ADMIN_PAGE;
+                            break;
+                        case "ManagerUserPage":
+                            request.setAttribute("edit_flag", "open");
+                            url = ADMIN_USER_PAGE;
+                            break;
+                        case "ManagerFacilityPage":
+                            request.setAttribute("edit_flag", "open");
+                            url = ADMIN_FACILITY_PAGE;
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                default:
+                    break;
+            }
 
             String search = request.getParameter("search");
             if (!search.equals("")) {

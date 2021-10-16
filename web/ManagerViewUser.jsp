@@ -31,16 +31,17 @@
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
         ></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage1.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ManagerViewUser.css" />
     </head>
     <body>
 
         <!-- if you want to open modal, you add class for div[class = 'user-form'] value: 'open' -->
-        <div class="user-form ${requestScope.flag}">
+        <div class="user-form ${requestScope.edit_flag}">
             <div class="modal">
                 <div class="user-form-main">
                     <form action="UpdateUserController" class="user-form-actual-form" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="position" value="${requestScope.position}"/>
                         <div class="actual-form-heading">
                             <div class="avatar-wrap">
                                 <c:set var="image" value="${requestScope.USER_UPDATE.image}"/>
@@ -101,6 +102,37 @@
                                 <div class="input-wrap">
                                     <input
                                         type="text"
+                                        name="roleID"
+                                        id="roleID"
+                                        value="${requestScope.USER_UPDATE.roleID}"
+                                        readonly
+                                        />
+                                    <label>Role</label>
+                                </div>
+                            </div>
+                            <div class="actual-form-input-wrapper">
+                                <div class="input-wrap">
+                                    <input
+                                        type="text"
+                                        name="statusID"
+                                        id="statusID"
+                                        value="${requestScope.USER_UPDATE.statusID}"
+                                        readonly
+                                        />
+                                    <label>Status</label>
+                                </div>
+                                <div class="input-wrap">
+                                    <input
+                                        type="password"
+                                        name="password"
+                                        id="password"
+                                        value="${requestScope.USER_UPDATE.password}"
+                                        />
+                                    <label>Password</label>
+                                </div>
+                                <div class="input-wrap">
+                                    <input
+                                        type="text"
                                         name="fullName"
                                         id="fullName"
                                         value="${requestScope.USER_UPDATE.fullName}"
@@ -109,42 +141,11 @@
                                     <label>Full Name</label>
                                 </div>
                             </div>
-                            <div class="actual-form-input-wrapper">
-                                <div class="input-wrap">
-                                    <input
-                                        type="text"
-                                        name="password"
-                                        id="password"
-                                        value="*********"
-                                        readonly
-                                        />
-                                    <label>Password</label>
-                                </div>
-                                <div class="input-wrap">
-                                    <select name="roleID" id="roleID">
-                                        <option value="${requestScope.USER_UPDATE.roleID}" selected hidden>${requestScope.USER_UPDATE.roleName}</option>
-                                        <c:forEach var="role" items="${requestScope.LIST_ROLE}">
-                                            <option value="${role.roleID}">${role.roleName}</option>
-                                        </c:forEach>
-                                    </select>
-                                    <label>Role</label>
-                                </div>
-                                <div class="input-wrap">
-                                    <select name="statusID" id="statusID">
-                                        <option value="active" selected>Active</option>
-                                        <option value="inactive">Inactive</option>
-                                    </select>
-                                    <label>Status</label>
-                                </div>
-                            </div>
                         </div>
                         <div class="actual-form-footer">
                             <button type="submit" class="actual-form-footer-btn done">
                                 <ion-icon name="checkmark-circle-outline"></ion-icon>
                             </button>
-                            <!--                            <button type="submit" class="actual-form-footer-btn decline">
-                                                            <ion-icon name="close-circle-outline"></ion-icon>
-                                                        </button>-->
                         </div>
                         <input type="hidden" name="userID" value="${requestScope.USER_UPDATE.userID}"/>
                     </form>
@@ -217,21 +218,31 @@
                             </ul>
                             <div class="showcase-profile">
                                 <div class="showcase-profile-image">
-                                    <c:set var="avatar" value="${sessionScope.LOGIN_USER.image}"></c:set>
-                                    <c:choose>
-                                        <c:when test="${fn:startsWith(avatar, 'http')}">
-                                            <img
-                                                src="${sessionScope.LOGIN_USER.image}"
-                                                alt=""
-                                                />
-                                        </c:when>
-                                        <c:otherwise>
-                                            <img
-                                                src="data:image/jpg/png;base64,${sessionScope.LOGIN_USER.image}"
-                                                alt=""
-                                                />
-                                        </c:otherwise>
-                                    </c:choose>
+                                    <div class="showcase-profile-dropdown">
+                                        <div class="showcase-profile-image">
+                                            <c:set var="avatar" value="${sessionScope.LOGIN_USER.image}"></c:set>
+                                            <c:choose>
+                                                <c:when test="${fn:startsWith(avatar, 'http')}">
+                                                    <img
+                                                        src="${sessionScope.LOGIN_USER.image}"
+                                                        alt=""
+                                                        />
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <img
+                                                        src="data:image/jpg/png;base64,${sessionScope.LOGIN_USER.image}"
+                                                        alt=""
+                                                        />
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </div>
+                                        <div class="showcase-profile-dropdown-list">
+                                            <a href="ShowUserFormController?position=ManagerUserPage" class="dropdown-item">
+                                                <ion-icon name="create-outline"></ion-icon>
+                                                Edit Profile
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                                 <a href="LogoutController">
                                     <ion-icon name="log-out-outline"></ion-icon>
@@ -267,6 +278,8 @@
                                             <li class="category-item ${requestScope.STYLE_LIST_EMPLOYEE}" data-index="2">Employee</li>
                                             <li class="category-item ${requestScope.STYLE_LIST_ACTIVE}" data-index="3">Active</li>
                                             <li class="category-item ${requestScope.STYLE_LIST_INACTIVE}" data-index="4">Inactive</li>
+                                            <li class="category-item" data-index="5">Bad-behavior</li>
+                                            <li class="category-item" data-index="6">Good-behavior</li>
                                         </div>
                                     </ul>
                                 </div>
@@ -311,32 +324,13 @@
                                                             </div>
                                                         </div>
                                                         <div class="user-item-bottom">
-                                                            <form action="ShowUserFormController" method="post">
-                                                                <input type="hidden" name="userID" value="${user.userID}"/>
-                                                                <input type="hidden" name="image" value="${user.image}" />
-                                                                <input type="hidden" name="fullName" value="${user.fullName}"/>
-                                                                <input type="hidden" name="statusName" value="${user.statusName}"/>
-                                                                <input type="hidden" name="statusID" value="${user.statusID}"/>
-                                                                <input type="hidden" name="roleName" value="${user.roleName}"/>
-                                                                <input type="hidden" name="roleID" value="${user.roleID}"/>
-                                                                <input type="hidden" name="search" value="${requestScope.SEARCH}"/>
-                                                                <input type="hidden" name="style_flag" value="all"/>
-                                                                <button type="submit" class="user-item-link">
-                                                                    <ion-icon name="create-outline"></ion-icon>
-                                                                    Edit Profile
-                                                                </button>
-                                                            </form>
-<!--                                                            <a href="ShowUserFormController?userID=${user.userID}&image=${user.image}&fullName=${user.fullName}&email=${user.email}&statusName=${user.statusName}&statusID=${user.statusID}&roleID=${user.roleID}&roleName=${user.roleName}&search=${requestScope.SEARCH}&style_flag=all" class="user-item-link" >
-                                                                <ion-icon name="create-outline"></ion-icon>
-                                                                Edit Profile
-                                                            </a>-->
-                                                            <a href="AUController?userID=${user.userID}&StatusID=${user.statusID}&style_flag=all" class="user-item-link activate">
-                                                                <ion-icon name="checkmark-outline"></ion-icon
-                                                                >Activate
-                                                            </a>
-                                                            <a href="AUController?userID=${user.userID}&StatusID=${user.statusID}&style_flag=all" class="user-item-link inactivate">
+                                                            <a href="AUController?userID=${user.userID}&StatusID=${user.statusID}&style_flag=all" class="user-item-link inactive">
                                                                 <ion-icon name="close-outline"></ion-icon
                                                                 >Inactivate
+                                                            </a>
+                                                            <a href="AUController?userID=${user.userID}&StatusID=${user.statusID}&style_flag=all" class="user-item-link active">
+                                                                <ion-icon name="checkmark-outline"></ion-icon
+                                                                >Activate
                                                             </a>
                                                         </div>
                                                     </div>
@@ -381,32 +375,13 @@
                                                             </div>
                                                         </div>
                                                         <div class="user-item-bottom">
-                                                            <form action="ShowUserFormController" method="post">
-                                                                <input type="hidden" name="userID" value="${user.userID}"/>
-                                                                <input type="hidden" name="image" value="${user.image}"/>
-                                                                <input type="hidden" name="fullName" value="${user.fullName}"/>
-                                                                <input type="hidden" name="statusName" value="${user.statusName}"/>
-                                                                <input type="hidden" name="statusID" value="${user.statusID}"/>
-                                                                <input type="hidden" name="roleName" value="${user.roleName}"/>
-                                                                <input type="hidden" name="roleID" value="${user.roleID}"/>
-                                                                <input type="hidden" name="search" value="${requestScope.SEARCH}"/>
-                                                                <input type="hidden" name="style_flag" value="student"/>
-                                                                <button type="submit" class="user-item-link">
-                                                                    <ion-icon name="create-outline"></ion-icon>
-                                                                    Edit Profile
-                                                                </button>
-                                                            </form>
-<!--                                                            <a href="ShowUserFormController?userID=${user.userID}&image=${user.image}&fullName=${user.fullName}&email=${user.email}&statusName=${user.statusName}&statusID=${user.statusID}&roleID=${user.roleID}&roleName=${user.roleName}&search=${requestScope.SEARCH}&style_flag=student" class="user-item-link">
-                                                                <ion-icon name="create-outline"></ion-icon>
-                                                                Edit Profile
-                                                            </a>-->
-                                                            <a href="AUController?userID=${user.userID}&StatusID=${user.statusID}&style_flag=student" class="user-item-link activate">
-                                                                <ion-icon name="checkmark-outline"></ion-icon
-                                                                >Activate
-                                                            </a>
-                                                            <a href="AUController?userID=${user.userID}&StatusID=${user.statusID}&style_flag=student" class="user-item-link inactivate">
+                                                            <a href="AUController?userID=${user.userID}&StatusID=${user.statusID}&style_flag=all" class="user-item-link inactive">
                                                                 <ion-icon name="close-outline"></ion-icon
                                                                 >Inactivate
+                                                            </a>
+                                                            <a href="AUController?userID=${user.userID}&StatusID=${user.statusID}&style_flag=all" class="user-item-link active">
+                                                                <ion-icon name="checkmark-outline"></ion-icon
+                                                                >Activate
                                                             </a>
                                                         </div>
                                                     </div>
@@ -447,39 +422,17 @@
                                                                 <div class="user-item-email">
                                                                     ${user.email}
                                                                 </div>
-                                                                <h4 class="user-item-role">
-                                                                    ${user.roleName}
-                                                                </h4>
                                                                 <a href="#" class="btn btn--${user.statusID}">${user.statusName}</a>
                                                             </div>
                                                         </div>
                                                         <div class="user-item-bottom">
-                                                            <form action="ShowUserFormController" method="post">
-                                                                <input type="hidden" name="userID" value="${user.userID}"/>
-                                                                <input type="hidden" name="image" value="${user.image}"/>
-                                                                <input type="hidden" name="fullName" value="${user.fullName}"/>
-                                                                <input type="hidden" name="statusName" value="${user.statusName}"/>
-                                                                <input type="hidden" name="statusID" value="${user.statusID}"/>
-                                                                <input type="hidden" name="roleName" value="${user.roleName}"/>
-                                                                <input type="hidden" name="roleID" value="${user.roleID}"/>
-                                                                <input type="hidden" name="search" value="${requestScope.SEARCH}"/>
-                                                                <input type="hidden" name="style_flag" value="employee"/>
-                                                                <button type="submit" class="user-item-link">
-                                                                    <ion-icon name="create-outline"></ion-icon>
-                                                                    Edit Profile
-                                                                </button>
-                                                            </form>
-<!--                                                            <a href="ShowUserFormController?userID=${user.userID}&image=${user.image}&fullName=${user.fullName}&email=${user.email}&statusName=${user.statusName}&statusID=${user.statusID}&roleID=${user.roleID}&roleName=${user.roleName}&search=${requestScope.SEARCH}&style_flag=employee" class="user-item-link">
-                                                                <ion-icon name="create-outline"></ion-icon>
-                                                                Edit Profile
-                                                            </a>-->
-                                                            <a href="AUController?userID=${user.userID}&StatusID=${user.statusID}&style_flag=employee" class="user-item-link activate">
-                                                                <ion-icon name="checkmark-outline"></ion-icon
-                                                                >Activate
-                                                            </a>
-                                                            <a href="AUController?userID=${user.userID}&StatusID=${user.statusID}&style_flag=employee" class="user-item-link inactivate">
+                                                            <a href="AUController?userID=${user.userID}&StatusID=${user.statusID}&style_flag=all" class="user-item-link inactive">
                                                                 <ion-icon name="close-outline"></ion-icon
                                                                 >Inactivate
+                                                            </a>
+                                                            <a href="AUController?userID=${user.userID}&StatusID=${user.statusID}&style_flag=all" class="user-item-link active">
+                                                                <ion-icon name="checkmark-outline"></ion-icon
+                                                                >Activate
                                                             </a>
                                                         </div>
                                                     </div>
@@ -524,32 +477,13 @@
                                                             </div>
                                                         </div>
                                                         <div class="user-item-bottom">
-                                                            <form action="ShowUserFormController" method="post">
-                                                                <input type="hidden" name="userID" value="${user.userID}"/>
-                                                                <input type="hidden" name="image" value="${user.image}"/>
-                                                                <input type="hidden" name="fullName" value="${user.fullName}"/>
-                                                                <input type="hidden" name="statusName" value="${user.statusName}"/>
-                                                                <input type="hidden" name="statusID" value="${user.statusID}"/>
-                                                                <input type="hidden" name="roleName" value="${user.roleName}"/>
-                                                                <input type="hidden" name="roleID" value="${user.roleID}"/>
-                                                                <input type="hidden" name="search" value="${requestScope.SEARCH}"/>
-                                                                <input type="hidden" name="style_flag" value="active"/>
-                                                                <button type="submit" class="user-item-link">
-                                                                    <ion-icon name="create-outline"></ion-icon>
-                                                                    Edit Profile
-                                                                </button>
-                                                            </form>
-<!--                                                            <a href="ShowUserFormController?userID=${user.userID}&image=${user.image}&fullName=${user.fullName}&email=${user.email}&statusName=${user.statusName}&statusID=${user.statusID}&roleID=${user.roleID}&roleName=${user.roleName}&search=${requestScope.SEARCH}&style_flag=active" class="user-item-link">
-                                                                <ion-icon name="create-outline"></ion-icon>
-                                                                Edit Profile
-                                                            </a>-->
-                                                            <a href="AUController?userID=${user.userID}&StatusID=${user.statusID}&style_flag=active" class="user-item-link activate">
-                                                                <ion-icon name="checkmark-outline"></ion-icon
-                                                                >Activate
-                                                            </a>
-                                                            <a href="AUController?userID=${user.userID}&StatusID=${user.statusID}&style_flag=active" class="user-item-link inactivate">
+                                                            <a href="AUController?userID=${user.userID}&StatusID=${user.statusID}&style_flag=all" class="user-item-link inactive">
                                                                 <ion-icon name="close-outline"></ion-icon
                                                                 >Inactivate
+                                                            </a>
+                                                            <a href="AUController?userID=${user.userID}&StatusID=${user.statusID}&style_flag=all" class="user-item-link active">
+                                                                <ion-icon name="checkmark-outline"></ion-icon
+                                                                >Activate
                                                             </a>
                                                         </div>
                                                     </div>
@@ -594,36 +528,30 @@
                                                             </div>
                                                         </div>
                                                         <div class="user-item-bottom">
-                                                            <form action="ShowUserFormController" method="post">
-                                                                <input type="hidden" name="userID" value="${user.userID}"/>
-                                                                <input type="hidden" name="image" value="${user.image}"/>
-                                                                <input type="hidden" name="fullName" value="${user.fullName}"/>
-                                                                <input type="hidden" name="statusName" value="${user.statusName}"/>
-                                                                <input type="hidden" name="statusID" value="${user.statusID}"/>
-                                                                <input type="hidden" name="roleName" value="${user.roleName}"/>
-                                                                <input type="hidden" name="roleID" value="${user.roleID}"/>
-                                                                <input type="hidden" name="search" value="${requestScope.SEARCH}"/>
-                                                                <input type="hidden" name="style_flag" value="inActive"/>
-                                                                <button type="submit" class="user-item-link">
-                                                                    <ion-icon name="create-outline"></ion-icon>
-                                                                    Edit Profile
-                                                                </button>
-                                                            </form>
-<!--                                                            <a href="ShowUserFormController?userID=${user.userID}&image=${user.image}&fullName=${user.fullName}&email=${user.email}&statusName=${user.statusName}&statusID=${user.statusID}&roleID=${user.roleID}&roleName=${user.roleName}&search=${requestScope.SEARCH}&style_flag=inactive" class="user-item-link">
-                                                                <ion-icon name="create-outline"></ion-icon>
-                                                                Edit Profile
-                                                            </a>-->
-                                                            <a href="AUController?userID=${user.userID}&StatusID=${user.statusID}&style_flag=inActive" class="user-item-link activate">
-                                                                <ion-icon name="checkmark-outline"></ion-icon
-                                                                >Activate
-                                                            </a>
-                                                            <a href="AUController?userID=${user.userID}&StatusID=${user.statusID}&style_flag=inActive" class="user-item-link inactivate">
+                                                            <a href="AUController?userID=${user.userID}&StatusID=${user.statusID}&style_flag=all" class="user-item-link inactive">
                                                                 <ion-icon name="close-outline"></ion-icon
                                                                 >Inactivate
+                                                            </a>
+                                                            <a href="AUController?userID=${user.userID}&StatusID=${user.statusID}&style_flag=all" class="user-item-link active">
+                                                                <ion-icon name="checkmark-outline"></ion-icon
+                                                                >Activate
                                                             </a>
                                                         </div>
                                                     </div>
                                                 </c:forEach>
+                                            </div>
+                                        </div>
+
+                                        <!-- bad-behavior user page -->
+                                        <div class="user-content-main-item">
+                                            <div class="user-list">
+                                                123
+                                            </div>
+                                        </div>
+                                        <!-- good-behavior user page -->
+                                        <div class="user-content-main-item">
+                                            <div class="user-list">
+                                                456
                                             </div>
                                         </div>
                                     </div>
@@ -635,8 +563,8 @@
                 </div>
             </section>
         </main>
-        <script src="${pageContext.request.contextPath}/js/adminPage1.js"></script>
-        <script src="${pageContext.request.contextPath}/js/ManagerUser1.js"></script>
+        <script src="${pageContext.request.contextPath}/js/adminPage.js"></script>
+        <script src="${pageContext.request.contextPath}/js/ManagerUser.js"></script>
         <!-- Query -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
