@@ -33,7 +33,7 @@ public class DeclineFeedbackDetailController extends HttpServlet {
             String feedbackID = request.getParameter("feedbackID");
             FeedbackDAO dao = new FeedbackDAO();
             if (dao.declineDetail(feedbackDetailID)) {
-                dao.insertDeclineRespone(feedbackID,ReasonFeedback);
+                dao.insertDeclineRespone(feedbackDetailID,ReasonFeedback);
                 if(dao.countInactiveDetail(feedbackID)==0){
                     dao.updateInactive(feedbackID);
                     url = FEEDBACK;

@@ -1305,8 +1305,8 @@ public class FeedbackDAO {
                 String sql = " Insert into tblBannedFeedbackDetail (BanReason,FeedbackDetailID) "
                         + " VALUES (?,?) ";
                 ps = conn.prepareStatement(sql);
-                ps.setString(1, feedbackId);
-                ps.setString(2, ReasonFeedback);
+                ps.setString(1, ReasonFeedback);
+                ps.setString(2, feedbackId);
                 check = ps.executeUpdate() > 0;
             }
         } catch (Exception e) {
