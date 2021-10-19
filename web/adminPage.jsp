@@ -269,7 +269,7 @@
             <div class="modal">
                 <div class="reponse-form-main">
                     <h2 class="reponse-form-heading">Reason ban feedback detail ${requestScope.FEEDBACK_DETAIL_ID}</h2>
-                    <form action="UpdateFeedbackDeclineController" class="reponse-form-actual-form" method="post">
+                    <form action="DeclineFeedbackDetailController" class="reponse-form-actual-form" method="post">
                         <input type="hidden" name="feedbackDetailID" value="${requestScope.FEEDBACK_DETAIL_ID}" />
                         <input type="hidden" name="feedbackID" value="${requestScope.FEEDBACK_ID}" />
                         <input type="hidden" name="statusID" value="${requestScope.statusID}" />
