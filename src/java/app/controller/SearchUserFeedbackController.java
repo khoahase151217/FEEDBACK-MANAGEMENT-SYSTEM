@@ -7,6 +7,7 @@ package app.controller;
 
 import app.feedback.FeedbackDAO;
 import app.feedback.FeedbackDTO;
+import app.users.UserDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ import javax.servlet.http.HttpSession;
 public class SearchUserFeedbackController extends HttpServlet {
 
     private static final String SUCCESS = "UserPage.jsp";
-    private static final String ERROR = "#";
+    private static final String ERROR = "UserPage.jsp";
     private static final String FULL__NAME_REGEX = "^(?![\\s.]+$)[a-zA-Z\\s.]*$";
 
     /**
@@ -41,26 +42,23 @@ public class SearchUserFeedbackController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String userID = request.getParameter("userID");
+            HttpSession session = request.getSession();
+            UserDTO user = (UserDTO)session.getAttribute("LOGIN_USER");
+            String userID = user.getUserID();
             String search = request.getParameter("search");
             FeedbackDAO dao = new FeedbackDAO();
-            List<FeedbackDTO> list;
-            HttpSession session = request.getSession();
-            if (search == null) {
-                search = "";
-            } else if (!search.matches(FULL__NAME_REGEX)) {
-                list = dao.getListFeedbackForManager(search);
+            List<FeedbackDTO> list = new ArrayList<>();
+            if (!search.matches(FULL__NAME_REGEX)) {
                 session.setAttribute("HISTORY_ALL", list);
-                session.setAttribute("COUNT", list.size());
                 request.setAttribute("STYLE_LIST_ALL", "active");
                 request.setAttribute("STYLE_LIST", "active");
-
             } else {
                 list = dao.getListUserFeedbackForUser(search, userID);
                 session.setAttribute("HISTORY_ALL", list);
                 session.setAttribute("COUNT", list.size());
                 request.setAttribute("STYLE_LIST_ALL", "active");
                 request.setAttribute("STYLE_LIST", "active");
+                url = SUCCESS;
             }
         } catch (Exception e) {
             log("Error at ShowEmployeeController" + e.toString());
