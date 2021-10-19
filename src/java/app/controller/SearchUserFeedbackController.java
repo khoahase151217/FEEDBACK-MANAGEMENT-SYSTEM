@@ -128,11 +128,11 @@ public class SearchUserFeedbackController extends HttpServlet {
                             }
                         }
                     }
-                    Set<UserHistoryDTO> carSet = new TreeSet<UserHistoryDTO>(new Comparator());
-                    for (UserHistoryDTO car : listAll) {
-                        carSet.add(car);
+                    Set<UserHistoryDTO> historySet = new TreeSet<UserHistoryDTO>(new Comparator());
+                    for (UserHistoryDTO history : listAll) {
+                        historySet.add(history);
                     }
-                    List<UserHistoryDTO> withoutDuplicates = new ArrayList<UserHistoryDTO>(carSet);
+                    List<UserHistoryDTO> withoutDuplicates = new ArrayList<UserHistoryDTO>(historySet);
                     session.setAttribute("HISTORY_ALL", withoutDuplicates);
                     request.setAttribute("SEARCH", search);
                     String style_pipe = (String) request.getAttribute("STYLE_PIPE");
