@@ -6,13 +6,14 @@
 package app.users;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
  *
  * @author ADMIN
  */
-public class UserHistoryDTO {
+public class UserHistoryDTO  {
 
     private String feedbackId;
     private String date;
@@ -113,5 +114,7 @@ public class UserHistoryDTO {
     public void setStatusName(String statusName) {
         this.statusName = statusName;
     }
+
+    
 
 }
