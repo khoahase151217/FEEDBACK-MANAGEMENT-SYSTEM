@@ -138,12 +138,15 @@ public class ShowFeedbackStudentController extends HttpServlet {
                 String style_list = (String) request.getAttribute("STYLE_LIST");
                 if (style_list == null && style_pipe == null) {
                     request.setAttribute("STYLE_PIPE", "active");
+                    request.setAttribute("STYLE_LIST_ALL", "active");
                 }
-                if(style_pipe != null && style_list == null) {
+                if (style_pipe != null && style_list == null) {
                     request.setAttribute("STYLE_PIPE", "active");
+                    request.setAttribute("STYLE_LIST_ALL", "active");
                 }
-                if(style_pipe == null && style_list != null){
+                if (style_pipe == null && style_list != null) {
                     request.setAttribute("STYLE_LIST", "active");
+                    request.setAttribute("STYLE_LIST_ALL", "active");
                 }
 
                 url = SUCCESS;

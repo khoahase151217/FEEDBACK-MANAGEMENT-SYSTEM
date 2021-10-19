@@ -60,6 +60,7 @@ public class SearchUserFeedbackController extends HttpServlet {
             FeedbackDAO dao = new FeedbackDAO();
             List<UserHistoryDTO> list = dao.getListFeedbackForUser(userID);
             if (!search.matches(FULL__NAME_REGEX)) {
+                list = new ArrayList<>();
                 session.setAttribute("HISTORY_ALL", list);
                 request.setAttribute("STYLE_LIST_ALL", "active");
                 request.setAttribute("STYLE_LIST", "active");
@@ -138,15 +139,9 @@ public class SearchUserFeedbackController extends HttpServlet {
                     String style_pipe = (String) request.getAttribute("STYLE_PIPE");
                     String style_list = (String) request.getAttribute("STYLE_LIST");
                     if (style_list == null && style_pipe == null) {
-                        request.setAttribute("STYLE_PIPE", "active");
-                    }
-                    if (style_pipe != null && style_list == null) {
-                        request.setAttribute("STYLE_PIPE", "active");
-                    }
-                    if (style_pipe == null && style_list != null) {
                         request.setAttribute("STYLE_LIST", "active");
                     }
-
+                    request.setAttribute("STYLE_LIST_ALL", "active");
                     url = SUCCESS;
                 } else {
                     url = SUCCESS;
