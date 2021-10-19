@@ -317,14 +317,7 @@
                                                                             <h2 class="pipe-item-title">
                                                                                 ${facility.facilityName}
                                                                             </h2>
-                                                                            <c:if test="${facility.statusID eq 'UNAV'}">
-                                                                                <p class="pipe-item-desc-error">
-                                                                                    Out Of Stock
-                                                                                </p>
-                                                                            </c:if>
-                                                                            <c:if test="${facility.statusID eq 'AV'}">
-                                                                                <p class="pipe-item-desc">Quantity: ${facility.quantity}</p>
-                                                                            </c:if>
+                                                                            <p class="pipe-item-desc">Quantity: ${facility.quantity}</p>
                                                                         </div>
                                                                         <div class="pipe-item-bottom-footer">
                                                                             <p class="pipe-item-desc pipe-item-date">
@@ -339,12 +332,12 @@
                                                     <!-- list Electronic -->
                                                     <div class="facility-list-showcase-item">
                                                         <div class="list">
-                                                            <c:if test="${empty sessionScope.FACILTIES_LIST_AVAILABLE}">
+                                                            <c:if test="${empty sessionScope.FACILTIES_LIST_ELECTRIC}">
                                                                 <p class="showcase-desc">
                                                                     No result can be found ...
                                                                 </p>
                                                             </c:if>
-                                                            <c:forEach var="facility" items="${sessionScope.FACILTIES_LIST_AVAILABLE}">
+                                                            <c:forEach var="facility" items="${sessionScope.FACILTIES_LIST_ELECTRIC}">
                                                                 <div class="pipe-item">
                                                                     <div class="pipe-item-heading">
                                                                         <img
@@ -372,12 +365,12 @@
                                                     <!-- list Water -->
                                                     <div class="facility-list-showcase-item">
                                                         <div class="list">
-                                                            <c:if test="${empty sessionScope.FACILTIES_LIST_UNAVAILABLE}">
+                                                            <c:if test="${empty sessionScope.FACILTIES_LIST_WATER}">
                                                                 <p class="showcase-desc">
                                                                     No result can be found ...
                                                                 </p>
                                                             </c:if>
-                                                            <c:forEach var="facility" items="${sessionScope.FACILTIES_LIST_UNAVAILABLE}">
+                                                            <c:forEach var="facility" items="${sessionScope.FACILTIES_LIST_WATER}">
                                                                 <div class="pipe-item">
                                                                     <div class="pipe-item-heading">
                                                                         <img
@@ -390,9 +383,7 @@
                                                                             <h2 class="pipe-item-title">
                                                                                 ${facility.facilityName}
                                                                             </h2>
-                                                                            <p class="pipe-item-desc-error">
-                                                                                Out Of Stock
-                                                                            </p>
+                                                                            <p class="pipe-item-desc">Quantity: ${facility.quantity}</p>
                                                                         </div>
                                                                         <div class="pipe-item-bottom-footer">
                                                                             <p class="pipe-item-desc pipe-item-date">
@@ -407,12 +398,12 @@
                                                     <!-- list Environment -->
                                                     <div class="facility-list-showcase-item">
                                                         <div class="list">
-                                                            <c:if test="${empty sessionScope.FACILTIES_LIST_UNAVAILABLE}">
+                                                            <c:if test="${empty sessionScope.FACILTIES_LIST_ENVIROMENT}">
                                                                 <p class="showcase-desc">
                                                                     No result can be found ...
                                                                 </p>
                                                             </c:if>
-                                                            <c:forEach var="facility" items="${sessionScope.FACILTIES_LIST_UNAVAILABLE}">
+                                                            <c:forEach var="facility" items="${sessionScope.FACILTIES_LIST_ENVIROMENT}">
                                                                 <div class="pipe-item">
                                                                     <div class="pipe-item-heading">
                                                                         <img
@@ -425,9 +416,7 @@
                                                                             <h2 class="pipe-item-title">
                                                                                 ${facility.facilityName}
                                                                             </h2>
-                                                                            <p class="pipe-item-desc-error">
-                                                                                Out Of Stock
-                                                                            </p>
+                                                                            <p class="pipe-item-desc">Quantity: ${facility.quantity}</p>
                                                                         </div>
                                                                         <div class="pipe-item-bottom-footer">
                                                                             <p class="pipe-item-desc pipe-item-date">
@@ -442,12 +431,12 @@
                                                     <!-- list Others -->
                                                     <div class="facility-list-showcase-item">
                                                         <div class="list">
-                                                            <c:if test="${empty sessionScope.FACILTIES_LIST_UNAVAILABLE}">
+                                                            <c:if test="${empty sessionScope.FACILTIES_LIST_OTHERS}">
                                                                 <p class="showcase-desc">
                                                                     No result can be found ...
                                                                 </p>
                                                             </c:if>
-                                                            <c:forEach var="facility" items="${sessionScope.FACILTIES_LIST_UNAVAILABLE}">
+                                                            <c:forEach var="facility" items="${sessionScope.FACILTIES_LIST_OTHERS}">
                                                                 <div class="pipe-item">
                                                                     <div class="pipe-item-heading">
                                                                         <img
@@ -460,9 +449,7 @@
                                                                             <h2 class="pipe-item-title">
                                                                                 ${facility.facilityName}
                                                                             </h2>
-                                                                            <p class="pipe-item-desc-error">
-                                                                                Out Of Stock
-                                                                            </p>
+                                                                            <p class="pipe-item-desc">Quantity: ${facility.quantity}</p>
                                                                         </div>
                                                                         <div class="pipe-item-bottom-footer">
                                                                             <p class="pipe-item-desc pipe-item-date">
@@ -486,7 +473,7 @@
             </section>
         </main>
 
-        <script src="${pageContext.request.contextPath}/js/adminPage.js"></script>
+        <script src="${pageContext.request.contextPath}/js/adminPage1.js"></script>
         <script src="${pageContext.request.contextPath}/js/ManagerFacility1.js"></script>
     </body>
 </html>

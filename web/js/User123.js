@@ -235,6 +235,14 @@ Array.from(categoryList).forEach((category) => {
             item.classList.remove("active")
         );
         Array.from(categoryItems)[index].classList.add("active");
+
+        // add class tuong ung cho back-end
+        if (e.target.closest("a").dataset.index === '0') {
+            document.querySelector(".input-style-flag").innerHTML = `<input type="hidden" name="style_pipe" value="active"/>`
+        } else {
+            document.querySelector(".input-style-flag").innerHTML = `<input type="hidden" name="style_list" value="active"/>`
+        }
+
     });
 });
 
@@ -288,3 +296,24 @@ document.querySelector(".user-form .modal").addEventListener("click", (e) => {
     e.target.closest(".user-form").classList.remove("open");
 });
 
+
+// list_style Javascript
+const listFBCategory = document.querySelectorAll(".list-item");
+const FbListItems = document.querySelectorAll(".list-showcase-item");
+
+Array.from(listFBCategory).forEach((item) => {
+    item.addEventListener("click", (e) => {
+        Array.from(listFBCategory).forEach((item) => {
+            item.classList.remove("active");
+        });
+        e.target.classList.add("active");
+
+        // Show page tương ứng
+        var index = e.target.dataset.index;
+        console.log(index);
+        Array.from(FbListItems).forEach((item) => {
+            item.classList.remove("active");
+        });
+        Array.from(FbListItems)[index].classList.add("active");
+    });
+});

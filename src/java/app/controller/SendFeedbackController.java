@@ -36,7 +36,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 public class SendFeedbackController extends HttpServlet {
 
     private static final String SUCCESS = "ShowFeedbackStudentController";
-    private static final String ERROR = "UserPage.jsp";
+    private static final String ERROR = "ShowFeedbackStudentController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -113,7 +113,6 @@ public class SendFeedbackController extends HttpServlet {
                         if (inputName.equalsIgnoreCase("check")) {
                             check = Integer.parseInt(item.getString());
                         }
-
                         if (inputName.equalsIgnoreCase("Tmpdescription")) {
                             description = item.getString();
                         }
@@ -131,6 +130,20 @@ public class SendFeedbackController extends HttpServlet {
                             location = item.getString();
                         }
 
+                        // Front - end 
+                        if (inputName.equalsIgnoreCase("style_pipe")) {
+                            String styleTmp = item.getString();
+                            if (!styleTmp.equals("")) {
+                                request.setAttribute("STYLE_PIPE", "active");
+                            }
+                        }
+                        if (inputName.equalsIgnoreCase("style_list")) {
+                            String styleTmp = item.getString();
+                            if (!styleTmp.equals("")) {
+                                request.setAttribute("STYLE_LIST", "active");
+                            }
+                        }
+
                     } else {
                         if (count == check) {
                             break;
@@ -146,14 +159,14 @@ public class SendFeedbackController extends HttpServlet {
                             tmp = item.getContentType();
                             if (tmp.contains("image")) {
                                 photo = (FileInputStream) item.getInputStream();
-                                detail = new FeedbackDetailDTO(facilityID, user.getUserID(), feedbackId, quantity, reason, location,false, description);
+                                detail = new FeedbackDetailDTO(facilityID, user.getUserID(), feedbackId, quantity, reason, location, false, description);
                                 Fdao.insertFeedbackDetail(feedbackId, detail, photo);
                                 count++;
                                 request.setAttribute("SEND_SUCCESS", "active");
                                 request.setAttribute("SEND_FAILURE", "");
                                 url = SUCCESS;
                             } else {
-                                detail = new FeedbackDetailDTO(facilityID, user.getUserID(), feedbackId, quantity, reason, location,false, description);
+                                detail = new FeedbackDetailDTO(facilityID, user.getUserID(), feedbackId, quantity, reason, location, false, description);
                                 Fdao.insertFeedbackDetail(feedbackId, detail, null);
                                 count++;
                                 request.setAttribute("SEND_SUCCESS", "active");

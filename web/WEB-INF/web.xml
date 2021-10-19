@@ -100,6 +100,10 @@
         <servlet-name>ShowFormDeclineController</servlet-name>
         <servlet-class>app.controller.ShowFormDeclineController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchUserFeedbackController</servlet-name>
+        <servlet-class>app.controller.SearchUserFeedbackController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -211,6 +215,10 @@
     <servlet-mapping>
         <servlet-name>ShowFormDeclineController</servlet-name>
         <url-pattern>/ShowFormDeclineController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchUserFeedbackController</servlet-name>
+        <url-pattern>/SearchUserFeedbackController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

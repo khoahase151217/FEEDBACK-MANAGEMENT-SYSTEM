@@ -32,7 +32,7 @@
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
         ></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage1.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPageDetailModal.css" />
     </head>
     <body>
@@ -958,7 +958,7 @@
                                                                     >
                                                                     <div class="feedback-detail-header">
                                                                         <h2 class="feedback-detail-tittle">Reponse ${counter.count}</h2>
-                                                                        <div class="pipe-item-bottom-form-wrapper">
+                                                                        <div class="feedback-detail-header-form-wrapper">
                                                                             <form action="UpdateFeedbackDeclineController" class="pipe-bottom-form">
                                                                                 <input type="hidden" name="feedbackID" value="${response.feedbackID}"/>
                                                                                 <button

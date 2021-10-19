@@ -1403,17 +1403,23 @@ img {
     justify-content: space-between;
 }
 
-.feedback-detail-header .pipe-item-bottom-form-wrapper button {
-    padding: 0.5rem;
-    border: none;
+.feedback-detail-header .feedback-detail-header-form-wrapper button {
+    padding: 0 0.35rem;
     outline: 0;
     background-color: transparent;
+    border: none;
     border-radius: 5px;
-    pointer-events: none;
     transition: background-color 0.2s;
+    cursor: pointer;
+    transition: background 0.4s;
 }
-.feedback-detail-header .pipe-item-bottom-form-wrapper ion-icon {
-    font-size: 2rem;
+
+.feedback-detail-header .feedback-detail-header-form-wrapper button:hover {
+    background: #d43a3ae5;
+}
+
+.feedback-detail-header .feedback-detail-header-form-wrapper ion-icon {
+    font-size: 3rem;
     color: #151111;
     transform: translateY(1px);
 }

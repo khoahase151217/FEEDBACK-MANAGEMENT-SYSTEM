@@ -5,9 +5,11 @@
  */
 package app.controller;
 
-import app.facility.FacilityDAO;
-import app.facility.FacilityDTO;
+import app.feedback.FeedbackDAO;
+import app.feedback.FeedbackDTO;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,10 +21,11 @@ import javax.servlet.http.HttpSession;
  *
  * @author HieuTran
  */
-public class ShowFacilitiesController extends HttpServlet {
+public class SearchUserFeedbackController extends HttpServlet {
 
-    private static final String SUCCESS = "ManagerViewFacility.jsp";
-    private static final String ERROR = "error.jsp";
+    private static final String SUCCESS = "UserPage.jsp";
+    private static final String ERROR = "#";
+    private static final String FULL__NAME_REGEX = "^(?![\\s.]+$)[a-zA-Z\\s.]*$";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,35 +41,35 @@ public class ShowFacilitiesController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
+            String userID = request.getParameter("userID");
+            String search = request.getParameter("search");
+            FeedbackDAO dao = new FeedbackDAO();
+            List<FeedbackDTO> list;
             HttpSession session = request.getSession();
-            FacilityDAO facilitiesDao = new FacilityDAO();
+            if (search == null) {
+                search = "";
+            } else if (!search.matches(FULL__NAME_REGEX)) {
+                list = dao.getListFeedbackForManager(search);
+                session.setAttribute("HISTORY_ALL", list);
+                session.setAttribute("COUNT", list.size());
+                request.setAttribute("STYLE_LIST_ALL", "active");
+                request.setAttribute("STYLE_LIST", "active");
 
-            List<FacilityDTO> listAllfacilities = facilitiesDao.getAllListFacilityAsc();
-            session.setAttribute("FACILTIES_LIST_ALL", listAllfacilities);
-
-            List<FacilityDTO> listElectricFacilities = facilitiesDao.getListElectricFacilityAsc();
-            session.setAttribute("FACILTIES_LIST_ELECTRIC", listElectricFacilities);
-
-            List<FacilityDTO> listWaterFacilities = facilitiesDao.getListWaterFacilityAsc();
-            session.setAttribute("FACILTIES_LIST_WATER", listWaterFacilities);
-
-            List<FacilityDTO> listEnviromentFacilities = facilitiesDao.getListEnviromentFacilityAsc();
-            session.setAttribute("FACILTIES_LIST_ENVIROMENT", listEnviromentFacilities);
-
-            List<FacilityDTO> listOthersFacilities = facilitiesDao.getListOthersFacilityAsc();
-            session.setAttribute("FACILTIES_LIST_OTHERS", listOthersFacilities);
-            
-            request.setAttribute("STYLE_LIST_ALL", "active");
-
-            url = SUCCESS;
+            } else {
+                list = dao.getListUserFeedbackForUser(search, userID);
+                session.setAttribute("HISTORY_ALL", list);
+                session.setAttribute("COUNT", list.size());
+                request.setAttribute("STYLE_LIST_ALL", "active");
+                request.setAttribute("STYLE_LIST", "active");
+            }
         } catch (Exception e) {
             log("Error at ShowEmployeeController" + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
     /**
      * Handles the HTTP <code>GET</code> method.
      *

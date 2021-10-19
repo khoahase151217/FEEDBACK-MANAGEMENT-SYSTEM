@@ -49,7 +49,7 @@
             referrerpolicy="no-referrer"
             />
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/User.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/User1.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/FeedbackForm.css" />
     </head>
     <body>
@@ -62,6 +62,10 @@
                         <form action="SendFeedbackController" class="root" method="post" enctype="multipart/form-data">
                             <div class="input-check">
                                 <input type="hidden" name="check" value="1"/>
+                            </div>
+                            <div class="input-style-flag">
+                                <input type="hidden" name="style_pipe" value="${requestScope.STYLE_PIPE}"/>
+                                <input type="hidden" name="style_list" value="${requestScope.STYLE_LIST}"/>
                             </div>
                             <div class="container-wrapper">
                                 <div class="device">
@@ -548,7 +552,7 @@
             <div class="container">
                 <div class="header-main">
                     <div class="header-logo">
-                        <form action="#" autocomplete="off">
+                        <form action="SearchUserFeedbackController" autocomplete="off">
                             <a href="ShowFacilityStudentController">
                                 <img
                                     src="https://cdn.discordapp.com/attachments/770804043794350100/888843339439407104/toolkit.png"
@@ -623,10 +627,10 @@
                                     </li>
                                 </ul>
                                 <div class="content-item-category">
-                                    <a href="#" class="active" data-index="0">
+                                    <a href="#" class="${requestScope.STYLE_PIPE}" data-index="0">
                                         <ion-icon name="apps-sharp"></ion-icon>
                                     </a>
-                                    <a href="#" data-index="1">
+                                    <a href="#" class="${requestScope.STYLE_LIST}" data-index="1">
                                         <ion-icon name="list"></ion-icon>
                                     </a>
                                 </div>
@@ -634,7 +638,7 @@
 
                             <div class="content-item-main-list">
                                 <!--Pipe--> 
-                                <div class="content-item-main-category-item active">
+                                <div class="content-item-main-category-item ${requestScope.STYLE_PIPE}">
                                     <div class="pipe">
                                         <div class="pipe-column">
                                             <div class="pipe-heading">
@@ -949,88 +953,308 @@
                                     </div>
                                 </div>
                                 <div
-                                    class="content-item-main-category-item"
-                                    style="background: black"
-                                    ></div>
+                                    class="content-item-main-category-item list ${requestScope.STYLE_LIST}"
+                                    >
+                                    <ul class="list-heading">
+                                        <li class="list-item active ${requestScope.STYLE_LIST_ALL}" data-index="0">All</li>
+                                        <li class="list-item ${requestScope.STYLE_LIST_DONE}" data-index="1">Done</li>
+                                        <li class="list-item ${requestScope.STYLE_LIST_ONGOING}" data-index="2">On-Going</li>
+                                        <li class="list-item ${requestScope.STYLE_LIST_DECLINE}" data-index="3">Decline</li>
+                                    </ul>
+                                    <div class="list-showcase">
+                                        <!-- list All -->
+                                        <div class="list-showcase-item active ${requestScope.STYLE_LIST_ALL}">
+                                            <div class="pipe-list">
+                                                <c:if test="${empty sessionScope.HISTORY_ALL}">
+                                                    <p class="pipe-item-date">No result can be found ...</p>
+                                                </c:if>
+                                                <%
+                                                    List<UserHistoryDTO> listAll = (List<UserHistoryDTO>) session.getAttribute("HISTORY_ALL");
+                                                    if (listAll != null) {
+
+                                                        for (UserHistoryDTO feedback : listAll) {
+                                                %> 
+                                                <div class="pipe-item">
+                                                    <div class="pipe-item-heading">
+                                                        <div class="pipe-item-title-wrapper">
+                                                            <h3 class="pipe-item-title">Feedback <%=feedback.getFeedbackId()%></h3>
+                                                        </div>
+                                                        <div class="pipe-item-date"><%=feedback.getDate()%></div>
+                                                    </div>
+
+
+                                                    <div class="image-all-wrapper">
+                                                        <%
+                                                            int count = 1;
+                                                            for (String img : feedback.getImageList()) {
+                                                                if (!img.equals("")) {
+
+                                                        %>
+
+                                                        <div class="pipe-item-image">
+                                                            <img
+                                                                src="data:image/jpg/png;base64,<%=img%>"
+                                                                alt=""
+                                                                />
+                                                        </div>
+
+                                                        <%
+                                                                }
+                                                            }
+                                                        %>
+
+                                                    </div>
+
+                                                    <div class="pipe-item-bottom">
+                                                        <p class="pipe-bottom-item"><%=feedback.getDeviceName()%></p>
+                                                        <p class="pipe-bottom-item">Room: <%=feedback.getLocation()%></p>
+                                                    </div>
+                                                </div>
+
+                                                <%
+                                                        }
+                                                    }
+                                                %> 
+                                        </div>
+                                    </div>
+                                    <!-- list done -->
+                                    <div class="list-showcase-item ${requestScope.STYLE_LIST_DONE}">
+                                        <div class="pipe-list">
+                                            <c:if test="${empty sessionScope.HISTORY_DONE}">
+                                                <p class="pipe-item-date">No result can be found ...</p>
+                                            </c:if>
+                                            <%
+                                                if (listDone != null) {
+
+                                                    for (UserHistoryDTO feedback : listDone) {
+                                            %> 
+                                            <div class="pipe-item">
+                                                <div class="pipe-item-heading">
+                                                    <div class="pipe-item-title-wrapper">
+                                                        <h3 class="pipe-item-title">Feedback <%=feedback.getFeedbackId()%></h3>
+                                                    </div>
+                                                    <div class="pipe-item-date"><%=feedback.getDate()%></div>
+                                                </div>
+
+
+                                                <div class="image-all-wrapper">
+                                                    <%
+                                                        int count = 1;
+                                                        for (String img : feedback.getImageList()) {
+                                                            if (!img.equals("")) {
+
+                                                    %>
+
+                                                    <div class="pipe-item-image">
+                                                        <img
+                                                            src="data:image/jpg/png;base64,<%=img%>"
+                                                            alt=""
+                                                            />
+                                                    </div>
+
+                                                    <%
+                                                            }
+                                                        }
+                                                    %>
+
+                                                </div>
+
+                                                <div class="pipe-item-bottom">
+                                                    <p class="pipe-bottom-item"><%=feedback.getDeviceName()%></p>
+                                                    <p class="pipe-bottom-item">Room: <%=feedback.getLocation()%></p>
+                                                </div>
+                                            </div>
+
+                                            <%
+                                                    }
+                                                }
+                                            %> 
+                                        </div>
+                                    </div>
+                                    <!-- list on-going -->
+                                    <div class="list-showcase-item ${requestScope.STYLE_LIST_ONGOING}">
+                                        <div class="pipe-list">
+                                            <c:if test="${empty sessionScope.HISTORY_ONGOING}">
+                                                <p class="pipe-item-date">No result can be found ...</p>
+                                            </c:if>
+                                            <%
+                                                if (listOngoing != null) {
+                                                    for (UserHistoryDTO feedback : listOngoing) {
+                                            %> 
+                                            <div class="pipe-item">
+                                                <div class="pipe-item-heading">
+                                                    <div class="pipe-item-title-wrapper">
+                                                        <h3 class="pipe-item-title">Feedback <%=feedback.getFeedbackId()%></h3>
+                                                    </div>
+                                                    <div class="pipe-item-date"><%=feedback.getDate()%></div>
+                                                </div>
+
+
+                                                <div class="image-all-wrapper">
+                                                    <%
+                                                        int count = 1;
+                                                        for (String img : feedback.getImageList()) {
+                                                            if (!img.equals("")) {
+
+                                                    %>  
+                                                    <div class="pipe-item-image">
+                                                        <img
+                                                            src="data:image/jpg/png;base64,<%=img%>"
+                                                            alt=""
+                                                            />
+                                                    </div>
+
+                                                    <%
+                                                            }
+                                                        }
+                                                    %>
+                                                </div>
+
+
+
+                                                <div class="pipe-item-bottom">
+                                                    <p class="pipe-bottom-item"><%=feedback.getDeviceName()%></p>
+                                                    <p class="pipe-bottom-item">Room: <%=feedback.getLocation()%></p>
+                                                </div>
+                                            </div>
+                                            <%
+                                                    }
+                                                }
+                                            %> 
+                                        </div>
+                                    </div>
+                                    <!-- list decline -->
+                                    <div class="list-showcase-item ${requestScope.STYLE_LIST_DECLINE}">
+                                        <div class="pipe-list">
+                                            <c:if test="${empty sessionScope.HISTORY_DENY}">
+                                                <p class="pipe-item-date">No result can be found ...</p>
+                                            </c:if>
+                                            <%
+                                                if (listDeny != null) {
+                                                    for (UserHistoryDTO feedback : listDeny) {
+                                            %> 
+                                            <div class="pipe-item">
+                                                <div class="pipe-item-heading">
+                                                    <div class="pipe-item-title-wrapper">
+                                                        <h3 class="pipe-item-title">Feedback <%=feedback.getFeedbackId()%></h3>
+                                                    </div>
+                                                    <div class="pipe-item-date"><%=feedback.getDate()%></div>
+                                                </div>
+
+
+                                                <div class="image-all-wrapper">
+                                                    <%
+                                                        int count = 1;
+                                                        for (String img : feedback.getImageList()) {
+                                                            if (!img.equals("")) {
+                                                    %>  
+                                                    <div class="pipe-item-image">
+                                                        <img
+                                                            src="data:image/jpg/png;base64,<%=img%>"
+                                                            alt=""
+                                                            />
+                                                    </div>
+
+                                                    <%
+                                                            }
+                                                        }
+                                                    %>
+                                                </div>
+
+
+
+                                                <div class="pipe-item-bottom">
+                                                    <p class="pipe-bottom-item"><%=feedback.getDeviceName()%></p>
+                                                    <p class="pipe-bottom-item">Room: <%=feedback.getLocation()%></p>
+                                                </div>
+                                            </div>
+                                            <%
+                                                    }
+                                                }
+                                            %> 
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
-        </main>
-
-        <footer class="footer">
-            <div class="container">
-                <div class="footer-top">
-                    <div class="footer-column">
-                        <h1 class="footer-logo">Traversy</h1>
-                        <ul class="footer-socials">
-                            <a href="#" class="footer-socials-item">
-                                <ion-icon name="logo-facebook"></ion-icon>
-                            </a>
-                            <a href="#" class="footer-socials-item">
-                                <ion-icon name="logo-twitter"></ion-icon>
-                            </a>
-                            <a href="#" class="footer-socials-item">
-                                <ion-icon name="logo-instagram"></ion-icon>
-                            </a>
-                            <a href="#" class="footer-socials-item">
-                                <ion-icon name="logo-dribbble"></ion-icon>
-                            </a>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h3 class="footer-title second-font">usefull Link</h3>
-                        <ul class="footer-links">
-                            <li class="footer-links-item"><a href="#">About Us</a></li>
-                            <li class="footer-links-item"><a href="#">Contact Us</a></li>
-                            <li class="footer-links-item">
-                                <a href="#">Terms of Services</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h3 class="footer-title second-font">Contact Us</h3>
-                        <ul class="footer-phones text">
-                            <li class="footer-links-item">
-                                <a href="tel:0958237851">
-                                    Phone Number :( + 84 ) 958 23 78 51</a
-                                >
-                            </li>
-                        </ul>
-                        <ul class="footer-email text">
-                            <li class="footer-links-item">
-                                <a href="mailto: ducndmse151198@fpt.edu.vn"
-                                   >Email: support@fpt.edu.vn</a
-                                >
-                            </li>
-                        </ul>
-                        <p class="footer-address">
-                            Address: Lô E2a-7, Đường D1 Khu Công nghệ cao, P. Long Thạnh Mỹ,
-                            TP. Thủ Đức, TP. Hồ Chí Minh
-                        </p>
-                    </div>
-                </div>
             </div>
-            <div class="footer-bottom">
-                <div class="container footer-rocket-container">
-                    <div class="footer-rocket">
-                        <ion-icon name="rocket-sharp"></ion-icon>
-                    </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-column">
+                    <h1 class="footer-logo">Traversy</h1>
+                    <ul class="footer-socials">
+                        <a href="#" class="footer-socials-item">
+                            <ion-icon name="logo-facebook"></ion-icon>
+                        </a>
+                        <a href="#" class="footer-socials-item">
+                            <ion-icon name="logo-twitter"></ion-icon>
+                        </a>
+                        <a href="#" class="footer-socials-item">
+                            <ion-icon name="logo-instagram"></ion-icon>
+                        </a>
+                        <a href="#" class="footer-socials-item">
+                            <ion-icon name="logo-dribbble"></ion-icon>
+                        </a>
+                    </ul>
                 </div>
-                <div class="container footer-container">
-                    <p class="footer-desc">
-                        Copyright © 2021 Traversy, Designed by <a href="#">MinhDuc</a> All
-                        Rights Reserved.
+                <div class="footer-column">
+                    <h3 class="footer-title second-font">usefull Link</h3>
+                    <ul class="footer-links">
+                        <li class="footer-links-item"><a href="#">About Us</a></li>
+                        <li class="footer-links-item"><a href="#">Contact Us</a></li>
+                        <li class="footer-links-item">
+                            <a href="#">Terms of Services</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3 class="footer-title second-font">Contact Us</h3>
+                    <ul class="footer-phones text">
+                        <li class="footer-links-item">
+                            <a href="tel:0958237851">
+                                Phone Number :( + 84 ) 958 23 78 51</a
+                            >
+                        </li>
+                    </ul>
+                    <ul class="footer-email text">
+                        <li class="footer-links-item">
+                            <a href="mailto: ducndmse151198@fpt.edu.vn"
+                               >Email: support@fpt.edu.vn</a
+                            >
+                        </li>
+                    </ul>
+                    <p class="footer-address">
+                        Address: Lô E2a-7, Đường D1 Khu Công nghệ cao, P. Long Thạnh Mỹ,
+                        TP. Thủ Đức, TP. Hồ Chí Minh
                     </p>
                 </div>
             </div>
-        </footer>
+        </div>
+        <div class="footer-bottom">
+            <div class="container footer-rocket-container">
+                <div class="footer-rocket">
+                    <ion-icon name="rocket-sharp"></ion-icon>
+                </div>
+            </div>
+            <div class="container footer-container">
+                <p class="footer-desc">
+                    Copyright © 2021 Traversy, Designed by <a href="#">MinhDuc</a> All
+                    Rights Reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
 
-        <script src="${pageContext.request.contextPath}/js/User1.js"></script>
-        <!-- Query -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script>
+    <script src="${pageContext.request.contextPath}/js/User123.js"></script>
+    <!-- Query -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
                                                             $(function () {
                                                                 // This code will attach `fileselect` event to all file inputs on the page
                                                                 $(document).on("change", ":file", function () {
@@ -1107,6 +1331,6 @@
                                                                     imagesPreview2(this);
                                                                 });
                                                             });
-        </script>
-    </body>
+    </script>
+</body>
 </html>
