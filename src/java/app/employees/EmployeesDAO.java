@@ -548,4 +548,33 @@ public class EmployeesDAO {
         }
         return list;
     }
+    public int countDeclineResponse(String feedbackDetailID) throws SQLException {
+        int count=0;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " SELECT COUNT(ResponseID) as count "
+                        + " FROM tblResponseFeedback "
+                        + " WHERE FeedbackDetailID = ? AND StatusID='decline' ";
+                ps = conn.prepareCall(sql);
+                ps.setString(1, feedbackDetailID);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    count = rs.getInt("count");
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return count;
+    }
 }

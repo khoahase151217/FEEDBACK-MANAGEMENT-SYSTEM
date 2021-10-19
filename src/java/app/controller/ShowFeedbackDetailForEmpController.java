@@ -45,6 +45,11 @@ public class ShowFeedbackDetailForEmpController extends HttpServlet {
                 history = (String) session.getAttribute("HISTORY");
             }
             List<FeedbackDetailDTO> dto = dao.showListFeedbackDetail(user.getUserID(), feedbackID);
+            for (FeedbackDetailDTO detail : dto) {
+                if(dao.countDeclineResponse(detail.getFeedbackDetailID())!=0){
+                    detail.setCheck(true);
+                }
+            }
             List<FeedbackDetailDTO> his = dao.showHistoryListFeedbackDetail(user.getUserID(), history);
             session.setAttribute("DETAIL", dto);
             request.setAttribute("FEEDBACK_ACTIVE", feedbackID);

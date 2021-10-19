@@ -1434,4 +1434,101 @@ public class FeedbackDAO {
         return list;
     }
 
+    public boolean updateDecline(String feedbackDetailId, String userId, String feedbackId) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " UPDATE tblFeedbackDetail "
+                        + " SET UserID=?, flag='false' "
+                        + " WHERE FeedbackDetailID=? "
+                        + " UPDATE tblFeedback "
+                        + " SET StatusID = 'pending' "
+                        + " WHERE FeedbackID=? ";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, userId);
+                ps.setString(2, feedbackDetailId);
+                ps.setString(3, feedbackId);
+                check = ps.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+
+    public String getUserIDByFeedbackDetailID(String feedbackDetailId) throws SQLException {
+        String result = "";
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "select t1.UserID from tblFeedback t1 "
+                        + " join tblFeedbackDetail t2 on t1.FeedbackDetailID = t2.FeedbackDetailID "
+                        + " where FeedbackDetailID = ? ";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, feedbackDetailId);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    result = rs.getString("UserID");
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return result;
+    }
+
+    public String getFeedbackIDByFeedbackDetailID2(String feedbackDetailID) throws SQLException {
+        String result = "";
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " SELECT FeedbackID "
+                        + " FROM tblFeedbackDetail  "
+                        + " WHERE FeedbackDetailID = ? ";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, feedbackDetailID);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    result = rs.getString("FeedbackID");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return result;
+    }
 }

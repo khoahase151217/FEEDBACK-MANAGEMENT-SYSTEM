@@ -1028,3 +1028,58 @@ img {
         max-height: 455px;
     }
 }
+.showcase .feedback-detail-showcase .responsearea{
+  width: 100%;
+  height: 10%;
+  background:white;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  display: none;
+}
+.showcase .feedback-detail-showcase .responsearea.decline{
+  display: block;
+}
+.showcase .feedback-detail-showcase .responsearea.done{
+  display: block;
+}
+.showcase .feedback-detail-showcase .response-manager{
+  position: relative;
+  /* align-items: center; */
+  gap: 0 5px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.showcase .feedback-detail-showcase .response-manager img{
+  width: 20%;
+  height: 20%;
+  position: relative;
+  margin-bottom: 3rem;
+  display: block;
+  margin-left: 35%;
+  margin-right: 65%;
+}
+
+.showcase .feedback-detail-showcase .response-manager textarea {
+  width: 90%;
+  height: 150px;
+  resize: none;
+  border-radius: 10px;
+  border: 1px solid #a7a7a7;
+  outline: 0;
+  padding: 20px;
+  font-size: 1.8rem;
+  line-height: 1.56;
+  color: #151111;
+  cursor: default;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  text-align: left;
+
+}
+
+.showcase .feedback-detail-showcase .response-manager .input-label{
+  position: absolute;
+  bottom:57%;
+}

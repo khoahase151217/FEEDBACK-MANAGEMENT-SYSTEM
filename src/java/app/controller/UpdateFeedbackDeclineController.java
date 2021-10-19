@@ -6,6 +6,7 @@
 package app.controller;
 
 import app.feedback.FeedbackDAO;
+import app.response.ResponseDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -28,9 +29,15 @@ public class UpdateFeedbackDeclineController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String feedbackID = request.getParameter("feedbackID");
+            String feedbackDetailID = request.getParameter("feedbackDetailID");
+            String responseID = request.getParameter("responseID");
+            String declineReason = request.getParameter("declineReason");
             FeedbackDAO dao = new FeedbackDAO();
-            if(dao.updateDecline(feedbackID)){
+            ResponseDAO dao2 = new ResponseDAO();
+            String userId=dao.getUserIDByFeedbackDetailID(feedbackDetailID);
+            String feedbackId = dao.getFeedbackIDByFeedbackDetailID2(feedbackDetailID);
+            if(dao.updateDecline(feedbackDetailID, userId, feedbackId)){
+                dao2.updateResponseStatus(feedbackDetailID,responseID,declineReason);
                 url = SUCCESS;
             }
         } catch (Exception e) {

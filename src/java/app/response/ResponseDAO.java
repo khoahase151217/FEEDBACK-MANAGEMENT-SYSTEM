@@ -221,10 +221,10 @@ public class ResponseDAO {
                     String des = rs.getString("Description");
                     String quantity = rs.getString("quantity");
                     byte[] tmp = rs.getBytes("Image");
-                    if(tmp!=null){
+                    if (tmp != null) {
                         base64Image = Base64.getEncoder().encodeToString(tmp);
-                    }else{
-                        base64Image ="";
+                    } else {
+                        base64Image = "";
                     }
                     String location = rs.getString("location");
                     String deviceName = rs.getString("deivcename");
@@ -284,4 +284,33 @@ public class ResponseDAO {
         return count;
     }
 
+    public boolean updateResponseStatus(String feedbackDetailID, String responseID, String declineReason) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " UPDATE tblResponseFeedback "
+                        + " SET StatusID='decline' "
+                        + " WHERE FeedbackDetailID=? "
+                        + " insert into tblDeclinedResponse(ResponseID, DeclinedReason)"
+                        + " values (?,?) ";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, feedbackDetailID);
+                ps.setString(2, responseID);
+                ps.setString(3, declineReason);
+                check = ps.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
 }

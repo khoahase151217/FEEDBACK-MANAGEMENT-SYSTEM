@@ -269,7 +269,7 @@
             <div class="modal">
                 <div class="reponse-form-main">
                     <h2 class="reponse-form-heading">Reason ban feedback detail ${requestScope.FEEDBACK_DETAIL_ID}</h2>
-                    <form action="DeclineFeedbackDetailController" class="reponse-form-actual-form" method="post">
+                    <form action="UpdateFeedbackDeclineController" class="reponse-form-actual-form" method="post">
                         <input type="hidden" name="feedbackDetailID" value="${requestScope.FEEDBACK_DETAIL_ID}" />
                         <input type="hidden" name="feedbackID" value="${requestScope.FEEDBACK_ID}" />
                         <input type="hidden" name="statusID" value="${requestScope.statusID}" />
@@ -280,7 +280,7 @@
                         <input type="hidden" name="style_list_category" value="${requestScope.style_list_category}" />
                         <div class="reponse-form-textarea-wrapper">
                             <textarea
-                                name="description"
+                                name="declineReason"
                                 id="description"
                                 class="reponse-form-textarea"
                                 placeholder="Enter message ..."
@@ -957,9 +957,9 @@
                                                                     data-index="${counter.count}"
                                                                     >
                                                                     <div class="feedback-detail-header">
-                                                                        <h2 class="feedback-detail-tittle">Reponse ${counter.count}</h2>
+                                                                        <h2 class="feedback-detail-tittle">Response ${counter.count}</h2>
                                                                         <div class="feedback-detail-header-form-wrapper">
-                                                                            <form action="UpdateFeedbackDeclineController" class="pipe-bottom-form">
+                                                                            <form action="#" class="pipe-bottom-form">
                                                                                 <input type="hidden" name="feedbackID" value="${response.feedbackID}"/>
                                                                                 <button
                                                                                     type="submit"
@@ -1051,7 +1051,20 @@
                                                                     data-index="${counter.count}"
                                                                     >
                                                                     <div class="feedback-detail-header">
-                                                                        <h2 class="feedback-detail-tittle">Reponse ${counter.count}</h2>
+                                                                        <h2 class="feedback-detail-tittle">Response ${counter.count}</h2>
+                                                                        <div class="feedback-detail-header-form-wrapper">
+                                                                            <form action="UpdateFeedbackDeclineController" class="pipe-bottom-form">
+                                                                                <input type="hidden" name="feedbackID" value="${response.feedbackID}"/>
+                                                                                <button
+                                                                                    type="submit"
+                                                                                    class="btn--decline"
+                                                                                    >
+                                                                                    <ion-icon
+                                                                                        name="close-circle-outline"
+                                                                                        ></ion-icon>
+                                                                                </button>
+                                                                            </form>
+                                                                        </div>
                                                                     </div>
                                                                     <div class="feedback-detail-showcase">
                                                                         <div class="feedback-detail-input">
