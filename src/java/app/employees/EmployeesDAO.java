@@ -376,7 +376,7 @@ public class EmployeesDAO {
                         + "  ON t1.FacilityID = t3.FacilityID "
                         + " JOIN tblResponseFeedback t4 "
                         + " ON t1.FeedbackDetailID = t4.FeedbackDetailID "
-                        + " WHERE t1.UserID = ? AND t1.flag='true' AND t1.FeedbackID = ? AND t1.StatusID ='active' " ;
+                        + " WHERE t1.UserID = ? AND t1.flag='true' AND t1.FeedbackID = ? AND t1.StatusID ='active' AND t4.StatusID='done' " ;
                 stm = conn.prepareCall(sql);
                 stm.setString(1, userID);
                 stm.setString(2, feedbackID);
@@ -608,7 +608,7 @@ public int countDeclineResponse2(String feedbackDetailID) throws SQLException {
         }
         return count;
     }
-public String getDeclineReason(String feedbackDetailID) throws SQLException{
+public String getDeclineReason(int responseId) throws SQLException{
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -617,11 +617,10 @@ public String getDeclineReason(String feedbackDetailID) throws SQLException{
             conn = DBUtils.getConnection();
             if (conn != null) {
                 String sql = " SELECT DeclinedReason "
-                        + " FROM tblDeclinedResponse t1"
-                        + " JOIN tblResponseFeedback t2 on t1.ResponseID=t2.ResponseID "
-                        + " WHERE t2.FeedbackDetailID = ? ";
+                        + " FROM tblDeclinedResponse "
+                        + " WHERE ResponseID = ? ";
                 ps = conn.prepareCall(sql);
-                ps.setString(1, feedbackDetailID);
+                ps.setInt(1, responseId);
                 rs = ps.executeQuery();
                 if (rs.next()) {
                     declineReason= rs.getString("DeclinedReason");
@@ -637,5 +636,32 @@ public String getDeclineReason(String feedbackDetailID) throws SQLException{
             }
         }
         return declineReason;
+}
+public int getResponseID(String feedbackDetailID)throws SQLException{
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        int responseId=0;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " select top 1 responseid from tblResponseFeedback where FeedbackDetailID=? order by ResponseID desc ";
+                ps = conn.prepareCall(sql);
+                ps.setString(1, feedbackDetailID);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    responseId= rs.getInt("responseid");
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return responseId;
 }
 }

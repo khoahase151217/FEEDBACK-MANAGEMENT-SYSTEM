@@ -209,7 +209,7 @@ public class ResponseDAO {
                         + " ON t1.UserID = t4.UserID "
                         + " JOIN tblFeedback t5 "
                         + "  ON t5.feedbackID = t2.feedbackID "
-                        + " WHERE t2.flag ='true' AND t5.FeedbackID = ? ";
+                        + " WHERE t2.flag ='true' AND t5.FeedbackID = ? AND t1.StatusID='done' ";
                 stm = conn.prepareCall(sql);
                 stm.setString(1, feedbackID);
                 rs = stm.executeQuery();
