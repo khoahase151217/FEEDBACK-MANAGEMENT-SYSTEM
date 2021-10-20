@@ -32,7 +32,7 @@
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
         ></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage1.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPageDetailModal.css" />
     </head>
     <body>
@@ -137,10 +137,17 @@
                                     </a>
                                 </div>
                                 <div class="description">
-                                    <p class="des">Description:</p>
-                                    <p class="content">
-                                        ${feedbackDetail.description}
-                                    </p>
+                                    <div class="des-box">
+                                        <p class="des">Description:</p>
+                                        <p class="content">
+                                            ${feedbackDetail.description}
+                                        </p>
+                                    </div>
+                                    <c:if test="${feedbackDetail.check eq true}">
+                                        <div class="warning-box active">
+                                            <img class="warning-icon" src="img/exclamation.png"/>
+                                        </div>
+                                    </c:if>
                                 </div>
                             </div>
                         </c:forEach>
@@ -291,7 +298,24 @@
                     </form>
                 </div>
             </div>
-        </div>            
+        </div>
+
+        <div class="modal-decline ${requestScope.decline_flag}" id="mymodal">
+            <div class="modal-decline-box">
+                <form action="UpdateFeedbackDeclineController" method="post">
+                    <input type="hidden" name="responseID" value="${requestScope.responseID}"/>
+                    <input type="hidden" name="feedbackDetailID" value="${requestScope.feedbackDetailID}"/>
+                    <div class="decline-input">
+                        <textarea name="declineReason" id="declineReason"></textarea>
+                        <label class="input-label">Decline Reason</label>
+                    </div>
+                    <!--                    <button class="reply-button" id="sendbtn">
+                                            Send
+                                        </button>-->
+                    <input type="submit" value="Send" class="reply-button"/>
+                </form>
+            </div>
+        </div>
 
         <main>
             <section class="showcase">
@@ -959,8 +983,9 @@
                                                                     <div class="feedback-detail-header">
                                                                         <h2 class="feedback-detail-tittle">Response ${counter.count}</h2>
                                                                         <div class="feedback-detail-header-form-wrapper">
-                                                                            <form action="#" class="pipe-bottom-form">
-                                                                                <input type="hidden" name="feedbackID" value="${response.feedbackID}"/>
+                                                                            <form action="ShowDeclineReasonFormController" class="pipe-bottom-form">                                     
+                                                                                <input type="hidden" name="feedbackDetailID" value="${reponseDetail.feedbackDetailID}"/>                                           
+                                                                                <input type="hidden" name="responseID" value="${reponseDetail.responseID}"/>                                           
                                                                                 <button
                                                                                     type="submit"
                                                                                     class="btn--decline"
@@ -1053,7 +1078,7 @@
                                                                     <div class="feedback-detail-header">
                                                                         <h2 class="feedback-detail-tittle">Response ${counter.count}</h2>
                                                                         <div class="feedback-detail-header-form-wrapper">
-                                                                            <form action="UpdateFeedbackDeclineController" class="pipe-bottom-form">
+                                                                            <form action="ShowDeclineReasonFormController" class="pipe-bottom-form">
                                                                                 <input type="hidden" name="feedbackID" value="${response.feedbackID}"/>
                                                                                 <button
                                                                                     type="submit"

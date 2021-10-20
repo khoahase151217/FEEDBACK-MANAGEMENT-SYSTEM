@@ -533,6 +533,21 @@
                                                                                     />
                                                                                 <label class="input-label">Quantity</label>
                                                                             </div>
+                                                                            <c:if test="${feedbackDetail.check eq true}">
+                                                                                <div class="responsearea decline">
+                                                                                    <div class="response-manager">
+                                                                                        <img src="img/cancel.png"/>
+                                                                                        <div class="textarea-wrapper">
+                                                                                            <textarea
+                                                                                                name="declineReason"
+                                                                                                id="declineReason"
+                                                                                                readonly
+                                                                                                >${sessionScope.declineReason}</textarea>
+                                                                                            <label class="input-label">Decline Reason</label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </c:if>
                                                                         </div>
                                                                         <div class="feedback-detail-textarea">
                                                                             <div class="textarea-wrapper">
@@ -618,6 +633,21 @@
                                                                                     />
                                                                                 <label class="input-label">Quantity</label>
                                                                             </div>
+                                                                            <c:if test="${feedbackDetail.check eq true}">
+                                                                                <div class="responsearea decline">
+                                                                                    <div class="response-manager">
+                                                                                        <img src="img/cancel.png"/>
+                                                                                        <div class="textarea-wrapper">
+                                                                                            <textarea
+                                                                                                name="declineReason"
+                                                                                                id="declineReason"
+                                                                                                readonly
+                                                                                                >${sessionScope.declineReason}</textarea>
+                                                                                            <label class="input-label">Decline Reason</label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </c:if>
                                                                         </div>
                                                                         <div class="feedback-detail-textarea">
                                                                             <div class="textarea-wrapper">
@@ -703,6 +733,21 @@
                                                                                     />
                                                                                 <label class="input-label">Quantity</label>
                                                                             </div>
+                                                                            <c:if test="${feedbackDetail.check eq true}">
+                                                                                <div class="responsearea decline">
+                                                                                    <div class="response-manager">
+                                                                                        <img src="img/cancel.png"/>
+                                                                                        <div class="textarea-wrapper">
+                                                                                            <textarea
+                                                                                                name="declineReason"
+                                                                                                id="declineReason"
+                                                                                                readonly
+                                                                                                >${sessionScope.declineReason}</textarea>
+                                                                                            <label class="input-label">Decline Reason</label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </c:if>
                                                                         </div>
                                                                         <div class="feedback-detail-textarea">
                                                                             <div class="textarea-wrapper">
@@ -862,8 +907,7 @@
                                                                                 name="description"
                                                                                 id="description"
                                                                                 readonly
-                                                                                >${feedbackDetail.description}</textarea
-                                                                            >
+                                                                                >${feedbackDetail.description}</textarea>
                                                                             <label class="input-label">Description</label>
                                                                         </div>
                                                                         <div class="feedback-detail-image-wrapper">
@@ -917,56 +961,40 @@
                                                                                 readonly
                                                                                 />
                                                                             <label class="input-label">Quantity</label>
-                                                                        </div>
-                                                                        <div class="responsearea ">
-                                                                            <div class="response-manager">
-                                                                                <img src="cancel.png">
-                                                                                <div class="textarea-wrapper">
-                                                                                    <textarea
-                                                                                        name="declineReason"
-                                                                                        id="declineReason"
-                                                                                        readonly
-                                                                                        >
-                                                                                    </textarea>
-                                                                                    <label class="input-label">Decline Reason</label>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <label class="input-label">Description</label>
+                                                                        </div>                                                                       
                                                                     </div>
-                                                                </div>
-                                                                <div class="feedback-detail-textarea">
-                                                                    <div class="textarea-wrapper">
-                                                                        <textarea
-                                                                            name="description"
-                                                                            id="description"
-                                                                            readonly
-                                                                            >${feedbackDetail.description}</textarea
-                                                                        >
-                                                                        <label class="input-label">Description</label>
-                                                                    </div>
-                                                                    <div class="feedback-detail-image-wrapper">
-                                                                        <c:if test="${feedbackDetail.image ne ''}">
-                                                                            <img
-                                                                                src="data:image/jpg/png;base64,${feedbackDetail.image}"
-                                                                                alt=""
-                                                                                />
-                                                                        </c:if>
+                                                                    <div class="feedback-detail-textarea">
+                                                                        <div class="textarea-wrapper">
+                                                                            <textarea
+                                                                                name="description"
+                                                                                id="description"
+                                                                                readonly
+                                                                                >${feedbackDetail.description}</textarea>
+                                                                            <label class="input-label">Description</label>
+                                                                        </div>
+
+                                                                        <div class="feedback-detail-image-wrapper">
+                                                                            <c:if test="${feedbackDetail.image ne ''}">
+                                                                                <img
+                                                                                    src="data:image/jpg/png;base64,${feedbackDetail.image}"
+                                                                                    alt=""
+                                                                                    />
+                                                                            </c:if>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </c:if>
-                                                </c:forEach>
+                                                        </c:if>
+                                                    </c:forEach>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="showcase-content-item">1234</div>
                         </div>
-                        <div class="showcase-content-item">1234</div>
                     </div>
-                </div>
                 </div>
             </section>
         </main>
