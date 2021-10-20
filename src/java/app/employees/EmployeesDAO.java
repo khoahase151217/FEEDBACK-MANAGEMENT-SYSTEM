@@ -608,4 +608,34 @@ public int countDeclineResponse2(String feedbackDetailID) throws SQLException {
         }
         return count;
     }
+public String getDeclineReason(String feedbackDetailID) throws SQLException{
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String declineReason="";
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " SELECT DeclinedReason "
+                        + " FROM tblDeclinedResponse t1"
+                        + " JOIN tblResponseFeedback t2 on t1.ResponseID=t2.ResponseID "
+                        + " WHERE t2.FeedbackDetailID = ? ";
+                ps = conn.prepareCall(sql);
+                ps.setString(1, feedbackDetailID);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    declineReason= rs.getString("DeclinedReason");
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return declineReason;
+}
 }

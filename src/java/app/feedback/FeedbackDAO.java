@@ -1480,7 +1480,7 @@ public class FeedbackDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 String sql = "select t1.UserID from tblFeedback t1 "
-                        + " join tblFeedbackDetail t2 on t1.FeedbackDetailID = t2.FeedbackDetailID "
+                        + " join tblFeedbackDetail t2 on t1.FeedbackID = t2.FeedbackID "
                         + " where FeedbackDetailID = ? ";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, feedbackDetailId);

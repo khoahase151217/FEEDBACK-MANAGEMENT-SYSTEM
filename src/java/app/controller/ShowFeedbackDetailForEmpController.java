@@ -34,6 +34,7 @@ public class ShowFeedbackDetailForEmpController extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             EmployeesDAO dao = new EmployeesDAO();
+            String declineReason ="";
             String feedbackID = (String) request.getParameter("feedbackID");
             String history = (String) request.getParameter("history");
             UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
@@ -48,9 +49,11 @@ public class ShowFeedbackDetailForEmpController extends HttpServlet {
             for (FeedbackDetailDTO detail : dto) {
                 if(dao.countDeclineResponse(detail.getFeedbackDetailID(), user.getUserID())!=0){
                     detail.setCheck(true);
+                    declineReason=dao.getDeclineReason(detail.getFeedbackDetailID());
                 }        
             }
             List<FeedbackDetailDTO> his = dao.showHistoryListFeedbackDetail(user.getUserID(), history);
+            session.setAttribute("declineReason", declineReason);
             session.setAttribute("DETAIL", dto);
             request.setAttribute("FEEDBACK_ACTIVE", feedbackID);
             session.setAttribute("HISTORY_DETAIL", his);
