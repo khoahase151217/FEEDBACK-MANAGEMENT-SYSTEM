@@ -309,9 +309,6 @@
                         <textarea name="declineReason" id="declineReason"></textarea>
                         <label class="input-label">Decline Reason</label>
                     </div>
-                    <!--                    <button class="reply-button" id="sendbtn">
-                                            Send
-                                        </button>-->
                     <input type="submit" value="Send" class="reply-button"/>
                 </form>
             </div>
