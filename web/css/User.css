@@ -1356,7 +1356,8 @@ ul {
 }
 
 .content-item-main-category-item.active.list .list-showcase .pipe-list .pipe-item .image-all-wrapper .pipe-item-image{
-    width: 20%;
+    width: calc(20% - 15px);
+    height: 18rem;
 }
 
 .content-item-main-category-item.active.list .list-showcase .pipe-list .pipe-item .image-all-wrapper .pipe-item-image img {

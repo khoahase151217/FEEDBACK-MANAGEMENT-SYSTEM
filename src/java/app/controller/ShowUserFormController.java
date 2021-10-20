@@ -53,14 +53,20 @@ public class ShowUserFormController extends HttpServlet {
                     request.setAttribute("flag", "open");
                     String style_pipe = request.getParameter("style_pipe");
                     String style_list = request.getParameter("style_list");
-                    if(style_list != null && (style_pipe == null || style_pipe.equals(""))) {
+                    if (style_pipe == null) {
+                        style_pipe = (String) request.getAttribute("style_pipe");
+                    }
+                    if (style_list == null) {
+                        style_list = (String) request.getAttribute("style_list");
+                    }
+                    if (style_list != null && (style_pipe == null || style_pipe.equals(""))) {
                         request.setAttribute("STYLE_LIST", "active");
-                    }else {
+                    } else {
                         request.setAttribute("STYLE_PIPE", "active");
                     }
                     url = USER_PAGE;
                     String search = request.getParameter("search");
-                    if(!search.equals("")) {
+                    if (!search.equals("")) {
                         url = USER_PAGE_SEARCH;
                     }
                     break;

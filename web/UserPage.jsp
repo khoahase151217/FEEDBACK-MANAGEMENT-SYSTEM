@@ -49,7 +49,7 @@
             referrerpolicy="no-referrer"
             />
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/User1.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/User.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/FeedbackForm.css" />
     </head>
     <body>
@@ -512,6 +512,8 @@
                             </button>
                         </div>
                         <input type="hidden" name="userID" value="${requestScope.USER_UPDATE.userID}"/>
+                        <input type="hidden" name="style_list" value="${requestScope.STYLE_LIST}"/>
+                        <input type="hidden" name="style_pipe" value="${requestScope.STYLE_PIPE}"/>
                     </form>
                 </div>
             </div>
@@ -1252,7 +1254,7 @@
             </div>
         </footer>
 
-        <script src="${pageContext.request.contextPath}/js/User.js"></script>
+        <script src="${pageContext.request.contextPath}/js/User1.js"></script>
         <!-- Query -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>

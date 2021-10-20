@@ -93,6 +93,16 @@ public class UpdateUserController extends HttpServlet {
                         if (inputName.equalsIgnoreCase("position")) {
                             position = item.getString();
                         }
+                        if (inputName.equalsIgnoreCase("style_list")) {
+                            if(!item.getString().equals("")) {
+                                request.setAttribute("style_list", "active");
+                            }
+                        }
+                        if (inputName.equalsIgnoreCase("style_pipe")) {
+                            if(!item.getString().equals("")) {
+                                request.setAttribute("style_pipe", "active");
+                            }
+                        }
                         
                     } else {
                         if (item.getContentType().contains("image")) {
