@@ -18,8 +18,21 @@ public class FacilityDTO {
     private String categoryID;
     private String statusName;
     private String image;
+    private int count;
 
     public FacilityDTO() {
+    }
+
+    public FacilityDTO(String facilityID, String facilityName, int quantity, String maintenanceDate, String statusID, String categoryID, String statusName, String image, int count) {
+        this.facilityID = facilityID;
+        this.facilityName = facilityName;
+        this.quantity = quantity;
+        this.maintenanceDate = maintenanceDate;
+        this.statusID = statusID;
+        this.categoryID = categoryID;
+        this.statusName = statusName;
+        this.image = image;
+        this.count = count;
     }
     
     public FacilityDTO(String facilityID, String facilityName, int quantity, String maintenanceDate, String statusID, String categoryID, String statusName, String image) {
@@ -59,6 +72,14 @@ public class FacilityDTO {
 
     public void setStatusName(String statusName) {
         this.statusName = statusName;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
     public String getFacilityID() {

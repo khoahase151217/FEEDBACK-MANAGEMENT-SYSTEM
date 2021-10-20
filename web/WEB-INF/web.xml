@@ -104,6 +104,10 @@
         <servlet-name>SearchUserFeedbackController</servlet-name>
         <servlet-class>app.controller.SearchUserFeedbackController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FacilityStatisticController</servlet-name>
+        <servlet-class>app.controller.FacilityStatisticController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -219,6 +223,10 @@
     <servlet-mapping>
         <servlet-name>SearchUserFeedbackController</servlet-name>
         <url-pattern>/SearchUserFeedbackController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FacilityStatisticController</servlet-name>
+        <url-pattern>/FacilityStatisticController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -925,6 +925,55 @@ public class FacilityDAO {
         return list;
     }
 
+    public List<FacilityDTO> selectTop5(String one, String two, String three) throws SQLException {
+        List<FacilityDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT TOP 5 t1.* ,COUNT(t1.FacilityID) as count\n"
+                        + "FROM tblFacilities t1\n"
+                        + "JOIN tblFeedbackDetail t2 on t1.FacilityID = t2.FacilityID\n"
+                        + "JOIN tblFeedback t3 on t2.FeedbackID = t3.FeedbackID\n"
+                        + "WHERE t3.Date like ? OR t3.Date like ? OR t3.Date like ? \n"
+                        + "GROUP BY t1.FacilityID,t1.Name,t1.Quantity,t1.CategoryID,t1.Image,t1.MaintenanceDate,t1.StatusID\n"
+                        + "ORDER BY COUNT(t1.FacilityID) DESC";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, "%" + one + "%");
+                ps.setString(2, "%" + two + "%");
+                ps.setString(3, "%" + three + "%");
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String facilityId = rs.getString("FacilityID");
+                    String name = rs.getString("Name");
+                    int quantity = rs.getInt("Quantity");
+                    String date = rs.getString("MaintenanceDate");
+                    String statusId = rs.getString("StatusID");
+                    String categoryId = rs.getString("CategoryID");
+                    String statusName = rs.getString("statusName");
+                    String image = rs.getString("Image");
+                    int count = rs.getInt("count");
+                    list.add(new FacilityDTO(facilityId, name, quantity, date, statusId, categoryId, statusName, image, count));
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
 //    Hàm mới nhé
 //    public List<FacilityDTO> getAllListFacilityAsc() throws SQLException {
 //        List<FacilityDTO> list = new ArrayList<>();
