@@ -900,158 +900,188 @@
                                                                                 />
                                                                             <label class="input-label">Quantity</label>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="feedback-detail-textarea">
-                                                                        <div class="textarea-wrapper">
-                                                                            <textarea
-                                                                                name="description"
-                                                                                id="description"
-                                                                                readonly
-                                                                                >${feedbackDetail.description}</textarea>
-                                                                            <label class="input-label">Description</label>
+                                                                        <c:if test="${feedbackDetail.check eq true}">
+                                                                            <div class="responsearea decline">
+                                                                                <div class="response-manager">
+                                                                                    <img src="img/cancel.png"/>
+                                                                                    <div class="textarea-wrapper">
+                                                                                        <textarea
+                                                                                            name="declineReason"
+                                                                                            id="declineReason"
+                                                                                            readonly
+                                                                                            >${feedbackDetail.declineReason}</textarea>
+                                                                                        <label class="input-label">Decline Reason</label>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </c:if>
                                                                         </div>
-                                                                        <div class="feedback-detail-image-wrapper">
-                                                                            <c:if test="${feedbackDetail.image ne ''}">
-                                                                                <img
-                                                                                    src="data:image/jpg/png;base64,${feedbackDetail.image}"
-                                                                                    alt=""
+                                                                        <div class="feedback-detail-textarea">
+                                                                            <div class="textarea-wrapper">
+                                                                                <textarea
+                                                                                    name="description"
+                                                                                    id="description"
+                                                                                    readonly
+                                                                                    >${feedbackDetail.description}</textarea>
+                                                                                <label class="input-label">Description</label>
+                                                                            </div>
+                                                                            <div class="feedback-detail-image-wrapper">
+                                                                                <c:if test="${feedbackDetail.image ne ''}">
+                                                                                    <img
+                                                                                        src="data:image/jpg/png;base64,${feedbackDetail.image}"
+                                                                                        alt=""
+                                                                                        />
+                                                                                </c:if>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </c:if>
+                                                            <c:if test="${counter.count != 1}">
+                                                                <div
+                                                                    class="detail-wrapper history-detail"
+                                                                    data-index="${counter.count}"
+                                                                    >
+                                                                    <div class="feedback-detail-header">
+                                                                        <h2 class="feedback-detail-tittle">Feedback Detail ${counter.count}</h2>
+                                                                    </div>
+                                                                    <div class="feedback-detail-showcase">
+                                                                        <div class="feedback-detail-input">
+                                                                            <div class="input-wrapper">
+                                                                                <input
+                                                                                    type="text"
+                                                                                    name="device"
+                                                                                    id="device"
+                                                                                    value="${feedbackDetail.deviceName}"
+                                                                                    readonly
                                                                                     />
+                                                                                <label class="input-label">Device Name</label>
+                                                                            </div>
+                                                                            <div class="input-wrapper">
+                                                                                <input
+                                                                                    type="text"
+                                                                                    name="location"
+                                                                                    id="location"
+                                                                                    value="Room ${feedbackDetail.location}"
+                                                                                    readonly
+                                                                                    />
+                                                                                <label class="input-label">Location</label>
+                                                                            </div>
+                                                                            <div class="input-wrapper">
+                                                                                <input
+                                                                                    type="number"
+                                                                                    name="quantity"
+                                                                                    id="quantity"
+                                                                                    value="${feedbackDetail.quanity}"
+                                                                                    readonly
+                                                                                    />
+                                                                                <label class="input-label">Quantity</label>
+                                                                            </div>
+                                                                            <c:if test="${feedbackDetail.check eq true}">
+                                                                                <div class="responsearea decline">
+                                                                                    <div class="response-manager">
+                                                                                        <img src="img/cancel.png"/>
+                                                                                        <div class="textarea-wrapper">
+                                                                                            <textarea
+                                                                                                name="declineReason"
+                                                                                                id="declineReason"
+                                                                                                readonly
+                                                                                                >${feedbackDetail.declineReason}</textarea>
+                                                                                            <label class="input-label">Decline Reason</label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
                                                                             </c:if>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </c:if>
-                                                        <c:if test="${counter.count != 1}">
-                                                            <div
-                                                                class="detail-wrapper history-detail"
-                                                                data-index="${counter.count}"
-                                                                >
-                                                                <div class="feedback-detail-header">
-                                                                    <h2 class="feedback-detail-tittle">Feedback Detail ${counter.count}</h2>
-                                                                </div>
-                                                                <div class="feedback-detail-showcase">
-                                                                    <div class="feedback-detail-input">
-                                                                        <div class="input-wrapper">
-                                                                            <input
-                                                                                type="text"
-                                                                                name="device"
-                                                                                id="device"
-                                                                                value="${feedbackDetail.deviceName}"
-                                                                                readonly
-                                                                                />
-                                                                            <label class="input-label">Device Name</label>
-                                                                        </div>
-                                                                        <div class="input-wrapper">
-                                                                            <input
-                                                                                type="text"
-                                                                                name="location"
-                                                                                id="location"
-                                                                                value="Room ${feedbackDetail.location}"
-                                                                                readonly
-                                                                                />
-                                                                            <label class="input-label">Location</label>
-                                                                        </div>
-                                                                        <div class="input-wrapper">
-                                                                            <input
-                                                                                type="number"
-                                                                                name="quantity"
-                                                                                id="quantity"
-                                                                                value="${feedbackDetail.quanity}"
-                                                                                readonly
-                                                                                />
-                                                                            <label class="input-label">Quantity</label>
-                                                                        </div>                                                                       
-                                                                    </div>
-                                                                    <div class="feedback-detail-textarea">
-                                                                        <div class="textarea-wrapper">
-                                                                            <textarea
-                                                                                name="description"
-                                                                                id="description"
-                                                                                readonly
-                                                                                >${feedbackDetail.description}</textarea>
-                                                                            <label class="input-label">Description</label>
-                                                                        </div>
+                                                                            </div>
+                                                                            <div class="feedback-detail-textarea">
+                                                                                <div class="textarea-wrapper">
+                                                                                    <textarea
+                                                                                        name="description"
+                                                                                        id="description"
+                                                                                        readonly
+                                                                                        >${feedbackDetail.description}</textarea>
+                                                                                    <label class="input-label">Description</label>
+                                                                                </div>
 
-                                                                        <div class="feedback-detail-image-wrapper">
-                                                                            <c:if test="${feedbackDetail.image ne ''}">
-                                                                                <img
-                                                                                    src="data:image/jpg/png;base64,${feedbackDetail.image}"
-                                                                                    alt=""
-                                                                                    />
-                                                                            </c:if>
+                                                                                <div class="feedback-detail-image-wrapper">
+                                                                                    <c:if test="${feedbackDetail.image ne ''}">
+                                                                                        <img
+                                                                                            src="data:image/jpg/png;base64,${feedbackDetail.image}"
+                                                                                            alt=""
+                                                                                            />
+                                                                                    </c:if>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
+                                                                </c:if>
+                                                                </c:forEach>
                                                             </div>
-                                                        </c:if>
-                                                    </c:forEach>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="showcase-content-item">1234</div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="showcase-content-item">1234</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-        <script src="${pageContext.request.contextPath}/js/EmployeeHome1.js"></script>
-        <!-- Query -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script>
-            $(function () {
-                var imagesPreview = function (input, placeToInsertImagePreview) {
-                    if (input.files) {
-                        var filesAmount = input.files.length;
+                        </section>
+                    </main>
+                    <script src="${pageContext.request.contextPath}/js/EmployeeHome1.js"></script>
+                    <!-- Query -->
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+                    <script>
+                        $(function () {
+                            var imagesPreview = function (input, placeToInsertImagePreview) {
+                                if (input.files) {
+                                    var filesAmount = input.files.length;
 
-                        for (i = 0; i < filesAmount; i++) {
-                            var reader = new FileReader();
+                                    for (i = 0; i < filesAmount; i++) {
+                                        var reader = new FileReader();
 
-                            reader.onload = function (event) {
-                                $($.parseHTML("<img>"))
-                                        .attr("src", event.target.result)
-                                        .appendTo(placeToInsertImagePreview);
+                                        reader.onload = function (event) {
+                                            $($.parseHTML("<img>"))
+                                                    .attr("src", event.target.result)
+                                                    .appendTo(placeToInsertImagePreview);
+                                        };
+
+                                        reader.readAsDataURL(input.files[i]);
+                                    }
+                                }
+                            };
+                            var imagesPreview2 = function (input) {
+                                if (input.files) {
+                                    var filesAmount = input.files.length;
+
+                                    for (i = 0; i < filesAmount; i++) {
+                                        var reader = new FileReader();
+
+                                        reader.onload = function (event) {
+
+                                            $(".avatar").attr("src", event.target.result);
+                                        };
+
+                                        reader.readAsDataURL(input.files[i]);
+                                    }
+                                }
                             };
 
-                            reader.readAsDataURL(input.files[i]);
-                        }
-                    }
-                };
-                var imagesPreview2 = function (input) {
-                    if (input.files) {
-                        var filesAmount = input.files.length;
+                            $(".reponse-form-drag-area").on("drop", (event) => {
+                                event.preventDefault();
+                                $("#image").prop("files", event.originalEvent.dataTransfer.files);
+                                $("#image").trigger("change");
+                            });
 
-                        for (i = 0; i < filesAmount; i++) {
-                            var reader = new FileReader();
+                            $("#image").on("change", function (e) {
+                                $(".reponse-form-image-show").empty();
+                                imagesPreview(this, "div.reponse-form-image-show");
+                            });
 
-                            reader.onload = function (event) {
-
-                                $(".avatar").attr("src", event.target.result);
-                            };
-
-                            reader.readAsDataURL(input.files[i]);
-                        }
-                    }
-                };
-
-                $(".reponse-form-drag-area").on("drop", (event) => {
-                    event.preventDefault();
-                    $("#image").prop("files", event.originalEvent.dataTransfer.files);
-                    $("#image").trigger("change");
-                });
-
-                $("#image").on("change", function (e) {
-                    $(".reponse-form-image-show").empty();
-                    imagesPreview(this, "div.reponse-form-image-show");
-                });
-
-                $("#avatarImage").on("change", function (e) {
-                    imagesPreview2(this);
-                });
-            });
-        </script>
-    </body>
-</html>
+                            $("#avatarImage").on("change", function (e) {
+                                imagesPreview2(this);
+                            });
+                        });
+                    </script>
+                </body>
+            </html>

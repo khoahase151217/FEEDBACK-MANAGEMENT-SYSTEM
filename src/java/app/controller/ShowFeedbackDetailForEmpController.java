@@ -34,8 +34,8 @@ public class ShowFeedbackDetailForEmpController extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             EmployeesDAO dao = new EmployeesDAO();
-            String declineReason ="";
-            int responseId=0;
+            String declineReason = "";
+            int responseId = 0;
             String feedbackID = (String) request.getParameter("feedbackID");
             String history = (String) request.getParameter("history");
             UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
@@ -48,14 +48,22 @@ public class ShowFeedbackDetailForEmpController extends HttpServlet {
             }
             List<FeedbackDetailDTO> dto = dao.showListFeedbackDetail(user.getUserID(), feedbackID);
             for (FeedbackDetailDTO detail : dto) {
-                if(dao.countDeclineResponse(detail.getFeedbackDetailID(), user.getUserID())!=0){
+                if (dao.countDeclineResponse(detail.getFeedbackDetailID(), user.getUserID()) != 0) {
                     detail.setCheck(true);
-                    responseId=dao.getResponseID(detail.getFeedbackDetailID());
-                    declineReason=dao.getDeclineReason(responseId);
+                    responseId = dao.getResponseID(detail.getFeedbackDetailID());
+                    declineReason = dao.getDeclineReason(responseId);
                     detail.setDeclineReason(declineReason);
-                }        
+                }
             }
             List<FeedbackDetailDTO> his = dao.showHistoryListFeedbackDetail(user.getUserID(), history);
+            for (FeedbackDetailDTO detail : his) {
+                if (dao.countDeclineResponse(detail.getFeedbackDetailID(), user.getUserID()) != 0) {
+                    detail.setCheck(true);
+                    responseId = dao.getResponseID(detail.getFeedbackDetailID());
+                    declineReason = dao.getDeclineReason(responseId);
+                    detail.setDeclineReason(declineReason);
+                }
+            }
             session.setAttribute("DETAIL", dto);
             request.setAttribute("FEEDBACK_ACTIVE", feedbackID);
             session.setAttribute("HISTORY_DETAIL", his);
