@@ -548,7 +548,7 @@ public class EmployeesDAO {
         }
         return list;
     }
-    public int countDeclineResponse(String feedbackDetailID) throws SQLException {
+    public int countDeclineResponse(String feedbackDetailID, String userID) throws SQLException {
         int count=0;
         Connection conn = null;
         PreparedStatement ps = null;
@@ -558,9 +558,10 @@ public class EmployeesDAO {
             if (conn != null) {
                 String sql = " SELECT COUNT(ResponseID) as count "
                         + " FROM tblResponseFeedback "
-                        + " WHERE FeedbackDetailID = ? AND StatusID='decline' ";
+                        + " WHERE FeedbackDetailID = ? AND StatusID='decline' AND UserID=? ";
                 ps = conn.prepareCall(sql);
                 ps.setString(1, feedbackDetailID);
+                ps.setString(2, userID);
                 rs = ps.executeQuery();
                 if (rs.next()) {
                     count = rs.getInt("count");

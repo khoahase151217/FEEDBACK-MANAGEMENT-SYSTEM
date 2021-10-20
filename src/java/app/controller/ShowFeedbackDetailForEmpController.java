@@ -46,7 +46,7 @@ public class ShowFeedbackDetailForEmpController extends HttpServlet {
             }
             List<FeedbackDetailDTO> dto = dao.showListFeedbackDetail(user.getUserID(), feedbackID);
             for (FeedbackDetailDTO detail : dto) {
-                if(dao.countDeclineResponse(detail.getFeedbackDetailID())!=0){
+                if(dao.countDeclineResponse(detail.getFeedbackDetailID(), user.getUserID())!=0){
                     detail.setCheck(true);
                 }        
             }
