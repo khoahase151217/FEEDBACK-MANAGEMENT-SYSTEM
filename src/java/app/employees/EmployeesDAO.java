@@ -102,7 +102,8 @@ public class EmployeesDAO {
         }
         return list;
     }
-     public List<UserDTO> showEmployeesListElectric() throws SQLException {
+
+    public List<UserDTO> showEmployeesListElectric() throws SQLException {
 
         List<UserDTO> list = new ArrayList<>();
         Connection conn = null;
@@ -138,7 +139,8 @@ public class EmployeesDAO {
         }
         return list;
     }
-      public List<UserDTO> showEmployeesListWater() throws SQLException {
+
+    public List<UserDTO> showEmployeesListWater() throws SQLException {
 
         List<UserDTO> list = new ArrayList<>();
         Connection conn = null;
@@ -174,7 +176,8 @@ public class EmployeesDAO {
         }
         return list;
     }
-       public List<UserDTO> showEmployeesListEnv() throws SQLException {
+
+    public List<UserDTO> showEmployeesListEnv() throws SQLException {
 
         List<UserDTO> list = new ArrayList<>();
         Connection conn = null;
@@ -376,7 +379,7 @@ public class EmployeesDAO {
                         + "  ON t1.FacilityID = t3.FacilityID "
                         + " JOIN tblResponseFeedback t4 "
                         + " ON t1.FeedbackDetailID = t4.FeedbackDetailID "
-                        + " WHERE t1.UserID = ? AND t1.flag='true' AND t1.FeedbackID = ? AND t1.StatusID ='active' AND t4.StatusID='done' " ;
+                        + " WHERE t1.UserID = ? AND t1.flag='true' AND t1.FeedbackID = ? AND t1.StatusID ='active' AND t4.StatusID='done' ";
                 stm = conn.prepareCall(sql);
                 stm.setString(1, userID);
                 stm.setString(2, feedbackID);
@@ -548,8 +551,9 @@ public class EmployeesDAO {
         }
         return list;
     }
+
     public int countDeclineResponse(String feedbackDetailID, String userID) throws SQLException {
-        int count=0;
+        int count = 0;
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -579,8 +583,8 @@ public class EmployeesDAO {
         return count;
     }
 
-public int countDeclineResponse2(String feedbackDetailID) throws SQLException {
-        int count=0;
+    public int countDeclineResponse2(String feedbackDetailID) throws SQLException {
+        int count = 0;
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -608,11 +612,12 @@ public int countDeclineResponse2(String feedbackDetailID) throws SQLException {
         }
         return count;
     }
-public String getDeclineReason(int responseId) throws SQLException{
+
+    public String getDeclineReason(int responseId) throws SQLException {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        String declineReason="";
+        String declineReason = "";
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
@@ -623,7 +628,7 @@ public String getDeclineReason(int responseId) throws SQLException{
                 ps.setInt(1, responseId);
                 rs = ps.executeQuery();
                 if (rs.next()) {
-                    declineReason= rs.getString("DeclinedReason");
+                    declineReason = rs.getString("DeclinedReason");
                 }
             }
         } catch (Exception e) {
@@ -636,21 +641,35 @@ public String getDeclineReason(int responseId) throws SQLException{
             }
         }
         return declineReason;
-}
-public int getResponseID(String feedbackDetailID)throws SQLException{
+    }
+
+    public int getResponseID(String feedbackDetailID) throws SQLException {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        int responseId=0;
+        int responseId = 0;
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = " select top 1 responseid from tblResponseFeedback where FeedbackDetailID=? order by ResponseID desc ";
+                String sql = " DECLARE @N INT;\n"
+                        + "SET @N=2;\n"
+                        + "\n"
+                        + "SELECT TOP 1 responseid\n"
+                        + "  FROM (SELECT DISTINCT TOP ( @N ) responseid\n"
+                        + "        --The distinct keyword is used to remove duplicates\n"
+                        + "          FROM tblResponseFeedback\n"
+                        + "		  where FeedbackDetailID=?\n"
+                        + "        ORDER BY ResponseID DESC\n"
+                        + "		 \n"
+                        + "		) MAXTwo\n"
+                        + "		\n"
+                        + "ORDER BY ResponseID ASC;\n"
+                        + " ";
                 ps = conn.prepareCall(sql);
                 ps.setString(1, feedbackDetailID);
                 rs = ps.executeQuery();
                 if (rs.next()) {
-                    responseId= rs.getInt("responseid");
+                    responseId = rs.getInt("responseid");
                 }
             }
         } catch (Exception e) {
@@ -663,5 +682,5 @@ public int getResponseID(String feedbackDetailID)throws SQLException{
             }
         }
         return responseId;
-}
+    }
 }
