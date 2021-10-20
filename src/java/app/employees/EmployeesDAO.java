@@ -643,7 +643,7 @@ public class EmployeesDAO {
         return declineReason;
     }
 
-    public int getResponseID(String feedbackDetailID) throws SQLException {
+    public int getResponseID2(String feedbackDetailID) throws SQLException {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -665,6 +665,33 @@ public class EmployeesDAO {
                         + "		\n"
                         + "ORDER BY ResponseID ASC;\n"
                         + " ";
+                ps = conn.prepareCall(sql);
+                ps.setString(1, feedbackDetailID);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    responseId = rs.getInt("responseid");
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return responseId;
+    }
+    public int getResponseID(String feedbackDetailID) throws SQLException {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        int responseId = 0;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " select top 1 responseid from tblResponseFeedback where FeedbackDetailID=? order by ResponseID desc";
                 ps = conn.prepareCall(sql);
                 ps.setString(1, feedbackDetailID);
                 rs = ps.executeQuery();

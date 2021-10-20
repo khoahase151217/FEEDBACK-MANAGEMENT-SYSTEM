@@ -59,7 +59,7 @@ public class ShowFeedbackDetailForEmpController extends HttpServlet {
             for (FeedbackDetailDTO detail : his) {
                 if (dao.countDeclineResponse(detail.getFeedbackDetailID(), user.getUserID()) != 0) {
                     detail.setCheck(true);
-                    responseId = dao.getResponseID(detail.getFeedbackDetailID());
+                    responseId = dao.getResponseID2(detail.getFeedbackDetailID());
                     declineReason = dao.getDeclineReason(responseId);
                     detail.setDeclineReason(declineReason);
                 }
