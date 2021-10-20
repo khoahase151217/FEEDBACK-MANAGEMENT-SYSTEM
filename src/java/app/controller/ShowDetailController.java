@@ -52,6 +52,11 @@ public class ShowDetailController extends HttpServlet {
             //add thêm field cateID
             List<FeedbackDetailDTO> list = dao.getListFeedbackDetail(feedbackID);
             if (!list.isEmpty()) {
+                for (FeedbackDetailDTO detail : list) {
+                if(dao.countDeclineResponse2(detail.getFeedbackDetailID())!=0){
+                    detail.setCheck(true);
+                }        
+            }
                 session.setAttribute("LIST_DETAIL", list);
                 if (statusID.equalsIgnoreCase("pending")) {
                     request.setAttribute("CLASS_NAME", "pending");
