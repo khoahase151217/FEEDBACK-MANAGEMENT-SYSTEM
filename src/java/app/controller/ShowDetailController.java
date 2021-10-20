@@ -43,6 +43,7 @@ public class ShowDetailController extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             FeedbackDAO dao = new FeedbackDAO();
+            EmployeesDAO dao2 = new EmployeesDAO();
             String feedbackID = request.getParameter("feedbackID");
             String pipeOrList = request.getParameter("style_flag");
             request.setAttribute("style_flag", pipeOrList);
@@ -53,7 +54,7 @@ public class ShowDetailController extends HttpServlet {
             List<FeedbackDetailDTO> list = dao.getListFeedbackDetail(feedbackID);
             if (!list.isEmpty()) {
                 for (FeedbackDetailDTO detail : list) {
-                if(dao.countDeclineResponse2(detail.getFeedbackDetailID())!=0){
+                if(dao2.countDeclineResponse2(detail.getFeedbackDetailID())!=0){
                     detail.setCheck(true);
                 }        
             }
