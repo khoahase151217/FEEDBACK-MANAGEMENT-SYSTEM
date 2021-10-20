@@ -48,6 +48,8 @@ public class ShowFeedbackDetailForEmpController extends HttpServlet {
             for (FeedbackDetailDTO detail : dto) {
                 if(dao.countDeclineResponse(detail.getFeedbackDetailID())!=0){
                     detail.setCheck(true);
+                }else{
+                    detail.setCheck(false);
                 }
             }
             List<FeedbackDetailDTO> his = dao.showHistoryListFeedbackDetail(user.getUserID(), history);
