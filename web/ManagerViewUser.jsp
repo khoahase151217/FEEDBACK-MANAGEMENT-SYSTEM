@@ -203,6 +203,16 @@
                                     <span></span>
                                 </li>
                                 <li class="showcase-item" data-index="3">
+                                    <a href="ManagerStatictis.jsp" class="showcase-link">
+                                        <ion-icon
+                                            name="stats-chart-outline"
+                                            class="no-active-mode"
+                                            ></ion-icon>
+                                        <ion-icon name="stats-chart" class="active-mode"></ion-icon>
+                                    </a>
+                                    <span></span>
+                                </li>
+                                <li class="showcase-item" data-index="4">
                                     <a href="ManagerNotification" class="showcase-link">
                                         <ion-icon
                                             name="notifications-outline"
