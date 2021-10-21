@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -76,7 +77,7 @@ public class SendFeedbackController extends HttpServlet {
             HttpSession session = request.getSession();
             FileInputStream photo = null;
             UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
-            SimpleDateFormat sdf = new SimpleDateFormat("MMM dd YYYY");
+            SimpleDateFormat sdf = new SimpleDateFormat("MMM dd YYYY", Locale.ENGLISH);
             String date = sdf.format(new Date());
             Fdao.insertFeedback(user.getUserID(), date);
             String feedbackId = Fdao.getFeedbackID(user.getUserID());
