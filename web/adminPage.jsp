@@ -32,7 +32,7 @@
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
         ></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage1.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPageDetailModal.css" />
     </head>
     <body>
@@ -364,6 +364,16 @@
                                     <span></span>
                                 </li>
                                 <li class="showcase-item" data-index="3">
+                                    <a href="ManagerStatictis.jsp" class="showcase-link">
+                                        <ion-icon
+                                            name="stats-chart-outline"
+                                            class="no-active-mode"
+                                            ></ion-icon>
+                                        <ion-icon name="stats-chart" class="active-mode"></ion-icon>
+                                    </a>
+                                    <span></span>
+                                </li>
+                                <li class="showcase-item" data-index="4">
                                     <a href="ManagerNotification.jsp" class="showcase-link">
                                         <ion-icon
                                             name="notifications-outline"
@@ -1174,7 +1184,7 @@
                 </div>
             </section>
         </main>
-        <script src="${pageContext.request.contextPath}/js/adminPage1.js"></script>
+        <script src="${pageContext.request.contextPath}/js/adminPage.js"></script>
         <script src="${pageContext.request.contextPath}/js/ManagerFB.js"></script>
         <!-- Query -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
