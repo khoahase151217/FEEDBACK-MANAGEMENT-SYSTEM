@@ -5,14 +5,11 @@
  */
 package app.controller;
 
-import app.employees.EmployeesDAO;
 import app.facility.FacilityDAO;
 import app.facility.FacilityDTO;
-import app.users.UserDTO;
-import com.google.gson.Gson;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -50,52 +47,74 @@ public class FacilityStatisticController extends HttpServlet {
         String url = ERROR;
 
         try {
-            HttpSession session = request.getSession();
-            String txt1 = "";
-            String txt2 = "";
-            String txt3 = "";
-            int quarter = 0; 
+            LocalDateTime now = LocalDateTime.now();
+            int get = now.getYear();
+            String year = String.valueOf(get);
+            FacilityDAO dao = new FacilityDAO();
+            List<FacilityDTO> list = new ArrayList<FacilityDTO>();
             SimpleDateFormat month_format = new SimpleDateFormat("MMM ", Locale.ENGLISH);
             Date date = new Date();
             String month_name = month_format.format(date);
-            FacilityDAO dao = new FacilityDAO();
-            List<FacilityDTO> list = new ArrayList<FacilityDTO>();
-            if (month_name.contains("Jan") || month_name.contains("Feb") || month_name.contains("Mar")) {
-                txt1 = "Jan";
-                txt2 = "Feb";
-                txt3 = "Mar";
-                quarter = 1;
-            }
-            if (month_name.contains("Apr") || month_name.contains("May") || month_name.contains("Jun")) {
-                txt1 = "Apr";
-                txt2 = "May";
-                txt3 = "Jun";
-                quarter = 2;
-            }
-            if (month_name.contains("Jul") || month_name.contains("Aug") || month_name.contains("Sep")) {
-                txt1 = "Jul";
-                txt2 = "Aug";
-                txt3 = "Sep";
-                quarter = 3;
+            HttpSession session = request.getSession();
+            String stat = request.getParameter("search");
+            switch (stat) {
+                case "year":
+                    list = dao.selectTop3ByYear(year);
+                    if (!list.isEmpty()) {
+                        session.setAttribute("FACILITY_STATISTIC", list);
+                        url = SUCCESS;
+                    }
+                    break;
+                case "month":
+                    list = dao.selectTop3ByMonth(month_name, year);
+                    if (!list.isEmpty()) {
+                        session.setAttribute("FACILITY_STATISTIC", list);
+                        url = SUCCESS;
+                    }
+                    break;
+                default:
+                    String txt1 = "";
+                    String txt2 = "";
+                    String txt3 = "";
+                    int quarter = 0;
+
+                    if (month_name.contains("Jan") || month_name.contains("Feb") || month_name.contains("Mar")) {
+                        txt1 = "Jan";
+                        txt2 = "Feb";
+                        txt3 = "Mar";
+                        quarter = 1;
+                    }
+                    if (month_name.contains("Apr") || month_name.contains("May") || month_name.contains("Jun")) {
+                        txt1 = "Apr";
+                        txt2 = "May";
+                        txt3 = "Jun";
+                        quarter = 2;
+                    }
+                    if (month_name.contains("Jul") || month_name.contains("Aug") || month_name.contains("Sep")) {
+                        txt1 = "Jul";
+                        txt2 = "Aug";
+                        txt3 = "Sep";
+                        quarter = 3;
+                    }
+
+                    if (month_name.contains("Oct") || month_name.contains("Nov") || month_name.contains("Dec")) {
+                        txt1 = "Oct";
+                        txt2 = "Nov";
+                        txt3 = "Dec";
+                        quarter = 4;
+                    }
+                    list = dao.selectTop3ByQuarter(txt1, txt2, txt3, year);
+
+                    if (!list.isEmpty()) {
+                        session.setAttribute("FACILITY_STATISTIC", list);
+                        session.setAttribute("QUARTER_OF_YEAR", quarter);
+                        url = SUCCESS;
+                    }
             }
 
-            if (month_name.contains("Oct") || month_name.contains("Nov") || month_name.contains("Dec")) {
-                txt1 = "Oct";
-                txt2 = "Nov";
-                txt3 = "Dec";
-                quarter = 4;
-            }
-            list = dao.selectTop5(txt1, txt2, txt3);
-            
-            if (!list.isEmpty()) {
-                session.setAttribute("FACILITY_STATISTIC", list);
-                session.setAttribute("QUARTER_OF_YEAR", quarter);
-                url = SUCCESS;
-            }
         } catch (Exception e) {
             log("Error at StatisticGoodEmpController" + e.toString());
-        }
-         finally {
+        } finally {
             request.getRequestDispatcher(url).forward(request, response);
 
         }

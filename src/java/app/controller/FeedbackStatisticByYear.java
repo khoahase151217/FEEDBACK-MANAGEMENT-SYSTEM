@@ -5,7 +5,6 @@
  */
 package app.controller;
 
-import app.facility.FacilityDAO;
 import app.statistic.StatisticDAO;
 import app.statistic.StatisticDTO;
 import com.google.gson.Gson;
@@ -13,7 +12,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.TreeMap;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

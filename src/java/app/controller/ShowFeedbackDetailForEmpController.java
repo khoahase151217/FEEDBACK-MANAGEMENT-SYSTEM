@@ -9,7 +9,6 @@ import app.employees.EmployeesDAO;
 import app.feedback.FeedbackDetailDTO;
 import app.users.UserDTO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

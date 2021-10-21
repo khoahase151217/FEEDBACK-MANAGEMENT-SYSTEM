@@ -272,15 +272,15 @@
                                             <h2 class="statictis-chart-heading">
                                                 Welcome back, Myex
                                             </h2>
-                                            <form action="#" class="statictis-chart-form">
+                                            <form action="FacilityStatisticController" class="statictis-chart-form">
                                                 <select
                                                     name="search"
                                                     id="search"
                                                     class="statictis-chart-select"
                                                     >
                                                     <option value="year" selected>Year</option>
-                                                    <option value="month">Month</option>
-                                                    <option value="quarter">Quarter</option>
+                                                    <option value="month" >Month</option>
+                                                    <option value="quarter" >Quarter</option>
                                                 </select>
                                                 <button type="submit">
                                                     <ion-icon name="search"></ion-icon>
@@ -325,6 +325,7 @@
                                                                 Category
                                                             </li>
                                                         </ul>
+                                                            <!-- Facility Statistic -->
                                                         <div class="statictis-chart-list-main-list">
                                                             <div class="statictis-chart-list-main-item">
                                                                 <div class="item-image">
