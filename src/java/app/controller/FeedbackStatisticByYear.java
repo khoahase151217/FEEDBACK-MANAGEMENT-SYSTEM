@@ -5,35 +5,27 @@
  */
 package app.controller;
 
-import app.employees.EmployeesDAO;
 import app.facility.FacilityDAO;
-import app.facility.FacilityDTO;
-import app.users.UserDTO;
+import app.statistic.StatisticDAO;
+import app.statistic.StatisticDTO;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Locale;
+import java.util.TreeMap;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author ADMIN
  */
-@WebServlet(name = "FacilityStatisticController", urlPatterns = {"/FacilityStatisticController"})
-
-public class FacilityStatisticController extends HttpServlet {
-
-    private static final String SUCCESS = "adminPage.jsp";
-    private static final String ERROR = "##";
+@WebServlet(name = "FeedbackStatisticByYear", urlPatterns = {"/FeedbackStatisticByYear"})
+public class FeedbackStatisticByYear extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,57 +39,17 @@ public class FacilityStatisticController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
-
         try {
-            HttpSession session = request.getSession();
-            String txt1 = "";
-            String txt2 = "";
-            String txt3 = "";
-            int quarter = 0; 
-            SimpleDateFormat month_format = new SimpleDateFormat("MMM ", Locale.ENGLISH);
-            Date date = new Date();
-            String month_name = month_format.format(date);
-            FacilityDAO dao = new FacilityDAO();
-            List<FacilityDTO> list = new ArrayList<FacilityDTO>();
-            if (month_name.contains("Jan") || month_name.contains("Feb") || month_name.contains("Mar")) {
-                txt1 = "Jan";
-                txt2 = "Feb";
-                txt3 = "Mar";
-                quarter = 1;
-            }
-            if (month_name.contains("Apr") || month_name.contains("May") || month_name.contains("Jun")) {
-                txt1 = "Apr";
-                txt2 = "May";
-                txt3 = "Jun";
-                quarter = 2;
-            }
-            if (month_name.contains("Jul") || month_name.contains("Aug") || month_name.contains("Sep")) {
-                txt1 = "Jul";
-                txt2 = "Aug";
-                txt3 = "Sep";
-                quarter = 3;
-            }
+            LocalDateTime now = LocalDateTime.now();
+            int get = now.getYear();
+            String year = String.valueOf(get);
+            StatisticDAO dao = new StatisticDAO();
+            List<StatisticDTO> list = dao.feedbackStatistic(year);
+            Gson gson = new Gson();
+            PrintWriter out = response.getWriter();
+            out.println(gson.toJson(list));
 
-            if (month_name.contains("Oct") || month_name.contains("Nov") || month_name.contains("Dec")) {
-                txt1 = "Oct";
-                txt2 = "Nov";
-                txt3 = "Dec";
-                quarter = 4;
-            }
-            list = dao.selectTop5(txt1, txt2, txt3);
-            
-            if (!list.isEmpty()) {
-                session.setAttribute("FACILITY_STATISTIC", list);
-                session.setAttribute("QUARTER_OF_YEAR", quarter);
-                url = SUCCESS;
-            }
         } catch (Exception e) {
-            log("Error at StatisticGoodEmpController" + e.toString());
-        }
-         finally {
-            request.getRequestDispatcher(url).forward(request, response);
-
         }
     }
 

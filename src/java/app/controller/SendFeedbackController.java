@@ -76,7 +76,7 @@ public class SendFeedbackController extends HttpServlet {
             HttpSession session = request.getSession();
             FileInputStream photo = null;
             UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
-            SimpleDateFormat sdf = new SimpleDateFormat("E, MMM dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("MMM dd YYYY");
             String date = sdf.format(new Date());
             Fdao.insertFeedback(user.getUserID(), date);
             String feedbackId = Fdao.getFeedbackID(user.getUserID());

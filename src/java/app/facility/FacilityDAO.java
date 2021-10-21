@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 
 /**
  *
@@ -933,13 +934,13 @@ public class FacilityDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT TOP 5 t1.* ,COUNT(t1.FacilityID) as count\n"
-                        + "FROM tblFacilities t1\n"
-                        + "JOIN tblFeedbackDetail t2 on t1.FacilityID = t2.FacilityID\n"
-                        + "JOIN tblFeedback t3 on t2.FeedbackID = t3.FeedbackID\n"
-                        + "WHERE t3.Date like ? OR t3.Date like ? OR t3.Date like ? \n"
-                        + "GROUP BY t1.FacilityID,t1.Name,t1.Quantity,t1.CategoryID,t1.Image,t1.MaintenanceDate,t1.StatusID\n"
-                        + "ORDER BY COUNT(t1.FacilityID) DESC";
+                String sql = " SELECT TOP 5 t1.* ,COUNT(t1.FacilityID) as count "
+                        + " FROM tblFacilities t1 "
+                        + " JOIN tblFeedbackDetail t2 on t1.FacilityID = t2.FacilityID "
+                        + " JOIN tblFeedback t3 on t2.FeedbackID = t3.FeedbackID "
+                        + " WHERE t3.Date like ? OR t3.Date like ? OR t3.Date like ? "
+                        + " GROUP BY t1.FacilityID,t1.Name,t1.Quantity,t1.CategoryID,t1.Image,t1.MaintenanceDate,t1.StatusID "
+                        + " ORDER BY COUNT(t1.FacilityID) DESC";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, "%" + one + "%");
                 ps.setString(2, "%" + two + "%");
@@ -952,14 +953,14 @@ public class FacilityDAO {
                     String date = rs.getString("MaintenanceDate");
                     String statusId = rs.getString("StatusID");
                     String categoryId = rs.getString("CategoryID");
-                    String statusName = rs.getString("statusName");
                     String image = rs.getString("Image");
                     int count = rs.getInt("count");
-                    list.add(new FacilityDTO(facilityId, name, quantity, date, statusId, categoryId, statusName, image, count));
+                    list.add(new FacilityDTO(facilityId, name, quantity, date, statusId, categoryId, "", image, count));
                 }
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             if (rs != null) {
                 rs.close();
@@ -973,6 +974,8 @@ public class FacilityDAO {
         }
         return list;
     }
+
+    
 
 //    Hàm mới nhé
 //    public List<FacilityDTO> getAllListFacilityAsc() throws SQLException {
@@ -1236,4 +1239,4 @@ public class FacilityDAO {
 //        }
 //        return list;
 //    }
-}
+    }
