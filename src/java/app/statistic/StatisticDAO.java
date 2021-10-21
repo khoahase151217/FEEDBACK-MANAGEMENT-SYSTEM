@@ -19,107 +19,94 @@ import java.util.TreeMap;
  * @author ADMIN
  */
 public class StatisticDAO {
+
     public List<StatisticDTO> feedbackStatistic(String year) throws SQLException {
         List<StatisticDTO> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        String month="";
-        int count=0;
+        String month = "";
+        int count = 0;
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = " SELECT   'January' as' Month',SUM(CASE datepart(month,Date) WHEN 1 THEN 1 ELSE 0 END) AS 'Count'\n"
+                String sql = "  SELECT   'January' as' Month',SUM(CASE datepart(month,Date) WHEN 1 THEN 1 ELSE 0 END) AS 'Count'\n"
                         + "FROM\n"
                         + "    tblFeedback\n"
                         + "WHERE\n"
                         + "  Date like ?\n"
-                        + "  group by MONTH(CAST(Date AS datetime))\n"
                         + "  Union All\n"
                         + "SELECT   'February' as' Month',SUM(CASE datepart(month,Date) WHEN 2 THEN 1 ELSE 0 END) AS 'Count'\n"
                         + "FROM\n"
                         + "    tblFeedback\n"
                         + "WHERE\n"
                         + "  Date like ?\n"
-                        + "  group by MONTH(CAST(Date AS datetime))\n"
-                        + "\n"
                         + "  Union All\n"
                         + "SELECT   'March' as' Month',SUM(CASE datepart(month,Date) WHEN 3 THEN 1 ELSE 0 END) AS 'Count'\n"
                         + "FROM\n"
                         + "    tblFeedback\n"
                         + "WHERE\n"
                         + "  Date like ?\n"
-                        + "  group by MONTH(CAST(Date AS datetime))\n"
                         + "   Union All\n"
                         + "SELECT   'April' as' Month',SUM(CASE datepart(month,Date) WHEN 4 THEN 1 ELSE 0 END) AS 'Count'\n"
                         + "FROM\n"
                         + "    tblFeedback\n"
                         + "WHERE\n"
                         + "  Date like ?\n"
-                        + "  group by MONTH(CAST(Date AS datetime))\n"
                         + "   Union All\n"
                         + "SELECT   'May' as' Month',SUM(CASE datepart(month,Date) WHEN 5 THEN 1 ELSE 0 END) AS 'Count'\n"
                         + "FROM\n"
                         + "    tblFeedback\n"
                         + "WHERE\n"
                         + "  Date like ?\n"
-                        + "  group by MONTH(CAST(Date AS datetime))\n"
                         + "   Union All\n"
                         + "SELECT   'June' as' Month',SUM(CASE datepart(month,Date) WHEN 6 THEN 1 ELSE 0 END) AS 'Count'\n"
                         + "FROM\n"
                         + "    tblFeedback\n"
                         + "WHERE\n"
                         + "  Date like ?\n"
-                        + "  group by MONTH(CAST(Date AS datetime))\n"
                         + "   Union All\n"
                         + "SELECT   'July' as' Month',SUM(CASE datepart(month,Date) WHEN 7 THEN 1 ELSE 0 END) AS 'Count'\n"
                         + "FROM\n"
                         + "    tblFeedback\n"
                         + "WHERE\n"
                         + "  Date like ?\n"
-                        + "  group by MONTH(CAST(Date AS datetime))\n"
                         + "   Union All\n"
                         + "SELECT   'August' as' Month',SUM(CASE datepart(month,Date) WHEN 8 THEN 1 ELSE 0 END) AS 'Count'\n"
                         + "FROM\n"
                         + "    tblFeedback\n"
                         + "WHERE\n"
                         + "  Date like ?\n"
-                        + "  group by MONTH(CAST(Date AS datetime))\n"
                         + "   Union All\n"
                         + "SELECT   'September' as' Month',SUM(CASE datepart(month,Date) WHEN 9 THEN 1 ELSE 0 END) AS 'Count'\n"
                         + "FROM\n"
                         + "    tblFeedback\n"
                         + "WHERE\n"
                         + "  Date like ?\n"
-                        + "  group by MONTH(CAST(Date AS datetime))\n"
                         + "   Union All\n"
                         + "SELECT   'October' as' Month',SUM(CASE datepart(month,Date) WHEN 10 THEN 1 ELSE 0 END) AS 'Count'\n"
                         + "FROM\n"
                         + "    tblFeedback\n"
                         + "WHERE\n"
                         + "  Date like ?\n"
-                        + "  group by MONTH(CAST(Date AS datetime))\n"
                         + "   Union All\n"
                         + "SELECT   'November' as' Month',SUM(CASE datepart(month,Date) WHEN 11 THEN 1 ELSE 0 END) AS 'Count'\n"
                         + "FROM\n"
                         + "    tblFeedback\n"
                         + "WHERE\n"
                         + "  Date like ?\n"
-                        + "  group by MONTH(CAST(Date AS datetime))\n"
                         + "   Union All\n"
                         + "SELECT   'December' as' Month',SUM(CASE datepart(month,Date) WHEN 12 THEN 1 ELSE 0 END) AS 'Count'\n"
                         + "FROM\n"
                         + "    tblFeedback\n"
                         + "WHERE\n"
                         + "  Date like ?\n"
-                        + "  group by MONTH(CAST(Date AS datetime))\n"
                         + "   Union All\n"
                         + "SELECT   'Total' as' Month',SUM(CASE datepart(year,Date) WHEN ? THEN 1 ELSE 0 END) AS 'Count'\n"
                         + "FROM\n"
                         + "    tblFeedback\n"
                         + "WHERE\n"
-                        + "  Date like ? \n"
-                        + "  group by MONTH(CAST(Date AS datetime))\n"
+                        + "  Date like ?"
                         + "  ";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, "%" + year + "%");
@@ -134,12 +121,12 @@ public class StatisticDAO {
                 ps.setString(10, "%" + year + "%");
                 ps.setString(11, "%" + year + "%");
                 ps.setString(12, "%" + year + "%");
-                ps.setString(13, "%" + year + "%");
+                ps.setString(13, year );
                 ps.setString(14, "%" + year + "%");
                 rs = ps.executeQuery();
                 while (rs.next()) {
-                    month=rs.getString(1);
-                    count=rs.getInt(2);
+                    month = rs.getString(1);
+                    count = rs.getInt(2);
                     list.add(new StatisticDTO(month, count));
                 }
             }
@@ -159,5 +146,5 @@ public class StatisticDAO {
         }
         return list;
     }
-    
+
 }
