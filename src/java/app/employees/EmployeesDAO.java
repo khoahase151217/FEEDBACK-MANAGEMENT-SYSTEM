@@ -683,6 +683,7 @@ public class EmployeesDAO {
         }
         return responseId;
     }
+
     public int getResponseID(String feedbackDetailID) throws SQLException {
         Connection conn = null;
         PreparedStatement ps = null;
@@ -710,6 +711,7 @@ public class EmployeesDAO {
         }
         return responseId;
     }
+
     public String checkDone(String feedbackDetailID) throws SQLException {
         Connection conn = null;
         PreparedStatement ps = null;
@@ -739,5 +741,108 @@ public class EmployeesDAO {
             }
         }
         return status;
+    }
+
+    public List<UserDTO> getListGoodEMP(String txt, String txt2, String txt3) throws SQLException {
+        List<UserDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT TOP 3 t1.*,COUNT(t1.UserID) as count FROM tblUser t1 \n"
+                        + "JOIN tblResponseFeedback t2 on t1.UserID =t2.UserID \n"
+                        + "WHERE (t1.UserID = t2.UserID AND t2.StatusID='done' AND t2.Date like ? ) OR (t2.Date like ? AND t1.UserID = t2.UserID AND t2.StatusID='done')  OR (t2.Date like ? AND t1.UserID = t2.UserID AND t2.StatusID='done')\n"
+                        + "GROUP BY t1.UserID,t1.BinaryImage,t1.Email,t1.FullName,t1.Image,t1.Password,t1.Rating,t1.RoleID,t1.StatusID \n"
+                        + "ORDER BY COUNT(t1.UserID) DESC";
+
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, "%" + txt + "%");
+                ps.setString(2, "%" + txt2 + "%");
+                ps.setString(3, "%" + txt3 + "%");
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String userID = rs.getString("UserID");
+                    String name = rs.getString("FullName");
+                    String email = rs.getString("Email");
+                    String RoleID = rs.getString("RoleID");
+                    String StatusID = rs.getString("StatusID");
+                    String Image = rs.getString("Image");
+                    int count = rs.getInt("count");
+                    byte[] tmp = rs.getBytes("BinaryImage");
+                    if (tmp != null) {
+                        String base64Image = Base64.getEncoder().encodeToString(tmp);
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, "", "", count)));
+                    } else {
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, "", "", count)));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<UserDTO> getListBadEMP(String txt, String txt2, String txt3) throws SQLException {
+        List<UserDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            if (conn != null) {
+                String sql = "SELECT TOP 3 t1.*,COUNT(t1.UserID) as count\n"
+                        + " FROM tblUser t1\n"
+                        + "JOIN tblResponseFeedback t2 on t1.UserID =t2.UserID\n"
+                        + "JOIN tblDeclinedResponse t3 on t2.ResponseID = t3.ResponseID\n"
+                        + "WHERE t1.UserID = t2.UserID AND t3.ResponseID = t2.ResponseID AND ( t2.Date like ? OR t2.Date like ? OR t2.Date like ? ) \n"
+                        + "GROUP BY t1.UserID,t1.BinaryImage,t1.Email,t1.FullName,t1.Image,t1.Password,t1.Rating,t1.RoleID,t1.StatusID";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, "%" + txt + "%");
+                ps.setString(2, "%" + txt2 + "%");
+                ps.setString(3, "%" + txt3 + "%");
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String userID = rs.getString("UserID");
+                    String name = rs.getString("FullName");
+                    String email = rs.getString("Email");
+                    String RoleID = rs.getString("RoleID");
+                    String StatusID = rs.getString("StatusID");
+                    String Image = rs.getString("Image");
+                    int count = rs.getInt("count");
+                    byte[] tmp = rs.getBytes("BinaryImage");
+                    if (tmp != null) {
+                        String base64Image = Base64.getEncoder().encodeToString(tmp);
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, "", "", count)));
+                    } else {
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, "", "", count)));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
     }
 }

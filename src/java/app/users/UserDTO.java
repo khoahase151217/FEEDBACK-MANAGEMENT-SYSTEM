@@ -20,6 +20,7 @@ public class UserDTO {
     private String image;
     private String roleName;
     private String statusName;
+    private int count;
 
     public UserDTO() {
     }
@@ -44,6 +45,21 @@ public class UserDTO {
         this.image = image;
         this.roleName = roleName;
     }
+
+    public UserDTO(String userID, String fullName, String password, String email, String roleID, String statusID, String image, String roleName, String statusName, int count) {
+        this.userID = userID;
+        this.fullName = fullName;
+        this.password = password;
+        this.email = email;
+        this.roleID = roleID;
+        this.statusID = statusID;
+        this.image = image;
+        this.roleName = roleName;
+        this.statusName = statusName;
+        this.count = count;
+    }
+
+    
 
     public UserDTO(String userID, String fullName, String roleID) {
         this.userID = userID;
@@ -143,5 +159,14 @@ public class UserDTO {
     public void setStatusName(String statusName) {
         this.statusName = statusName;
     }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+    
 
 }
