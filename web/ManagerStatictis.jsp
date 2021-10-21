@@ -278,9 +278,9 @@
                                                     id="search"
                                                     class="statictis-chart-select"
                                                     >
-                                                    <option value="#" selected>Year</option>
-                                                    <option value="#">Month</option>
-                                                    <option value="#">Quy</option>
+                                                    <option value="year" selected>Year</option>
+                                                    <option value="month">Month</option>
+                                                    <option value="quarter">Quarter</option>
                                                 </select>
                                                 <button type="submit">
                                                     <ion-icon name="search"></ion-icon>
