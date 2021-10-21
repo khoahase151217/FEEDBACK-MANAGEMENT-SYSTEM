@@ -78,12 +78,19 @@ taskChervonForward.addEventListener("mouseout", (e) => {
     e.target.closest(".feedback-detail").style.borderRadius = `15px`;
 });
 
-if(Array.from(pipeCommentItems).length === 0) {
+if (Array.from(pipeCommentItems).length === 0) {
     document.querySelector('.feedback-detail').style.display = 'none';
-};
+}
+;
 
 document.querySelector(".reponse-form").addEventListener("click", (e) => {
     if (!e.target.classList.contains("modal"))
         return;
     e.target.closest(".reponse-form").classList.remove("open");
+});
+
+document.querySelector(".modal-decline").addEventListener("click", (e) => {
+    if (e.target.classList.contains("modal-decline")) {
+        e.target.closest(".modal-decline").classList.remove("open");
+    }
 });

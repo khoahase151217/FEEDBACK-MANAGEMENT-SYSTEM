@@ -601,7 +601,7 @@ img {
     height: 100%;
 }
 .showcase .pipe-column {
-    max-height: 640px;
+    max-height: 607px;
     height: 100%;
     background-color: transparent;
 }
@@ -1058,15 +1058,19 @@ img {
   width: 10%;
   height: 10%;
   position: relative;
-  margin-bottom: 3rem;
+  margin-bottom: 1.5rem;
   display: block;
   margin-left: 40%;
   margin-right: 70%;
 }
 
+.response-manager .textarea-wrapper {
+    position: relative;
+}
+
 .response-manager textarea {
   width: 90%;
-  height: 128px;
+  height: 100px;
   resize: none;
   border-radius: 10px;
   border: 1px solid #a7a7a7;
@@ -1084,5 +1088,5 @@ img {
 
 .response-manager .input-label{
   position: absolute;
-  bottom:65%;
+  bottom:100%;
 }

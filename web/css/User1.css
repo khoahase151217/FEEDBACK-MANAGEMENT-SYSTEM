@@ -409,7 +409,7 @@ ul {
     height: 100%;
 }
 .hero .pipe-column {
-    max-height: 549px;
+    max-height: 503px;
     height: 100%;
     background-color: transparent;
 }
@@ -1345,7 +1345,7 @@ ul {
     margin-top: 1rem;
 }
 .content-item-main-category-item.active.list .list-showcase .pipe-list {
-    max-height: 497px;
+    max-height: 452px;
 }
 .content-item-main-category-item.active.list .list-showcase .pipe-list .pipe-item {
     width: 100%;
@@ -1411,7 +1411,7 @@ ul {
 
 @media screen and (max-width: 1600px) {
     .hero .pipe-column {
-        max-height: 355px; 
+        max-height: 307px; 
     } 
 
     .hero .content-item-main-list {
@@ -1420,5 +1420,8 @@ ul {
 
     .content-item-main-category-item.list {
         max-height: 465px;
+    }
+    .content-item-main-category-item.active.list .list-showcase .pipe-list {
+        max-height: 256px;
     }
 }

@@ -301,7 +301,7 @@
         </div>
 
         <div class="modal-decline ${requestScope.decline_flag}" id="mymodal">
-            <div class="modal-decline-box">
+            <div class="modal-decline-box modal">
                 <form action="UpdateFeedbackDeclineController" method="post">
                     <input type="hidden" name="responseID" value="${requestScope.responseID}"/>
                     <input type="hidden" name="feedbackDetailID" value="${requestScope.feedbackDetailID}"/>
@@ -1175,7 +1175,7 @@
             </section>
         </main>
         <script src="${pageContext.request.contextPath}/js/adminPage1.js"></script>
-        <script src="${pageContext.request.contextPath}/js/ManagerFB1.js"></script>
+        <script src="${pageContext.request.contextPath}/js/ManagerFB.js"></script>
         <!-- Query -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
