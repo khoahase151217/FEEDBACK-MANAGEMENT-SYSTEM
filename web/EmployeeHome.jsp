@@ -900,6 +900,15 @@
                                                                                 />
                                                                             <label class="input-label">Quantity</label>
                                                                         </div>
+                                                                                
+                                                                                 <c:if test="${feedbackDetail.checkDone eq true}">
+                                                                            <div class="responsearea done">
+                                                                                <div class="response-manager">
+                                                                                    <img src="img/checked.png"/>
+                                                                                    
+                                                                                </div>
+                                                                            </div>
+                                                                        </c:if>
                                                                         <c:if test="${feedbackDetail.check eq true}">
                                                                             <div class="responsearea decline">
                                                                                 <div class="response-manager">
@@ -910,11 +919,12 @@
                                                                                             id="declineReason"
                                                                                             readonly
                                                                                             >${feedbackDetail.declineReason}</textarea>
-                                                                                        <label class="input-label">Decline Reason</label>
+                                                                                        <label class="input-label">Decline Reason last time</label>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                         </c:if>
+                                                                                
                                                                         </div>
                                                                         <div class="feedback-detail-textarea">
                                                                             <div class="textarea-wrapper">
@@ -977,6 +987,14 @@
                                                                                     />
                                                                                 <label class="input-label">Quantity</label>
                                                                             </div>
+                                                                                     <c:if test="${feedbackDetail.checkDone eq true}">
+                                                                            <div class="responsearea done">
+                                                                                <div class="response-manager">
+                                                                                    <img src="img/checked.png"/>
+                                                                                    
+                                                                                </div>
+                                                                            </div>
+                                                                        </c:if>
                                                                             <c:if test="${feedbackDetail.check eq true}">
                                                                                 <div class="responsearea decline">
                                                                                     <div class="response-manager">
@@ -987,7 +1005,7 @@
                                                                                                 id="declineReason"
                                                                                                 readonly
                                                                                                 >${feedbackDetail.declineReason}</textarea>
-                                                                                            <label class="input-label">Decline Reason</label>
+                                                                                            <label class="input-label">Decline Reason last time</label>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>

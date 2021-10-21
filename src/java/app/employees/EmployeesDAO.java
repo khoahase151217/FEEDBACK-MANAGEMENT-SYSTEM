@@ -710,4 +710,34 @@ public class EmployeesDAO {
         }
         return responseId;
     }
+    public String checkDone(String feedbackDetailID) throws SQLException {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String status = "";
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " SELECT t1.StatusID "
+                        + " FROM tblFeedback t1"
+                        + " join tblFeedbackDetail t2 on t1.FeedbackID=t2.FeedbackID "
+                        + " WHERE t2.FeedbackDetailID = ? AND t1.StatusID='done' ";
+                ps = conn.prepareCall(sql);
+                ps.setString(1, feedbackDetailID);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    status = rs.getString("StatusID");
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return status;
+    }
 }

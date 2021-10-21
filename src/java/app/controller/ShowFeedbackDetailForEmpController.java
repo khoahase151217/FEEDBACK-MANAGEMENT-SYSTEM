@@ -57,11 +57,16 @@ public class ShowFeedbackDetailForEmpController extends HttpServlet {
             }
             List<FeedbackDetailDTO> his = dao.showHistoryListFeedbackDetail(user.getUserID(), history);
             for (FeedbackDetailDTO detail : his) {
+                if(dao.checkDone(detail.getFeedbackDetailID()).equalsIgnoreCase("done")){
+                    detail.setCheckDone(true);
+                }
+                else{
                 if (dao.countDeclineResponse(detail.getFeedbackDetailID(), user.getUserID()) != 0) {
                     detail.setCheck(true);
                     responseId = dao.getResponseID2(detail.getFeedbackDetailID());
                     declineReason = dao.getDeclineReason(responseId);
                     detail.setDeclineReason(declineReason);
+                }
                 }
             }
             session.setAttribute("DETAIL", dto);

@@ -27,6 +27,7 @@ public class FeedbackDetailDTO {
     private String description;
     private String categoryDevice;
     private boolean check;
+    private boolean checkDone;
     private String declineReason;
 
     public FeedbackDetailDTO() {
@@ -315,6 +316,14 @@ public class FeedbackDetailDTO {
 
     public void setCategoryDevice(String categoryDevice) {
         this.categoryDevice = categoryDevice;
+    }
+
+    public boolean isCheckDone() {
+        return checkDone;
+    }
+
+    public void setCheckDone(boolean checkDone) {
+        this.checkDone = checkDone;
     }
 
 }
