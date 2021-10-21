@@ -34,7 +34,7 @@
         ></script>
 
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage.css" />
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ManagerStatictis.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ManagerStatictis1.css" />
     </head>
     <body>
         <div class="user-form ${requestScope.edit_flag}">
@@ -268,9 +268,110 @@
                             <div class="showcase-content-item active">
                                 <div class="statictis">
                                     <div class="statictis-chart">
-
+                                        <div class="statictis-chart-header">
+                                            <h2 class="statictis-chart-heading">
+                                                Welcome back, Myex
+                                            </h2>
+                                            <form action="#" class="statictis-chart-form">
+                                                <select
+                                                    name="search"
+                                                    id="search"
+                                                    class="statictis-chart-select"
+                                                    >
+                                                    <option value="#" selected>Year</option>
+                                                    <option value="#">Month</option>
+                                                    <option value="#">Quy</option>
+                                                </select>
+                                                <button type="submit">
+                                                    <ion-icon name="search"></ion-icon>
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <div class="statictis-chart-actual-chart">
+                                            <div class="statictis-chart-actual-chart-header">
+                                                <div id="columnchart_div"></div>
+                                                <label>Feedback</label>
+                                            </div>
+                                            <div class="statictis-chart-actual-chart-bottom">
+                                                <div class="donutchart-wrapper">
+                                                    <div id="donutchart_div"></div>
+                                                    <div class="label-wrapper">
+                                                        <label>Total</label>
+                                                        <label>2975</label>
+                                                    </div>
+                                                    <label class="donutchart-title"
+                                                           >Donut chart Title</label
+                                                    >
+                                                </div>
+                                                <div class="statictis-chart-list">
+                                                    <h3 class="statictis-chart-list-heading">
+                                                        Top Facility Feedback
+                                                    </h3>
+                                                    <div class="statictis-chart-list-main">
+                                                        <ul class="statictis-chart-list-main-heading">
+                                                            <li
+                                                                class="statictis-chart-list-main-heading-item"
+                                                                >
+                                                                Facility
+                                                            </li>
+                                                            <li
+                                                                class="statictis-chart-list-main-heading-item"
+                                                                >
+                                                                Quantity
+                                                            </li>
+                                                            <li
+                                                                class="statictis-chart-list-main-heading-item"
+                                                                >
+                                                                Category
+                                                            </li>
+                                                        </ul>
+                                                        <div class="statictis-chart-list-main-list">
+                                                            <div class="statictis-chart-list-main-item">
+                                                                <div class="item-image">
+                                                                    <div class="image-wrapper">
+                                                                        <img
+                                                                            src="https://images.unsplash.com/photo-1634756399527-28abc9d48703?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                                                                            alt=""
+                                                                            />
+                                                                    </div>
+                                                                    <p>Air Conditioner</p>
+                                                                </div>
+                                                                <p>100</p>
+                                                                <p>Electric</p>
+                                                            </div>
+                                                            <div class="statictis-chart-list-main-item">
+                                                                <div class="item-image">
+                                                                    <div class="image-wrapper">
+                                                                        <img
+                                                                            src="https://images.unsplash.com/photo-1634756399527-28abc9d48703?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                                                                            alt=""
+                                                                            />
+                                                                    </div>
+                                                                    <p>Air Conditioner</p>
+                                                                </div>
+                                                                <p>100</p>
+                                                                <p>Electric</p>
+                                                            </div>
+                                                            <div class="statictis-chart-list-main-item">
+                                                                <div class="item-image">
+                                                                    <div class="image-wrapper">
+                                                                        <img
+                                                                            src="https://images.unsplash.com/photo-1634756399527-28abc9d48703?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                                                                            alt=""
+                                                                            />
+                                                                    </div>
+                                                                    <p>Air Conditioner</p>
+                                                                </div>
+                                                                <p>100</p>
+                                                                <p>Electric</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    
+
                                     <!-- phần của anh ở đây nhé, tuyệt đối không code css cho class = "statictis-users" nếu a muốn code cho cái div này thì 
                                         hãy đặt một cái class riêng cùng cấp với nó hoặc a tạo 1 cái div wrapper của a là con của cái div[class= "statictis-users"]
                                         rồi a hãy code css cho nó. Lưu ý: code css vào file ManagerStatictis.css nhé a (kh copy vào adminPage.css)
@@ -285,6 +386,142 @@
             </section>
         </main>
         <script src="${pageContext.request.contextPath}/js/ManagerStatictis.js"></script>
+        <script
+            type="text/javascript"
+            src="https://www.gstatic.com/charts/loader.js"
+        ></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script>
+            window.addEventListener("resize", (e) => {
+                if (
+                        document.documentElement.clientWidth <= 1600 ||
+                        document.documentElement.clientWidth > 1600
+                        ) {
+                    $.ajax({
+                        url: "/SWP391_PROJECT/FeedbackStatisticByYear",
+                        dataType: "JSON",
+                        success: function (data) {
+                            google.charts.load("current", {packages: ["corechart"]});
+                            google.charts.setOnLoadCallback(() => {
+                                drawChart(data);
+                                drawChart2();
+                            });
+                        },
+                    });
+                }
+            });
+            $(document).ready(function () {
+                $.ajax({
+                    url: "/SWP391_PROJECT/FeedbackStatisticByYear",
+                    dataType: "JSON",
+                    success: function (data) {
+                        google.charts.load("current", {packages: ["corechart"]});
+                        google.charts.setOnLoadCallback(() => {
+                            drawChart(data);
+                            drawChart2();
+                        });
+                    }
+                });
+
+//                $.ajax({
+//                    url: "/SWP391_PROJECT/FeedbackStatisticByYear",
+//                    dataType: "JSON",
+//                    success: function (data) {
+//                        google.charts.load("current", {packages: ["corechart"]});
+//                        google.charts.setOnLoadCallback(() => {
+//                            drawChart2();
+//                        });
+//                    },
+//                });
+            });
+            function drawChart(result) {
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Month');
+                data.addColumn('number', 'Quantity');
+                var dataArray = [];
+                $.each(result, function (i, obj) {
+                    dataArray.push([obj.month, obj.count]);
+                });
+                data.addRows(dataArray);
+
+                var options = {
+                    chartArea: {width: "90%", height: "70%"},
+                    legend: {position: "none"},
+                    tooltip: {
+                        textStyle: {color: "#826B7A"}
+                    },
+                    backgroundColor: "f0e2cc",
+                    colors: ["FBA569"],
+                    fontName: "Poppins",
+                    hAxis: {
+                        textStyle: {
+                            color: "8d8d8d",
+                            fontName: "Poppins",
+                            bold: false,
+                            fontSize: 11,
+                        }
+                    },
+                    vAxis: {
+                        baselineColor: "dadada",
+                        gridlines: {color: "dadada"},
+                        minorGridlines: {color: "f0e2cc"},
+                        textStyle: {color: "8d8d8d"}
+                    }
+                };
+
+
+                var chart = new google.visualization.ColumnChart(
+                        document.getElementById("columnchart_div")
+                        );
+                chart.draw(data, options);
+            }
+            function drawChart2(result) {
+                let data = google.visualization.arrayToDataTable([
+                    ["Element", "Density"],
+                    ["Jan", 8.94],
+                    ["Feb", 10.49],
+                    ["Mar", 19.3],
+                    ["Apr", 21.45]
+                ]);
+                var view = new google.visualization.DataView(data);
+                view.setColumns([0, 1]);
+
+                var options = {
+                    backgroundColor: "#f0e2cc",
+                    tooltip: {
+                        showColorCode: true,
+                        textStyle: {
+                            fontName: "Poppins",
+                            fontSize: 13,
+                            italic: false,
+                        },
+                        ignoreBounds: true,
+                    },
+                    pieHole: 0.5,
+                    pieSliceTextStyle: {
+                        color: "black",
+                    },
+                    pieSliceText: "none",
+                    legend: {
+                        position: "bottom",
+                        textStyle: {color: "826B7A", fontSize: 12},
+                    },
+                    pieSliceBorderColor: "transparent",
+                    slices: {
+                        0: {color: "FE84B0"},
+                        1: {color: "3366CC"},
+                        2: {color: "FBA569"},
+                        3: {color: "dadada"},
+                    },
+//                       is3D: true,
+                };
+
+                let chart = new google.visualization.PieChart(
+                        document.getElementById("donutchart_div")
+                        );
+                chart.draw(data, options);
+            }
+        </script>
     </body>
 </html>
 
