@@ -17,8 +17,10 @@ import javax.servlet.http.HttpServletResponse;
  * @author Hyst
  */
 public class ShowDeclineReasonFormController extends HttpServlet {
-    private static final String SUCCESS="adminPage.jsp";
-    private static final String ERROR="##";
+
+    private static final String SUCCESS = "adminPage.jsp";
+    private static final String ERROR = "##";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -31,16 +33,19 @@ public class ShowDeclineReasonFormController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url=ERROR;
+        String url = ERROR;
         try {
-            String feedbackDetailID=request.getParameter("feedbackDetailID");
-            String responseID=request.getParameter("responseID");
+            String feedbackDetailID = request.getParameter("feedbackDetailID");
+            String responseID = request.getParameter("responseID");
             request.setAttribute("feedbackDetailID", feedbackDetailID);
             request.setAttribute("responseID", responseID);
             request.setAttribute("decline_flag", "open");
-            url=SUCCESS;
+            request.setAttribute("STYLE_COMMENT", "active");
+            request.setAttribute("STYLE_PIPE", "active");
+            request.setAttribute("STYLE_LIST_ALL", "active");
+            url = SUCCESS;
         } catch (Exception e) {
-        }finally{
+        } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

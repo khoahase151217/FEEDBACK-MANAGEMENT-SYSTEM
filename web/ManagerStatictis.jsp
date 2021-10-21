@@ -449,7 +449,7 @@
                     chartArea: {width: "90%", height: "70%"},
                     legend: {position: "none"},
                     tooltip: {
-                        textStyle: {color: "#826B7A"}
+                        textStyle: {color: "151111",fontName: "Poppins"}
                     },
                     backgroundColor: "f0e2cc",
                     colors: ["FBA569"],

@@ -60,13 +60,18 @@ public class ShowFeedBackController extends HttpServlet {
 
             String pipeStyle = (String) request.getAttribute("STYLE_PIPE");
             String listStyle = (String) request.getAttribute("STYLE_LIST");
+//            String style = (String) request.getAttribute("style_comment");
             if (pipeStyle == null && listStyle == null) {
                 request.setAttribute("STYLE_PIPE", "active");
                 request.setAttribute("STYLE_LIST_ALL", "active");
             }
-            request.setAttribute("STYLE_TASK", "active");
+//            if (style != null) {
+//                request.setAttribute("STYLE_COMMENT", "active");
+//            } else {
+//                request.setAttribute("STYLE_TASK", "active");
+//            }
             url = SUCCESS;
-            
+
         } catch (Exception e) {
             log("Error at ShowEmployeeController" + e.toString());
         } finally {

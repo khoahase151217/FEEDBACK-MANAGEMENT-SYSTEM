@@ -305,6 +305,7 @@
                 <form action="UpdateFeedbackDeclineController" method="post">
                     <input type="hidden" name="responseID" value="${requestScope.responseID}"/>
                     <input type="hidden" name="feedbackDetailID" value="${requestScope.feedbackDetailID}"/>
+                    <input type="hidden" name="style_list" value="${requestScope.STYLE_COMMENT}"/>
                     <div class="decline-input">
                         <textarea name="declineReason" id="declineReason"></textarea>
                         <label class="input-label">Decline Reason</label>
