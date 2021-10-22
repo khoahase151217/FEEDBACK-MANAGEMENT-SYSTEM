@@ -66,13 +66,17 @@ public class SearchTaskEmpController extends HttpServlet {
             }
 
             if (!historyList.isEmpty()) {
-                history = historyList.get(0).getFeedbackID();
+                if (!historyList.isEmpty()) {
+                    history = historyList.get(0).getFeedbackID();
+                }
                 session.setAttribute("HISTORY", history);
                 list = dao2.showListFeedback(user.getUserID());
                 session.setAttribute("FEEDBACK", feedbackDetailActive);
                 request.setAttribute("LIST_STYLE_HISTORY", "active");
             } else {
-                feedback = list.get(0).getFeedbackID();
+                if (!list.isEmpty()) {
+                    feedback = list.get(0).getFeedbackID();
+                }
                 session.setAttribute("FEEDBACK", feedback);
                 historyList = dao2.showHistoryFeedback(user.getUserID());
                 session.setAttribute("HISTORY", historyActive);

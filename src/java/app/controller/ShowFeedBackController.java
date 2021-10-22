@@ -56,7 +56,7 @@ public class ShowFeedBackController extends HttpServlet {
             List<FeedbackDTO> listDeny = dao.getListFeedbackByStatusDenyAscForManager();
             session.setAttribute("FEEDBACK_LIST_DENY", listDeny);
 
-            request.setAttribute("COUNT", listFixing.size() + listPending.size());
+            session.setAttribute("COUNT_OF_SUM", listFixing.size() + listPending.size());
 
             String pipeStyle = (String) request.getAttribute("STYLE_PIPE");
             String listStyle = (String) request.getAttribute("STYLE_LIST");
