@@ -34,7 +34,7 @@
         <!-- font awesome -->
         <script src="https://kit.fontawesome.com/97ce91ff3b.js" crossorigin="anonymous"></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/EmployeeHome.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/EmployeeHome1.css" />
     </head>
     <body>
         <div class="reponse-form ${requestScope.flag}">
@@ -355,11 +355,14 @@
                                             <div class="pipe">
                                                 <div class="pipe-column">
                                                     <div class="pipe-list">
+                                                        <c:if test="${empty sessionScope.LIST_FEEDBACK}">
+                                                            <p class="pipe-item-date">No result can be found ...</p>
+                                                        </c:if>
                                                         <c:forEach var="feedback" items="${sessionScope.LIST_FEEDBACK}" varStatus="counter">
                                                             <c:choose>
                                                                 <c:when test="${requestScope.FEEDBACK_ACTIVE == null && counter.count == 1}">
                                                                     <a href="ShowFeedbackDetailForEmpController?feedbackID=${feedback.feedbackID}&history=${requestScope.HISTORY_ACTIVE}&style_list=task">
-                                                                        <div class="pipe-item active">
+                                                                        <div class="pipe-item task-item active">
                                                                             <div class="pipe-item-heading">
                                                                                 <div class="pipe-item-title-wrapper">
                                                                                     <h3 class="pipe-item-title">Feedback ${feedback.feedbackID}</h3>
@@ -391,7 +394,7 @@
                                                                 </c:when>
                                                                 <c:when test="${feedback.feedbackID eq requestScope.FEEDBACK_ACTIVE}">
                                                                     <a href="ShowFeedbackDetailForEmpController?feedbackID=${feedback.feedbackID}&history=${requestScope.HISTORY_ACTIVE}&style_list=task">
-                                                                        <div class="pipe-item active">
+                                                                        <div class="pipe-item task-item active">
                                                                             <div class="pipe-item-heading">
                                                                                 <div class="pipe-item-title-wrapper">
                                                                                     <h3 class="pipe-item-title">Feedback ${feedback.feedbackID}</h3>
@@ -423,7 +426,7 @@
                                                                 </c:when>
                                                                 <c:otherwise>
                                                                     <a href="ShowFeedbackDetailForEmpController?feedbackID=${feedback.feedbackID}&history=${requestScope.HISTORY_ACTIVE}&style_list=task">
-                                                                        <div class="pipe-item">
+                                                                        <div class="pipe-item task-item">
                                                                             <div class="pipe-item-heading">
                                                                                 <div class="pipe-item-title-wrapper">
                                                                                     <h3 class="pipe-item-title">Feedback ${feedback.feedbackID}</h3>
@@ -458,8 +461,8 @@
                                                     </div>
                                                 </div>
                                                 <div
-                                                    class="pipe-column feedback-detail"
-                                                    style="background-color: #fff"
+                                                    class="pipe-column feedback-detail task-detail-wrapper"
+                                                    style="background-color: #fff;"
                                                     >
                                                     <div class="icon-chevron-back task-chevron-back">
                                                         <ion-icon name="chevron-back-outline"></ion-icon>
@@ -781,11 +784,14 @@
                                             <div class="pipe">
                                                 <div class="pipe-column">
                                                     <div class="pipe-list">
+                                                        <c:if test="${empty sessionScope.LIST_HISTORY}">
+                                                            <p class="pipe-item-date">No result can be found ...</p>
+                                                        </c:if>
                                                         <c:forEach var="feedback" items="${sessionScope.LIST_HISTORY}" varStatus="counter">
                                                             <c:choose>
                                                                 <c:when test="${requestScope.HISTORY_ACTIVE == null && counter.count == 1}">
                                                                     <a href="ShowFeedbackDetailForEmpController?history=${feedback.feedbackID}&feedbackID=${requestScope.FEEDBACK_ACTIVE}&style_list=history">
-                                                                        <div class="pipe-item active">
+                                                                        <div class="pipe-item history-item active">
                                                                             <div class="pipe-item-heading">
                                                                                 <div class="pipe-item-title-wrapper">
                                                                                     <h3 class="pipe-item-title">Feedback ${feedback.feedbackID}</h3>
@@ -805,7 +811,7 @@
                                                                 </c:when>
                                                                 <c:when test="${feedback.feedbackID eq requestScope.HISTORY_ACTIVE}">
                                                                     <a href="ShowFeedbackDetailForEmpController?history=${feedback.feedbackID}&feedbackID=${requestScope.FEEDBACK_ACTIVE}&style_list=history">
-                                                                        <div class="pipe-item active">
+                                                                        <div class="pipe-item history-item active">
                                                                             <div class="pipe-item-heading">
                                                                                 <div class="pipe-item-title-wrapper">
                                                                                     <h3 class="pipe-item-title">Feedback ${feedback.feedbackID}</h3>
@@ -825,7 +831,7 @@
                                                                 </c:when>
                                                                 <c:otherwise>
                                                                     <a href="ShowFeedbackDetailForEmpController?history=${feedback.feedbackID}&feedbackID=${requestScope.FEEDBACK_ACTIVE}&style_list=history">
-                                                                        <div class="pipe-item">
+                                                                        <div class="pipe-item history-item">
                                                                             <div class="pipe-item-heading">
                                                                                 <div class="pipe-item-title-wrapper">
                                                                                     <h3 class="pipe-item-title">Feedback ${feedback.feedbackID}</h3>
@@ -848,7 +854,7 @@
                                                     </div>
                                                 </div>
                                                 <div
-                                                    class="pipe-column feedback-detail"
+                                                    class="pipe-column feedback-detail history-detail-wrapper"
                                                     style="background-color: #fff"
                                                     >
                                                     <div class="icon-chevron-back history-chevron-back">
@@ -900,12 +906,12 @@
                                                                                 />
                                                                             <label class="input-label">Quantity</label>
                                                                         </div>
-                                                                                
-                                                                                 <c:if test="${feedbackDetail.checkDone eq true}">
+
+                                                                        <c:if test="${feedbackDetail.checkDone eq true}">
                                                                             <div class="responsearea done">
                                                                                 <div class="response-manager">
                                                                                     <img src="img/checked.png"/>
-                                                                                    
+
                                                                                 </div>
                                                                             </div>
                                                                         </c:if>
@@ -924,182 +930,182 @@
                                                                                 </div>
                                                                             </div>
                                                                         </c:if>
-                                                                                
+
+                                                                    </div>
+                                                                    <div class="feedback-detail-textarea">
+                                                                        <div class="textarea-wrapper">
+                                                                            <textarea
+                                                                                name="description"
+                                                                                id="description"
+                                                                                readonly
+                                                                                >${feedbackDetail.description}</textarea>
+                                                                            <label class="input-label">Description</label>
                                                                         </div>
-                                                                        <div class="feedback-detail-textarea">
-                                                                            <div class="textarea-wrapper">
-                                                                                <textarea
-                                                                                    name="description"
-                                                                                    id="description"
-                                                                                    readonly
-                                                                                    >${feedbackDetail.description}</textarea>
-                                                                                <label class="input-label">Description</label>
-                                                                            </div>
-                                                                            <div class="feedback-detail-image-wrapper">
-                                                                                <c:if test="${feedbackDetail.image ne ''}">
-                                                                                    <img
-                                                                                        src="data:image/jpg/png;base64,${feedbackDetail.image}"
-                                                                                        alt=""
-                                                                                        />
-                                                                                </c:if>
-                                                                            </div>
+                                                                        <div class="feedback-detail-image-wrapper">
+                                                                            <c:if test="${feedbackDetail.image ne ''}">
+                                                                                <img
+                                                                                    src="data:image/jpg/png;base64,${feedbackDetail.image}"
+                                                                                    alt=""
+                                                                                    />
+                                                                            </c:if>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </c:if>
-                                                            <c:if test="${counter.count != 1}">
-                                                                <div
-                                                                    class="detail-wrapper history-detail"
-                                                                    data-index="${counter.count}"
-                                                                    >
-                                                                    <div class="feedback-detail-header">
-                                                                        <h2 class="feedback-detail-tittle">Feedback Detail ${counter.count}</h2>
-                                                                    </div>
-                                                                    <div class="feedback-detail-showcase">
-                                                                        <div class="feedback-detail-input">
-                                                                            <div class="input-wrapper">
-                                                                                <input
-                                                                                    type="text"
-                                                                                    name="device"
-                                                                                    id="device"
-                                                                                    value="${feedbackDetail.deviceName}"
-                                                                                    readonly
-                                                                                    />
-                                                                                <label class="input-label">Device Name</label>
-                                                                            </div>
-                                                                            <div class="input-wrapper">
-                                                                                <input
-                                                                                    type="text"
-                                                                                    name="location"
-                                                                                    id="location"
-                                                                                    value="Room ${feedbackDetail.location}"
-                                                                                    readonly
-                                                                                    />
-                                                                                <label class="input-label">Location</label>
-                                                                            </div>
-                                                                            <div class="input-wrapper">
-                                                                                <input
-                                                                                    type="number"
-                                                                                    name="quantity"
-                                                                                    id="quantity"
-                                                                                    value="${feedbackDetail.quanity}"
-                                                                                    readonly
-                                                                                    />
-                                                                                <label class="input-label">Quantity</label>
-                                                                            </div>
-                                                                                     <c:if test="${feedbackDetail.checkDone eq true}">
+                                                            </div>
+                                                        </c:if>
+                                                        <c:if test="${counter.count != 1}">
+                                                            <div
+                                                                class="detail-wrapper history-detail"
+                                                                data-index="${counter.count}"
+                                                                >
+                                                                <div class="feedback-detail-header">
+                                                                    <h2 class="feedback-detail-tittle">Feedback Detail ${counter.count}</h2>
+                                                                </div>
+                                                                <div class="feedback-detail-showcase">
+                                                                    <div class="feedback-detail-input">
+                                                                        <div class="input-wrapper">
+                                                                            <input
+                                                                                type="text"
+                                                                                name="device"
+                                                                                id="device"
+                                                                                value="${feedbackDetail.deviceName}"
+                                                                                readonly
+                                                                                />
+                                                                            <label class="input-label">Device Name</label>
+                                                                        </div>
+                                                                        <div class="input-wrapper">
+                                                                            <input
+                                                                                type="text"
+                                                                                name="location"
+                                                                                id="location"
+                                                                                value="Room ${feedbackDetail.location}"
+                                                                                readonly
+                                                                                />
+                                                                            <label class="input-label">Location</label>
+                                                                        </div>
+                                                                        <div class="input-wrapper">
+                                                                            <input
+                                                                                type="number"
+                                                                                name="quantity"
+                                                                                id="quantity"
+                                                                                value="${feedbackDetail.quanity}"
+                                                                                readonly
+                                                                                />
+                                                                            <label class="input-label">Quantity</label>
+                                                                        </div>
+                                                                        <c:if test="${feedbackDetail.checkDone eq true}">
                                                                             <div class="responsearea done">
                                                                                 <div class="response-manager">
                                                                                     <img src="img/checked.png"/>
-                                                                                    
+
                                                                                 </div>
                                                                             </div>
                                                                         </c:if>
-                                                                            <c:if test="${feedbackDetail.check eq true}">
-                                                                                <div class="responsearea decline">
-                                                                                    <div class="response-manager">
-                                                                                        <img src="img/cancel.png"/>
-                                                                                        <div class="textarea-wrapper">
-                                                                                            <textarea
-                                                                                                name="declineReason"
-                                                                                                id="declineReason"
-                                                                                                readonly
-                                                                                                >${feedbackDetail.declineReason}</textarea>
-                                                                                            <label class="input-label">Decline Reason last time</label>
-                                                                                        </div>
+                                                                        <c:if test="${feedbackDetail.check eq true}">
+                                                                            <div class="responsearea decline">
+                                                                                <div class="response-manager">
+                                                                                    <img src="img/cancel.png"/>
+                                                                                    <div class="textarea-wrapper">
+                                                                                        <textarea
+                                                                                            name="declineReason"
+                                                                                            id="declineReason"
+                                                                                            readonly
+                                                                                            >${feedbackDetail.declineReason}</textarea>
+                                                                                        <label class="input-label">Decline Reason last time</label>
                                                                                     </div>
                                                                                 </div>
-                                                                            </c:if>
                                                                             </div>
-                                                                            <div class="feedback-detail-textarea">
-                                                                                <div class="textarea-wrapper">
-                                                                                    <textarea
-                                                                                        name="description"
-                                                                                        id="description"
-                                                                                        readonly
-                                                                                        >${feedbackDetail.description}</textarea>
-                                                                                    <label class="input-label">Description</label>
-                                                                                </div>
+                                                                        </c:if>
+                                                                    </div>
+                                                                    <div class="feedback-detail-textarea">
+                                                                        <div class="textarea-wrapper">
+                                                                            <textarea
+                                                                                name="description"
+                                                                                id="description"
+                                                                                readonly
+                                                                                >${feedbackDetail.description}</textarea>
+                                                                            <label class="input-label">Description</label>
+                                                                        </div>
 
-                                                                                <div class="feedback-detail-image-wrapper">
-                                                                                    <c:if test="${feedbackDetail.image ne ''}">
-                                                                                        <img
-                                                                                            src="data:image/jpg/png;base64,${feedbackDetail.image}"
-                                                                                            alt=""
-                                                                                            />
-                                                                                    </c:if>
-                                                                                </div>
-                                                                            </div>
+                                                                        <div class="feedback-detail-image-wrapper">
+                                                                            <c:if test="${feedbackDetail.image ne ''}">
+                                                                                <img
+                                                                                    src="data:image/jpg/png;base64,${feedbackDetail.image}"
+                                                                                    alt=""
+                                                                                    />
+                                                                            </c:if>
                                                                         </div>
                                                                     </div>
-                                                                </c:if>
-                                                                </c:forEach>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </div>
+                                                        </c:if>
+                                                    </c:forEach>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="showcase-content-item">1234</div>
                                     </div>
                                 </div>
                             </div>
-                        </section>
-                    </main>
-                    <script src="${pageContext.request.contextPath}/js/EmployeeHome1.js"></script>
-                    <!-- Query -->
-                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-                    <script>
-                        $(function () {
-                            var imagesPreview = function (input, placeToInsertImagePreview) {
-                                if (input.files) {
-                                    var filesAmount = input.files.length;
+                            <div class="showcase-content-item">1234</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <script src="${pageContext.request.contextPath}/js/EmployeeHome.js"></script>
+        <!-- Query -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script>
+            $(function () {
+                var imagesPreview = function (input, placeToInsertImagePreview) {
+                    if (input.files) {
+                        var filesAmount = input.files.length;
 
-                                    for (i = 0; i < filesAmount; i++) {
-                                        var reader = new FileReader();
+                        for (i = 0; i < filesAmount; i++) {
+                            var reader = new FileReader();
 
-                                        reader.onload = function (event) {
-                                            $($.parseHTML("<img>"))
-                                                    .attr("src", event.target.result)
-                                                    .appendTo(placeToInsertImagePreview);
-                                        };
-
-                                        reader.readAsDataURL(input.files[i]);
-                                    }
-                                }
-                            };
-                            var imagesPreview2 = function (input) {
-                                if (input.files) {
-                                    var filesAmount = input.files.length;
-
-                                    for (i = 0; i < filesAmount; i++) {
-                                        var reader = new FileReader();
-
-                                        reader.onload = function (event) {
-
-                                            $(".avatar").attr("src", event.target.result);
-                                        };
-
-                                        reader.readAsDataURL(input.files[i]);
-                                    }
-                                }
+                            reader.onload = function (event) {
+                                $($.parseHTML("<img>"))
+                                        .attr("src", event.target.result)
+                                        .appendTo(placeToInsertImagePreview);
                             };
 
-                            $(".reponse-form-drag-area").on("drop", (event) => {
-                                event.preventDefault();
-                                $("#image").prop("files", event.originalEvent.dataTransfer.files);
-                                $("#image").trigger("change");
-                            });
+                            reader.readAsDataURL(input.files[i]);
+                        }
+                    }
+                };
+                var imagesPreview2 = function (input) {
+                    if (input.files) {
+                        var filesAmount = input.files.length;
 
-                            $("#image").on("change", function (e) {
-                                $(".reponse-form-image-show").empty();
-                                imagesPreview(this, "div.reponse-form-image-show");
-                            });
+                        for (i = 0; i < filesAmount; i++) {
+                            var reader = new FileReader();
 
-                            $("#avatarImage").on("change", function (e) {
-                                imagesPreview2(this);
-                            });
-                        });
-                    </script>
-                </body>
-            </html>
+                            reader.onload = function (event) {
+
+                                $(".avatar").attr("src", event.target.result);
+                            };
+
+                            reader.readAsDataURL(input.files[i]);
+                        }
+                    }
+                };
+
+                $(".reponse-form-drag-area").on("drop", (event) => {
+                    event.preventDefault();
+                    $("#image").prop("files", event.originalEvent.dataTransfer.files);
+                    $("#image").trigger("change");
+                });
+
+                $("#image").on("change", function (e) {
+                    $(".reponse-form-image-show").empty();
+                    imagesPreview(this, "div.reponse-form-image-show");
+                });
+
+                $("#avatarImage").on("change", function (e) {
+                    imagesPreview2(this);
+                });
+            });
+        </script>
+    </body>
+</html>

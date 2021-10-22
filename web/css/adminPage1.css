@@ -581,7 +581,7 @@ img {
 }
 
 .showcase-user-category {
-    width: 70%;
+    width: 60%;
     height: 40px;
     background-color: #fff;
     border-radius: 30px;
@@ -1356,7 +1356,6 @@ img {
     height: 100%;
     background-color: transparent;
     display: flex;
-    opacity: 0;
     transition: all 0.3s linear;
     cursor: pointer;
 }
