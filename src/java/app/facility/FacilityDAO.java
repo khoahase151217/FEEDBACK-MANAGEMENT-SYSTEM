@@ -936,7 +936,7 @@ public class FacilityDAO {
                         + " FROM tblFacilities t1 "
                         + " JOIN tblFeedbackDetail t2 on t1.FacilityID = t2.FacilityID "
                         + " JOIN tblFeedback t3 on t2.FeedbackID = t3.FeedbackID "
-                        + " WHERE ( t3.Date like ? AND t3.Date like ? ) OR ( t3.Date like ? AND t3.Date like ? ) OR ( t3.Date like ? AND t3.Date like ? ) "
+                        + " WHERE ( t3.Date like ? AND t3.Date like ? and t2.statusID= 'active') OR ( t3.Date like ? AND t3.Date like ? and t2.statusID= 'active') OR ( t3.Date like ? AND t3.Date like ? and t2.statusID= 'active') "
                         + " GROUP BY t1.FacilityID,t1.Name,t1.Quantity,t1.CategoryID,t1.Image,t1.MaintenanceDate,t1.StatusID "
                         + " ORDER BY COUNT(t1.FacilityID) DESC";
                 ps = conn.prepareStatement(sql);
@@ -987,7 +987,7 @@ public class FacilityDAO {
                         + " FROM tblFacilities t1 "
                         + " JOIN tblFeedbackDetail t2 on t1.FacilityID = t2.FacilityID "
                         + " JOIN tblFeedback t3 on t2.FeedbackID = t3.FeedbackID "
-                        + " WHERE t3.Date like ? "
+                        + " WHERE t3.Date like ? and t2.statusID= 'active'"
                         + " GROUP BY t1.FacilityID,t1.Name,t1.Quantity,t1.CategoryID,t1.Image,t1.MaintenanceDate,t1.StatusID "
                         + " ORDER BY COUNT(t1.FacilityID) DESC";
                 ps = conn.prepareStatement(sql);
@@ -1033,7 +1033,7 @@ public class FacilityDAO {
                         + " FROM tblFacilities t1 "
                         + " JOIN tblFeedbackDetail t2 on t1.FacilityID = t2.FacilityID "
                         + " JOIN tblFeedback t3 on t2.FeedbackID = t3.FeedbackID "
-                        + " WHERE t3.Date like ? AND t3.Date like ? "
+                        + " WHERE t3.Date like ? AND t3.Date like ? and t2.statusID= 'active'"
                         + " GROUP BY t1.FacilityID,t1.Name,t1.Quantity,t1.CategoryID,t1.Image,t1.MaintenanceDate,t1.StatusID "
                         + " ORDER BY COUNT(t1.FacilityID) DESC";
                 ps = conn.prepareStatement(sql);

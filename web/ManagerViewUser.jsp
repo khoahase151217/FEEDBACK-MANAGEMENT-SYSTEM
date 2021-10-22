@@ -203,7 +203,7 @@
                                     <span></span>
                                 </li>
                                 <li class="showcase-item" data-index="3">
-                                    <a href="ManagerStatictis.jsp" class="showcase-link">
+                                    <a href="FacilityStatisticController" class="showcase-link">
                                         <ion-icon
                                             name="stats-chart-outline"
                                             class="no-active-mode"
@@ -213,7 +213,7 @@
                                     <span></span>
                                 </li>
                                 <li class="showcase-item" data-index="4">
-                                    <a href="ManagerNotification" class="showcase-link">
+                                    <a href="ManagerNotification.jsp" class="showcase-link">
                                         <ion-icon
                                             name="notifications-outline"
                                             class="no-active-mode"

@@ -185,6 +185,8 @@
 }
 .showcase-content-item .statictis-chart-list-main-item .item-image .image-wrapper img {
     height: 100%;
+    width: 100%;
+    object-fit: cover;
 }
 .showcase-content-item .statictis-chart-list-main-item .item-image p {
     flex: 1;

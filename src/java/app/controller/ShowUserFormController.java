@@ -27,7 +27,7 @@ public class ShowUserFormController extends HttpServlet {
     private static final String ADMIN_PAGE = "ShowFeedBackController";
     private static final String ADMIN_USER_PAGE = "ShowUserController";
     private static final String ADMIN_FACILITY_PAGE = "ShowFacilitiesController";
-    private static final String ADMIN_STATICTIS_PAGE = "ManagerStatictis.jsp";
+    private static final String ADMIN_STATICTIS_PAGE = "FacilityStatisticController";
     private static final String EMPLOYEE_PAGE = "ShowFeedbackForEmpController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

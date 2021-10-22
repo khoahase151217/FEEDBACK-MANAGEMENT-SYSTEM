@@ -29,7 +29,7 @@ import javax.servlet.http.HttpSession;
 
 public class FacilityStatisticController extends HttpServlet {
 
-    private static final String SUCCESS = "adminPage.jsp";
+    private static final String SUCCESS = "ManagerStatictis.jsp";
     private static final String ERROR = "##";
 
     /**
@@ -57,7 +57,10 @@ public class FacilityStatisticController extends HttpServlet {
             String month_name = month_format.format(date);
             HttpSession session = request.getSession();
             String stat = request.getParameter("search");
-            switch (stat) {
+            if (stat == null) {
+                stat = "Year";
+            }
+            switch (stat.toLowerCase()) {
                 case "year":
                     list = dao.selectTop3ByYear(year);
                     if (!list.isEmpty()) {
@@ -111,7 +114,7 @@ public class FacilityStatisticController extends HttpServlet {
                         url = SUCCESS;
                     }
             }
-
+            request.setAttribute("SEARCH", stat);
         } catch (Exception e) {
             log("Error at StatisticGoodEmpController" + e.toString());
         } finally {

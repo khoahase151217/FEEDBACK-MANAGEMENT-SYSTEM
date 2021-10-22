@@ -34,7 +34,7 @@
         ></script>
 
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage.css" />
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ManagerStatictis1.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ManagerStatictis.css" />
     </head>
     <body>
         <div class="user-form ${requestScope.edit_flag}">
@@ -278,9 +278,10 @@
                                                     id="search"
                                                     class="statictis-chart-select"
                                                     >
-                                                    <option value="year" selected>Year</option>
-                                                    <option value="month" >Month</option>
-                                                    <option value="quarter" >Quarter</option>
+                                                    <option value="${requestScope.SEARCH}" selected hidden>${requestScope.SEARCH}</option>
+                                                    <option value="Year">Year</option>
+                                                    <option value="Month" >Month</option>
+                                                    <option value="Quarter" >Quarter</option>
                                                 </select>
                                                 <button type="submit">
                                                     <ion-icon name="search"></ion-icon>
@@ -325,47 +326,23 @@
                                                                 Category
                                                             </li>
                                                         </ul>
-                                                            <!-- Facility Statistic -->
+                                                        <!-- Facility Statistic -->
                                                         <div class="statictis-chart-list-main-list">
-                                                            <div class="statictis-chart-list-main-item">
-                                                                <div class="item-image">
-                                                                    <div class="image-wrapper">
-                                                                        <img
-                                                                            src="https://images.unsplash.com/photo-1634756399527-28abc9d48703?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                                                                            alt=""
-                                                                            />
+                                                            <c:forEach var="facility" items="${sessionScope.FACILITY_STATISTIC}">
+                                                                <div class="statictis-chart-list-main-item">
+                                                                    <div class="item-image">
+                                                                        <div class="image-wrapper">
+                                                                            <img
+                                                                                src="${facility.image}"
+                                                                                alt=""
+                                                                                />
+                                                                        </div>
+                                                                        <p>${facility.facilityName}</p>
                                                                     </div>
-                                                                    <p>Air Conditioner</p>
+                                                                    <p>${facility.count}</p>
+                                                                    <p>${facility.categoryID}</p>
                                                                 </div>
-                                                                <p>100</p>
-                                                                <p>Electric</p>
-                                                            </div>
-                                                            <div class="statictis-chart-list-main-item">
-                                                                <div class="item-image">
-                                                                    <div class="image-wrapper">
-                                                                        <img
-                                                                            src="https://images.unsplash.com/photo-1634756399527-28abc9d48703?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                                                                            alt=""
-                                                                            />
-                                                                    </div>
-                                                                    <p>Air Conditioner</p>
-                                                                </div>
-                                                                <p>100</p>
-                                                                <p>Electric</p>
-                                                            </div>
-                                                            <div class="statictis-chart-list-main-item">
-                                                                <div class="item-image">
-                                                                    <div class="image-wrapper">
-                                                                        <img
-                                                                            src="https://images.unsplash.com/photo-1634756399527-28abc9d48703?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                                                                            alt=""
-                                                                            />
-                                                                    </div>
-                                                                    <p>Air Conditioner</p>
-                                                                </div>
-                                                                <p>100</p>
-                                                                <p>Electric</p>
-                                                            </div>
+                                                            </c:forEach>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -449,7 +426,7 @@
                     chartArea: {width: "90%", height: "70%"},
                     legend: {position: "none"},
                     tooltip: {
-                        textStyle: {color: "151111",fontName: "Poppins"}
+                        textStyle: {color: "151111", fontName: "Poppins"}
                     },
                     backgroundColor: "f0e2cc",
                     colors: ["FBA569"],
