@@ -45,14 +45,31 @@ public class DeclineFeedbackDetailController extends HttpServlet {
                 String userId = dao.getUserIDByFeedbackDetailID(feedbackDetailID);
                 if (dao.checkBanned(userId)) {
                     int level = dao.getWarningLevel(userId);
-                    if (level != 3) {
+                    if (level != 4) {
                         //sendbanned2
                         dao.increaseLevel(level + 1, userId);
                         dao2.UpdateUserStatusInactive(userId, "inactive");
+                        String time = "";
+                        switch (level+1) {
+
+                            case 2:
+                                time = "1 hours";
+                                break;
+                            case 3:
+                                time = "24 hours";
+                                break;
+                            default:
+                                time = "Permently";
+                                break;
+                        }
+                        dao.sendBanned2(detail, userEmail, userId, level+1, time);
+
                     }
                 } else {
                     if (dao.countBanned(userId) == 3) {
                         // sendbanned2
+                        dao.sendBanned2(detail, userEmail, userId, 1, "5 minutes");
+
                         dao.insertWarning(userId);
                         dao2.UpdateUserStatusInactive(userId, "inactive");
                     } else {

@@ -55,6 +55,40 @@ public class UserDAO {
         return result;
     }
 
+    public String getUserEmailByID(String userID) throws SQLException {
+        String result = "";
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " SELECT Email FROM tblUser \n"
+                        + "WHERE userID = ? ";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, userID);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    result = rs.getString("Email");
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return result;
+    }
+
     public UserDTO getUserIdByUserID(String userID) throws SQLException {
         UserDTO user = null;
         Connection conn = null;

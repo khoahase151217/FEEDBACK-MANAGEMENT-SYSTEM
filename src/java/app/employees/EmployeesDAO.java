@@ -743,7 +743,7 @@ public class EmployeesDAO {
         return status;
     }
 
-    public List<UserDTO> getListGoodEMP(String txt, String txt2, String txt3) throws SQLException {
+    public List<UserDTO> getListGoodEMP(String month,String year) throws SQLException {
         List<UserDTO> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ps = null;
@@ -751,16 +751,15 @@ public class EmployeesDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT TOP 3 t1.*,COUNT(t1.UserID) as count FROM tblUser t1 \n"
+                String sql = "SELECT TOP 3 t1.*,COUNT(t1.UserID) as count FROM tblUser t1\n"
                         + "JOIN tblResponseFeedback t2 on t1.UserID =t2.UserID \n"
-                        + "WHERE (t1.UserID = t2.UserID AND t2.StatusID='done' AND t2.Date like ? ) OR (t2.Date like ? AND t1.UserID = t2.UserID AND t2.StatusID='done')  OR (t2.Date like ? AND t1.UserID = t2.UserID AND t2.StatusID='done')\n"
+                        + "WHERE t1.UserID = t2.UserID AND t2.StatusID='done' AND t2.Date like ? AND t2.Date like ? \n"
                         + "GROUP BY t1.UserID,t1.BinaryImage,t1.Email,t1.FullName,t1.Image,t1.Password,t1.Rating,t1.RoleID,t1.StatusID \n"
                         + "ORDER BY COUNT(t1.UserID) DESC";
 
                 ps = conn.prepareStatement(sql);
-                ps.setString(1, "%" + txt + "%");
-                ps.setString(2, "%" + txt2 + "%");
-                ps.setString(3, "%" + txt3 + "%");
+                ps.setString(1, "%" + month + "%");
+                ps.setString(2, "%" + year + "%");
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     String userID = rs.getString("UserID");
@@ -795,7 +794,7 @@ public class EmployeesDAO {
         return list;
     }
 
-    public List<UserDTO> getListBadEMP(String txt, String txt2, String txt3) throws SQLException {
+    public List<UserDTO> getListBadEMP(String month, String year) throws SQLException {
         List<UserDTO> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ps = null;
@@ -804,14 +803,13 @@ public class EmployeesDAO {
             if (conn != null) {
                 String sql = "SELECT TOP 3 t1.*,COUNT(t1.UserID) as count\n"
                         + " FROM tblUser t1\n"
-                        + "JOIN tblResponseFeedback t2 on t1.UserID =t2.UserID\n"
-                        + "JOIN tblDeclinedResponse t3 on t2.ResponseID = t3.ResponseID\n"
-                        + "WHERE t1.UserID = t2.UserID AND t3.ResponseID = t2.ResponseID AND ( t2.Date like ? OR t2.Date like ? OR t2.Date like ? ) \n"
-                        + "GROUP BY t1.UserID,t1.BinaryImage,t1.Email,t1.FullName,t1.Image,t1.Password,t1.Rating,t1.RoleID,t1.StatusID";
+                        + " JOIN tblResponseFeedback t2 on t1.UserID =t2.UserID\n"
+                        + " JOIN tblDeclinedResponse t3 on t2.ResponseID = t3.ResponseID\n"
+                        + " WHERE t1.UserID = t2.UserID AND t3.ResponseID = t2.ResponseID AND  t2.Date like ? AND  t2.Date like ? \n"
+                        + " GROUP BY t1.UserID,t1.BinaryImage,t1.Email,t1.FullName,t1.Image,t1.Password,t1.Rating,t1.RoleID,t1.StatusID";
                 ps = conn.prepareStatement(sql);
-                ps.setString(1, "%" + txt + "%");
-                ps.setString(2, "%" + txt2 + "%");
-                ps.setString(3, "%" + txt3 + "%");
+                ps.setString(1, "%" + month + "%");
+                ps.setString(2, "%" + year + "%");
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     String userID = rs.getString("UserID");

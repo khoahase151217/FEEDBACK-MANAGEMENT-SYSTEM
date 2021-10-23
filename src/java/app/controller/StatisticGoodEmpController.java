@@ -36,39 +36,17 @@ public class StatisticGoodEmpController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
-        String txt1 = "";
-        String txt2 = "";
-        String txt3 = "";
+       
         try {
             HttpSession session = request.getSession();
             SimpleDateFormat month_date = new SimpleDateFormat("MMM ", Locale.ENGLISH);
+            SimpleDateFormat year_date = new SimpleDateFormat("YYYY ", Locale.ENGLISH);
             Date date = new Date();
-            String month_name = month_date.format(date);
+            String month = month_date.format(date);
+            String year = year_date.format(date);
             EmployeesDAO dao = new EmployeesDAO();
             List<UserDTO> list = new ArrayList<UserDTO>();
-            if (month_name.contains("Jan") || month_name.contains("Feb") || month_name.contains("Mar")) {
-                txt1 = "Jan";
-                txt2 = "Feb";
-                txt3 = "Mar";
-            }
-            if (month_name.contains("Apr") || month_name.contains("May") || month_name.contains("Jun")) {
-                txt1 = "Apr";
-                txt2 = "May";
-                txt3 = "Jun";
-            }
-            if (month_name.contains("Jul") || month_name.contains("Aug") || month_name.contains("Sep")) {
-                txt1 = "Jul";
-                txt2 = "Aug";
-                txt3 = "Sep";
-            }
-
-            if (month_name.contains("Oct") || month_name.contains("Nov") || month_name.contains("Dec")) {
-                txt1 = "Oct";
-                txt2 = "Nov";
-                txt3 = "Dec";
-            }
-            
-            list=dao.getListGoodEMP(txt1, txt2, txt3);
+            list = dao.getListGoodEMP(month, year);
             session.setAttribute("LIST_GOOD_EMP", list);
             url = SUCCESS;
         } catch (Exception e) {

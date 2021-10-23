@@ -5,14 +5,18 @@
  */
 package app.controller;
 
+import app.feedback.FeedbackDAO;
 import app.users.UserDAO;
 import app.users.UserDTO;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.http.client.utils.DateUtils;
 
 /**
  *
@@ -41,31 +45,79 @@ public class LoginController extends HttpServlet {
         try {
             String email = request.getParameter("userName");
             String password = request.getParameter("password");
+            FeedbackDAO dao2 = new FeedbackDAO();
             UserDAO dao = new UserDAO();
             UserDTO user = dao.checkLogin(email, password);
             HttpSession session = request.getSession();
 
             if (user != null) {
                 session.setAttribute("LOGIN_USER", user);
-                String roleID = user.getRoleID();
-
-                if ("AD".equals(roleID)) {
+                if ("AD".equals(user.getRoleID())) {
                     url = ADMIN_PAGE;
-                } else if ("US".equals(roleID)) {
+                } else if ("US".equals(user.getRoleID())) {
                     url = USER_PAGE;
                 } else {
                     url = EMPLOYEE_PAGE;
                 }
-                if(user.getStatusID().equalsIgnoreCase("inactive")){
-                    request.setAttribute("flag", null);
-                    request.setAttribute("INVALID", "invalid");
-                    request.setAttribute("ERROR_MESSAGE", "Your account is not authorized");
-                    url=ERROR;
-                }
+
             } else {
                 request.setAttribute("ERROR_MESSAGE", "Incorrect UserName or Password!");
                 request.setAttribute("flag", null);
                 request.setAttribute("INVALID", "invalid");
+            }
+
+            if (user.getStatusID().equalsIgnoreCase("inactive")) {
+
+                Date date = dao2.getDateWarning(user.getUserID());
+                int level = dao2.getWarningLevel(user.getUserID());
+                boolean flag = false;
+                Calendar c = Calendar.getInstance();
+                Date currentDatePlusOne;
+                Date now = java.util.Calendar.getInstance().getTime();
+                c.setTime(date);
+                switch (level) {
+                    case 1:
+                        c.add(Calendar.MINUTE, 5);
+                        currentDatePlusOne = c.getTime();
+                        if (now.compareTo(currentDatePlusOne) == 1) {
+                            dao.UpdateUserStatusActive(user.getUserID(), "active");
+                            flag = true;
+                        }
+                        break;
+                    case 2:
+                        c.add(Calendar.HOUR, 1);
+                        currentDatePlusOne = c.getTime();
+                        if (now.compareTo(currentDatePlusOne) == 1) {
+                            dao.UpdateUserStatusActive(user.getUserID(), "active");
+                            flag = true;
+
+                        }
+                        break;
+                    case 3:
+                        c.add(Calendar.HOUR, 24);
+                        currentDatePlusOne = c.getTime();
+                        if (now.compareTo(currentDatePlusOne) == 1) {
+                            dao.UpdateUserStatusActive(user.getUserID(), "active");
+                            flag = true;
+
+                        }
+                        break;
+
+                }
+                if (flag) {
+                    if ("AD".equals(user.getRoleID())) {
+                        url = ADMIN_PAGE;
+                    } else if ("US".equals(user.getRoleID())) {
+                        url = USER_PAGE;
+                    } else {
+                        url = EMPLOYEE_PAGE;
+                    }
+                } else {
+                    request.setAttribute("flag", null);
+                    request.setAttribute("INVALID", "invalid");
+                    request.setAttribute("ERROR_MESSAGE", "Your account is not authorized");
+                    url = ERROR;
+                }
             }
         } catch (Exception e) {
             log("Error at LoginController: " + e.toString());
