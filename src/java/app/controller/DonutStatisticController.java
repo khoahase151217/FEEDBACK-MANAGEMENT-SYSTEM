@@ -42,17 +42,11 @@ public class DonutStatisticController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            HttpSession session = request.getSession();
             SimpleDateFormat month_format = new SimpleDateFormat("MMM ", Locale.ENGLISH);
             Date date = new Date();
             String month_name = month_format.format(date);
             StatisticDAO dao = new StatisticDAO();
-            long total = 0;
             List<DonutDTO> list = dao.selectFeedbackForDonut(month_name);
-            for (DonutDTO donut : list) {
-                total += donut.getCount();
-            }
-            session.setAttribute("TOTAL", total);
             Gson gson = new Gson();
             PrintWriter out = response.getWriter();
             out.println(gson.toJson(list));

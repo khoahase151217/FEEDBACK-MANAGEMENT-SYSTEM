@@ -7,6 +7,8 @@ package app.controller;
 
 import app.facility.FacilityDAO;
 import app.facility.FacilityDTO;
+import app.statistic.DonutDTO;
+import app.statistic.StatisticDAO;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -47,15 +49,22 @@ public class FacilityStatisticController extends HttpServlet {
         String url = ERROR;
 
         try {
+            HttpSession session = request.getSession();
             LocalDateTime now = LocalDateTime.now();
             int get = now.getYear();
             String year = String.valueOf(get);
             FacilityDAO dao = new FacilityDAO();
+            StatisticDAO dao2 = new StatisticDAO();
             List<FacilityDTO> list = new ArrayList<FacilityDTO>();
             SimpleDateFormat month_format = new SimpleDateFormat("MMM ", Locale.ENGLISH);
             Date date = new Date();
+            long total = 0;
             String month_name = month_format.format(date);
-            HttpSession session = request.getSession();
+            List<DonutDTO> listDonut = dao2.selectFeedbackForDonut(month_name);
+            for (DonutDTO donut : listDonut) {
+                total += donut.getCount();
+            }
+            session.setAttribute("TOTAL", total);
             String stat = request.getParameter("search");
             if (stat == null) {
                 stat = "Year";
