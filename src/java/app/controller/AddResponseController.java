@@ -97,11 +97,20 @@ public class AddResponseController extends HttpServlet {
             }
             ResponseDTO res = new ResponseDTO(feedbackDetailId, user.getUserID(), des, "done", date);
             if (photo!=null) {
-                dao.insertResponse(res, photo);
+                if(dao.countResponseFeedback(res)!=0){
+                    dao.updateResponseFeedback(res, photo);
                 dao.updateFlagDetail(feedbackDetailId);
                 request.setAttribute("SEND_FEEDBACK_FLAG", "open");
                 request.setAttribute("SEND_SUCCESS", "active");
                 url = SUCCESS;
+                }else{
+                    dao.insertResponseFeedback(res, photo);
+                dao.updateFlagDetail(feedbackDetailId);
+                request.setAttribute("SEND_FEEDBACK_FLAG", "open");
+                request.setAttribute("SEND_SUCCESS", "active");
+                url = SUCCESS;
+                }
+                
             }
             request.setAttribute("FEEDBACK_ID", dao2.getFeedbackIDByFeedbackDetailID(feedbackDetailId));
             request.setAttribute("flag", "open");

@@ -7,6 +7,7 @@ package app.controller;
 
 import app.employees.EmployeesDAO;
 import app.feedback.FeedbackDetailDTO;
+import app.response.ResponseDTO;
 import app.users.UserDTO;
 import java.io.IOException;
 import java.util.List;
@@ -34,7 +35,7 @@ public class ShowFeedbackDetailForEmpController extends HttpServlet {
             HttpSession session = request.getSession();
             EmployeesDAO dao = new EmployeesDAO();
             String declineReason = "";
-            int responseId = 0;
+            String responseId = "";
             String feedbackID = (String) request.getParameter("feedbackID");
             String history = (String) request.getParameter("history");
             UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
@@ -49,21 +50,20 @@ public class ShowFeedbackDetailForEmpController extends HttpServlet {
             for (FeedbackDetailDTO detail : dto) {
                 if (dao.countDeclineResponse(detail.getFeedbackDetailID(), user.getUserID()) != 0) {
                     detail.setCheck(true);
-                    responseId = dao.getResponseID(detail.getFeedbackDetailID());
+                    responseId = dao.getResponseID(detail.getFeedbackDetailID(),user.getUserID());
                     declineReason = dao.getDeclineReason(responseId);
                     detail.setDeclineReason(declineReason);
                 }
             }
-            List<FeedbackDetailDTO> his = dao.showHistoryListFeedbackDetail(user.getUserID(), history);
-            for (FeedbackDetailDTO detail : his) {
+            List<ResponseDTO> his = dao.showHistoryListFeedbackDetail(user.getUserID(), history);
+            for (ResponseDTO detail : his) {
                 if(dao.checkDone(detail.getFeedbackDetailID()).equalsIgnoreCase("done")){
                     detail.setCheckDone(true);
                 }
                 else{
                 if (dao.countDeclineResponse(detail.getFeedbackDetailID(), user.getUserID()) != 0) {
                     detail.setCheck(true);
-                    responseId = dao.getResponseID2(detail.getFeedbackDetailID());
-                    declineReason = dao.getDeclineReason(responseId);
+                    declineReason = dao.getDeclineReason(detail.getResponseID());
                     detail.setDeclineReason(declineReason);
                 }
                 }
