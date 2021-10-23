@@ -34,11 +34,18 @@ public class UpdateFeedbackDeclineController extends HttpServlet {
             String declineReason = request.getParameter("declineReason");
             FeedbackDAO dao = new FeedbackDAO();
             ResponseDAO dao2 = new ResponseDAO();
+            String employeeId = dao2.getEmployeeId(responseID);
             String userId=dao.getUserIDByFeedbackDetailID(feedbackDetailID);
             String feedbackId = dao.getFeedbackIDByFeedbackDetailID2(feedbackDetailID);
             if(dao.updateDecline(feedbackDetailID, userId, feedbackId)){
-                dao2.updateResponseStatus(feedbackDetailID,responseID,declineReason);
-                url = SUCCESS;
+                dao2.updateResponseStatus(feedbackDetailID,employeeId);
+                if(dao2.countDeclineResponse(responseID)!=0){
+                    dao2.updateDeclineResponse(declineReason, responseID);
+                                    url = SUCCESS;
+                }else{
+                    dao2.insertDeclinedResponse(declineReason, responseID);
+                                    url = SUCCESS;
+                }
             }
         } catch (Exception e) {
             log("Error at UpdateFeedbackDeclineController:" + e.toString());

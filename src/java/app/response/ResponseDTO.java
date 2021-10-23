@@ -22,9 +22,30 @@ public class ResponseDTO {
     private String userName;
     private String quantity;
     private String date;
+    private boolean check;
+    private boolean checkDone;
+    private String declineReason;
 
     public ResponseDTO() {
     }
+
+    public ResponseDTO(String feedbackDetailID, String userID, String image, String des, String statusID, String responseID, String deviceName, String location, String userName, String quantity, String date, String declineReason) {
+        this.feedbackDetailID = feedbackDetailID;
+        this.userID = userID;
+        this.image = image;
+        this.des = des;
+        this.statusID = statusID;
+        this.responseID = responseID;
+        this.deviceName = deviceName;
+        this.location = location;
+        this.userName = userName;
+        this.quantity = quantity;
+        this.date = date;
+        
+        this.declineReason = declineReason;
+    }
+
+   
 
     public ResponseDTO(String feedbackDetailID, String userID, String des, String statusID, String date) {
         this.feedbackDetailID = feedbackDetailID;
@@ -176,5 +197,32 @@ public class ResponseDTO {
     public void setDate(String date) {
         this.date = date;
     }
+
+    public boolean isCheck() {
+        return check;
+    }
+
+    public void setCheck(boolean check) {
+        this.check = check;
+    }
+
+    public boolean isCheckDone() {
+        return checkDone;
+    }
+
+    public void setCheckDone(boolean checkDone) {
+        this.checkDone = checkDone;
+    }
+
+    public String getDeclineReason() {
+        return declineReason;
+    }
+
+    public void setDeclineReason(String declineReason) {
+        this.declineReason = declineReason;
+    }
+
+    
+    
 
 }
