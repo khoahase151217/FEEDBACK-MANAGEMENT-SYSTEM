@@ -17,7 +17,7 @@ public class DBUtils {
     public static Connection getConnection() throws ClassNotFoundException, SQLException {
         Connection conn = null;
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        String url = "jdbc:sqlserver://localhost:1433;databaseName=FacilityFeedbackManagement";
+        String url = "jdbc:sqlserver://localhost:1433;databaseName=FacilityFeedbackManagement;instanceName=HIEU";
         conn = DriverManager.getConnection(url, "swp391", "123");
         return conn;
     }
