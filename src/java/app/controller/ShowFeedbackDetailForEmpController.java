@@ -42,7 +42,7 @@ public class ShowFeedbackDetailForEmpController extends HttpServlet {
             if (feedbackID == null) {
                 feedbackID = (String) session.getAttribute("FEEDBACK");
             }
-            if (history == null) {
+            if (history == null || history.equals("")) {
                 history = (String) session.getAttribute("HISTORY");
             }
             List<FeedbackDetailDTO> dto = dao.showListFeedbackDetail(user.getUserID(), feedbackID);

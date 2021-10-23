@@ -270,7 +270,7 @@
                                     <div class="statictis-chart">
                                         <div class="statictis-chart-header">
                                             <h2 class="statictis-chart-heading">
-                                                Welcome back, Myex
+                                                Welcome back, ${sessionScope.LOGIN_USER.fullName}
                                             </h2>
                                             <form action="FacilityStatisticController" class="statictis-chart-form">
                                                 <select
@@ -291,7 +291,7 @@
                                         <div class="statictis-chart-actual-chart">
                                             <div class="statictis-chart-actual-chart-header">
                                                 <div id="columnchart_div"></div>
-                                                <label>Feedback</label>
+                                                <label>Year</label>
                                             </div>
                                             <div class="statictis-chart-actual-chart-bottom">
                                                 <div class="donutchart-wrapper">
@@ -300,8 +300,8 @@
                                                         <label>Total</label>
                                                         <label>${sessionScope.TOTAL}</label>
                                                     </div>
-                                                    <label class="donutchart-title"
-                                                           >Feedback By Month</label
+                                                    <label class="donutchart-title" style="letter-spacing: 0.25rem;"
+                                                           >Month</label
                                                     >
                                                 </div>
                                                 <div class="statictis-chart-list">
@@ -494,10 +494,10 @@
                     },
                     pieSliceBorderColor: "transparent",
                     slices: {
-                        0: {color: "FE84B0"},
-                        1: {color: "3366CC"},
-                        2: {color: "FBA569"},
-                        3: {color: "dadada"},
+                        0: {color: "D54341"},
+                        1: {color: "55d141"},
+                        2: {color: "5256ad"},
+                        3: {color: "fbff37"},
                     },
 //                       is3D: true,
                 };

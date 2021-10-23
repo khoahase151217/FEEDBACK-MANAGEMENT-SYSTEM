@@ -48,7 +48,7 @@ public class ShowFeedbackForEmpController extends HttpServlet {
             String feedbackID = (String) request.getAttribute("FEEDBACK_ID");
             String historyID = request.getParameter("history");
 
-            if (!historyList.isEmpty() && historyID == null) {
+            if (!historyList.isEmpty() && (historyID == null ||historyID.equals(""))) {
                 //first 
                 history = historyList.get(0).getFeedbackID();
             } else if (!list.isEmpty() && historyID != null) {

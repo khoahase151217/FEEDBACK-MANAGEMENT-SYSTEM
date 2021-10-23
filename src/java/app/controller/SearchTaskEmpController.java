@@ -33,8 +33,8 @@ public class SearchTaskEmpController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        List<FeedbackDTO> list = new ArrayList<>();
-        List<FeedbackDTO> historyList = new ArrayList<>();
+        List<FeedbackDTO> list = null;
+        List<FeedbackDTO> historyList = null;
         HttpSession session = request.getSession();
         FeedbackDAO dao = new FeedbackDAO();
         EmployeesDAO dao2 = new EmployeesDAO();
@@ -49,8 +49,6 @@ public class SearchTaskEmpController extends HttpServlet {
             String task = request.getParameter("LIST_STYLE_TASK");
             String his = request.getParameter("LIST_STYLE_HISTORY");
 
-//            String feedbackID = (String) request.getAttribute("FEEDBACK_ID");
-//            String historyID = request.getParameter("history");
             if (!search.matches(FULL__NAME_REGEX)) {
                 session.setAttribute("LIST_FEEDBACK", list);
                 session.setAttribute("LIST_HISTORY", historyList);
@@ -65,13 +63,18 @@ public class SearchTaskEmpController extends HttpServlet {
                 historyList = dao.searchHistoryFeedback(user.getUserID(), search);
             }
 
-            if (!historyList.isEmpty()) {
+            if (historyList != null) {
                 if (!historyList.isEmpty()) {
                     history = historyList.get(0).getFeedbackID();
                 }
                 session.setAttribute("HISTORY", history);
                 list = dao2.showListFeedback(user.getUserID());
-                session.setAttribute("FEEDBACK", feedbackDetailActive);
+                if (!feedbackDetailActive.equals("")) {
+                    session.setAttribute("FEEDBACK", feedbackDetailActive);
+                } else {
+                    session.setAttribute("FEEDBACK", list.get(0).getFeedbackID());
+                }
+
                 request.setAttribute("LIST_STYLE_HISTORY", "active");
             } else {
                 if (!list.isEmpty()) {
@@ -79,19 +82,15 @@ public class SearchTaskEmpController extends HttpServlet {
                 }
                 session.setAttribute("FEEDBACK", feedback);
                 historyList = dao2.showHistoryFeedback(user.getUserID());
-                session.setAttribute("HISTORY", historyActive);
+                if (!historyActive.equals("")) {
+                    session.setAttribute("HISTORY", historyActive);
+                } else {
+                    session.setAttribute("HISTORY", historyList.get(0).getFeedbackID());
+                }
             }
-//            if (!list.isEmpty() && (feedbackID == null || feedbackID.equals(""))) {
-//                feedback = list.get(0).getFeedbackID();
-//            } else if (!list.isEmpty() && feedbackID != null) {
-//                feedback = feedbackID;
-//            }
-
-//            session.setAttribute("HISTORY", history);
-//            session.setAttribute("FEEDBACK", feedback);
             session.setAttribute("LIST_HISTORY", historyList);
             session.setAttribute("LIST_FEEDBACK", list);
-            request.setAttribute("SEARCH", search);
+            session.setAttribute("SEARCH", search);
             session.setAttribute("COUNT", list.size());
             url = SUCCESS;
         } catch (Exception e) {

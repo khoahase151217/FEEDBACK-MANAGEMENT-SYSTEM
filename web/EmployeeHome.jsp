@@ -239,7 +239,7 @@
                                 <!-- In those has 3 icon for 3 Page -->
                                 <!-- If you want to icon is highlight you have to add class active for li[class = 'showcase-item'] -->
                                 <li class="showcase-item active" data-index="0">
-                                    <a href="#" class="showcase-link">
+                                    <a href="ShowFeedbackForEmpController" class="showcase-link">
                                         <ion-icon
                                             name="document-text-outline"
                                             class="no-active-mode"
@@ -315,7 +315,7 @@
                                             type="text"
                                             name="search"
                                             placeholder="Search project..."
-                                            value="${SEARCH}"
+                                            value="${sessionScope.SEARCH}"
                                             />
                                         <button type="submit">
                                             <ion-icon name="search"></ion-icon>

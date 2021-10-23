@@ -291,6 +291,7 @@
                                 id="description"
                                 class="reponse-form-textarea"
                                 placeholder="Enter message ..."
+                                required
                                 ></textarea>
                             <label>Description</label>
                         </div>
@@ -307,7 +308,7 @@
                     <input type="hidden" name="feedbackDetailID" value="${requestScope.feedbackDetailID}"/>
                     <input type="hidden" name="style_list" value="${requestScope.STYLE_COMMENT}"/>
                     <div class="decline-input">
-                        <textarea name="declineReason" id="declineReason"></textarea>
+                        <textarea name="declineReason" id="declineReason" required></textarea>
                         <label class="input-label">Decline Reason</label>
                     </div>
                     <input type="submit" value="Send" class="reply-button"/>
