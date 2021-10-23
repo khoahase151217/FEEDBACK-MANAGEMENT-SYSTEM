@@ -72,22 +72,22 @@ public class LoginController extends HttpServlet {
                 int level = dao2.getWarningLevel(user.getUserID());
                 boolean flag = false;
                 Calendar c = Calendar.getInstance();
-                Date currentDatePlusOne;
+                Date tmpDate;
                 Date now = java.util.Calendar.getInstance().getTime();
                 c.setTime(date);
                 switch (level) {
                     case 1:
                         c.add(Calendar.MINUTE, 5);
-                        currentDatePlusOne = c.getTime();
-                        if (now.compareTo(currentDatePlusOne) == 1) {
+                        tmpDate = c.getTime();
+                        if (now.compareTo(tmpDate) >=0) {
                             dao.UpdateUserStatusActive(user.getUserID(), "active");
                             flag = true;
                         }
                         break;
                     case 2:
                         c.add(Calendar.HOUR, 1);
-                        currentDatePlusOne = c.getTime();
-                        if (now.compareTo(currentDatePlusOne) == 1) {
+                        tmpDate = c.getTime();
+                        if (now.compareTo(tmpDate) >=0) {
                             dao.UpdateUserStatusActive(user.getUserID(), "active");
                             flag = true;
 
@@ -95,8 +95,8 @@ public class LoginController extends HttpServlet {
                         break;
                     case 3:
                         c.add(Calendar.HOUR, 24);
-                        currentDatePlusOne = c.getTime();
-                        if (now.compareTo(currentDatePlusOne) == 1) {
+                        tmpDate = c.getTime();
+                        if (now.compareTo(tmpDate) >=0) {
                             dao.UpdateUserStatusActive(user.getUserID(), "active");
                             flag = true;
 

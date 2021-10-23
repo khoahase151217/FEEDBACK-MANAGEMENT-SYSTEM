@@ -46,7 +46,6 @@ public class DeclineFeedbackDetailController extends HttpServlet {
                 if (dao.checkBanned(userId)) {
                     int level = dao.getWarningLevel(userId);
                     if (level != 4) {
-                        //sendbanned2
                         dao.increaseLevel(level + 1, userId);
                         dao2.UpdateUserStatusInactive(userId, "inactive");
                         String time = "";
