@@ -1822,4 +1822,163 @@ public class FeedbackDAO {
         }
         return result;
     }
+
+    public int countBanned(String userId) throws SQLException {
+        int count = 0;
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "select Count(t1.FeedbackDetailID) as count \n"
+                        + "from tblBannedFeedbackDetail t1\n"
+                        + "join tblFeedbackDetail t2 on t1.FeedbackDetailID=t2.FeedbackDetailID\n"
+                        + "join tblFeedback t3 on t2.FeedbackID=t3.FeedbackID\n"
+                        + "where t3.UserID=?";
+                stm = conn.prepareCall(sql);
+                stm.setString(1, userId);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    count = rs.getInt("count");
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return count;
+    }
+
+    public boolean checkBanned(String userId) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "select UserID \n"
+                        + "from tblWarning\n"
+                        + "where UserID=?";
+                stm = conn.prepareCall(sql);
+                stm.setString(1, userId);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    check = true;
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+
+    public int getWarningLevel(String userId) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        int level = 0;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "select WarningLevel \n"
+                        + "from tblWarning\n"
+                        + "where UserID=?";
+                stm = conn.prepareCall(sql);
+                stm.setString(1, userId);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    level = rs.getInt("WarningLevel");
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return level;
+    }
+
+    public void increaseLevel(int level, String userId) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "update tblWarning set(WarningLevel=?) \n"
+                        + "where UserID=?";
+                stm = conn.prepareCall(sql);
+                stm.setInt(1, level);
+                stm.setString(2, userId);
+                stm.executeUpdate();
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+    }
+
+    public void insertWarning(String userId) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "insert into tblWarning(UserID,WarningLevel,Date) values(?,1,CURRENT_TIMESTAMP)\n";
+                stm = conn.prepareCall(sql);
+                stm.setString(1, userId);
+                stm.executeUpdate();
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+    }
 }

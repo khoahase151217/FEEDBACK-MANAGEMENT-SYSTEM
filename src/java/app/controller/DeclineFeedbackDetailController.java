@@ -7,7 +7,11 @@ package app.controller;
 
 import app.feedback.FeedbackDAO;
 import app.feedback.FeedbackDetailDTO;
+import app.users.UserDAO;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,6 +35,7 @@ public class DeclineFeedbackDetailController extends HttpServlet {
         String url = FEEDBACK;
         try {
             FeedbackDAO dao = new FeedbackDAO();
+            UserDAO dao2 = new UserDAO();
             String feedbackDetailID = request.getParameter("feedbackDetailID");
             String ReasonFeedback = request.getParameter("declineReason");
             String feedbackID = request.getParameter("feedbackID");
@@ -40,7 +45,23 @@ public class DeclineFeedbackDetailController extends HttpServlet {
             String style_list_category = request.getParameter("style_list_category");
             if (dao.declineDetail(feedbackDetailID)) {
                 dao.insertDeclineRespone(feedbackDetailID, ReasonFeedback);
-                dao.sendBanned(detail, userEmail, ReasonFeedback);
+                String userId = dao.getUserIDByFeedbackDetailID(feedbackDetailID);
+                if (dao.checkBanned(userId)) {
+                    int level = dao.getWarningLevel(userId);
+                    if (level != 3) {
+                        //sendbanned2
+                        dao.increaseLevel(level + 1, userId);
+                        dao2.UpdateUserStatusInactive(userId, "inactive");
+                    }
+                } else {
+                    if (dao.countBanned(userId) == 3) {
+                        // sendbanned2
+                        dao.insertWarning(userId);
+                        dao2.UpdateUserStatusInactive(userId, "inactive");
+                    } else {
+                        dao.sendBanned(detail, userEmail, ReasonFeedback);
+                    }
+                }
                 List<String> roleIDList = dao.getRoleID(feedbackID);
                 if (dao.countInactiveDetail(feedbackID) == 0) {
                     dao.updateInactive(feedbackID);
@@ -69,7 +90,7 @@ public class DeclineFeedbackDetailController extends HttpServlet {
                     url = FEEDBACK;
                 } else if (roleIDList.isEmpty()) {
                     dao.updateStatusIDFeedback(feedbackID);
-                    
+
                 } else {
                     url = DETAIL;
                 }
