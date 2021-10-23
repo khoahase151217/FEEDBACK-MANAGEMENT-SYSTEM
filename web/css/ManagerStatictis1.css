@@ -14,6 +14,9 @@
         transform: scale(1);
     }
 }
+.google-visualization-tooltip{
+    z-index: 1000;
+ }
 .showcase-content-item {
     padding: 0;
 }

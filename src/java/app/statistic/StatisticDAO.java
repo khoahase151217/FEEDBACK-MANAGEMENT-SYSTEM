@@ -158,16 +158,22 @@ public class StatisticDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = " SELECT t1.statusID ,COUNT(t1.FeedbackID) as count \n"
-                        + " FROM tblFeedback t1 \n"
-                        + " JOIN tblFeedbackDetail t2 on t1.FeedbackID = t2.FeedbackID \n"
-                        + " WHERE t1.Date like ? and t2.statusID= 'active'\n"
-                        + " GROUP BY t1.statusID";
+                String sql = " select P.FeedbackStatusID as status,( CASE WHEN A.count IS NOT NULL THEN A.count ELSE 0 END) as count \n"
+                        + "from \n"
+                        + "(SELECT FeedbackStatusID\n"
+                        + "FROM tblFeedbackStatus) P\n"
+                        + "LEFT JOIN \n"
+                        + "(select statusID, count(*) as count\n"
+                        + "from tblFeedback \n"
+                        + "where Date like ? and statusID !='inactive'\n"
+                        + "group by statusID) A\n"
+                        + "ON P.FeedbackStatusID = A.statusID\n"
+                        + "where P.FeedbackStatusID !='inactive'";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, "%" + month + "%");
                 rs = ps.executeQuery();
                 while (rs.next()) {
-                    String status = rs.getString("statusID");
+                    String status = rs.getString("status");
                     int count = rs.getInt("count");
                     list.add(new DonutDTO(status, count));
                 }

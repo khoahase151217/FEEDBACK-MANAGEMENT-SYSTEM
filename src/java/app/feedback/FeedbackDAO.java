@@ -50,11 +50,11 @@ public class FeedbackDAO {
         props.put("mail.smtp.port", "587");
         Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {
-                    @Override
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(username, password);
-                    }
-                });
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+            }
+        });
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(email));
@@ -67,18 +67,30 @@ public class FeedbackDAO {
             String date = detail.getDate();
             String reason = detail.getReason();
             String banreason = banReason;
-            body.append("<!DOCTYPE ><html style=\"font-size: 62.5%\"> <head> <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /> <title>Demystifying Email Design</title> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" /> <link href=\"https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap\" rel=\"stylesheet\" /> <link href=\"https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap\" rel=\"stylesheet\" /> <script type=\"module\" src=\"https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js\" ></script> <script nomodule src=\"https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js\" ></script> </head> <body style=\"margin: 0; padding: 0\"> <table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\" class=\"table-main\" > <!-- Header --> <tr> <td align=\"center\" bgcolor=\"#e6bb7a\" style=\"padding: 2rem 0\"> <img src=\"https://cdn.discordapp.com/attachments/770804043794350100/888843339439407104/toolkit.png\" alt=\"Creating Email Magic\" width=\"80\" height=\"80\" style=\"display: block\" class=\"logo\" /> <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"60%\" style=\"padding: 1.5rem 0 0\" > <tr> <td valign=\"top\" align=\"center\" style=\" font-size: 2rem; font-weight: 700; letter-spacing: 1rem; font-family: 'Poppins', sans-serif; \" > Traversy </td> </tr> <tr> <td valign=\"top\" align=\"center\" style=\" font-family: 'Dancing Script', cursive; font-size: 3.5rem; font-weight: 600; \" > <span style=\"color: #1f6a7e; font-family: 'Dancing Script', cursive\" >Announcement</span > Email </td> </tr> </table> </td> </tr> <!-- Body (Main Content)--> <tr> <td bgcolor=\"#fff\" style=\"padding: 20px\"> <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\"> <tr> <td style=\" color: #151111; font-weight: 600; font-size: 3rem; font-family: 'Poppins', sans-serif; \" > Hello ! </td> </tr> <tr> <td style=\" color: #151111; font-weight: 500; font-size: 1.4rem; padding: 10px 0; font-family: 'Poppins', sans-serif; \" > This email is sent automatically from the <a href=\"#\" style=\" font-weight: 800; text-decoration: none; color: #151111; \" >Traversy</a > system, notifying your feedback has been denied </td> </tr> <tr> <td style=\"padding: 10px 0\"> <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" bgcolor=\"#EBEBEB\" style=\"border-radius: 10px; padding: 10px 0\" > <tr> <td> <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"padding: 0 10px\" > <tr> "
-                    + "<td style=\" font-weight: 600; font-size: 2rem; line-height: 0; font-family: 'Poppins', sans-serif; \" >" + deviceName + "</td> "
-                    + "<td align=\"right\" style=\" color: #a7a7a7; font-weight: 500; font-size: 1.35rem; font-family: 'Poppins', sans-serif; \" >" + date + "</td>"
+            body.append("<!DOCTYPE ><html style=\"font-size: 62.5%\"> <head> <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /> <title>Demystifying Email Design</title> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" /> <link href=\"https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap\" rel=\"stylesheet\" /> <link href=\"https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap\" rel=\"stylesheet\" /> <script type=\"module\" src=\"https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js\" ></script> <script nomodule src=\"https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js\" ></script> </head> <body style=\"margin: 0; padding: 0\"> <table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\" class=\"table-main\" > <!-- Header --> <tr> <td align=\"center\" bgcolor=\"#e6bb7a\" style=\"padding: 2rem 0\"> <img src=\"https://cdn.discordapp.com/attachments/770804043794350100/888843339439407104/toolkit.png\" alt=\"Creating Email Magic\" width=\"80\" height=\"80\" style=\"display: block\" class=\"logo\" /> <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"80%\" style=\"padding: 1.5rem 0 0\" > <tr> <td valign=\"top\" align=\"center\" style=\" font-size: 2rem; font-weight: 700; letter-spacing: 1rem; font-family: 'Poppins', sans-serif; \" > Traversy </td> </tr> <tr> <td valign=\"top\" align=\"center\" style=\" font-family: 'Dancing Script', cursive; font-size: 3.5rem; font-weight: 600; \" > <span style=\"color: #1f6a7e; font-family: 'Dancing Script', cursive\" >Announcement</span > Email </td> </tr> </table> </td> </tr> <!-- Body (Main Content)--> <tr> <td bgcolor=\"#fff\" style=\"padding: 20px\"> <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\"> <tr> <td style=\" color: #151111; font-weight: 600; font-size: 30px; font-family: 'Poppins', sans-serif; \" > Hello ! </td> </tr> <tr> <td style=\" color: #151111; font-weight: 500; font-size: 14px; padding: 10px 0; font-family: 'Poppins', sans-serif; \" > This email is sent automatically from the <a href=\"http://localhost:8084/SWP391_PROJECT/\" style=\" font-weight: 800; text-decoration: none; color: #151111; \" >Traversy</a > system, notifying your feedback has been denied </td> </tr> <tr> <td style=\"padding: 10px 0\"> <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" bgcolor=\"#EBEBEB\" style=\"border-radius: 10px; padding: 10px 0\" > <tr> <td> <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"padding: 0 10px\" > <tr> "
+                    + "<td style=\" font-weight: 600; font-size: 18px; line-height: 0; font-family: 'Poppins', sans-serif; \" >" + deviceName + "</td> "
+                    + "<td align=\"right\" style=\" color: #a7a7a7; font-weight: 500; font-size: 10px; font-family: 'Poppins', sans-serif; \" >" + date + "</td>"
                     + " </tr> </table> </td> </tr> <tr> "
-                    + "<td style=\" font-size: 1.4rem; padding: 0 10px; font-family: 'Poppins', sans-serif; \" >Room: " + location + "</td> "
+                    + "<td style=\" font-size: 14px; padding: 0 10px; font-family: 'Poppins', sans-serif; \" >Room: " + location + "</td> "
                     + "</tr> <tr> "
-                    + "<td style=\" font-size: 1.4rem; padding: 0 10px; font-family: 'Poppins', sans-serif; \" >Quantity: " + quantity + "</td> "
+                    + "<td style=\" font-size: 14px; padding: 0 10px; font-family: 'Poppins', sans-serif; \" >Quantity: " + quantity + "</td> "
                     + "</tr> <tr> "
-                    + "<td style=\" font-size: 1.4rem; padding: 0 10px; font-family: 'Poppins', sans-serif; \" >Reason: " + reason + " </td> "
+                    + "<td style=\" font-size: 14px; padding: 0 10px; font-family: 'Poppins', sans-serif; \" >Reason: " + reason + " </td> "
                     + "</tr> <tr> "
-                    + "<td style=\" font-size: 1.4rem; padding: 30px 10px 0; font-family: 'Poppins', sans-serif; \" > <span style=\"font-weight: 600\">Ban Reason: </span>" + banreason + "</td> "
-                    + "</tr> </table> </td> </tr> </table> </td> </tr> <!-- Footer --> <tr> <td bgcolor=\"#e6bb7a\" style=\"padding: 30px 30px 30px 30px\"> <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"font-family: 'Poppins', sans-serif\" > <tr> <td width=\"75%\" style=\"font-size: 1.2rem\"> Copyright © 2021 Traversy<br /> Designed by <a href=\"#\" style=\" color: #615d58; text-decoration: none; font-weight: 600; \" >MinhDuc</a > All Rights Reserved. </td> <td align=\"right\"> <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"> <tr> <td> <a href=\"https://www.facebook.com/\" style=\"color: #151111; font-size: 2.5rem\" > <ion-icon name=\"logo-facebook\" class=\"ion-icon\" ></ion-icon> </a> </td> <td style=\"font-size: 0; line-height: 0\" width=\"20\"> &nbsp; </td> <td> <a href=\"http://www.twitter.com/\" style=\"color: #151111; font-size: 2.5rem\" > <ion-icon name=\"logo-twitter\" class=\"ion-icon\" ></ion-icon> </a> </td> </tr> </table> </td> </tr> </table> </td> </tr> </table> </body></html>");
+                    + "<td style=\" font-size: 14px; padding: 30px 10px 0; font-family: 'Poppins', sans-serif; \" > <span style=\"font-weight: 600\">Ban Reason: </span>" + banreason + "</td> "
+                    + "</tr> </table> </td> </tr> </table> </td> </tr> <!-- Footer --> <tr> <td bgcolor=\"#e6bb7a\" style=\"padding: 30px 30px 30px 30px\"> <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"font-family: 'Poppins', sans-serif\" > <tr> <td width=\"75%\" style=\"font-size: 12px\"> Copyright &copy; 2021 Traversy<br /> Designed by <a href=\"http://localhost:8084/SWP391_PROJECT/\" style=\" color: #615d58; text-decoration: none; font-weight: 600; \" >MinhDuc</a > All Rights Reserved. </td> <td align=\"right\"> <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"> <tr> <td> <a href=\"https://www.facebook.com/\" style=\"color: #151111; font-size: 25px\" > <img\n"
+                    + "                          src=\"https://toppng.com/uploads/preview/facebook-logo-black-facebook-logo-png-black-115636506480t2wll0es7.png\"\n"
+                    + "                          width=\"25\"\n"
+                    + "                          height=\"25\"\n"
+                    + "                          alt=\"\"\n"
+                    + "                          style=\"border-radius: 50%;object-fit: cover\"\n"
+                    + "                        /> </a> </td> <td style=\"font-size: 0; line-height: 0\" width=\"20\"> &nbsp; </td> <td> <a href=\"http://www.twitter.com/\" style=\"color: #151111; font-size: 25px\" > <img\n"
+                    + "                          src=\"https://pngimg.com/uploads/twitter/twitter_PNG2.png\"\n"
+                    + "                          width=\"25\"\n"
+                    + "                          height=\"25\"\n"
+                    + "                          alt=\"\"\n"
+                    + "                          style=\"object-fit: cover\"\n"
+                    + "                        /> </a> </td> </tr> </table> </td> </tr> </table> </td> </tr> </table> </body></html>");
 
             message.setContent(body.toString(), "text/html");
             message.setSubject(subject);
@@ -107,19 +119,19 @@ public class FeedbackDAO {
         props.put("mail.smtp.port", "587");
         Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {
-                    @Override
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(username, password);
-                    }
-                });
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+            }
+        });
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(email));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(email)); //set nguoi nhan 
 
             StringBuffer body = new StringBuffer("<html>");
-            body.append("<!DOCTYPE ><html style=\"font-size: 62.5%\"> <head> <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /> <title>Demystifying Email Design</title> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" /> <link href=\"https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap\" rel=\"stylesheet\" /> <link href=\"https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap\" rel=\"stylesheet\" /> <script type=\"module\" src=\"https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js\" ></script> <script nomodule src=\"https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js\" ></script> </head> <body style=\"margin: 0; padding: 0\"> <table cellpadding=\"0\" cellspacing=\"0\" width=\"600\" align=\"center\" border=\"0\" > <!-- Header --> <tr> <td align=\"center\" bgcolor=\"#e6bb7a\" style=\"padding: 2rem 0\"> <img src=\"https://cdn.discordapp.com/attachments/770804043794350100/888843339439407104/toolkit.png\" alt=\"\" width=\"80\" height=\"80\" style=\"display: block\" class=\"logo\" /> <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"60%\" style=\"padding: 1.5rem 0 0\" > <tr> <td valign=\"top\" align=\"center\" style=\" font-size: 2rem; font-weight: 700; letter-spacing: 1rem; font-family: 'Poppins', sans-serif; \" > Traversy </td> </tr> <tr> <td valign=\"top\" align=\"center\" style=\" font-family: 'Dancing Script', cursive; font-size: 3.5rem; font-weight: 600; \" > <span style=\"color: #1f6a7e; font-family: 'Dancing Script', cursive\" >Announcement</span > Email </td> </tr> </table> </td> </tr> <!-- Body (Main Content)--> <tr> <td bgcolor=\"#fff\" style=\"padding: 20px\"> "
-                    + "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\"> <tr> <td style=\" color: #151111; font-weight: 800; font-size: 3rem; font-family: 'Poppins', sans-serif; \" > Hello ! </td> </tr> <tr> <td style=\" color: #151111; font-weight: 600; font-size: 1.4rem; padding: 10px 0; font-family: 'Poppins', sans-serif; \" > Thank you for all your assistance, your feedback has been already processed. Detail below: </td> </tr> <!-- Back end infomation --> <!-- Start --> "
+            body.append("<!DOCTYPE ><html style=\"font-size: 62.5%\"> <head> <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /> <title>Demystifying Email Design</title> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" /> <link href=\"https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap\" rel=\"stylesheet\" /> <link href=\"https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap\" rel=\"stylesheet\" /> <script type=\"module\" src=\"https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js\" ></script> <script nomodule src=\"https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js\" ></script> </head> <body style=\"margin: 0; padding: 0\"> <table cellpadding=\"0\" cellspacing=\"0\" width=\"600\" align=\"center\" border=\"0\" > <!-- Header --> <tr> <td align=\"center\" bgcolor=\"#e6bb7a\" style=\"padding: 2rem 0\"> <img src=\"https://cdn.discordapp.com/attachments/770804043794350100/888843339439407104/toolkit.png\" alt=\"\" width=\"80\" height=\"80\" style=\"display: block\" class=\"logo\" /> <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"80%\" style=\"padding: 1.5rem 0 0\" > <tr> <td valign=\"top\" align=\"center\" style=\" font-size: 2rem; font-weight: 700; letter-spacing: 1rem; font-family: 'Poppins', sans-serif; \" > Traversy </td> </tr> <tr> <td valign=\"top\" align=\"center\" style=\" font-family: 'Dancing Script', cursive; font-size: 3.5rem; font-weight: 600; \" > <span style=\"color: #1f6a7e; font-family: 'Dancing Script', cursive\" >Announcement</span > Email </td> </tr> </table> </td> </tr> <!-- Body (Main Content)--> <tr> <td bgcolor=\"#fff\" style=\"padding: 20px\"> "
+                    + "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\"> <tr> <td style=\" color: #151111; font-weight: 800; font-size: 30px; font-family: 'Poppins', sans-serif; \" > Hello ! </td> </tr> <tr> <td style=\" color: #151111; font-weight: 600; font-size: 14px; padding: 10px 0; font-family: 'Poppins', sans-serif; \" > Thank you for all your assistance, your feedback has been already processed. Detail below: </td> </tr> <!-- Back end infomation --> <!-- Start --> "
                     + "<!-- Mấy anh điền thông tin của feedback tổng vào đây. Nếu mấy a kh sử dụng tới nó thì xóa luôn cái tr ở dưới đây luôn nhé. Lưu ý hãy thu nhỏ lại r xóa để tránh nhầm lẫn --> "
                     + " <!-- Mấy anh điền thông tin của feedback detail vào đây 1. Ở bên trong mấy anh sẽ thấy 1 cái table, mấy anh mở cái table đó ra sẽ thấy 2 tr "
                     + "(1 cái tr không có style và 1 cái tr có 1 style inline) thì mấy a sẽ lập 2 cái tr đó trong vòng lặp detail của mấy anh. "
@@ -127,7 +139,7 @@ public class FeedbackDAO {
                     + " Nếu phần tử cuối mấy a vẫn để cái tr đó thì khi gửi lên email mấy a sẽ thấy phần body (màu trắng) sẽ cách header (màu vàng) và phần nội dung ở dưới không giống nhau và sẽ rất xấu --> "
                     + "<tr> "
                     + "<td style=\"padding: 10px 0\"> "
-                    + "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\" border-radius: 10px; padding: 0 0 0 50px; font-size: 1.2rem; font-family: 'Poppins', sans-serif; \" > ");
+                    + "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\" border-radius: 10px; padding: 0 0 0 50px; font-size: 12px; font-family: 'Poppins', sans-serif; \" > ");
             for (FeedbackDetailDTO detail : list) {
                 String deviceName = detail.getDeviceName();
                 String quantity = detail.getQuanity();
@@ -136,10 +148,10 @@ public class FeedbackDAO {
                 String reason = detail.getReason();
                 String des = detail.getDescription();
                 body.append("<tr> <td> "
-                        + "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" bgcolor=\"#EBEBEB\" style=\" padding: 10px; font-size: 1.2rem; border-radius: 6px; font-family: 'Poppins', sans-serif; \" > "
+                        + "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" bgcolor=\"#EBEBEB\" style=\" padding: 10px; font-size: 12px; border-radius: 6px; font-family: 'Poppins', sans-serif; \" > "
                         + "<tr> <td> <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"font-family: 'Poppins', sans-serif\" > <tr> "
-                        + "<td style=\" font-size: 1.8rem; font-weight: 600; line-height: 0; \" >" + deviceName + "</td> "
-                        + "<td align=\"right\" style=\" font-size: 1.1rem; font-weight: 600; color: #a7a7a7; \" >" + date + " </td> "
+                        + "<td style=\" font-size: 18px; font-weight: 600; line-height: 0; \" >" + deviceName + "</td> "
+                        + "<td align=\"right\" style=\" font-size: 11px; font-weight: 600; color: #a7a7a7; \" >" + date + " </td> "
                         + "</tr> </table> </td> </tr> <tr>"
                         + " <td style=\"padding: 5px 0 0\">Room: " + location + "</td>"
                         + " </tr> <tr> "
@@ -152,7 +164,19 @@ public class FeedbackDAO {
             }
             body.append("</table> </td> </tr>"
                     + " <!-- End --> "
-                    + "<tr> <td style=\" color: #151111; font-weight: 500; font-size: 1.4rem; padding: 10px 0; font-family: 'Poppins', sans-serif; \" > On behalf of the customer experience team. I'm here for you as an expert on fit. please feel free to reach out <a href=\"#\" style=\" color: #151111; font-weight: 800; text-decoration: none; font-family: 'Poppins', sans-serif; \" >Traversy</a > if you ever have any questions, curiosities or feedback down the track </td> </tr> </table> </td> </tr> <!-- Footer --> <tr> <td bgcolor=\"#e6bb7a\" style=\"padding: 30px 30px 30px 30px\"> <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"font-family: 'Poppins', sans-serif\" > <tr> <td width=\"75%\" style=\"font-size: 1.2rem\"> Copyright © 2021 Traversy<br /> Designed by <a href=\"#\" style=\" color: #615d58; text-decoration: none; font-weight: 600; \" >MinhDuc</a > All Rights Reserved. </td> <td align=\"right\"> <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"> <tr> <td> <a href=\"https://www.facebook.com/\" style=\"color: #151111; font-size: 2.5rem\" > <ion-icon name=\"logo-facebook\" class=\"ion-icon\" ></ion-icon> </a> </td> <td style=\"font-size: 0; line-height: 0\" width=\"20\"> &nbsp; </td> <td> <a href=\"http://www.twitter.com/\" style=\"color: #151111; font-size: 2.5rem\" > <ion-icon name=\"logo-twitter\" class=\"ion-icon\" ></ion-icon> </a> </td> </tr> </table> </td> </tr> </table> </td> </tr> </table>"
+                    + "<tr> <td style=\" color: #151111; font-weight: 500; font-size: 14px; padding: 10px 0; font-family: 'Poppins', sans-serif; \" > On behalf of the customer experience team. I'm here for you as an expert on fit. please feel free to reach out <a href=\"http://localhost:8084/SWP391_PROJECT/\" style=\" color: #151111; font-weight: 800; text-decoration: none; font-family: 'Poppins', sans-serif; \" >Traversy</a > if you ever have any questions, curiosities or feedback down the track </td> </tr> </table> </td> </tr> <!-- Footer --> <tr> <td bgcolor=\"#e6bb7a\" style=\"padding: 30px 30px 30px 30px\"> <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"font-family: 'Poppins', sans-serif\" > <tr> <td width=\"75%\" style=\"font-size: 12px\"> Copyright &copy; 2021 Traversy<br /> Designed by <a href=\"#\" style=\" color: #615d58; text-decoration: none; font-weight: 600; \" >MinhDuc</a > All Rights Reserved. </td> <td align=\"right\"> <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"> <tr> <td> <a href=\"https://www.facebook.com/\" style=\"color: #151111; font-size: 2.5rem\" > <img\n"
+                    + "                          src=\"https://toppng.com/uploads/preview/facebook-logo-black-facebook-logo-png-black-115636506480t2wll0es7.png\"\n"
+                    + "                          width=\"25\"\n"
+                    + "                          height=\"25\"\n"
+                    + "                          alt=\"\"\n"
+                    + "                          style=\"border-radius: 50%;object-fit: cover\"\n"
+                    + "                        /> </a> </td> <td style=\"font-size: 0; line-height: 0\" width=\"20\"> &nbsp; </td> <td> <a href=\"http://www.twitter.com/\" style=\"color: #151111; font-size: 2.5rem\" > <img\n"
+                    + "                          src=\"https://pngimg.com/uploads/twitter/twitter_PNG2.png\"\n"
+                    + "                          width=\"25\"\n"
+                    + "                          height=\"25\"\n"
+                    + "                          alt=\"\"\n"
+                    + "                          style=\"object-fit: cover\"\n"
+                    + "                        /> </a> </td> </tr> </table> </td> </tr> </table> </td> </tr> </table>"
                     + " </body></html>");
 
             message.setContent(body.toString(), "text/html");

@@ -33,8 +33,8 @@
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
         ></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage.css" />
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ManagerStatictis.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage1.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ManagerStatictis1.css" />
     </head>
     <body>
         <div class="user-form ${requestScope.edit_flag}">
@@ -298,10 +298,10 @@
                                                     <div id="donutchart_div"></div>
                                                     <div class="label-wrapper">
                                                         <label>Total</label>
-                                                        <label>2975</label>
+                                                        <label>${sessionScope.TOTAL}</label>
                                                     </div>
                                                     <label class="donutchart-title"
-                                                           >Donut chart Title</label
+                                                           >Feedback By Month</label
                                                     >
                                                 </div>
                                                 <div class="statictis-chart-list">
@@ -382,9 +382,19 @@
                             google.charts.load("current", {packages: ["corechart"]});
                             google.charts.setOnLoadCallback(() => {
                                 drawChart(data);
-                                drawChart2();
                             });
-                        },
+                        }
+                    });
+                    $.ajax({
+                        url: "/SWP391_PROJECT/DonutStatisticController",
+                        dataType: "JSON",
+                        success: function (data) {
+                            console.log(data);
+                            google.charts.load("current", {packages: ["corechart"]});
+                            google.charts.setOnLoadCallback(() => {
+                                drawChart2(data);
+                            });
+                        }
                     });
                 }
             });
@@ -396,21 +406,20 @@
                         google.charts.load("current", {packages: ["corechart"]});
                         google.charts.setOnLoadCallback(() => {
                             drawChart(data);
-                            drawChart2();
                         });
                     }
                 });
 
-//                $.ajax({
-//                    url: "/SWP391_PROJECT/FeedbackStatisticByYear",
-//                    dataType: "JSON",
-//                    success: function (data) {
-//                        google.charts.load("current", {packages: ["corechart"]});
-//                        google.charts.setOnLoadCallback(() => {
-//                            drawChart2();
-//                        });
-//                    },
-//                });
+                $.ajax({
+                    url: "/SWP391_PROJECT/DonutStatisticController",
+                    dataType: "JSON",
+                    success: function (data) {
+                        google.charts.load("current", {packages: ["corechart"]});
+                        google.charts.setOnLoadCallback(() => {
+                            drawChart2(data);
+                        });
+                    },
+                });
             });
             function drawChart(result) {
                 var data = new google.visualization.DataTable();
@@ -454,15 +463,14 @@
                 chart.draw(data, options);
             }
             function drawChart2(result) {
-                let data = google.visualization.arrayToDataTable([
-                    ["Element", "Density"],
-                    ["Jan", 8.94],
-                    ["Feb", 10.49],
-                    ["Mar", 19.3],
-                    ["Apr", 21.45]
-                ]);
-                var view = new google.visualization.DataView(data);
-                view.setColumns([0, 1]);
+                let data = new google.visualization.DataTable();
+                data.addColumn('string', 'Status');
+                data.addColumn('number', 'Quantity');
+                var dataArray = [];
+                $.each(result, function (i, obj) {
+                    dataArray.push([obj.status, obj.count]);
+                });
+                data.addRows(dataArray);
 
                 var options = {
                     backgroundColor: "#f0e2cc",
@@ -471,7 +479,7 @@
                         textStyle: {
                             fontName: "Poppins",
                             fontSize: 13,
-                            italic: false,
+                            italic: false
                         },
                         ignoreBounds: true,
                     },
