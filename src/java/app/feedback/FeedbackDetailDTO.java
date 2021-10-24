@@ -29,6 +29,7 @@ public class FeedbackDetailDTO {
     private boolean check;
     private boolean checkDone;
     private String declineReason;
+    
 
     public FeedbackDetailDTO() {
     }
@@ -93,7 +94,7 @@ public class FeedbackDetailDTO {
         this.flag = flag;
         this.description = description;
     }
-
+   
 //    public FeedbackDetailDTO(String feedbackDetailID, String facilityID, String userID, String feedbackID, String quanity, String reason, String location, String image, boolean flag, String deviceName, String date, String description, String categoryDevice) {
 //        this.feedbackDetailID = feedbackDetailID;
 //        this.facilityID = facilityID;
@@ -109,6 +110,7 @@ public class FeedbackDetailDTO {
 //        this.description = description;
 //        this.categoryDevice = categoryDevice;
 //    }
+
     public FeedbackDetailDTO(String feedbackDetailID, String facilityID, String userID, String feedbackID, String quanity, String reason, String location, String image, boolean flag, String deviceName, String date, String employeeName, String responseDes, String description, String categoryDevice) {
         this.feedbackDetailID = feedbackDetailID;
         this.facilityID = facilityID;

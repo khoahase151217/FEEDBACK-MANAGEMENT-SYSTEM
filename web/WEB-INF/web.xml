@@ -116,6 +116,10 @@
         <servlet-name>StatisticBadUserController</servlet-name>
         <servlet-class>app.controller.StatisticBadUserController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetRecentFeedbackForBadUserCotroller</servlet-name>
+        <servlet-class>app.controller.GetRecentFeedbackForBadUserCotroller</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -243,6 +247,10 @@
     <servlet-mapping>
         <servlet-name>StatisticBadUserController</servlet-name>
         <url-pattern>/StatisticBadUserController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetRecentFeedbackForBadUserCotroller</servlet-name>
+        <url-pattern>/GetRecentFeedbackForBadUserCotroller</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

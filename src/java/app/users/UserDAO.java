@@ -6,6 +6,8 @@
 package app.users;
 
 import app.feedback.FeedbackDTO;
+import app.feedback.FeedbackDetailDTO;
+import app.response.ResponseDTO;
 import app.utils.DBUtils;
 import java.io.FileInputStream;
 import java.sql.Connection;
@@ -1890,6 +1892,56 @@ public class UserDAO {
                     } else {
                         list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, "", "", count)));
                     }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<FeedbackDetailDTO> getListRecentDeclineResponeForUser(String userID) throws SQLException {
+        List<FeedbackDetailDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            if (conn != null) {
+                String sql = "SELECT TOP 3 t1.*,t3.Name as FacilityName ,t4.Date as Date "
+                        + "  FROM tblFeedbackDetail t1 "
+                        + "  JOIN tblBannedFeedbackDetail t2 on t1.FeedbackDetailID =t2.FeedbackDetailID "
+                        + "  JOIN tblFacilities t3 on t1.FacilityID = t3.FacilityID "
+                        + "  JOIN tblFeedback t4 on t1.FeedbackID = t4.FeedbackID "
+                        + "  WHERE t1.UserID=? "
+                        + "  GROUP BY t1.Description,t1.FacilityID,t1.FeedbackDetailID,t1.FeedbackID "
+                        + "  ,t1.flag,t1.Image,t1.Location,t1.Quantity,t1.Reason,t1.StatusID,t1.UserID,"
+                        + "  t3.Name,t3.Quantity,t4.Date "
+                        + "  ORDER BY t4.Date desc ";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, userID);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String feedbackDetailID = rs.getString("FeedbackDetailID");
+                    String facilityID = rs.getString("FacilityID");
+                    String feedbackID = rs.getString("FeedbackID");
+                    String quantity = rs.getString("Quantiry");
+                    String reason = rs.getString("Reason");
+                    String location = rs.getString("Location");
+                    String deviceName = rs.getString("FacilityName");
+                    String date = rs.getString("Date");
+                    String description = rs.getString("Description");
+                    
+                    list.add(new FeedbackDetailDTO(feedbackDetailID, facilityID, "", feedbackID, quantity, reason, location, "", false, deviceName, date, "", description));
                 }
             }
         } catch (Exception e) {
