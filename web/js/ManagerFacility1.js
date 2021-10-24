@@ -23,3 +23,11 @@ document.querySelector(".user-form .modal").addEventListener("click", (e) => {
         return;
     e.target.closest(".user-form").classList.remove("open");
 });
+
+const notificationItems =
+        document.querySelectorAll(".notification-item");
+Array.from(notificationItems).forEach((item) => {
+    item.addEventListener("click", () => {
+        window.location.replace("/SWP391_PROJECT/ShowFeedBackController");
+    });
+});
