@@ -69,87 +69,176 @@
                             </div>
                         </div>
                         <c:forEach var="feedbackDetail" items="${sessionScope.LIST_DETAIL}">
-                            <div class="detail-items ${requestScope.CLASS_NAME}">
-                                <div class="detail-wrapper">
-                                    <div class="detail-info">
-                                        <p class="device">${feedbackDetail.deviceName}</p>
-                                        <p>Room ${feedbackDetail.location}</p>
-                                        <p>Quantity: ${feedbackDetail.quanity}</p>
-                                        <p>Reason: ${feedbackDetail.reason}</p>
-                                    </div>
-                                    <div class="employee-name">
-                                        <div class="employee-name-heading">
-                                            <p>Employee Name:</p>
-                                            <p class="employee-name-edit">${feedbackDetail.employeeName}</p>
-                                        </div>
-                                        <form action="AssignController">
-                                            <div class="assign-wrapper">
-                                                <select name="employee" id="" class="form-select" required>
-                                                    <option value="" selected hidden>Choose employee name</option>
-                                                    <c:choose>
-                                                        <c:when test="${feedbackDetail.categoryDevice eq 'TD'}">
-                                                            <c:forEach var="employee" items="${sessionScope.EMPLOYEE_ELETRIC_LIST}">
-                                                                <option value="${employee.userID}">${employee.fullName}</option>
-                                                            </c:forEach>
-                                                        </c:when>
-                                                        <c:when test="${feedbackDetail.categoryDevice eq 'TN'}">
-                                                            <c:forEach var="employee" items="${sessionScope.EMPLOYEE_WATER_LIST}">
-                                                                <option value="${employee.userID}">${employee.fullName}</option>
-                                                            </c:forEach>
-                                                        </c:when>
-                                                        <c:when test="${feedbackDetail.categoryDevice eq 'EN'}">
-                                                            <c:forEach var="employee" items="${sessionScope.EMPLOYEE_ENVIROMENT_LIST}">
-                                                                <option value="${employee.userID}">${employee.fullName}</option>
-                                                            </c:forEach>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <c:forEach var="employee" items="${sessionScope.EMPLOYEE_OTHER_LIST}">
-                                                                <option value="${employee.userID}">${employee.fullName}</option>
-                                                            </c:forEach>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </select>
-                                                <div class="assign">
-                                                    <button type="submit" class="icon-block">
-                                                        <ion-icon
-                                                            name="pencil-outline"
-                                                            class="form-select"
-                                                            ></ion-icon>
-                                                    </button>
-                                                    </a>
-                                                </div>
-                                                <input type="hidden" name="feedbackDetailID" value="${feedbackDetail.feedbackDetailID}"/>
-                                                <input type="hidden" name="feedbackID" value="${param.feedbackID}"/>
-                                                <input type="hidden" name="email" value="${param.email}"/>
-                                                <input type="hidden" name="date" value="${param.date}"/>
-                                                <input type="hidden" name="statusName" value="${param.statusName}"/>
-                                                <input type="hidden" name="statusID" value="${param.statusID}"/>
-                                                <input type="hidden" name="stylePipe" value="${requestScope.STYLE_PIPE}"/>
-                                                <input type="hidden" name="styleList" value="${requestScope.STYLE_LIST}"/>
-                                                <input type="hidden" name="style_list_category_all" value="${requestScope.STYLE_LIST_ALL}"/>
-                                                <input type="hidden" name="style_list_category_pending" value="${requestScope.STYLE_LIST_PENDING}"/>
-                                                <input type="hidden" name="style_list_category_onGoing" value="${requestScope.STYLE_LIST_ONGOING}"/>
+                            <!-- giải quyết vấn đề đã có response thì sẽ không cho assign người khác nữa -->
+                            <c:choose>
+                                <c:when test="${feedbackDetail.flag eq true}">
+                                    <div class="detail-items ${requestScope.CLASS_NAME} not_edit">
+                                        <div class="detail-wrapper">
+                                            <div class="detail-info">
+                                                <p class="device">${feedbackDetail.deviceName}</p>
+                                                <p>Room ${feedbackDetail.location}</p>
+                                                <p>Quantity: ${feedbackDetail.quanity}</p>
+                                                <p>Reason: ${feedbackDetail.reason}</p>
                                             </div>
-                                        </form>
-                                    </div>
-                                    <a href="ShowFormDeclineController?feedbackDetailID=${feedbackDetail.feedbackDetailID}&feedbackID=${param.feedbackID}&statusID=${param.statusID}&statusName=${param.statusName}&email=${param.email}&date=${param.date}&style_flag=${requestScope.style_flag}&style_list_category=${requestScope.style_list_category}" class="detail-links" onclick="return confirm('Do you really want to inactivate ?')">
-                                        <ion-icon name="ban"></ion-icon>
-                                    </a>
-                                </div>
-                                <div class="description">
-                                    <div class="des-box">
-                                        <p class="des">Description:</p>
-                                        <p class="content">
-                                            ${feedbackDetail.description}
-                                        </p>
-                                    </div>
-                                    <c:if test="${feedbackDetail.check eq true}">
-                                        <div class="warning-box active">
-                                            <img class="warning-icon" src="img/exclamation.png"/>
+                                            <div class="employee-name">
+                                                <div class="employee-name-heading">
+                                                    <p>Employee Name:</p>
+                                                    <p class="employee-name-edit">${feedbackDetail.employeeName}</p>
+                                                </div>
+                                                <form action="AssignController">
+                                                    <div class="assign-wrapper">
+                                                        <select name="employee" id="" class="form-select" required>
+                                                            <option value="" selected hidden>Choose employee name</option>
+                                                            <c:choose>
+                                                                <c:when test="${feedbackDetail.categoryDevice eq 'TD'}">
+                                                                    <c:forEach var="employee" items="${sessionScope.EMPLOYEE_ELETRIC_LIST}">
+                                                                        <option value="${employee.userID}">${employee.fullName}</option>
+                                                                    </c:forEach>
+                                                                </c:when>
+                                                                <c:when test="${feedbackDetail.categoryDevice eq 'TN'}">
+                                                                    <c:forEach var="employee" items="${sessionScope.EMPLOYEE_WATER_LIST}">
+                                                                        <option value="${employee.userID}">${employee.fullName}</option>
+                                                                    </c:forEach>
+                                                                </c:when>
+                                                                <c:when test="${feedbackDetail.categoryDevice eq 'EN'}">
+                                                                    <c:forEach var="employee" items="${sessionScope.EMPLOYEE_ENVIROMENT_LIST}">
+                                                                        <option value="${employee.userID}">${employee.fullName}</option>
+                                                                    </c:forEach>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <c:forEach var="employee" items="${sessionScope.EMPLOYEE_OTHER_LIST}">
+                                                                        <option value="${employee.userID}">${employee.fullName}</option>
+                                                                    </c:forEach>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </select>
+                                                        <div class="assign">
+                                                            <button type="submit" class="icon-block">
+                                                                <ion-icon
+                                                                    name="pencil-outline"
+                                                                    class="form-select"
+                                                                    ></ion-icon>
+                                                            </button>
+                                                            </a>
+                                                        </div>
+                                                        <input type="hidden" name="feedbackDetailID" value="${feedbackDetail.feedbackDetailID}"/>
+                                                        <input type="hidden" name="feedbackID" value="${param.feedbackID}"/>
+                                                        <input type="hidden" name="email" value="${param.email}"/>
+                                                        <input type="hidden" name="date" value="${param.date}"/>
+                                                        <input type="hidden" name="statusName" value="${param.statusName}"/>
+                                                        <input type="hidden" name="statusID" value="${param.statusID}"/>
+                                                        <input type="hidden" name="stylePipe" value="${requestScope.STYLE_PIPE}"/>
+                                                        <input type="hidden" name="styleList" value="${requestScope.STYLE_LIST}"/>
+                                                        <input type="hidden" name="style_list_category_all" value="${requestScope.STYLE_LIST_ALL}"/>
+                                                        <input type="hidden" name="style_list_category_pending" value="${requestScope.STYLE_LIST_PENDING}"/>
+                                                        <input type="hidden" name="style_list_category_onGoing" value="${requestScope.STYLE_LIST_ONGOING}"/>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <a href="ShowFormDeclineController?feedbackDetailID=${feedbackDetail.feedbackDetailID}&feedbackID=${param.feedbackID}&statusID=${param.statusID}&statusName=${param.statusName}&email=${param.email}&date=${param.date}&style_flag=${requestScope.style_flag}&style_list_category=${requestScope.style_list_category}" class="detail-links" onclick="return confirm('Do you really want to inactivate ?')">
+                                                <ion-icon name="ban"></ion-icon>
+                                            </a>
                                         </div>
-                                    </c:if>
-                                </div>
-                            </div>
+                                        <div class="description">
+                                            <div class="des-box">
+                                                <p class="des">Description:</p>
+                                                <p class="content">
+                                                    ${feedbackDetail.description}
+                                                </p>
+                                            </div>
+                                            <c:if test="${feedbackDetail.check eq true}">
+                                                <div class="warning-box active">
+                                                    <img class="warning-icon" src="img/exclamation.png"/>
+                                                </div>
+                                            </c:if>
+                                        </div>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="detail-items ${requestScope.CLASS_NAME}">
+                                        <div class="detail-wrapper">
+                                            <div class="detail-info">
+                                                <p class="device">${feedbackDetail.deviceName}</p>
+                                                <p>Room ${feedbackDetail.location}</p>
+                                                <p>Quantity: ${feedbackDetail.quanity}</p>
+                                                <p>Reason: ${feedbackDetail.reason}</p>
+                                            </div>
+                                            <div class="employee-name">
+                                                <div class="employee-name-heading">
+                                                    <p>Employee Name:</p>
+                                                    <p class="employee-name-edit">${feedbackDetail.employeeName}</p>
+                                                </div>
+                                                <form action="AssignController">
+                                                    <div class="assign-wrapper">
+                                                        <select name="employee" id="" class="form-select" required>
+                                                            <option value="" selected hidden>Choose employee name</option>
+                                                            <c:choose>
+                                                                <c:when test="${feedbackDetail.categoryDevice eq 'TD'}">
+                                                                    <c:forEach var="employee" items="${sessionScope.EMPLOYEE_ELETRIC_LIST}">
+                                                                        <option value="${employee.userID}">${employee.fullName}</option>
+                                                                    </c:forEach>
+                                                                </c:when>
+                                                                <c:when test="${feedbackDetail.categoryDevice eq 'TN'}">
+                                                                    <c:forEach var="employee" items="${sessionScope.EMPLOYEE_WATER_LIST}">
+                                                                        <option value="${employee.userID}">${employee.fullName}</option>
+                                                                    </c:forEach>
+                                                                </c:when>
+                                                                <c:when test="${feedbackDetail.categoryDevice eq 'EN'}">
+                                                                    <c:forEach var="employee" items="${sessionScope.EMPLOYEE_ENVIROMENT_LIST}">
+                                                                        <option value="${employee.userID}">${employee.fullName}</option>
+                                                                    </c:forEach>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <c:forEach var="employee" items="${sessionScope.EMPLOYEE_OTHER_LIST}">
+                                                                        <option value="${employee.userID}">${employee.fullName}</option>
+                                                                    </c:forEach>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </select>
+                                                        <div class="assign">
+                                                            <button type="submit" class="icon-block">
+                                                                <ion-icon
+                                                                    name="pencil-outline"
+                                                                    class="form-select"
+                                                                    ></ion-icon>
+                                                            </button>
+                                                            </a>
+                                                        </div>
+                                                        <input type="hidden" name="feedbackDetailID" value="${feedbackDetail.feedbackDetailID}"/>
+                                                        <input type="hidden" name="feedbackID" value="${param.feedbackID}"/>
+                                                        <input type="hidden" name="email" value="${param.email}"/>
+                                                        <input type="hidden" name="date" value="${param.date}"/>
+                                                        <input type="hidden" name="statusName" value="${param.statusName}"/>
+                                                        <input type="hidden" name="statusID" value="${param.statusID}"/>
+                                                        <input type="hidden" name="stylePipe" value="${requestScope.STYLE_PIPE}"/>
+                                                        <input type="hidden" name="styleList" value="${requestScope.STYLE_LIST}"/>
+                                                        <input type="hidden" name="style_list_category_all" value="${requestScope.STYLE_LIST_ALL}"/>
+                                                        <input type="hidden" name="style_list_category_pending" value="${requestScope.STYLE_LIST_PENDING}"/>
+                                                        <input type="hidden" name="style_list_category_onGoing" value="${requestScope.STYLE_LIST_ONGOING}"/>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <a href="ShowFormDeclineController?feedbackDetailID=${feedbackDetail.feedbackDetailID}&feedbackID=${param.feedbackID}&statusID=${param.statusID}&statusName=${param.statusName}&email=${param.email}&date=${param.date}&style_flag=${requestScope.style_flag}&style_list_category=${requestScope.style_list_category}" class="detail-links" onclick="return confirm('Do you really want to inactivate ?')">
+                                                <ion-icon name="ban"></ion-icon>
+                                            </a>
+                                        </div>
+                                        <div class="description">
+                                            <div class="des-box">
+                                                <p class="des">Description:</p>
+                                                <p class="content">
+                                                    ${feedbackDetail.description}
+                                                </p>
+                                            </div>
+                                            <c:if test="${feedbackDetail.check eq true}">
+                                                <div class="warning-box active">
+                                                    <img class="warning-icon" src="img/exclamation.png"/>
+                                                </div>
+                                            </c:if>
+                                        </div>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
+
                         </c:forEach>
                     </div>
                 </div>
@@ -1186,33 +1275,33 @@
                 </div>
             </section>
         </main>
-        <script src="${pageContext.request.contextPath}/js/adminPage.js"></script>
+        <script src="${pageContext.request.contextPath}/js/adminPage1.js"></script>
         <script src="${pageContext.request.contextPath}/js/ManagerFB.js"></script>
         <!-- Query -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
-                                        $(function () {
-                                            var imagesPreview2 = function (input, placeToInsertImagePreview) {
-                                                if (input.files) {
-                                                    var filesAmount = input.files.length;
+                                                $(function () {
+                                                    var imagesPreview2 = function (input, placeToInsertImagePreview) {
+                                                        if (input.files) {
+                                                            var filesAmount = input.files.length;
 
-                                                    for (i = 0; i < filesAmount; i++) {
-                                                        var reader = new FileReader();
+                                                            for (i = 0; i < filesAmount; i++) {
+                                                                var reader = new FileReader();
 
-                                                        reader.onload = function (event) {
+                                                                reader.onload = function (event) {
 
-                                                            $(".avatar").attr("src", event.target.result);
-                                                        };
+                                                                    $(".avatar").attr("src", event.target.result);
+                                                                };
 
-                                                        reader.readAsDataURL(input.files[i]);
-                                                    }
-                                                }
-                                            };
+                                                                reader.readAsDataURL(input.files[i]);
+                                                            }
+                                                        }
+                                                    };
 
-                                            $("#image").on("change", function (e) {
-                                                imagesPreview2(this);
-                                            });
-                                        });
+                                                    $("#image").on("change", function (e) {
+                                                        imagesPreview2(this);
+                                                    });
+                                                });
         </script>
     </body>
 </html>

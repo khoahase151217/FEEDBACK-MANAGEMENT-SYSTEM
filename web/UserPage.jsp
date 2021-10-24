@@ -1258,82 +1258,82 @@
         <!-- Query -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
-                                                                $(function () {
-                                                                    // This code will attach `fileselect` event to all file inputs on the page
-                                                                    $(document).on("change", ":file", function () {
-                                                                        var input = $(this),
-                                                                                numFiles = input.get(0).files ? input.get(0).files.length : 1,
-                                                                                label = input.val().replace(/\\/g, "/").replace(/.*\//, "");
-                                                                        input.trigger("fileselect", [numFiles, label]);
-                                                                    });
-                                                                    $(document).ready(function () {
-                                                                        $(":file").on("fileselect", function (event, numFiles, label) {
-                                                                            var input = $(this).parents(".input-file-wrap").find(":text"),
-                                                                                    log = numFiles > 1 ? numFiles + " files selected" : label;
-                                                                            if (input.length) {
-                                                                                input.val(log);
-                                                                            }
-                                                                        });
+                                                            $(function () {
+                                                                // This code will attach `fileselect` event to all file inputs on the page
+                                                                $(document).on("change", ":file", function () {
+                                                                    var input = $(this),
+                                                                            numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                                                                            label = input.val().replace(/\\/g, "/").replace(/.*\//, "");
+                                                                    input.trigger("fileselect", [numFiles, label]);
+                                                                });
+                                                                $(document).ready(function () {
+                                                                    $(":file").on("fileselect", function (event, numFiles, label) {
+                                                                        var input = $(this).parents(".input-file-wrap").find(":text"),
+                                                                                log = numFiles > 1 ? numFiles + " files selected" : label;
+                                                                        if (input.length) {
+                                                                            input.val(log);
+                                                                        }
                                                                     });
                                                                 });
+                                                            });
 
-                                                                $(function () {
+                                                            $(function () {
 
-                                                                    var imagesPreview = function (input, placeToInsertImagePreview) {
-                                                                        if (input.files) {
-                                                                            var filesAmount = input.files.length;
+                                                                var imagesPreview = function (input, placeToInsertImagePreview) {
+                                                                    if (input.files) {
+                                                                        var filesAmount = input.files.length;
 
-                                                                            for (i = 0; i < filesAmount; i++) {
-                                                                                var reader = new FileReader();
+                                                                        for (i = 0; i < filesAmount; i++) {
+                                                                            var reader = new FileReader();
 
-                                                                                reader.onload = function (event) {
-                                                                                    $($.parseHTML("<img>"))
-                                                                                            .attr("src", event.target.result)
-                                                                                            .appendTo(placeToInsertImagePreview);
-                                                                                };
+                                                                            reader.onload = function (event) {
+                                                                                $($.parseHTML("<img>"))
+                                                                                        .attr("src", event.target.result)
+                                                                                        .appendTo(placeToInsertImagePreview);
+                                                                            };
 
-                                                                                reader.readAsDataURL(input.files[i]);
-                                                                            }
+                                                                            reader.readAsDataURL(input.files[i]);
                                                                         }
-                                                                    };
+                                                                    }
+                                                                };
 
-                                                                    var imagesPreview2 = function (input, placeToInsertImagePreview) {
-                                                                        if (input.files) {
-                                                                            var filesAmount = input.files.length;
+                                                                var imagesPreview2 = function (input, placeToInsertImagePreview) {
+                                                                    if (input.files) {
+                                                                        var filesAmount = input.files.length;
 
-                                                                            for (i = 0; i < filesAmount; i++) {
-                                                                                var reader = new FileReader();
+                                                                        for (i = 0; i < filesAmount; i++) {
+                                                                            var reader = new FileReader();
 
-                                                                                reader.onload = function (event) {
+                                                                            reader.onload = function (event) {
 
-                                                                                    $(".avatar").attr("src", event.target.result);
-                                                                                };
+                                                                                $(".avatar").attr("src", event.target.result);
+                                                                            };
 
-                                                                                reader.readAsDataURL(input.files[i]);
-                                                                            }
+                                                                            reader.readAsDataURL(input.files[i]);
                                                                         }
-                                                                    };
+                                                                    }
+                                                                };
 
-                                                                    $("#gallery-photo-add-1").on("change", function (e) {
-                                                                        imagesPreview(this, "div.tab-img-1");
-                                                                    });
-                                                                    $("#gallery-photo-add-2").on("change", function (e) {
-                                                                        console.log(e.target);
-                                                                        imagesPreview(this, "div.tab-img-2");
-                                                                    });
-                                                                    $("#gallery-photo-add-3").on("change", function (e) {
-                                                                        console.log(e.target);
-                                                                        imagesPreview(this, "div.tab-img-3");
-                                                                    });
-                                                                    $("#gallery-photo-add-4").on("change", function (e) {
-                                                                        console.log(e.target);
-                                                                        imagesPreview(this, "div.tab-img-4");
-                                                                    });
-
-                                                                    $("#image").on("change", function (e) {
-                                                                        imagesPreview2(this);
-                                                                    });
+                                                                $("#gallery-photo-add-1").on("change", function (e) {
+                                                                    imagesPreview(this, "div.tab-img-1");
                                                                 });
+                                                                $("#gallery-photo-add-2").on("change", function (e) {
+                                                                    console.log(e.target);
+                                                                    imagesPreview(this, "div.tab-img-2");
+                                                                });
+                                                                $("#gallery-photo-add-3").on("change", function (e) {
+                                                                    console.log(e.target);
+                                                                    imagesPreview(this, "div.tab-img-3");
+                                                                });
+                                                                $("#gallery-photo-add-4").on("change", function (e) {
+                                                                    console.log(e.target);
+                                                                    imagesPreview(this, "div.tab-img-4");
+                                                                });
+
+                                                                $("#image").on("change", function (e) {
+                                                                    imagesPreview2(this);
+                                                                });
+                                                            });
         </script>
     </body>
 </html>

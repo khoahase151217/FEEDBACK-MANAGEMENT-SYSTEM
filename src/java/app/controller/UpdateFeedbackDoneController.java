@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 public class UpdateFeedbackDoneController extends HttpServlet {
 
     private static final String SUCCESS = "ShowFeedBackController";
-    private static final String ERROR = "##";
+    private static final String ERROR = "ShowFeedBackController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -32,34 +32,33 @@ public class UpdateFeedbackDoneController extends HttpServlet {
         try {
             String feedbackID = request.getParameter("feedbackID");
             FeedbackDAO dao = new FeedbackDAO();
-            String userEmail=dao.getUserEmailByFeedbackID(feedbackID);
+            String userEmail = dao.getUserEmailByFeedbackID(feedbackID);
             List<FeedbackDetailDTO> list = dao.getListFeedbackDetailForMail(feedbackID);
-            if(dao.updateDone(feedbackID)){
-                if(dao.sendDone(list, userEmail)){
-                                    url = SUCCESS;
-                                    return;
-                }else{
-                    url=ERROR;
+            if (dao.updateDone(feedbackID)) {
+                if (dao.sendDone(list, userEmail)) {
+                    url = SUCCESS;
+                } else {
+                    url = ERROR;
                 }
             }
         } catch (Exception e) {
             log("Error at UpdateFeedbackDoneController:" + e.toString());
-        }finally{
+        } finally {
             request.getRequestDispatcher(url).forward(request, response);
+        }
     }
-}
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-/**
- * Handles the HTTP <code>GET</code> method.
- *
- * @param request servlet request
- * @param response servlet response
- * @throws ServletException if a servlet-specific error occurs
- * @throws IOException if an I/O error occurs
- */
-@Override
-        protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -73,7 +72,7 @@ public class UpdateFeedbackDoneController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-        protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -84,7 +83,7 @@ public class UpdateFeedbackDoneController extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-        public String getServletInfo() {
+    public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 

@@ -172,6 +172,8 @@ const employeeName = document.querySelectorAll(
 const detailItems = document.querySelectorAll(".detail-items.onGoing");
 Array.from(employeeName).forEach((item) => {
     item.addEventListener("dblclick", (e) => {
+        if (e.target.closest(".detail-items").classList.contains('not_edit'))
+            return;
         e.target.closest(".detail-items").classList.add("edit");
     });
 });
