@@ -537,7 +537,7 @@
         </main>
 
         <script src="${pageContext.request.contextPath}/js/adminPage1.js"></script>
-        <script src="${pageContext.request.contextPath}/js/ManagerFacility1.js"></script>
+        <script src="${pageContext.request.contextPath}/js/ManagerFacility.js"></script>
     </body>
 </html>
 
