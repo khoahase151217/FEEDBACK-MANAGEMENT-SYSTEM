@@ -14,6 +14,7 @@
         transform: scale(1);
     }
 }
+
 html {
     font-size: 62.5%;
 }
@@ -473,7 +474,6 @@ img {
     height: 100%;
     background-color: transparent;
     display: flex;
-    opacity: 0;
     transition: all 0.3s linear;
     cursor: pointer;
 }
@@ -601,7 +601,7 @@ img {
     height: 100%;
 }
 .showcase .pipe-column {
-    max-height: 640px;
+    max-height: 607px;
     height: 100%;
     background-color: transparent;
 }
@@ -1028,7 +1028,7 @@ img {
         max-height: 455px;
     }
 }
-.showcase .feedback-detail-showcase .responsearea{
+.responsearea{
   width: 100%;
   height: 10%;
   background:white;
@@ -1037,13 +1037,16 @@ img {
   padding: 0;
   display: none;
 }
-.showcase .feedback-detail-showcase .responsearea.decline{
+
+.responsearea.decline{
   display: block;
 }
-.showcase .feedback-detail-showcase .responsearea.done{
+
+.responsearea.done{
   display: block;
 }
-.showcase .feedback-detail-showcase .response-manager{
+
+.response-manager{
   position: relative;
   /* align-items: center; */
   gap: 0 5px;
@@ -1051,24 +1054,28 @@ img {
   transform: translateX(-50%);
 }
 
-.showcase .feedback-detail-showcase .response-manager img{
-  width: 20%;
-  height: 20%;
+.response-manager img{
+  width: 10%;
+  height: 10%;
   position: relative;
-  margin-bottom: 3rem;
+  margin-bottom: 1.5rem;
   display: block;
-  margin-left: 35%;
-  margin-right: 65%;
+  margin-left: 40%;
+  margin-right: 70%;
 }
 
-.showcase .feedback-detail-showcase .response-manager textarea {
+.response-manager .textarea-wrapper {
+    position: relative;
+}
+
+.response-manager textarea {
   width: 90%;
-  height: 150px;
+  height: 100px;
   resize: none;
   border-radius: 10px;
   border: 1px solid #a7a7a7;
   outline: 0;
-  padding: 20px;
+  padding: 5px 20px 20px 20px;
   font-size: 1.8rem;
   line-height: 1.56;
   color: #151111;
@@ -1079,7 +1086,7 @@ img {
 
 }
 
-.showcase .feedback-detail-showcase .response-manager .input-label{
+.response-manager .input-label{
   position: absolute;
-  bottom:57%;
+  bottom:100%;
 }

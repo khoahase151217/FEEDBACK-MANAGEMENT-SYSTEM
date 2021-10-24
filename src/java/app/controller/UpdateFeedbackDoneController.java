@@ -6,7 +6,9 @@
 package app.controller;
 
 import app.feedback.FeedbackDAO;
+import app.feedback.FeedbackDetailDTO;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,8 +32,15 @@ public class UpdateFeedbackDoneController extends HttpServlet {
         try {
             String feedbackID = request.getParameter("feedbackID");
             FeedbackDAO dao = new FeedbackDAO();
+            String userEmail=dao.getUserEmailByFeedbackID(feedbackID);
+            List<FeedbackDetailDTO> list = dao.getListFeedbackDetailForMail(feedbackID);
             if(dao.updateDone(feedbackID)){
-                url = SUCCESS;
+                if(dao.sendDone(list, userEmail)){
+                                    url = SUCCESS;
+                                    return;
+                }else{
+                    url=ERROR;
+                }
             }
         } catch (Exception e) {
             log("Error at UpdateFeedbackDoneController:" + e.toString());

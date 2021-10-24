@@ -32,7 +32,7 @@
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
         ></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage1.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPageDetailModal.css" />
     </head>
     <body>
@@ -137,10 +137,17 @@
                                     </a>
                                 </div>
                                 <div class="description">
-                                    <p class="des">Description:</p>
-                                    <p class="content">
-                                        ${feedbackDetail.description}
-                                    </p>
+                                    <div class="des-box">
+                                        <p class="des">Description:</p>
+                                        <p class="content">
+                                            ${feedbackDetail.description}
+                                        </p>
+                                    </div>
+                                    <c:if test="${feedbackDetail.check eq true}">
+                                        <div class="warning-box active">
+                                            <img class="warning-icon" src="img/exclamation.png"/>
+                                        </div>
+                                    </c:if>
                                 </div>
                             </div>
                         </c:forEach>
@@ -284,6 +291,7 @@
                                 id="description"
                                 class="reponse-form-textarea"
                                 placeholder="Enter message ..."
+                                required
                                 ></textarea>
                             <label>Description</label>
                         </div>
@@ -291,7 +299,22 @@
                     </form>
                 </div>
             </div>
-        </div>            
+        </div>
+
+        <div class="modal-decline ${requestScope.decline_flag}" id="mymodal">
+            <div class="modal-decline-box modal">
+                <form action="UpdateFeedbackDeclineController" method="post">
+                    <input type="hidden" name="responseID" value="${requestScope.responseID}"/>
+                    <input type="hidden" name="feedbackDetailID" value="${requestScope.feedbackDetailID}"/>
+                    <input type="hidden" name="style_list" value="${requestScope.STYLE_COMMENT}"/>
+                    <div class="decline-input">
+                        <textarea name="declineReason" id="declineReason" required></textarea>
+                        <label class="input-label">Decline Reason</label>
+                    </div>
+                    <input type="submit" value="Send" class="reply-button"/>
+                </form>
+            </div>
+        </div>
 
         <main>
             <section class="showcase">
@@ -343,6 +366,16 @@
                                     <span></span>
                                 </li>
                                 <li class="showcase-item" data-index="3">
+                                    <a href="FacilityStatisticController" class="showcase-link">
+                                        <ion-icon
+                                            name="stats-chart-outline"
+                                            class="no-active-mode"
+                                            ></ion-icon>
+                                        <ion-icon name="stats-chart" class="active-mode"></ion-icon>
+                                    </a>
+                                    <span></span>
+                                </li>
+                                <li class="showcase-item" data-index="4">
                                     <a href="ManagerNotification.jsp" class="showcase-link">
                                         <ion-icon
                                             name="notifications-outline"
@@ -411,7 +444,7 @@
                                     <div class="showcase-title-wrapper">
                                         <h2 class="showcase-title">Welcome back, ${sessionScope.LOGIN_USER.fullName}!</h2>
                                         <p class="showcase-desc">
-                                            You have <span>${requestScope.COUNT} tasks</span> to complete
+                                            You have <span>${sessionScope.COUNT_OF_SUM} tasks</span> to complete
                                         </p>
                                     </div>
                                 </div>
@@ -959,8 +992,9 @@
                                                                     <div class="feedback-detail-header">
                                                                         <h2 class="feedback-detail-tittle">Response ${counter.count}</h2>
                                                                         <div class="feedback-detail-header-form-wrapper">
-                                                                            <form action="#" class="pipe-bottom-form">
-                                                                                <input type="hidden" name="feedbackID" value="${response.feedbackID}"/>
+                                                                            <form action="ShowDeclineReasonFormController" class="pipe-bottom-form">                                     
+                                                                                <input type="hidden" name="feedbackDetailID" value="${reponseDetail.feedbackDetailID}"/>                                           
+                                                                                <input type="hidden" name="responseID" value="${reponseDetail.responseID}"/>                                           
                                                                                 <button
                                                                                     type="submit"
                                                                                     class="btn--decline"
@@ -1053,7 +1087,7 @@
                                                                     <div class="feedback-detail-header">
                                                                         <h2 class="feedback-detail-tittle">Response ${counter.count}</h2>
                                                                         <div class="feedback-detail-header-form-wrapper">
-                                                                            <form action="UpdateFeedbackDeclineController" class="pipe-bottom-form">
+                                                                            <form action="ShowDeclineReasonFormController" class="pipe-bottom-form">
                                                                                 <input type="hidden" name="feedbackID" value="${response.feedbackID}"/>
                                                                                 <button
                                                                                     type="submit"
@@ -1152,8 +1186,8 @@
                 </div>
             </section>
         </main>
-        <script src="${pageContext.request.contextPath}/js/adminPage1.js"></script>
-        <script src="${pageContext.request.contextPath}/js/ManagerFB1.js"></script>
+        <script src="${pageContext.request.contextPath}/js/adminPage.js"></script>
+        <script src="${pageContext.request.contextPath}/js/ManagerFB.js"></script>
         <!-- Query -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>

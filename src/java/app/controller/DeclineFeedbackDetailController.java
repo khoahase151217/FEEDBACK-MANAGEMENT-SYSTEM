@@ -6,8 +6,9 @@
 package app.controller;
 
 import app.feedback.FeedbackDAO;
+import app.feedback.FeedbackDetailDTO;
+import app.users.UserDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,14 +31,50 @@ public class DeclineFeedbackDetailController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = FEEDBACK;
         try {
+            FeedbackDAO dao = new FeedbackDAO();
+            UserDAO dao2 = new UserDAO();
             String feedbackDetailID = request.getParameter("feedbackDetailID");
-            String ReasonFeedback = request.getParameter("description");
+            String ReasonFeedback = request.getParameter("declineReason");
             String feedbackID = request.getParameter("feedbackID");
+            FeedbackDetailDTO detail = dao.getFeedbackDetailByID(feedbackDetailID);
+            String userEmail = dao.getUserEmailByFeedbackID(feedbackID);
             String pipeOrList = request.getParameter("style_flag");
             String style_list_category = request.getParameter("style_list_category");
-            FeedbackDAO dao = new FeedbackDAO();
             if (dao.declineDetail(feedbackDetailID)) {
                 dao.insertDeclineRespone(feedbackDetailID, ReasonFeedback);
+                String userId = dao.getUserIDByFeedbackDetailID(feedbackDetailID);
+                if (dao.checkBanned(userId)) {
+                    int level = dao.getWarningLevel(userId);
+                    if (level != 4) {
+                        dao.increaseLevel(level + 1, userId);
+                        dao2.UpdateUserStatusInactive(userId, "inactive");
+                        String time = "";
+                        switch (level+1) {
+
+                            case 2:
+                                time = "1 hours";
+                                break;
+                            case 3:
+                                time = "24 hours";
+                                break;
+                            default:
+                                time = "Permently";
+                                break;
+                        }
+                       // dao.sendBanned2(detail, userEmail, userId, level+1, time);
+
+                    }
+                } else {
+                    if (dao.countBanned(userId) == 3) {
+                        // sendbanned2
+                       // dao.sendBanned2(detail, userEmail, userId, 1, "5 minutes");
+
+                        dao.insertWarning(userId);
+                        dao2.UpdateUserStatusInactive(userId, "inactive");
+                    } else {
+                      // dao.sendBanned(detail, userEmail, ReasonFeedback);
+                    }
+                }
                 List<String> roleIDList = dao.getRoleID(feedbackID);
                 if (dao.countInactiveDetail(feedbackID) == 0) {
                     dao.updateInactive(feedbackID);
@@ -66,6 +103,7 @@ public class DeclineFeedbackDetailController extends HttpServlet {
                     url = FEEDBACK;
                 } else if (roleIDList.isEmpty()) {
                     dao.updateStatusIDFeedback(feedbackID);
+
                 } else {
                     url = DETAIL;
                 }

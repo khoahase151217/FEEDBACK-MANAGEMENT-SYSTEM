@@ -27,8 +27,29 @@ public class FeedbackDetailDTO {
     private String description;
     private String categoryDevice;
     private boolean check;
+    private boolean checkDone;
+    private String declineReason;
 
     public FeedbackDetailDTO() {
+    }
+
+    public FeedbackDetailDTO(String feedbackDetailID, String facilityID, String userID, String feedbackID, String quanity, String reason, String location, String image, boolean flag, String deviceName, String date, String employeeName, String responseDes, String description, String categoryDevice, String declineReason) {
+        this.feedbackDetailID = feedbackDetailID;
+        this.facilityID = facilityID;
+        this.userID = userID;
+        this.feedbackID = feedbackID;
+        this.quanity = quanity;
+        this.reason = reason;
+        this.location = location;
+        this.image = image;
+        this.flag = flag;
+        this.deviceName = deviceName;
+        this.date = date;
+        this.employeeName = employeeName;
+        this.responseDes = responseDes;
+        this.description = description;
+        this.categoryDevice = categoryDevice;
+        this.declineReason = declineReason;
     }
 
     public FeedbackDetailDTO(String feedbackDetailID, String facilityID, String userID, String feedbackID, String quanity, String reason, String location, String image, boolean flag, String deviceName, String date, String employeeName, String description) {
@@ -173,6 +194,14 @@ public class FeedbackDetailDTO {
         return responseDes;
     }
 
+    public String getDeclineReason() {
+        return declineReason;
+    }
+
+    public void setDeclineReason(String declineReason) {
+        this.declineReason = declineReason;
+    }
+
     public void setResponseDes(String responseDes) {
         this.responseDes = responseDes;
     }
@@ -287,6 +316,14 @@ public class FeedbackDetailDTO {
 
     public void setCategoryDevice(String categoryDevice) {
         this.categoryDevice = categoryDevice;
+    }
+
+    public boolean isCheckDone() {
+        return checkDone;
+    }
+
+    public void setCheckDone(boolean checkDone) {
+        this.checkDone = checkDone;
     }
 
 }

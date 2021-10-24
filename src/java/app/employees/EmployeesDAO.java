@@ -7,6 +7,7 @@ package app.employees;
 
 import app.feedback.FeedbackDTO;
 import app.feedback.FeedbackDetailDTO;
+import app.response.ResponseDTO;
 import app.users.UserDTO;
 import app.utils.DBUtils;
 import java.sql.Connection;
@@ -102,7 +103,8 @@ public class EmployeesDAO {
         }
         return list;
     }
-     public List<UserDTO> showEmployeesListElectric() throws SQLException {
+
+    public List<UserDTO> showEmployeesListElectric() throws SQLException {
 
         List<UserDTO> list = new ArrayList<>();
         Connection conn = null;
@@ -138,7 +140,8 @@ public class EmployeesDAO {
         }
         return list;
     }
-      public List<UserDTO> showEmployeesListWater() throws SQLException {
+
+    public List<UserDTO> showEmployeesListWater() throws SQLException {
 
         List<UserDTO> list = new ArrayList<>();
         Connection conn = null;
@@ -174,7 +177,8 @@ public class EmployeesDAO {
         }
         return list;
     }
-       public List<UserDTO> showEmployeesListEnv() throws SQLException {
+
+    public List<UserDTO> showEmployeesListEnv() throws SQLException {
 
         List<UserDTO> list = new ArrayList<>();
         Connection conn = null;
@@ -359,8 +363,8 @@ public class EmployeesDAO {
         return dto;
     }
 
-    public List<FeedbackDetailDTO> showHistoryListFeedbackDetail(String userID, String feedbackID) throws SQLException {
-        List<FeedbackDetailDTO> dto = new ArrayList<>();
+    public List<ResponseDTO> showHistoryListFeedbackDetail(String userID, String feedbackID) throws SQLException {
+        List<ResponseDTO> dto = new ArrayList<>();
         Connection conn = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -368,36 +372,36 @@ public class EmployeesDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*, t2.Date as Date, t3.Name as FacilityName, t4.Description as des, t4.Image as img "
-                        + "FROM tblFeedbackDetail t1 "
-                        + " JOIN tblFeedback t2 "
-                        + "  ON t1.FeedbackID = t2.FeedbackID "
-                        + " JOIN tblFacilities t3 "
-                        + "  ON t1.FacilityID = t3.FacilityID "
-                        + " JOIN tblResponseFeedback t4 "
-                        + " ON t1.FeedbackDetailID = t4.FeedbackDetailID "
-                        + " WHERE t1.UserID = ? AND t1.flag='true' AND t1.FeedbackID = ? AND t1.StatusID ='active' " ;
+                String sql = "SELECT t1.*, t4.Name as FacilityName, t2.Location as location, t2.Quantity as quantity\n" +
+"                        FROM tblResponseFeedback t1 \n" +
+"						join tblFeedbackDetail t2 \n" +
+"                         ON t1.FeedbackDetailID = t2.FeedbackDetailID \n" +
+"                         JOIN tblFeedback t3 \n" +
+"                          ON t2.FeedbackID = t3.FeedbackID \n" +
+"                         JOIN tblFacilities t4 \n" +
+"                          ON t2.FacilityID = t4.FacilityID \n" +
+"						  \n" +
+"                         WHERE t1.UserID =? AND t2.FeedbackID = ? ";
                 stm = conn.prepareCall(sql);
                 stm.setString(1, userID);
                 stm.setString(2, feedbackID);
                 rs = stm.executeQuery();
                 while (rs.next()) {
-                    String facilityID = rs.getString("FacilityID");
-                    String quantity = rs.getString("Quantity");
-                    String reason = rs.getString("Reason");
-                    String location = rs.getString("Location");
-                    byte[] tmp = rs.getBytes("img");
+                    String quantity = rs.getString("quantity");
+                    String location = rs.getString("location");
+                    byte[] tmp = rs.getBytes("Image");
                     if (tmp != null) {
                         base64Image = Base64.getEncoder().encodeToString(tmp);
                     } else {
                         base64Image = "";
                     }
-                    boolean flag = rs.getBoolean("flag");
-                    String date = rs.getString("date");
+                    String date = rs.getString("Date");
                     String facilityName = rs.getString("FacilityName");
-                    String feedbackDetailID = rs.getString("feedbackDetailID");
-                    String des = rs.getString("des");
-                    dto.add(new FeedbackDetailDTO(feedbackDetailID, facilityID, userID, feedbackID, quantity, reason, location, base64Image, flag, facilityName, date, "", des));
+                    String statusID = rs.getString("StatusID");
+                    String des = rs.getString("Description");
+                    String detailId = rs.getString("FeedbackDetailID");
+                    String responseId = rs.getString("ResponseID");
+                    dto.add(new ResponseDTO(detailId, userID, base64Image, des, statusID, responseId, facilityName, location, "", quantity, date, ""));
                 }
             }
 
@@ -471,9 +475,10 @@ public class EmployeesDAO {
             if (conn != null) {
                 String sql = " SELECT t1.*,t3.Email as email ,t3.FullName as fullName ,t4.Name as statusName FROM tblFeedback t1 "
                         + " JOIN tblFeedbackDetail t2  ON t1.FeedbackID = t2.FeedbackID "
+                        + " join tblResponseFeedback t5 on t2.FeedbackDetailID=t5.FeedbackDetailID " 
                         + " JOIN tblUser t3    ON t1.UserID = t3.UserID "
                         + " JOIN tblFeedbackStatus t4 ON t1.statusID = t4.FeedbackStatusID "
-                        + " WHERE t2.UserID = ? AND t2.flag= 'true'  "
+                        + " WHERE t5.UserID = ?   "
                         + " group by t1.Date ,t1.FeedbackID,t1.statusID, t1.UserID, t3.Email, t3.FullName, t4.Name "
                         + " ORDER BY t1.DATE";
                 stm = conn.prepareCall(sql);
@@ -548,8 +553,9 @@ public class EmployeesDAO {
         }
         return list;
     }
+
     public int countDeclineResponse(String feedbackDetailID, String userID) throws SQLException {
-        int count=0;
+        int count = 0;
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -578,9 +584,10 @@ public class EmployeesDAO {
         }
         return count;
     }
+    
 
-public int countDeclineResponse2(String feedbackDetailID) throws SQLException {
-        int count=0;
+    public int countDeclineResponse2(String feedbackDetailID) throws SQLException {
+        int count = 0;
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -607,5 +614,237 @@ public int countDeclineResponse2(String feedbackDetailID) throws SQLException {
             }
         }
         return count;
+    }
+
+    public String getDeclineReason(String responseId) throws SQLException {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String declineReason = "";
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " SELECT DeclinedReason "
+                        + " FROM tblDeclinedResponse "
+                        + " WHERE ResponseID = ? ";
+                ps = conn.prepareCall(sql);
+                ps.setString(1, responseId);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    declineReason = rs.getString("DeclinedReason");
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return declineReason;
+    }
+
+    public int getResponseID2(String feedbackDetailID) throws SQLException {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        int responseId = 0;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " DECLARE @N INT;\n"
+                        + "SET @N=2;\n"
+                        + "\n"
+                        + "SELECT TOP 1 responseid\n"
+                        + "  FROM (SELECT DISTINCT TOP ( @N ) responseid\n"
+                        + "        --The distinct keyword is used to remove duplicates\n"
+                        + "          FROM tblResponseFeedback\n"
+                        + "		  where FeedbackDetailID=?\n"
+                        + "        ORDER BY ResponseID DESC\n"
+                        + "		 \n"
+                        + "		) MAXTwo\n"
+                        + "		\n"
+                        + "ORDER BY ResponseID ASC;\n"
+                        + " ";
+                ps = conn.prepareCall(sql);
+                ps.setString(1, feedbackDetailID);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    responseId = rs.getInt("responseid");
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return responseId;
+    }
+
+    public String getResponseID(String feedbackDetailID,String userId) throws SQLException {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String responseId = "";
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " select responseid from tblResponseFeedback where FeedbackDetailID=? and UserID=?  order by ResponseID desc";
+                ps = conn.prepareCall(sql);
+                ps.setString(1, feedbackDetailID);
+                ps.setString(2, userId);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    responseId = rs.getString("responseid");
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return responseId;
+    }
+
+    public String checkDone(String feedbackDetailID) throws SQLException {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String status = "";
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " SELECT t1.StatusID "
+                        + " FROM tblFeedback t1"
+                        + " join tblFeedbackDetail t2 on t1.FeedbackID=t2.FeedbackID "
+                        + " WHERE t2.FeedbackDetailID = ? AND t1.StatusID='done' ";
+                ps = conn.prepareCall(sql);
+                ps.setString(1, feedbackDetailID);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    status = rs.getString("StatusID");
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return status;
+    }
+
+    public List<UserDTO> getListGoodEMP(String month,String year) throws SQLException {
+        List<UserDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT TOP 3 t1.*,COUNT(t1.UserID) as count FROM tblUser t1\n"
+                        + "JOIN tblResponseFeedback t2 on t1.UserID =t2.UserID \n"
+                        + "WHERE t1.UserID = t2.UserID AND t2.StatusID='done' AND t2.Date like ? AND t2.Date like ? \n"
+                        + "GROUP BY t1.UserID,t1.BinaryImage,t1.Email,t1.FullName,t1.Image,t1.Password,t1.Rating,t1.RoleID,t1.StatusID \n"
+                        + "ORDER BY COUNT(t1.UserID) DESC";
+
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, "%" + month + "%");
+                ps.setString(2, "%" + year + "%");
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String userID = rs.getString("UserID");
+                    String name = rs.getString("FullName");
+                    String email = rs.getString("Email");
+                    String RoleID = rs.getString("RoleID");
+                    String StatusID = rs.getString("StatusID");
+                    String Image = rs.getString("Image");
+                    int count = rs.getInt("count");
+                    byte[] tmp = rs.getBytes("BinaryImage");
+                    if (tmp != null) {
+                        String base64Image = Base64.getEncoder().encodeToString(tmp);
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, "", "", count)));
+                    } else {
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, "", "", count)));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<UserDTO> getListBadEMP(String month, String year) throws SQLException {
+        List<UserDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            if (conn != null) {
+                String sql = "SELECT TOP 3 t1.*,COUNT(t1.UserID) as count\n"
+                        + " FROM tblUser t1\n"
+                        + " JOIN tblResponseFeedback t2 on t1.UserID =t2.UserID\n"
+                        + " JOIN tblDeclinedResponse t3 on t2.ResponseID = t3.ResponseID\n"
+                        + " WHERE t1.UserID = t2.UserID AND t3.ResponseID = t2.ResponseID AND  t2.Date like ? AND  t2.Date like ? \n"
+                        + " GROUP BY t1.UserID,t1.BinaryImage,t1.Email,t1.FullName,t1.Image,t1.Password,t1.Rating,t1.RoleID,t1.StatusID";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, "%" + month + "%");
+                ps.setString(2, "%" + year + "%");
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String userID = rs.getString("UserID");
+                    String name = rs.getString("FullName");
+                    String email = rs.getString("Email");
+                    String RoleID = rs.getString("RoleID");
+                    String StatusID = rs.getString("StatusID");
+                    String Image = rs.getString("Image");
+                    int count = rs.getInt("count");
+                    byte[] tmp = rs.getBytes("BinaryImage");
+                    if (tmp != null) {
+                        String base64Image = Base64.getEncoder().encodeToString(tmp);
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, "", "", count)));
+                    } else {
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, "", "", count)));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
     }
 }

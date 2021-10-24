@@ -581,7 +581,7 @@ img {
 }
 
 .showcase-user-category {
-    width: 70%;
+    width: 60%;
     height: 40px;
     background-color: #fff;
     border-radius: 30px;
@@ -1356,7 +1356,6 @@ img {
     height: 100%;
     background-color: transparent;
     display: flex;
-    opacity: 0;
     transition: all 0.3s linear;
     cursor: pointer;
 }
@@ -1639,5 +1638,129 @@ img {
     .facility-content-main .pipe-column {
         max-height: 520px;
     }
+}
+
+.modal-decline-box{
+    position: fixed;
+    left: 50%;
+    bottom: 50%;
+    transform: translate(-50%,50%);
+    height: 450px;
+    width: 350px;
+    overflow: auto;
+    border-radius: 8px;
+    background-color: white;
+    z-index: 2;
+    align-items: center;
+
+}
+.modal-decline{
+    position: fixed;
+    display: none;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.47);
+    font-family: "Poppins",sans-serif;
+    animation: fadeIn linear 0.2s;
+}
+.modal-decline.open{
+    display:block;
+}
+.modal-decline .modal-decline-box .decline-input{
+    width: 300px;
+    box-sizing: border;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 3rem;
+    padding-top: 15px;
+    align-items: center;
+    text-align: center;
+    box-sizing: border-box;
+}
+.modal-decline .modal-decline-box .decline-input textarea{
+    width: 100%;
+    height: 260px;
+    resize: none;
+    border-radius: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    font-size: 1.35rem;
+    line-height: 1.56;
+    color: #151111;
+    cursor: default;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    overflow: hidden;
+    outline: 0;
+}
+.modal-decline .modal-decline-box .decline-input label{
+    display: flex;
+    position: absolute;
+    background-color:white;
+    padding-left: 7px;
+    padding-right:7px;
+    top:2%;
+    left: 10%;
+    font-weight: bolder;
+    color: rgba(0, 0, 0, 0.3);
+    font-size: 1.4rem;
+}
+.modal-decline .modal-decline-box .reply-button{
+    width: 235px;
+    height: 54px;
+    position: absolute;
+    left: 15%;
+    top: 80%;
+    font-size: 2rem;
+}
+
+.decline-form{
+    display:none;
+}
+
+.decline-form.open{
+    display:block;
+}
+
+.reply-button{
+    background-color: orange;
+    border-radius: 7px;
+    align-items: center;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+    border: none;
+    height: 74px;
+    width: 255px;
+    font-size: 48px;
+    font-weight: bolder;
+    font-family: "Poppins", sans-serif;
+    position: relative;
+    top: 50%;
+}
+
+.warning-box{
+    width: 25px;
+    height: 25px;
+    text-align: right;
+    float: right;
+}
+.warning-box{
+    display:none;
+}
+.warning-box.active{
+    display: block;
+}
+
+.description{
+    justify-content: space-between;
+}
+.des-box{
+    align-content: center;
+    display:flex;
 }
 

@@ -55,6 +55,40 @@ public class UserDAO {
         return result;
     }
 
+    public String getUserEmailByID(String userID) throws SQLException {
+        String result = "";
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " SELECT Email FROM tblUser \n"
+                        + "WHERE userID = ? ";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, userID);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    result = rs.getString("Email");
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return result;
+    }
+
     public UserDTO getUserIdByUserID(String userID) throws SQLException {
         UserDTO user = null;
         Connection conn = null;
@@ -1819,5 +1853,58 @@ public class UserDAO {
             }
         }
         return check;
+    }
+
+    //Top 3 Ban User
+    public List<UserDTO> getListBadUser(String month, String year) throws SQLException {
+        List<UserDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            if (conn != null) {
+                String sql = "select top 3 a.*,count(c.FeedbackDetailID) as Count from tblUser a \n"
+                        + "join tblFeedbackDetail b on a.UserID=b.UserID\n"
+                        + "join tblBannedFeedbackDetail c on c.FeedbackDetailID=b.FeedbackDetailID\n"
+                        + "join tblFeedback d on d.FeedbackID=b.FeedbackID\n"
+                        + "where d.Date like ? and d.Date like ?\n"
+                        + "group by a.BinaryImage,a.Email,a.FullName,a.Image,a.Password,a.Rating,a.RoleID,a.StatusID,a.UserID\n"
+                        + "Having Count(c.FeedbackDetailID) >= 3 \n"
+                        + "order by Count desc";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, "%" + month + "%");
+                ps.setString(2, "%" + year + "%");
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String userID = rs.getString("UserID");
+                    String name = rs.getString("FullName");
+                    String email = rs.getString("Email");
+                    String RoleID = rs.getString("RoleID");
+                    String StatusID = rs.getString("StatusID");
+                    String Image = rs.getString("Image");
+                    int count = rs.getInt("count");
+                    byte[] tmp = rs.getBytes("BinaryImage");
+                    if (tmp != null) {
+                        String base64Image = Base64.getEncoder().encodeToString(tmp);
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, "", "", count)));
+                    } else {
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, "", "", count)));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
     }
 }

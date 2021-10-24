@@ -31,7 +31,7 @@
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
         ></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage1.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ManagerViewUser.css" />
     </head>
     <body>
@@ -203,7 +203,17 @@
                                     <span></span>
                                 </li>
                                 <li class="showcase-item" data-index="3">
-                                    <a href="ManagerNotification" class="showcase-link">
+                                    <a href="FacilityStatisticController" class="showcase-link">
+                                        <ion-icon
+                                            name="stats-chart-outline"
+                                            class="no-active-mode"
+                                            ></ion-icon>
+                                        <ion-icon name="stats-chart" class="active-mode"></ion-icon>
+                                    </a>
+                                    <span></span>
+                                </li>
+                                <li class="showcase-item" data-index="4">
+                                    <a href="ManagerNotification.jsp" class="showcase-link">
                                         <ion-icon
                                             name="notifications-outline"
                                             class="no-active-mode"
@@ -278,8 +288,6 @@
                                             <li class="category-item ${requestScope.STYLE_LIST_EMPLOYEE}" data-index="2">Employee</li>
                                             <li class="category-item ${requestScope.STYLE_LIST_ACTIVE}" data-index="3">Active</li>
                                             <li class="category-item ${requestScope.STYLE_LIST_INACTIVE}" data-index="4">Inactive</li>
-                                            <li class="category-item" data-index="5">Bad-behavior</li>
-                                            <li class="category-item" data-index="6">Good-behavior</li>
                                         </div>
                                     </ul>
                                 </div>
@@ -542,18 +550,6 @@
                                             </div>
                                         </div>
 
-                                        <!-- bad-behavior user page -->
-                                        <div class="user-content-main-item">
-                                            <div class="user-list">
-                                                123
-                                            </div>
-                                        </div>
-                                        <!-- good-behavior user page -->
-                                        <div class="user-content-main-item">
-                                            <div class="user-list">
-                                                456
-                                            </div>
-                                        </div>
                                     </div>
 
                                 </div>

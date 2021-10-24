@@ -5,12 +5,18 @@
  */
 package app.controller;
 
-import app.feedback.FeedbackDAO;
-import app.feedback.FeedbackDTO;
+import app.statistic.DonutDTO;
+import app.statistic.StatisticDAO;
+import app.statistic.StatisticDTO;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,13 +24,10 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author HieuTran
+ * @author ADMIN
  */
-public class ShowFeedBackController extends HttpServlet {
-
-    private static final String SUCCESS = "ShowFeedbackResponeForManagerController";
-    private static final String ERROR = "error.jsp";
-    private static final String SEARCH = "SearchFeedbackController";
+@WebServlet(name = "DonutStatisticController", urlPatterns = {"/DonutStatisticController"})
+public class DonutStatisticController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,44 +41,16 @@ public class ShowFeedBackController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
         try {
-            FeedbackDAO dao = new FeedbackDAO();
-            HttpSession session = request.getSession();
-            List<FeedbackDTO> listAll = dao.getAllListFeedbackByStatusAscForManager();
-            session.setAttribute("FEEDBACK_LIST_ALL", listAll);
-            List<FeedbackDTO> listDone = dao.getListFeedbackByStatusDoneAscForManager();
-            session.setAttribute("FEEDBACK_LIST_DONE", listDone);
-
-            List<FeedbackDTO> listFixing = dao.getListFeedbackByStatusFixingAscForManager();
-            session.setAttribute("FEEDBACK_LIST_FIXING", listFixing);
-
-            List<FeedbackDTO> listPending = dao.getListFeedbackByStatusPendingAscForManager();
-            session.setAttribute("FEEDBACK_LIST_PENDING", listPending);
-
-            List<FeedbackDTO> listDeny = dao.getListFeedbackByStatusDenyAscForManager();
-            session.setAttribute("FEEDBACK_LIST_DENY", listDeny);
-
-            session.setAttribute("COUNT_OF_SUM", listFixing.size() + listPending.size());
-
-            String pipeStyle = (String) request.getAttribute("STYLE_PIPE");
-            String listStyle = (String) request.getAttribute("STYLE_LIST");
-//            String style = (String) request.getAttribute("style_comment");
-            if (pipeStyle == null && listStyle == null) {
-                request.setAttribute("STYLE_PIPE", "active");
-                request.setAttribute("STYLE_LIST_ALL", "active");
-            }
-//            if (style != null) {
-//                request.setAttribute("STYLE_COMMENT", "active");
-//            } else {
-//                request.setAttribute("STYLE_TASK", "active");
-//            }
-            url = SUCCESS;
-
+            SimpleDateFormat month_format = new SimpleDateFormat("MMM ", Locale.ENGLISH);
+            Date date = new Date();
+            String month_name = month_format.format(date);
+            StatisticDAO dao = new StatisticDAO();
+            List<DonutDTO> list = dao.selectFeedbackForDonut(month_name);
+            Gson gson = new Gson();
+            PrintWriter out = response.getWriter();
+            out.println(gson.toJson(list));
         } catch (Exception e) {
-            log("Error at ShowEmployeeController" + e.toString());
-        } finally {
-            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

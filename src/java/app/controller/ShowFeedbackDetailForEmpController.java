@@ -7,9 +7,9 @@ package app.controller;
 
 import app.employees.EmployeesDAO;
 import app.feedback.FeedbackDetailDTO;
+import app.response.ResponseDTO;
 import app.users.UserDTO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,6 +34,8 @@ public class ShowFeedbackDetailForEmpController extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             EmployeesDAO dao = new EmployeesDAO();
+            String declineReason = "";
+            String responseId = "";
             String feedbackID = (String) request.getParameter("feedbackID");
             String history = (String) request.getParameter("history");
             UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
@@ -41,16 +43,31 @@ public class ShowFeedbackDetailForEmpController extends HttpServlet {
             if (feedbackID == null) {
                 feedbackID = (String) session.getAttribute("FEEDBACK");
             }
-            if (history == null) {
+            if (history == null || history.equals("")) {
                 history = (String) session.getAttribute("HISTORY");
             }
             List<FeedbackDetailDTO> dto = dao.showListFeedbackDetail(user.getUserID(), feedbackID);
             for (FeedbackDetailDTO detail : dto) {
-                if(dao.countDeclineResponse(detail.getFeedbackDetailID(), user.getUserID())!=0){
+                if (dao.countDeclineResponse(detail.getFeedbackDetailID(), user.getUserID()) != 0) {
                     detail.setCheck(true);
-                }        
+                    responseId = dao.getResponseID(detail.getFeedbackDetailID(),user.getUserID());
+                    declineReason = dao.getDeclineReason(responseId);
+                    detail.setDeclineReason(declineReason);
+                }
             }
-            List<FeedbackDetailDTO> his = dao.showHistoryListFeedbackDetail(user.getUserID(), history);
+            List<ResponseDTO> his = dao.showHistoryListFeedbackDetail(user.getUserID(), history);
+            for (ResponseDTO detail : his) {
+                if(dao.checkDone(detail.getFeedbackDetailID()).equalsIgnoreCase("done")){
+                    detail.setCheckDone(true);
+                }
+                else{
+                if (dao.countDeclineResponse(detail.getFeedbackDetailID(), user.getUserID()) != 0) {
+                    detail.setCheck(true);
+                    declineReason = dao.getDeclineReason(detail.getResponseID());
+                    detail.setDeclineReason(declineReason);
+                }
+                }
+            }
             session.setAttribute("DETAIL", dto);
             request.setAttribute("FEEDBACK_ACTIVE", feedbackID);
             session.setAttribute("HISTORY_DETAIL", his);

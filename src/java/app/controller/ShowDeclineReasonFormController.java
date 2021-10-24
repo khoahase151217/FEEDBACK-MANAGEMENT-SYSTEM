@@ -5,26 +5,21 @@
  */
 package app.controller;
 
-import app.feedback.FeedbackDAO;
-import app.feedback.FeedbackDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author HieuTran
+ * @author Hyst
  */
-public class ShowFeedBackController extends HttpServlet {
+public class ShowDeclineReasonFormController extends HttpServlet {
 
-    private static final String SUCCESS = "ShowFeedbackResponeForManagerController";
-    private static final String ERROR = "error.jsp";
-    private static final String SEARCH = "SearchFeedbackController";
+    private static final String SUCCESS = "adminPage.jsp";
+    private static final String ERROR = "##";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,40 +35,16 @@ public class ShowFeedBackController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            FeedbackDAO dao = new FeedbackDAO();
-            HttpSession session = request.getSession();
-            List<FeedbackDTO> listAll = dao.getAllListFeedbackByStatusAscForManager();
-            session.setAttribute("FEEDBACK_LIST_ALL", listAll);
-            List<FeedbackDTO> listDone = dao.getListFeedbackByStatusDoneAscForManager();
-            session.setAttribute("FEEDBACK_LIST_DONE", listDone);
-
-            List<FeedbackDTO> listFixing = dao.getListFeedbackByStatusFixingAscForManager();
-            session.setAttribute("FEEDBACK_LIST_FIXING", listFixing);
-
-            List<FeedbackDTO> listPending = dao.getListFeedbackByStatusPendingAscForManager();
-            session.setAttribute("FEEDBACK_LIST_PENDING", listPending);
-
-            List<FeedbackDTO> listDeny = dao.getListFeedbackByStatusDenyAscForManager();
-            session.setAttribute("FEEDBACK_LIST_DENY", listDeny);
-
-            session.setAttribute("COUNT_OF_SUM", listFixing.size() + listPending.size());
-
-            String pipeStyle = (String) request.getAttribute("STYLE_PIPE");
-            String listStyle = (String) request.getAttribute("STYLE_LIST");
-//            String style = (String) request.getAttribute("style_comment");
-            if (pipeStyle == null && listStyle == null) {
-                request.setAttribute("STYLE_PIPE", "active");
-                request.setAttribute("STYLE_LIST_ALL", "active");
-            }
-//            if (style != null) {
-//                request.setAttribute("STYLE_COMMENT", "active");
-//            } else {
-//                request.setAttribute("STYLE_TASK", "active");
-//            }
+            String feedbackDetailID = request.getParameter("feedbackDetailID");
+            String responseID = request.getParameter("responseID");
+            request.setAttribute("feedbackDetailID", feedbackDetailID);
+            request.setAttribute("responseID", responseID);
+            request.setAttribute("decline_flag", "open");
+            request.setAttribute("STYLE_COMMENT", "active");
+            request.setAttribute("STYLE_PIPE", "active");
+            request.setAttribute("STYLE_LIST_ALL", "active");
             url = SUCCESS;
-
         } catch (Exception e) {
-            log("Error at ShowEmployeeController" + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

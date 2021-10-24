@@ -5,6 +5,7 @@
  */
 package app.controller;
 
+import app.feedback.FeedbackDAO;
 import app.users.UserDAO;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -38,15 +39,22 @@ public class AUController extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             UserDAO dao = new UserDAO();
+            FeedbackDAO dao2 = new FeedbackDAO();
             String userID = request.getParameter("userID");
             String statusID = request.getParameter("StatusID");
-
+            String email = dao.getUserEmailByID(userID);
             if (statusID.equalsIgnoreCase("active")) {
                 dao.UpdateUserStatusInactive(userID, statusID);
             } else {
+                if (dao2.getDateWarning(userID) != null) {
+                    int level = dao2.getWarningLevel(userID);
+                    dao2.increaseLevel(level - 1, userID);
+                    dao2.sendLastWarning(email);
+                }
                 dao.UpdateUserStatusActive(userID, statusID);
+
             }
-            
+
             String listStyle = request.getParameter("style_flag");
             if (listStyle != null) {
                 switch (listStyle) {
