@@ -372,16 +372,16 @@ public class EmployeesDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*, t4.Name as FacilityName, t2.Location as location, t2.Quantity as quantity\n" +
-"                        FROM tblResponseFeedback t1 \n" +
-"						join tblFeedbackDetail t2 \n" +
-"                         ON t1.FeedbackDetailID = t2.FeedbackDetailID \n" +
-"                         JOIN tblFeedback t3 \n" +
-"                          ON t2.FeedbackID = t3.FeedbackID \n" +
-"                         JOIN tblFacilities t4 \n" +
-"                          ON t2.FacilityID = t4.FacilityID \n" +
-"						  \n" +
-"                         WHERE t1.UserID =? AND t2.FeedbackID = ? ";
+                String sql = "SELECT t1.*, t4.Name as FacilityName, t2.Location as location, t2.Quantity as quantity\n"
+                        + "                        FROM tblResponseFeedback t1 \n"
+                        + "						join tblFeedbackDetail t2 \n"
+                        + "                         ON t1.FeedbackDetailID = t2.FeedbackDetailID \n"
+                        + "                         JOIN tblFeedback t3 \n"
+                        + "                          ON t2.FeedbackID = t3.FeedbackID \n"
+                        + "                         JOIN tblFacilities t4 \n"
+                        + "                          ON t2.FacilityID = t4.FacilityID \n"
+                        + "						  \n"
+                        + "                         WHERE t1.UserID =? AND t2.FeedbackID = ? ";
                 stm = conn.prepareCall(sql);
                 stm.setString(1, userID);
                 stm.setString(2, feedbackID);
@@ -475,7 +475,7 @@ public class EmployeesDAO {
             if (conn != null) {
                 String sql = " SELECT t1.*,t3.Email as email ,t3.FullName as fullName ,t4.Name as statusName FROM tblFeedback t1 "
                         + " JOIN tblFeedbackDetail t2  ON t1.FeedbackID = t2.FeedbackID "
-                        + " join tblResponseFeedback t5 on t2.FeedbackDetailID=t5.FeedbackDetailID " 
+                        + " join tblResponseFeedback t5 on t2.FeedbackDetailID=t5.FeedbackDetailID "
                         + " JOIN tblUser t3    ON t1.UserID = t3.UserID "
                         + " JOIN tblFeedbackStatus t4 ON t1.statusID = t4.FeedbackStatusID "
                         + " WHERE t5.UserID = ?   "
@@ -584,7 +584,6 @@ public class EmployeesDAO {
         }
         return count;
     }
-    
 
     public int countDeclineResponse2(String feedbackDetailID) throws SQLException {
         int count = 0;
@@ -687,7 +686,7 @@ public class EmployeesDAO {
         return responseId;
     }
 
-    public String getResponseID(String feedbackDetailID,String userId) throws SQLException {
+    public String getResponseID(String feedbackDetailID, String userId) throws SQLException {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -747,7 +746,7 @@ public class EmployeesDAO {
         return status;
     }
 
-    public List<UserDTO> getListGoodEMP(String month,String year) throws SQLException {
+    public List<UserDTO> getListGoodEMP(String month, String year) throws SQLException {
         List<UserDTO> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ps = null;
@@ -830,6 +829,95 @@ public class EmployeesDAO {
                     } else {
                         list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, "", "", count)));
                     }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<ResponseDTO> getListRecentDeclineRespone(String userID) throws SQLException {
+        List<ResponseDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            if (conn != null) {
+                String sql = "SELECT TOP 3 t1.*,t4.Name as FacilityName ,t2.Quantity as quantity ,t2.Location as Location\n"
+                        + "FROM tblResponseFeedback t1\n"
+                        + "JOIN tblFeedbackDetail t2 on t1.FeedbackDetailID =t2.FeedbackDetailID\n"
+                        + "JOIN tblDeclinedResponse t3 on t3.ResponseID =t1.ResponseID\n"
+                        + "JOIN tblFacilities t4 on t2.FacilityID = t4.FacilityID\n"
+                        + "WHERE t1.UserID=?\n"
+                        + "GROUP BY t1.Date,t1.Description,t1.FeedbackDetailID,t1.Image,t1.ResponseID,t1.StatusID,t1.UserID,t4.Name,t2.Quantity,t2.Location\n"
+                        + "ORDER BY t1.Date desc";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, userID);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String responeID = rs.getString("ResponseID");
+                    String feedbackdetailID = rs.getString("FeedbackDetailID");
+                    String description = rs.getString("Description");
+                    String date = rs.getString("Date");
+                    String facilityName = rs.getString("FacilityName");
+                    String location = rs.getString("Location");
+                    String quantity = rs.getString("quantity");
+                    list.add(new ResponseDTO(feedbackdetailID, "", description, "", "", facilityName, location, "", quantity, date));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<ResponseDTO> getListRecentDoneRespone(String userID) throws SQLException {
+        List<ResponseDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            if (conn != null) {
+                String sql = "SELECT TOP 3 t1.*,t2.Quantity as quantity,t3.Name as FacilityName,t2.Location as Location\n"
+                        + "FROM tblResponseFeedback t1\n"
+                        + "JOIN tblFeedbackDetail t2 on t1.FeedbackDetailID =t2.FeedbackDetailID\n"
+                        + "JOIN tblFacilities t3 on t2.FacilityID = t3.FacilityID\n"
+                        + "WHERE t1.StatusID='done' AND t1.UserID=?\n"
+                        + "GROUP BY t1.Date,t1.Description,t1.FeedbackDetailID,t1.Image,t1.ResponseID,t1.StatusID,t1.UserID,t3.Name,t2.Quantity,t2.Location\n"
+                        + "ORDER BY t1.Date desc";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, userID);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String responeID = rs.getString("ResponseID");
+                    String feedbackdetailID = rs.getString("FeedbackDetailID");
+                    String description = rs.getString("Description");
+                    String date = rs.getString("Date");
+                    String facilityName = rs.getString("FacilityName");
+                    String location = rs.getString("Location");
+                    String quantity = rs.getString("quantity");
+                    list.add(new ResponseDTO(feedbackdetailID, "", description, "", "", facilityName, location, "", quantity, date));
                 }
             }
         } catch (Exception e) {
