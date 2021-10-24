@@ -120,6 +120,10 @@
         <servlet-name>GetRecentFeedbackForBadUserCotroller</servlet-name>
         <servlet-class>app.controller.GetRecentFeedbackForBadUserCotroller</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>NotificationController</servlet-name>
+        <servlet-class>app.controller.NotificationController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -251,6 +255,10 @@
     <servlet-mapping>
         <servlet-name>GetRecentFeedbackForBadUserCotroller</servlet-name>
         <url-pattern>/GetRecentFeedbackForBadUserCotroller</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NotificationController</servlet-name>
+        <url-pattern>/NotificationController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

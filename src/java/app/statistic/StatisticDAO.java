@@ -6,6 +6,7 @@
 package app.statistic;
 
 import app.facility.FacilityDTO;
+import app.feedback.FeedbackDTO;
 import app.utils.DBUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -181,6 +182,80 @@ public class StatisticDAO {
             }
         }
         return list;
+    }
+
+    public List<FeedbackDTO> getListFeedbackForNotification(int check) throws SQLException {
+        List<FeedbackDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " DECLARE @check int;\n"
+                        + "set @check = ?\n"
+                        + "select top (@check) * from tblFeedback where statusID='pending'\n"
+                        + "order by Date desc ";
+                stm = conn.prepareStatement(sql);
+                stm.setInt(1, check);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    String userId = rs.getString("UserID");
+                    String date = rs.getString("Date");
+                    String statusId = rs.getString("statusID");
+                    list.add(new FeedbackDTO(feedbackId, userId, date, statusId));
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public int countForNotification() throws SQLException {
+        int count = 0;
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT COUNT(FeedbackID) as count"
+                        + " FROM tblFeedback  "
+                        + " WHERE StatusID ='pending'";
+                stm = conn.prepareCall(sql);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    count = rs.getInt("count");
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return count;
     }
 
 }

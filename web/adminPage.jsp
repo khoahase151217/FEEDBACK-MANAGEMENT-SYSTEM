@@ -32,7 +32,7 @@
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
         ></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage1.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPageDetailModal.css" />
     </head>
     <body>
@@ -465,7 +465,7 @@
                                     <span></span>
                                 </li>
                                 <li
-                                    class="showcase-item active showcase-item-dropdown-select"
+                                    class="showcase-item showcase-item-dropdown-select"
                                     data-index="4"
                                     >
                                     <a href="#" class="showcase-link">
@@ -482,52 +482,18 @@
                                     <div class="showcase-item-dropdown-list">
                                         <h4 class="showcase-item-dropdown-title">Notification</h4>
                                         <h5 class="showcase-item-dropdown-sub-title">
-                                            You have 2 new feedback
+                                            You have ${sessionScope.NOTIFICATION_QUANTITY} new feedback
                                         </h5>
-                                        <!-- <h5 class="showcase-item-dropdown-sub-title sub-title-no">
-                                          No notification can be found ...
-                                        </h5> -->
+                                        <h5 class="showcase-item-dropdown-sub-title sub-title-no">
+                                            No notification can be found ...
+                                        </h5> 
+
                                         <div class="pipe-list">
-                                            <div class="notification-item">
-                                                <div class="pipe-item-heading">
-                                                    <div class="pipe-item-title-wrapper">
-                                                        <h3 class="pipe-item-title">Feedback #1</h3>
-                                                        <p class="pipe-item-desc">
-                                                            <strong>Name:</strong> Nguyen Duong Minh duc
-                                                        </p>
-                                                    </div>
-                                                    <div class="pipe-item-date">Tue, August 18</div>
-                                                </div>
-                                                <div class="pipe-item-bottom">
-                                                    <p class="pipe-bottom-item">
-                                                        <strong>Send by</strong>
-                                                        ducndmse151198@fpt.edu.vn
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="notification-item">
-                                                <div class="pipe-item-heading">
-                                                    <div class="pipe-item-title-wrapper">
-                                                        <h3 class="pipe-item-title">Feedback #1</h3>
-                                                        <p class="pipe-item-desc">
-                                                            <strong>Name:</strong> Nguyen Duong Minh duc
-                                                        </p>
-                                                    </div>
-                                                    <div class="pipe-item-date">Tue, August 18</div>
-                                                </div>
-                                                <div class="pipe-item-bottom">
-                                                    <p class="pipe-bottom-item">
-                                                        <strong>Send by</strong>
-                                                        ducndmse151198@fpt.edu.vn
-                                                    </p>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                     <div
-                                        class="showcase-item-dropdown-actual-notification active"
+                                        class="showcase-item-dropdown-actual-notification"
                                         >
-                                        2
                                     </div>
                                 </li>
                             </ul>
@@ -871,7 +837,7 @@
                                                             </c:if>
                                                             <c:forEach var="feedback" items="${sessionScope.FEEDBACK_LIST_PENDING}">
                                                                 <a href="ShowEmployeeActiveController?feedbackID=${feedback.feedbackID}&email=${feedback.email}&date=${feedback.date}&statusID=${feedback.statusId}&statusName=${feedback.statusName}&style_flag=list&style_list_category=pending&search=${requestScope.SEARCH}">
-                                                                    <div class="pipe-item">
+                                                                    <div class="pipe-item pipe-list-pending">
                                                                         <div class="pipe-item-heading">
                                                                             <div class="pipe-item-title-wrapper">
                                                                                 <h3 class="pipe-item-title">
@@ -1329,10 +1295,35 @@
             </section>
         </main>
         <script src="${pageContext.request.contextPath}/js/adminPage1.js"></script>
-        <script src="${pageContext.request.contextPath}/js/ManagerFB.js"></script>
+        <script src="${pageContext.request.contextPath}/js/ManagerFB1.js"></script>
         <!-- Query -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
+                                                function handleNotification() {
+                                                    const count = Array.from(document.querySelectorAll('.pipe-list-pending')).length;
+                                                    $.ajax({
+                                                        type: "POST",
+                                                        url: "/SWP391_PROJECT/NotificationController",
+                                                        data: {notification: count},
+                                                        success: function (result) {
+                                                            if (result !== '') {
+                                                                var lenght = result.slice(0, 1);
+                                                                $('.showcase-item-dropdown-actual-notification').addClass('active');
+                                                                $('.showcase-item-dropdown-actual-notification').html(lenght);
+                                                                $('.showcase-item-dropdown-select').addClass('active');
+                                                                $('.showcase-item-dropdown-sub-title').html("You have " + lenght + " new feedback");
+                                                            } else {
+                                                                $('.showcase-item-dropdown-sub-title').html($('.showcase-item-dropdown-sub-title.sub-title-no').text());
+                                                                $('.showcase-item-dropdown-actual-notification').removeClass('active');
+                                                                $('.showcase-item-dropdown-select').removeClass('active');
+                                                            }
+                                                            $('.showcase-item-dropdown-list .pipe-list').html(result.slice(1));
+
+                                                        }
+                                                    });
+                                                }
+                                                setInterval(handleNotification, 10000);
+
                                                 $(function () {
                                                     var imagesPreview2 = function (input, placeToInsertImagePreview) {
                                                         if (input.files) {
@@ -1355,13 +1346,6 @@
                                                         imagesPreview2(this);
                                                     });
 
-                                                    const notificationItems =
-                                                            document.querySelectorAll(".notification-item");
-                                                    Array.from(notificationItems).forEach((item) => {
-                                                        item.addEventListener("click", () => {
-                                                            window.location.replace("/SWP391_PROJECT/ShowFeedBackController");
-                                                        });
-                                                    });
                                                 });
         </script>
     </body>

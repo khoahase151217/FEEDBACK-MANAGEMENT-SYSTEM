@@ -94,3 +94,8 @@ document.querySelector(".modal-decline").addEventListener("click", (e) => {
         e.target.closest(".modal-decline").classList.remove("open");
     }
 });
+
+function handleReloadPage() {
+    window.location.replace("/SWP391_PROJECT/ShowFeedBackController");
+}
+

@@ -38,6 +38,13 @@ public class FeedbackDTO {
     public FeedbackDTO() {
     }
 
+    public FeedbackDTO(String feedbackID, String userID, String date, String statusId) {
+        this.feedbackID = feedbackID;
+        this.userID = userID;
+        this.date = date;
+        this.statusId = statusId;
+    }
+
     public FeedbackDTO(String feedbackID, String userID, String date, String email, String statusId) {
         this.feedbackID = feedbackID;
         this.userID = userID;
@@ -55,12 +62,12 @@ public class FeedbackDTO {
         this.fullName = fullName;
     }
 
-    public FeedbackDTO(String feedbackID, String userID, String date, String email) {
-        this.feedbackID = feedbackID;
-        this.userID = userID;
-        this.date = date;
-        this.email = email;
-    }
+//    public FeedbackDTO(String feedbackID, String userID, String date, String email) {
+//        this.feedbackID = feedbackID;
+//        this.userID = userID;
+//        this.date = date;
+//        this.email = email;
+//    }
 
     public FeedbackDTO(String feedbackID, String userID, String date) {
         this.feedbackID = feedbackID;

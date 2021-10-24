@@ -259,6 +259,7 @@ img {
 }
 .showcase-item-dropdown-sub-title.sub-title-no {
     font-size: 0.85rem;
+    display: none;
 }
 
 .showcase-item-dropdown-list .pipe-item-title {
