@@ -37,7 +37,22 @@ public class ShowUserFormController extends HttpServlet {
         try {
             UserDAO dao = new UserDAO();
             HttpSession session = request.getSession();
-            UserDTO login_user = (UserDTO) session.getAttribute("LOGIN_USER");
+            String user = (String) request.getParameter("user");
+            UserDTO login_user = new UserDTO();
+            if(user==null){
+                user=(String) request.getAttribute("user");
+            }
+            switch (user) {
+                case "admin":
+                    login_user = (UserDTO) session.getAttribute("LOGIN_ADMIN");
+                    break;
+                case "user":
+                    login_user = (UserDTO) session.getAttribute("LOGIN_USER");
+                    break;
+                default:
+                    login_user = (UserDTO) session.getAttribute("LOGIN_EMP");
+                    break;
+            }
             String userID = login_user.getUserID();
             String password = login_user.getPassword();
             String fullName = login_user.getFullName();

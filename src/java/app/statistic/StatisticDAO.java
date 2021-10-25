@@ -230,7 +230,52 @@ public class StatisticDAO {
         }
         return list;
     }
-    public List<FeedbackDetailDTO> getListFeedbackDetailForNotification(int check,String userId) throws SQLException {
+
+    public List<FeedbackDTO> getListFeedbackForNotificationUser(int check, String userId) throws SQLException {
+        List<FeedbackDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " declare @check int;\n"
+                        + "set @check =?;\n"
+                        + "select top (@check) t1.*, t2.Email, t2.FullName from tblFeedback t1 \n"
+                        + "join tblUser t2 on t1.UserID = t2.UserID\n"
+                        + "where t1.statusID='done' and t1.UserID=? \n"
+                        + "order by t1.FeedbackID desc ";
+                stm = conn.prepareCall(sql);
+                stm.setInt(1, check);
+                stm.setString(2, userId);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    String fullName = rs.getString("FullName");
+                    String email = rs.getString("Email");
+                    String date = rs.getString("Date");
+                    String statusId = rs.getString("statusID");
+                    list.add(new FeedbackDTO(feedbackId, userId, date, email, statusId, fullName));
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<FeedbackDetailDTO> getListFeedbackDetailForNotification(int check, String userId) throws SQLException {
         List<FeedbackDetailDTO> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement stm = null;
@@ -304,7 +349,7 @@ public class StatisticDAO {
         return count;
     }
 
-    public int countForNotificationEmployee(String userId) throws SQLException {
+    public int countForNotificationUser(String userId) throws SQLException {
         int count = 0;
         Connection conn = null;
         PreparedStatement stm = null;
@@ -312,11 +357,11 @@ public class StatisticDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = " select count(FeedbackDetailID)as count from tblFeedbackDetail "
-                        + " where UserID=? ";
+                String sql = "select Count(feedbackid) as count "
+                        + " from tblFeedback "
+                        + " where statusID='done' and UserID=? ";
                 stm = conn.prepareStatement(sql);
-                                stm.setString(1, userId);
-
+                stm.setString(1, userId);
                 rs = stm.executeQuery();
                 if (rs.next()) {
                     count = rs.getInt("count");
@@ -338,6 +383,41 @@ public class StatisticDAO {
         }
         return count;
     }
+
+    public int countForNotificationEmployee(String userId) throws SQLException {
+        int count = 0;
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " select count(FeedbackDetailID)as count from tblFeedbackDetail "
+                        + " where UserID=? and flag='false' ";
+                stm = conn.prepareStatement(sql);
+                stm.setString(1, userId);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    count = rs.getInt("count");
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return count;
+    }
+
     public FeedbackDTO getFeedbackByID(String feedbackID) throws SQLException, IOException {
         FeedbackDTO feedback = new FeedbackDTO();
         Connection conn = null;

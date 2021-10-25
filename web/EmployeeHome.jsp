@@ -305,7 +305,7 @@
                                             </c:choose>
                                         </div>
                                         <div class="showcase-profile-dropdown-list">
-                                            <a href="ShowUserFormController?position=EmployeePage" class="dropdown-item">
+                                            <a href="ShowUserFormController?position=EmployeePage&user=employee" class="dropdown-item">
                                                 <ion-icon name="create-outline"></ion-icon>
                                                 Edit Profile
                                             </a>

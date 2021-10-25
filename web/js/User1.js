@@ -325,3 +325,6 @@ Array.from(listFBCategory).forEach((item) => {
         Array.from(FbListItems)[index].classList.add("active");
     });
 });
+function handleReloadPage() {
+    window.location.replace("/SWP391_PROJECT/ShowFacilityStudentController");
+}

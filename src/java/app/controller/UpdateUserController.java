@@ -26,7 +26,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  * @author HieuTran
  */
 public class UpdateUserController extends HttpServlet {
-    
+
     private static final String SUCCESS = "ShowUserFormController";
     private static final String ERROR = "#";
 
@@ -43,7 +43,7 @@ public class UpdateUserController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
-        
+
         try {
             boolean flag = false;
             FileInputStream photo = null;
@@ -54,10 +54,10 @@ public class UpdateUserController extends HttpServlet {
             String password = "";
             String position = "";
             UserDAO dao = new UserDAO();
-            
+
             boolean isMultiPart = ServletFileUpload.isMultipartContent(request);
             if (!isMultiPart) {
-                
+
             } else {
                 FileItemFactory factory = new DiskFileItemFactory();
                 ServletFileUpload upload = new ServletFileUpload(factory);
@@ -94,16 +94,16 @@ public class UpdateUserController extends HttpServlet {
                             position = item.getString();
                         }
                         if (inputName.equalsIgnoreCase("style_list")) {
-                            if(!item.getString().equals("")) {
+                            if (!item.getString().equals("")) {
                                 request.setAttribute("style_list", "active");
                             }
                         }
                         if (inputName.equalsIgnoreCase("style_pipe")) {
-                            if(!item.getString().equals("")) {
+                            if (!item.getString().equals("")) {
                                 request.setAttribute("style_pipe", "active");
                             }
                         }
-                        
+
                     } else {
                         if (item.getContentType().contains("image")) {
                             photo = (FileInputStream) item.getInputStream();
@@ -112,7 +112,7 @@ public class UpdateUserController extends HttpServlet {
                     }
                 }
             }
-            
+
             if (fullName.equals("") || password.equals("")) {
                 url = ERROR;
                 request.setAttribute("ADD_FAILURE", "active");
@@ -124,13 +124,26 @@ public class UpdateUserController extends HttpServlet {
                     dao.UpdateUserNoPhoto(userID, fullName, roleID, statusID, password);
                 }
                 HttpSession session = request.getSession();
-                session.setAttribute("LOGIN_USER", dao.getUserIdByUserID(userID));
-                if(position != null) {
+                switch (roleID) {
+                    case "US":
+                        request.setAttribute("user", "user");
+                        session.setAttribute("LOGIN_USER", dao.getUserIdByUserID(userID));
+                        break;
+                    case "AD":
+                        request.setAttribute("user", "admin");
+                        session.setAttribute("LOGIN_ADMIN", dao.getUserIdByUserID(userID));
+                        break;
+                    default:
+                        request.setAttribute("user", "employee");
+                        session.setAttribute("LOGIN_EMP", dao.getUserIdByUserID(userID));
+                        break;
+                }
+                if (position != null) {
                     request.setAttribute("position", position);
                 }
                 url = SUCCESS;
             }
-            
+
         } catch (Exception e) {
             log("Error at Update Controller" + e.toString());
         } finally {

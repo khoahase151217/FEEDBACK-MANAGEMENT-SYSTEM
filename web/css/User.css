@@ -468,6 +468,18 @@ ul {
     margin-bottom: 20px;
     transition: background-color 0.2s linear;
 }
+.hero .pipe-item-done {
+    padding: 5px 11px;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: rgba(226, 226, 226, 0.705);
+    border: none;
+    margin-bottom: 20px;
+    transition: background-color 0.2s linear;
+}
+
 .hero .pipe-item-heading {
     display: flex;
     justify-content: space-between;

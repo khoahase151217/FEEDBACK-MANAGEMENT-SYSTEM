@@ -31,7 +31,7 @@
             />
 
         <!-- ioniconic -->
-         <script
+        <script
             type="module"
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
         ></script>
@@ -49,7 +49,7 @@
             referrerpolicy="no-referrer"
             />
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/User1.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/User.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/FeedbackForm.css" />
     </head>
     <body>
@@ -512,6 +512,7 @@
                             </button>
                         </div>
                         <input type="hidden" name="userID" value="${requestScope.USER_UPDATE.userID}"/>
+                        <input type="hidden" name="search" value="${requestScope.SEARCH}"/>
                         <input type="hidden" name="style_list" value="${requestScope.STYLE_LIST}"/>
                         <input type="hidden" name="style_pipe" value="${requestScope.STYLE_PIPE}"/>
                     </form>
@@ -570,7 +571,8 @@
                                     class="input-wrap-image"
                                     />
                                 <div class="actual-input">
-                                    <input type="text" name="search" id="search" placeholder="Search ..." value="${requestScope.SEARCH}"/>
+                                    <input type="text" name="search" id="search" placeholder="Search ..." value="${requestScope.
+                                                                                                                   SEARCH}"/>
                                     <!--<label>Search ...</label>-->
                                 </div>
                             </div>
@@ -598,7 +600,7 @@
                                 </c:choose>
                             </div>
                             <div class="dropdown-list">
-                                <a href="ShowUserFormController?search=${requestScope.SEARCH}&style_pipe=${requestScope.STYLE_PIPE}&style_list=${requestScope.STYLE_LIST}" class="dropdown-item">
+                                <a href="ShowUserFormController?search=${requestScope.SEARCH}&style_pipe=${requestScope.STYLE_PIPE}&style_list=${requestScope.STYLE_LIST}&user=user" class="dropdown-item">
                                     <ion-icon name="create-outline"></ion-icon>
                                     Edit Profile
                                 </a>
@@ -1063,7 +1065,7 @@
 
                                                         for (UserHistoryDTO feedback : listDone) {
                                                 %> 
-                                                <div class="pipe-item">
+                                                <div class="pipe-item-done">
                                                     <div class="pipe-item-heading">
                                                         <div class="pipe-item-title-wrapper">
                                                             <h3 class="pipe-item-title">Feedback <%=feedback.getFeedbackId()%></h3>
@@ -1290,6 +1292,31 @@
         <!-- Query -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
+                                                            function handleNotification() {
+                                                                const count = Array.from(document.querySelectorAll('.pipe-item-done')).length;
+                                                                $.ajax({
+                                                                    type: "POST",
+                                                                    url: "/SWP391_PROJECT/NotificationUserController",
+                                                                    data: {notification: count},
+                                                                    success: function (result) {
+                                                                        if (result !== '') {
+                                                                            var lenght = result.slice(0, 1);
+                                                                            $('.showcase-item-dropdown-actual-notification').addClass('active');
+                                                                            $('.showcase-item-dropdown-actual-notification').html(lenght);
+                                                                            $('.showcase-item-dropdown-select').addClass('active');
+                                                                            $('.showcase-item-dropdown-sub-title').html("You have " + lenght + " new feedback");
+                                                                        } else {
+                                                                            $('.showcase-item-dropdown-sub-title').html($('.showcase-item-dropdown-sub-title.sub-title-no').text());
+                                                                            $('.showcase-item-dropdown-actual-notification').removeClass('active');
+                                                                            $('.showcase-item-dropdown-select').removeClass('active');
+                                                                        }
+                                                                        $('.showcase-item-dropdown-list .pipe-list').html(result.slice(1));
+
+                                                                    }
+                                                                });
+                                                            }
+                                                            handleNotification();
+                                                            setInterval(handleNotification, 10000);
                                                             $(function () {
                                                                 // This code will attach `fileselect` event to all file inputs on the page
                                                                 $(document).on("change", ":file", function () {

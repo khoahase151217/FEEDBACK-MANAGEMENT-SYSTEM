@@ -6,10 +6,8 @@
 package app.controller;
 
 import app.feedback.FeedbackDTO;
-import app.feedback.FeedbackDetailDTO;
 import app.statistic.StatisticDAO;
 import app.users.UserDTO;
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -25,8 +23,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author ADMIN
  */
-@WebServlet(name = "NotificationEmployeeController", urlPatterns = {"/NotificationEmployeeController"})
-public class NotificationEmployeeController extends HttpServlet {
+@WebServlet(name = "NotificationUserController", urlPatterns = {"/NotificationUserController"})
+public class NotificationUserController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,35 +40,22 @@ public class NotificationEmployeeController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try {
             HttpSession session = request.getSession();
-            UserDTO user = (UserDTO) session.getAttribute("LOGIN_EMP");
             StatisticDAO dao = new StatisticDAO();
-            List<FeedbackDetailDTO> list = new ArrayList<FeedbackDetailDTO>();
-            List<FeedbackDTO> listFB = new ArrayList<FeedbackDTO>();
+            UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
+            List<FeedbackDTO> list = new ArrayList<FeedbackDTO>();
             String count = request.getParameter("notification");
             int notification = 0;
             int check = Integer.parseInt(count);
-            int check2 = dao.countForNotificationEmployee(user.getUserID());
+            int check2 = dao.countForNotificationUser(user.getUserID());
             if (check2 > check) {
                 notification = check2 - check;
-                list = dao.getListFeedbackDetailForNotification(notification, user.getUserID());
-                for (int i = 0; i<list.size(); i++) {
-                if(i==0){
-                    FeedbackDTO feedback = dao.getFeedbackByID(list.get(i).getFeedbackID());
-                    listFB.add(feedback);
-                }else{
-                    if(!list.get(i).getFeedbackID().equals(list.get(i-1).getFeedbackID())){
-                         FeedbackDTO feedback = dao.getFeedbackByID(list.get(i).getFeedbackID());
-                         listFB.add(feedback);
-                    }
-                }
+                list = dao.getListFeedbackForNotificationUser(notification, user.getUserID());
             }
-            }
-            
             PrintWriter out = response.getWriter();
             if (list.size() > 0) {
                 out.println(list.size());
             }
-            for (FeedbackDTO feedback : listFB) {
+            for (FeedbackDTO feedback : list) {
                 out.println("<div class=\"notification-item\" onclick=\"handleReloadPage()\">\n"
                         + "                                                <div class=\"pipe-item-heading\">\n"
                         + "                                                    <div class=\"pipe-item-title-wrapper\">\n"
