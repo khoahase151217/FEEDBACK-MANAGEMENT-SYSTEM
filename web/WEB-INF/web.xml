@@ -124,6 +124,14 @@
         <servlet-name>NotificationController</servlet-name>
         <servlet-class>app.controller.NotificationController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoadMoreUserController</servlet-name>
+        <servlet-class>app.controller.LoadMoreUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoadMoreFacilitiesController</servlet-name>
+        <servlet-class>app.controller.LoadMoreFacilitiesController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -259,6 +267,14 @@
     <servlet-mapping>
         <servlet-name>NotificationController</servlet-name>
         <url-pattern>/NotificationController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadMoreUserController</servlet-name>
+        <url-pattern>/LoadUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadMoreFacilitiesController</servlet-name>
+        <url-pattern>/LoadFacilities</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -31,7 +31,7 @@
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
         ></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage1.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ManagerViewUser.css" />
     </head>
     <body>
@@ -349,7 +349,7 @@
                                     <!-- Pipe -->
                                     <div class="content-item-main-list user-main-item active">
                                         <!-- user all page -->
-                                        <div class="user-content-main-item ${requestScope.STYLE_LIST_ALL}">
+                                        <div class="user-content-main-item ${requestScope.STYLE_LIST_ALL} list-all-user" data-index="0">
                                             <div class="user-list">
                                                 <c:if test="${empty sessionScope.LIST_ALL_USER}">
                                                     <p class="pipe-item-date">No result can be found ...</p>
@@ -400,7 +400,7 @@
                                         </div>
 
                                         <!-- user student page -->
-                                        <div class="user-content-main-item ${requestScope.STYLE_LIST_STUDENT}">
+                                        <div class="user-content-main-item ${requestScope.STYLE_LIST_STUDENT}" data-index="1">
                                             <div class="user-list">
                                                 <c:if test="${empty sessionScope.LIST_ALL_STUDENT}">
                                                     <p class="pipe-item-date">No result can be found ...</p>
@@ -451,7 +451,7 @@
                                         </div>
 
                                         <!-- user employee page -->
-                                        <div class="user-content-main-item ${requestScope.STYLE_LIST_EMPLOYEE}">
+                                        <div class="user-content-main-item ${requestScope.STYLE_LIST_EMPLOYEE}" data-index="2">
                                             <div class="user-list">
                                                 <c:if test="${empty sessionScope.LIST_ALL_EMPLOYEE}">
                                                     <p class="pipe-item-date">No result can be found ...</p>
@@ -502,7 +502,7 @@
                                         </div>
 
                                         <!-- user active user page -->
-                                        <div class="user-content-main-item ${requestScope.STYLE_LIST_ACTIVE}">
+                                        <div class="user-content-main-item ${requestScope.STYLE_LIST_ACTIVE}" data-index="3">
                                             <div class="user-list">
                                                 <c:if test="${empty sessionScope.LIST_ALL_ACTIVE}">
                                                     <p class="pipe-item-date">No result can be found ...</p>
@@ -553,7 +553,7 @@
                                         </div>
 
                                         <!-- user inactive user page -->
-                                        <div class="user-content-main-item ${requestScope.STYLE_LIST_INACTIVE}">
+                                        <div class="user-content-main-item ${requestScope.STYLE_LIST_INACTIVE}" data-index="4">
                                             <div class="user-list">
                                                 <c:if test="${empty sessionScope.LIST_ALL_INACTIVE}">
                                                     <p class="pipe-item-date">No result can be found ...</p>
@@ -612,11 +612,41 @@
                 </div>
             </section>
         </main>
-        <script src="${pageContext.request.contextPath}/js/adminPage1.js"></script>
+        <script src="${pageContext.request.contextPath}/js/adminPage.js"></script>
         <script src="${pageContext.request.contextPath}/js/ManagerUser.js"></script>
         <!-- Query -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
+            function loadResults(index, list) {
+                let amount = list.querySelectorAll('.user-item').length;
+                let search = document.querySelector('input[name="search"]').value;
+                $.ajax({
+                    url: "/SWP391_PROJECT/LoadUser",
+                    type: "post",
+                    data: {
+                        amount: amount,
+                        flag_navigation: index,
+                        search: search
+                    },
+                    beforeSend: function (xhr) {
+                        $(list).after($("<li class='loading'>Loading...</li>").fadeIn('slow')).data("loading", true);
+                    },
+                    success: function (data) {
+                        setTimeout(() => {
+                            var $results = $(list);
+                            
+                            $(".loading").fadeOut('fast', function () {
+                                $(this).remove();
+                            });
+                            var $data = $(data);
+                            $results.append($data);
+                            $data.show("slow");
+                            $results.removeData("loading");
+                        }, 1500)
+                    }
+                });
+            }
+            ;
             $(function () {
                 // This code will attach `fileselect` event to all file inputs on the page
                 $(document).on("change", ":file", function () {
@@ -634,9 +664,6 @@
                             var reader = new FileReader();
 
                             reader.onload = function (event) {
-                                // $($.parseHTML("<img>"))
-                                //   .attr("src", event.target.result)
-                                //   .appendTo(placeToInsertImagePreview);\
                                 $(".avatar").attr("src", event.target.result);
                             };
 
@@ -648,6 +675,18 @@
                 $("#image").on("change", function (e) {
                     imagesPreview(this);
                 });
+
+                Array.from($(".user-list")).forEach(item => {
+                    item.addEventListener('scroll', (e) => {
+                        var list = e.target.closest('.user-list');
+                        if (!e.target.getAttribute("data-loading")) {
+                            if (Math.ceil(list.offsetHeight + list.scrollTop) === list.scrollHeight) {
+                                loadResults(e.target.closest('.user-content-main-item').dataset.index, list);
+                            }
+                        }
+                    });
+                });
+
             });
         </script>
     </body>

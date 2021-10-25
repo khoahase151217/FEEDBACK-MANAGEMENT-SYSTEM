@@ -1086,28 +1086,28 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
         <script>
-                    const user = document.querySelector('#LOGIN_USER').value;
+            const user = document.querySelector('#LOGIN_USER').value;
             function handleNotification() {
                 const count = document.querySelector('#COUNT_DETAIL_NOTIFICATION').value;
-                            $.ajax({
-                            type: "POST",
-                                    url: "/SWP391_PROJECT/NotificationEmployeeController",
-                                    data: {notification: count, userId: user},
-                                    success: function (result) {
-                                    if (result !== '') {
-                                    var lenght = result.slice(0, 1);
-                                            $('.showcase-item-dropdown-actual-notification').addClass('active');
-                                            $('.showcase-item-dropdown-actual-notification').html(lenght);
-                                            $('.showcase-item-dropdown-select').addClass('active');
-                                            $('.showcase-item-dropdown-sub-title').html("You have " + lenght + " new feedback");
-                                    } else {
-                                    $('.showcase-item-dropdown-sub-title').html($('.showcase-item-dropdown-sub-title.sub-title-no').text());
-                                            $('.showcase-item-dropdown-actual-notification').removeClass('active');
-                                            $('.showcase-item-dropdown-select').removeClass('active');
-                                    }
-                                    $('.showcase-item-dropdown-list .pipe-list').html(result.slice(1));
-                                    }
-                            });
+                $.ajax({
+                    type: "POST",
+                    url: "/SWP391_PROJECT/NotificationEmployeeController",
+                    data: {notification: count, userId: user},
+                    success: function (result) {
+                        if (result !== '') {
+                            var lenght = result.slice(0, 1);
+                            $('.showcase-item-dropdown-actual-notification').addClass('active');
+                            $('.showcase-item-dropdown-actual-notification').html(lenght);
+                            $('.showcase-item-dropdown-select').addClass('active');
+                            $('.showcase-item-dropdown-sub-title').html("You have " + lenght + " new feedback");
+                        } else {
+                            $('.showcase-item-dropdown-sub-title').html($('.showcase-item-dropdown-sub-title.sub-title-no').text());
+                            $('.showcase-item-dropdown-actual-notification').removeClass('active');
+                            $('.showcase-item-dropdown-select').removeClass('active');
+                        }
+                        $('.showcase-item-dropdown-list .pipe-list').html(result.slice(1));
+                    }
+                });
             }
             handleNotification();
             setInterval(handleNotification, 10000);

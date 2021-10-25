@@ -780,8 +780,7 @@ img {
 }
 
 .user-list {
-    max-height: 697px;
-    height: 100%;
+    height: 660px;
     width: 100%;
     display: flex;
     align-items: stretch;
@@ -789,6 +788,13 @@ img {
     gap: 20px 50px;
     overflow: auto;
 }
+
+.loading {
+    list-style: none;
+    color: #a7a7a7;
+    margin: 0.25rem 0.25rem 0;
+}
+
 .user-list .user-item {
     width: calc(20% - 40px);
     max-height: 335px;
@@ -953,6 +959,7 @@ img {
     height: 230px;
     pointer-events: none;
     display: block;
+    margin-bottom: 0;
 }
 .facility-content-main .pipe-item-heading {
     width: 100%;
@@ -1058,8 +1065,7 @@ img {
     display: block;
 }
 .facility-list .facility-list-showcase .list {
-    max-height: 660px;
-    height: 100%;
+    height: 646px;
     overflow: auto;
     display: flex;
     flex-wrap: wrap;

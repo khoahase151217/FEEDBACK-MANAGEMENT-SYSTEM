@@ -827,7 +827,7 @@ public class UserDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*,t2.Name as statusName,t3.Name as RoleName"
+                String sql = "SELECT TOP 10 t1.*,t2.Name as statusName,t3.Name as RoleName"
                         + " FROM tblUser t1 "
                         + " JOIN tblUserStatus t2 "
                         + " ON t1.StatusID=t2.StatusID "
@@ -879,7 +879,7 @@ public class UserDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*,t2.Name as statusName,t3.Name as RoleName"
+                String sql = "SELECT TOP 10 t1.*,t2.Name as statusName,t3.Name as RoleName"
                         + " FROM tblUser t1 "
                         + " JOIN tblUserStatus t2 "
                         + " ON t1.StatusID=t2.StatusID "
@@ -933,6 +933,62 @@ public class UserDAO {
         return list;
     }
 
+    public List<UserDTO> showAllUserNext(int amount) throws SQLException {
+
+        List<UserDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+
+                String sql = "SELECT t1.*,t2.Name as statusName,t3.Name as RoleName"
+                        + " FROM tblUser t1 "
+                        + " JOIN tblUserStatus t2 "
+                        + " ON t1.StatusID=t2.StatusID "
+                        + " JOIN tblRole t3 on t1.RoleID = t3.RoleID "
+                        + " order by t1.FullName asc "
+                        + " OFFSET ? ROWS "
+                        + " FETCH NEXT 10 ROWS ONLY ";
+                stm = conn.prepareCall(sql);
+                stm.setInt(1, amount);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String userID = rs.getString("UserID");
+                    String name = rs.getString("FullName");
+                    String email = rs.getString("Email");
+                    String RoleID = rs.getString("RoleID");
+                    String StatusID = rs.getString("StatusID");
+                    String Image = rs.getString("Image");
+                    //
+                    String RoleName = rs.getString("roleName");
+                    String StatusName = rs.getString("statusName");
+                    byte[] tmp = rs.getBytes("BinaryImage");
+                    if (tmp != null) {
+                        String base64Image = Base64.getEncoder().encodeToString(tmp);
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, RoleName, StatusName)));
+                    } else {
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, RoleName, StatusName)));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
     public List<UserDTO> showAllStudentAsc() throws SQLException {
 
         List<UserDTO> list = new ArrayList<>();
@@ -942,7 +998,7 @@ public class UserDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*,t2.Name as statusName,t3.Name as RoleName"
+                String sql = "SELECT TOP 10 t1.*,t2.Name as statusName,t3.Name as RoleName"
                         + " FROM tblUser t1 "
                         + " JOIN tblUserStatus t2 "
                         + " ON t1.StatusID=t2.StatusID "
@@ -1039,6 +1095,63 @@ public class UserDAO {
         return list;
     }
 
+    public List<UserDTO> showAllStudentNext(int amount) throws SQLException {
+
+        List<UserDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+
+                String sql = "SELECT t1.*,t2.Name as statusName,t3.Name as RoleName"
+                        + " FROM tblUser t1 "
+                        + " JOIN tblUserStatus t2 "
+                        + " ON t1.StatusID=t2.StatusID "
+                        + " JOIN tblRole t3 on t1.RoleID = t3.RoleID "
+                        + " WHERE t1.RoleID = 'US' "
+                        + " order by t1.FullName asc "
+                        + " OFFSET ? ROWS "
+                        + " FETCH NEXT 10 ROWS ONLY ";
+                stm = conn.prepareCall(sql);
+                stm.setInt(1, amount);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String userID = rs.getString("UserID");
+                    String name = rs.getString("FullName");
+                    String email = rs.getString("Email");
+                    String RoleID = rs.getString("RoleID");
+                    String StatusID = rs.getString("StatusID");
+                    String Image = rs.getString("Image");
+                    //
+                    String RoleName = rs.getString("roleName");
+                    String StatusName = rs.getString("statusName");
+                    byte[] tmp = rs.getBytes("BinaryImage");
+                    if (tmp != null) {
+                        String base64Image = Base64.getEncoder().encodeToString(tmp);
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, RoleName, StatusName)));
+                    } else {
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, RoleName, StatusName)));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
     public List<UserDTO> showAllEmployeeAsc() throws SQLException {
 
         List<UserDTO> list = new ArrayList<>();
@@ -1048,7 +1161,7 @@ public class UserDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*,t2.Name as statusName,t3.Name as RoleName"
+                String sql = "SELECT TOP 10 t1.*,t2.Name as statusName,t3.Name as RoleName"
                         + " FROM tblUser t1 "
                         + " JOIN tblUserStatus t2 "
                         + " ON t1.StatusID=t2.StatusID "
@@ -1145,6 +1258,63 @@ public class UserDAO {
         return list;
     }
 
+    public List<UserDTO> showAllEmployeeNext(int amount) throws SQLException {
+
+        List<UserDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+
+                String sql = "SELECT t1.*,t2.Name as statusName,t3.Name as RoleName"
+                        + " FROM tblUser t1 "
+                        + " JOIN tblUserStatus t2 "
+                        + " ON t1.StatusID=t2.StatusID "
+                        + " JOIN tblRole t3 on t1.RoleID = t3.RoleID "
+                        + " WHERE t1.RoleID != 'US' And t1.RoleID != 'AD' "
+                        + " order by t1.FullName asc "
+                        + " OFFSET ? ROWS "
+                        + " FETCH NEXT 10 ROWS ONLY ";
+                stm = conn.prepareCall(sql);
+                stm.setInt(1, amount);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String userID = rs.getString("UserID");
+                    String name = rs.getString("FullName");
+                    String email = rs.getString("Email");
+                    String RoleID = rs.getString("RoleID");
+                    String StatusID = rs.getString("StatusID");
+                    String Image = rs.getString("Image");
+                    //
+                    String RoleName = rs.getString("roleName");
+                    String StatusName = rs.getString("statusName");
+                    byte[] tmp = rs.getBytes("BinaryImage");
+                    if (tmp != null) {
+                        String base64Image = Base64.getEncoder().encodeToString(tmp);
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, RoleName, StatusName)));
+                    } else {
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, RoleName, StatusName)));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
     public List<UserDTO> showAllListActiveUserAsc() throws SQLException {
 
         List<UserDTO> list = new ArrayList<>();
@@ -1154,7 +1324,7 @@ public class UserDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*,t2.Name as statusName,t3.Name as RoleName"
+                String sql = "SELECT TOP 10 t1.*,t2.Name as statusName,t3.Name as RoleName"
                         + " FROM tblUser t1 "
                         + " JOIN tblUserStatus t2 "
                         + " ON t1.StatusID=t2.StatusID "
@@ -1251,6 +1421,63 @@ public class UserDAO {
         return list;
     }
 
+    public List<UserDTO> showAllActiveNext(int amount) throws SQLException {
+
+        List<UserDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+
+                String sql = "SELECT t1.*,t2.Name as statusName,t3.Name as RoleName"
+                        + " FROM tblUser t1 "
+                        + " JOIN tblUserStatus t2 "
+                        + " ON t1.StatusID=t2.StatusID "
+                        + " JOIN tblRole t3 on t1.RoleID = t3.RoleID "
+                        + " WHERE t1.StatusID ='active' "
+                        + " order by t1.FullName asc "
+                        + " OFFSET ? ROWS "
+                        + " FETCH NEXT 10 ROWS ONLY ";
+                stm = conn.prepareCall(sql);
+                stm.setInt(1, amount);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String userID = rs.getString("UserID");
+                    String name = rs.getString("FullName");
+                    String email = rs.getString("Email");
+                    String RoleID = rs.getString("RoleID");
+                    String StatusID = rs.getString("StatusID");
+                    String Image = rs.getString("Image");
+                    //
+                    String RoleName = rs.getString("roleName");
+                    String StatusName = rs.getString("statusName");
+                    byte[] tmp = rs.getBytes("BinaryImage");
+                    if (tmp != null) {
+                        String base64Image = Base64.getEncoder().encodeToString(tmp);
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, RoleName, StatusName)));
+                    } else {
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, RoleName, StatusName)));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
     public List<UserDTO> showAllListInactiveUserAsc() throws SQLException {
 
         List<UserDTO> list = new ArrayList<>();
@@ -1260,7 +1487,7 @@ public class UserDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*,t2.Name as statusName,t3.Name as RoleName"
+                String sql = "SELECT TOP 10 t1.*,t2.Name as statusName,t3.Name as RoleName"
                         + " FROM tblUser t1 "
                         + " JOIN tblUserStatus t2 "
                         + " ON t1.StatusID=t2.StatusID "
@@ -1321,6 +1548,63 @@ public class UserDAO {
                         + " WHERE t1.StatusID ='inactive' "
                         + " order by t1.FullName desc ";
                 stm = conn.prepareCall(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String userID = rs.getString("UserID");
+                    String name = rs.getString("FullName");
+                    String email = rs.getString("Email");
+                    String RoleID = rs.getString("RoleID");
+                    String StatusID = rs.getString("StatusID");
+                    String Image = rs.getString("Image");
+                    //
+                    String RoleName = rs.getString("roleName");
+                    String StatusName = rs.getString("statusName");
+                    byte[] tmp = rs.getBytes("BinaryImage");
+                    if (tmp != null) {
+                        String base64Image = Base64.getEncoder().encodeToString(tmp);
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, RoleName, StatusName)));
+                    } else {
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, RoleName, StatusName)));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<UserDTO> showAllInactiveNext(int amount) throws SQLException {
+
+        List<UserDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+
+                String sql = "SELECT t1.*,t2.Name as statusName,t3.Name as RoleName"
+                        + " FROM tblUser t1 "
+                        + " JOIN tblUserStatus t2 "
+                        + " ON t1.StatusID=t2.StatusID "
+                        + " JOIN tblRole t3 on t1.RoleID = t3.RoleID "
+                        + " WHERE t1.StatusID ='inactive' "
+                        + " order by t1.FullName asc "
+                        + " OFFSET ? ROWS "
+                        + " FETCH NEXT 10 ROWS ONLY ";
+                stm = conn.prepareCall(sql);
+                stm.setInt(1, amount);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     String userID = rs.getString("UserID");
@@ -1665,13 +1949,68 @@ public class UserDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
+                String sql = "SELECT TOP 10 t1.* , t2.Name as StatusName,t3.Name as roleName "
+                        + " FROM tblUser t1 "
+                        + " JOIN tblUserStatus t2 on t1.StatusID = t2.StatusID "
+                        + " JOIN tblRole t3 on t1.RoleID=t3.RoleID "
+                        + " WHERE t1.FullName like ?"
+                        + " order by t1.FullName asc ";
+                stm = conn.prepareCall(sql);
+                stm.setString(1, "%" + search + "%");
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String userID = rs.getString("UserID");
+                    String name = rs.getString("FullName");
+                    String email = rs.getString("Email");
+                    String RoleID = rs.getString("RoleID");
+                    String StatusID = rs.getString("StatusID");
+                    String Image = rs.getString("Image");
+                    String RoleName = rs.getString("roleName");
+                    String StatusName = rs.getString("statusName");
+                    byte[] tmp = rs.getBytes("BinaryImage");
+                    if (tmp != null) {
+                        String base64Image = Base64.getEncoder().encodeToString(tmp);
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, RoleName, StatusName)));
+                    } else {
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, RoleName, StatusName)));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<UserDTO> getListStudentNext(String search, int amount) throws SQLException {
+        List<UserDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
                 String sql = "SELECT t1.* , t2.Name as StatusName,t3.Name as roleName "
                         + " FROM tblUser t1 "
                         + " JOIN tblUserStatus t2 on t1.StatusID = t2.StatusID "
                         + " JOIN tblRole t3 on t1.RoleID=t3.RoleID "
-                        + " WHERE t1.FullName like ?";
+                        + " WHERE t1.FullName like ? "
+                        + " order by t1.FullName asc "
+                        + " OFFSET ? ROWS "
+                        + " FETCH NEXT 10 ROWS ONLY ";
                 stm = conn.prepareCall(sql);
                 stm.setString(1, "%" + search + "%");
+                stm.setInt(2, amount);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     String userID = rs.getString("UserID");
@@ -1940,7 +2279,7 @@ public class UserDAO {
                     String deviceName = rs.getString("FacilityName");
                     String date = rs.getString("Date");
                     String description = rs.getString("Description");
-                    
+
                     list.add(new FeedbackDetailDTO(feedbackDetailID, facilityID, "", feedbackID, quantity, reason, location, "", false, deviceName, date, "", description));
                 }
             }

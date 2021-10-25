@@ -27,13 +27,62 @@ public class FacilityDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
+                String sql = "SELECT TOP 10 t1.*, t2.Name as statusName "
+                        + " FROM tblFacilities t1 "
+                        + " JOIN tblFacilityStatus t2 "
+                        + " ON t1.StatusID = t2.StatusID "
+                        + " WHERE t1.Name like ? "
+                        + " order by t1.name asc";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, "%" + search + "%");
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String facilityId = rs.getString("FacilityID");
+                    String name = rs.getString("Name");
+                    int quantity = rs.getInt("Quantity");
+                    String date = rs.getString("MaintenanceDate");
+                    String statusId = rs.getString("StatusID");
+                    String categoryId = rs.getString("CategoryID");
+                    String statusName = rs.getString("statusName");
+                    String image = rs.getString("image");
+                    list.add(new FacilityDTO(facilityId, name, quantity, date, statusId, categoryId, statusName, image));
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<FacilityDTO> getListFacilityByNameNext(String search, int amount) throws SQLException {
+        List<FacilityDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
                 String sql = "SELECT t1.*, t2.Name as statusName "
                         + " FROM tblFacilities t1 "
                         + " JOIN tblFacilityStatus t2 "
                         + " ON t1.StatusID = t2.StatusID "
-                        + " WHERE t1.Name like ?";
+                        + " WHERE t1.Name like ? "
+                        + " order by t1.name asc "
+                        + " OFFSET ? ROWS "
+                        + " FETCH NEXT 10 ROWS ONLY ";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, "%" + search + "%");
+                ps.setInt(2,amount);
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     String facilityId = rs.getString("FacilityID");
@@ -318,7 +367,7 @@ public class FacilityDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*, t2.Name as statusName "
+                String sql = "SELECT TOP 10 t1.*, t2.Name as statusName "
                         + " FROM tblFacilities t1 "
                         + " JOIN tblFacilityStatus t2 "
                         + " ON t1.StatusID = t2.StatusID "
@@ -367,6 +416,52 @@ public class FacilityDAO {
                         + " ON t1.StatusID = t2.StatusID "
                         + " Order by t1.Name desc";
                 ps = conn.prepareStatement(sql);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String facilityId = rs.getString("FacilityID");
+                    String name = rs.getString("Name");
+                    int quantity = rs.getInt("Quantity");
+                    String date = rs.getString("MaintenanceDate");
+                    String statusId = rs.getString("StatusID");
+                    String categoryId = rs.getString("CategoryID");
+                    String statusName = rs.getString("statusName");
+                    String image = rs.getString("Image");
+                    list.add(new FacilityDTO(facilityId, name, quantity, date, statusId, categoryId, statusName, image));
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<FacilityDTO> getAllListFacilityNext(int amount) throws SQLException {
+        List<FacilityDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT t1.*, t2.Name as statusName "
+                        + " FROM tblFacilities t1 "
+                        + " JOIN tblFacilityStatus t2 "
+                        + " ON t1.StatusID = t2.StatusID "
+                        + " Order by t1.Name asc "
+                        + " OFFSET ? ROWS "
+                        + " FETCH NEXT 10 ROWS ONLY ";
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, amount);
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     String facilityId = rs.getString("FacilityID");
@@ -580,7 +675,7 @@ public class FacilityDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*, t2.Name as statusName "
+                String sql = "SELECT TOP 10 t1.*, t2.Name as statusName "
                         + " FROM tblFacilities t1 "
                         + " JOIN tblFacilityStatus t2 "
                         + " ON t1.StatusID = t2.StatusID "
@@ -660,7 +755,7 @@ public class FacilityDAO {
         return list;
     }
 
-    public List<FacilityDTO> getListWaterFacilityAsc() throws SQLException {
+    public List<FacilityDTO> getListElectricFacilityNext(int amount) throws SQLException {
         List<FacilityDTO> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ps = null;
@@ -669,6 +764,53 @@ public class FacilityDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 String sql = "SELECT t1.*, t2.Name as statusName "
+                        + " FROM tblFacilities t1 "
+                        + " JOIN tblFacilityStatus t2 "
+                        + " ON t1.StatusID = t2.StatusID "
+                        + " WHERE t1.CategoryID='TD' "
+                        + " Order by t1.Name asc"
+                        + " OFFSET ? ROWS "
+                        + " FETCH NEXT 10 ROWS ONLY ";
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, amount);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String facilityId = rs.getString("FacilityID");
+                    String name = rs.getString("Name");
+                    int quantity = rs.getInt("Quantity");
+                    String date = rs.getString("MaintenanceDate");
+                    String statusId = rs.getString("StatusID");
+                    String categoryId = rs.getString("CategoryID");
+                    String statusName = rs.getString("statusName");
+                    String image = rs.getString("Image");
+                    list.add(new FacilityDTO(facilityId, name, quantity, date, statusId, categoryId, statusName, image));
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<FacilityDTO> getListWaterFacilityAsc() throws SQLException {
+        List<FacilityDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT TOP 10 t1.*, t2.Name as statusName "
                         + " FROM tblFacilities t1 "
                         + " JOIN tblFacilityStatus t2 "
                         + " ON t1.StatusID = t2.StatusID "
@@ -748,7 +890,7 @@ public class FacilityDAO {
         return list;
     }
 
-    public List<FacilityDTO> getListEnviromentFacilityAsc() throws SQLException {
+    public List<FacilityDTO> getListWaterFacilityNext(int amount) throws SQLException {
         List<FacilityDTO> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ps = null;
@@ -757,6 +899,53 @@ public class FacilityDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 String sql = "SELECT t1.*, t2.Name as statusName "
+                        + " FROM tblFacilities t1 "
+                        + " JOIN tblFacilityStatus t2 "
+                        + " ON t1.StatusID = t2.StatusID "
+                        + " WHERE t1.CategoryID='TN' "
+                        + " Order by t1.Name asc"
+                        + " OFFSET ? ROWS "
+                        + " FETCH NEXT 10 ROWS ONLY ";
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, amount);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String facilityId = rs.getString("FacilityID");
+                    String name = rs.getString("Name");
+                    int quantity = rs.getInt("Quantity");
+                    String date = rs.getString("MaintenanceDate");
+                    String statusId = rs.getString("StatusID");
+                    String categoryId = rs.getString("CategoryID");
+                    String statusName = rs.getString("statusName");
+                    String image = rs.getString("Image");
+                    list.add(new FacilityDTO(facilityId, name, quantity, date, statusId, categoryId, statusName, image));
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<FacilityDTO> getListEnviromentFacilityAsc() throws SQLException {
+        List<FacilityDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT TOP 10 t1.*, t2.Name as statusName "
                         + " FROM tblFacilities t1 "
                         + " JOIN tblFacilityStatus t2 "
                         + " ON t1.StatusID = t2.StatusID "
@@ -836,7 +1025,7 @@ public class FacilityDAO {
         return list;
     }
 
-    public List<FacilityDTO> getListOthersFacilityAsc() throws SQLException {
+    public List<FacilityDTO> getListEnviromentFacilityNext(int amount) throws SQLException {
         List<FacilityDTO> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ps = null;
@@ -845,6 +1034,53 @@ public class FacilityDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 String sql = "SELECT t1.*, t2.Name as statusName "
+                        + " FROM tblFacilities t1 "
+                        + " JOIN tblFacilityStatus t2 "
+                        + " ON t1.StatusID = t2.StatusID "
+                        + " WHERE t1.CategoryID='EN' "
+                        + " Order by t1.Name Asc"
+                        + " OFFSET ? ROWS "
+                        + " FETCH NEXT 10 ROWS ONLY ";
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, amount);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String facilityId = rs.getString("FacilityID");
+                    String name = rs.getString("Name");
+                    int quantity = rs.getInt("Quantity");
+                    String date = rs.getString("MaintenanceDate");
+                    String statusId = rs.getString("StatusID");
+                    String categoryId = rs.getString("CategoryID");
+                    String statusName = rs.getString("statusName");
+                    String image = rs.getString("Image");
+                    list.add(new FacilityDTO(facilityId, name, quantity, date, statusId, categoryId, statusName, image));
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<FacilityDTO> getListOthersFacilityAsc() throws SQLException {
+        List<FacilityDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT TOP 10 t1.*, t2.Name as statusName "
                         + " FROM tblFacilities t1 "
                         + " JOIN tblFacilityStatus t2 "
                         + " ON t1.StatusID = t2.StatusID "
@@ -895,6 +1131,53 @@ public class FacilityDAO {
                         + " WHERE t1.CategoryID!='3' and t1.CategoryID!='2' and t1.CategoryID!='1'"
                         + " Order by t1.Name Desc";
                 ps = conn.prepareStatement(sql);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String facilityId = rs.getString("FacilityID");
+                    String name = rs.getString("Name");
+                    int quantity = rs.getInt("Quantity");
+                    String date = rs.getString("MaintenanceDate");
+                    String statusId = rs.getString("StatusID");
+                    String categoryId = rs.getString("CategoryID");
+                    String statusName = rs.getString("statusName");
+                    String image = rs.getString("Image");
+                    list.add(new FacilityDTO(facilityId, name, quantity, date, statusId, categoryId, statusName, image));
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<FacilityDTO> getListOthersFacilityNext(int amount) throws SQLException {
+        List<FacilityDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT t1.*, t2.Name as statusName "
+                        + " FROM tblFacilities t1 "
+                        + " JOIN tblFacilityStatus t2 "
+                        + " ON t1.StatusID = t2.StatusID "
+                        + " WHERE t1.CategoryID!='TD' and t1.CategoryID!='TN' and t1.CategoryID!='EN'"
+                        + " Order by t1.Name Asc"
+                        + " OFFSET ? ROWS "
+                        + " FETCH NEXT 10 ROWS ONLY ";
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, amount);
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     String facilityId = rs.getString("FacilityID");
@@ -975,6 +1258,7 @@ public class FacilityDAO {
         }
         return list;
     }
+
     public List<FacilityDTO> selectTop3ByYear(String year) throws SQLException {
         List<FacilityDTO> list = new ArrayList<>();
         Connection conn = null;
@@ -1021,6 +1305,7 @@ public class FacilityDAO {
         }
         return list;
     }
+
     public List<FacilityDTO> selectTop3ByMonth(String month, String year) throws SQLException {
         List<FacilityDTO> list = new ArrayList<>();
         Connection conn = null;
@@ -1068,8 +1353,6 @@ public class FacilityDAO {
         }
         return list;
     }
-
-    
 
 //    Hàm mới nhé
 //    public List<FacilityDTO> getAllListFacilityAsc() throws SQLException {
@@ -1333,4 +1616,4 @@ public class FacilityDAO {
 //        }
 //        return list;
 //    }
-    }
+}

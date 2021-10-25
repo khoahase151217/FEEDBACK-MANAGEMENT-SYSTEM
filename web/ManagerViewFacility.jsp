@@ -33,7 +33,7 @@
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
         ></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage2.css" />
     </head>
     <body>
 
@@ -360,7 +360,7 @@
                                                 </ul>
                                                 <div class="facility-list-showcase">
                                                     <!-- list All -->
-                                                    <div class="facility-list-showcase-item active">
+                                                    <div class="facility-list-showcase-item active" data-index="0">
                                                         <div class="list">
                                                             <c:if test="${empty sessionScope.FACILTIES_LIST_ALL}">
                                                                 <p class="showcase-desc">
@@ -393,7 +393,7 @@
                                                         </div>
                                                     </div>
                                                     <!-- list Electronic -->
-                                                    <div class="facility-list-showcase-item">
+                                                    <div class="facility-list-showcase-item" data-index="1">
                                                         <div class="list">
                                                             <c:if test="${empty sessionScope.FACILTIES_LIST_ELECTRIC}">
                                                                 <p class="showcase-desc">
@@ -426,7 +426,7 @@
                                                         </div>
                                                     </div>
                                                     <!-- list Water -->
-                                                    <div class="facility-list-showcase-item">
+                                                    <div class="facility-list-showcase-item" data-index="2">
                                                         <div class="list">
                                                             <c:if test="${empty sessionScope.FACILTIES_LIST_WATER}">
                                                                 <p class="showcase-desc">
@@ -459,7 +459,7 @@
                                                         </div>
                                                     </div>
                                                     <!-- list Environment -->
-                                                    <div class="facility-list-showcase-item">
+                                                    <div class="facility-list-showcase-item" data-index="3">
                                                         <div class="list">
                                                             <c:if test="${empty sessionScope.FACILTIES_LIST_ENVIROMENT}">
                                                                 <p class="showcase-desc">
@@ -492,7 +492,7 @@
                                                         </div>
                                                     </div>
                                                     <!-- list Others -->
-                                                    <div class="facility-list-showcase-item">
+                                                    <div class="facility-list-showcase-item" data-index="4">
                                                         <div class="list">
                                                             <c:if test="${empty sessionScope.FACILTIES_LIST_OTHERS}">
                                                                 <p class="showcase-desc">
@@ -538,6 +538,53 @@
 
         <script src="${pageContext.request.contextPath}/js/adminPage1.js"></script>
         <script src="${pageContext.request.contextPath}/js/ManagerFacility.js"></script>
+        <!-- Query -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script>
+            function loadResults(index, list) {
+                let amount = list.querySelectorAll('.pipe-item').length;
+                let search = document.querySelector('input[name="search"]').value;
+                $.ajax({
+                    url: "/SWP391_PROJECT/LoadFacilities",
+                    type: "post",
+                    data: {
+                        amount: amount,
+                        flag_navigation: index,
+                        search: search
+                    },
+                    beforeSend: function (xhr) {
+                        $(list).after($("<li class='loading'>Loading...</li>").fadeIn('slow')).data("loading", true);
+                    },
+                    success: function (data) {
+                        setTimeout(() => {
+                            var $results = $(list);
+
+                            $(".loading").fadeOut('fast', function () {
+                                $(this).remove();
+                            });
+                            var $data = $(data);
+                            $results.append($data);
+                            $data.show("slow");
+                            $results.removeData("loading");
+                        }, 1500)
+                    }
+                });
+            }
+            ;
+
+            $(function () {
+                Array.from($(".list")).forEach(item => {
+                    item.addEventListener('scroll', (e) => {
+                        var list = e.target.closest('.list');
+                        if (!e.target.getAttribute("data-loading")) {
+                            if (Math.ceil(list.offsetHeight + list.scrollTop) === list.scrollHeight) {
+                                loadResults(e.target.closest('.facility-list-showcase-item').dataset.index, list);
+                            }
+                        }
+                    });
+                });
+            });
+        </script>
     </body>
 </html>
 
