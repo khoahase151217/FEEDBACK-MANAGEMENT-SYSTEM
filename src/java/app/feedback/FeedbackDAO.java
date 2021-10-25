@@ -1173,7 +1173,7 @@ public class FeedbackDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 String sql = " UPDATE tblFeedbackDetail "
-                        + " SET UserID=? "
+                        + " SET UserID=?,AssignDate=CURRENT_TIMESTAMP "
                         + " WHERE FeedbackDetailID=? ";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, userId);

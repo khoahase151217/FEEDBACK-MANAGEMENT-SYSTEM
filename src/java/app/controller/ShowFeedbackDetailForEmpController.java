@@ -6,6 +6,7 @@
 package app.controller;
 
 import app.employees.EmployeesDAO;
+import app.feedback.FeedbackDTO;
 import app.feedback.FeedbackDetailDTO;
 import app.response.ResponseDTO;
 import app.users.UserDTO;
@@ -40,6 +41,13 @@ public class ShowFeedbackDetailForEmpController extends HttpServlet {
             String history = (String) request.getParameter("history");
             UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
             String feedbackDetailID = (String) request.getAttribute("FEEDBACK_DETAIL_ID");
+            List<FeedbackDTO> listFB = (List<FeedbackDTO>)  session.getAttribute("LIST_FEEDBACK");
+            int count=0;
+            for (FeedbackDTO FB : listFB) {
+                List<FeedbackDetailDTO> dto = dao.showListFeedbackDetail(FB.getUserID(), FB.getFeedbackID());
+                count+=dto.size();
+            }
+             session.setAttribute("COUNT_DETAIL_NOTIFICATION", count);
             if (feedbackID == null) {
                 feedbackID = (String) session.getAttribute("FEEDBACK");
             }

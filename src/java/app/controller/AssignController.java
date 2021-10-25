@@ -59,6 +59,7 @@ public class AssignController extends HttpServlet {
             String categoryPending = request.getParameter("style_list_category_pending");
             String categoryOnGoing = request.getParameter("style_list_category_onGoing");
             if (dao.assignEmployee(feedbackDetailID, userId)) {
+                
                 String feedbackID = request.getParameter("feedbackID");
                 List<String> roleIDList = dao.getRoleID(feedbackID);
                 if (roleIDList.isEmpty()) {

@@ -19,18 +19,18 @@ window.addEventListener('load', () => {
     }
 });
 // Javascript for Feedback Page
-Array.from(items).forEach((item) => {
-    item.addEventListener("click", (e) => {
-        Array.from(items).forEach((item) => item.classList.remove("active"));
-        e.target.closest(".showcase-item").classList.add("active");
-
-        Array.from(contents).forEach((content) =>
-            content.classList.remove("active")
-        );
-        let index = e.target.closest(".showcase-item").dataset.index;
-        Array.from(contents)[index].classList.add("active");
-    });
-});
+//Array.from(items).forEach((item) => {
+//    item.addEventListener("click", (e) => {
+//        Array.from(items).forEach((item) => item.classList.remove("active"));
+//        e.target.closest(".showcase-item").classList.add("active");
+//
+//        Array.from(contents).forEach((content) =>
+//            content.classList.remove("active")
+//        );
+//        let index = e.target.closest(".showcase-item").dataset.index;
+//        Array.from(contents)[index].classList.add("active");
+//    });
+//});
 
 Array.from(navigationItems).forEach((item) => {
     item.addEventListener("click", (e) => {
@@ -194,3 +194,6 @@ document.querySelector(".user-form .modal").addEventListener("click", (e) => {
         return;
     e.target.closest(".user-form").classList.remove("open");
 });
+function handleReloadPage() {
+    window.location.replace("/SWP391_PROJECT/ShowFeedbackForEmpController");
+}

@@ -251,7 +251,10 @@
                                     </a>
                                     <span></span>
                                 </li>
-                                <li class="showcase-item" data-index="1">
+                                <li
+                                    class="showcase-item showcase-item-dropdown-select"
+                                    data-index="4"
+                                    >
                                     <a href="#" class="showcase-link">
                                         <ion-icon
                                             name="notifications-outline"
@@ -263,6 +266,22 @@
                                             ></ion-icon>
                                     </a>
                                     <span></span>
+                                    <div class="showcase-item-dropdown-list">
+                                        <h4 class="showcase-item-dropdown-title">Notification</h4>
+                                        <h5 class="showcase-item-dropdown-sub-title">
+                                            You have ${sessionScope.NOTIFICATION_QUANTITY} new feedback
+                                        </h5>
+                                        <h5 class="showcase-item-dropdown-sub-title sub-title-no">
+                                            No notification can be found ...
+                                        </h5> 
+
+                                        <div class="pipe-list">
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="showcase-item-dropdown-actual-notification"
+                                        >
+                                    </div>
                                 </li>
                             </ul>
                             <div class="showcase-profile">
@@ -1046,30 +1065,63 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="showcase-content-item">1234</div>
                         </div>
                     </div>
+                    <c:choose>
+                        <c:when test="${sessionScope.COUNT_DETAIL_NOTIFICATION eq null}" >
+                            <input id="COUNT_DETAIL_NOTIFICATION" type="hidden" name="COUNT_DETAIL_NOTIFICATION" value="0"/>
+
+                        </c:when>
+                        <c:otherwise >
+                            <input id="COUNT_DETAIL_NOTIFICATION" type="hidden" name="COUNT_DETAIL_NOTIFICATION" value="${sessionScope.COUNT_DETAIL_NOTIFICATION}"/>
+                        </c:otherwise>
+                    </c:choose>
+                    <input id="LOGIN_USER" type="hidden" name="LOGIN_USER" value="${sessionScope.LOGIN_USER.userID}"/>
+
                 </div>
             </section>
         </main>
-        <script src="${pageContext.request.contextPath}/js/EmployeeHome.js"></script>
+        <script src="${pageContext.request.contextPath}/js/EmployeeHome1.js"></script>
         <!-- Query -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
         <script>
+                    const user = document.querySelector('#LOGIN_USER').value;
+            function handleNotification() {
+                const count = document.querySelector('#COUNT_DETAIL_NOTIFICATION').value;
+                            $.ajax({
+                            type: "POST",
+                                    url: "/SWP391_PROJECT/NotificationEmployeeController",
+                                    data: {notification: count, userId: user},
+                                    success: function (result) {
+                                    if (result !== '') {
+                                    var lenght = result.slice(0, 1);
+                                            $('.showcase-item-dropdown-actual-notification').addClass('active');
+                                            $('.showcase-item-dropdown-actual-notification').html(lenght);
+                                            $('.showcase-item-dropdown-select').addClass('active');
+                                            $('.showcase-item-dropdown-sub-title').html("You have " + lenght + " new feedback");
+                                    } else {
+                                    $('.showcase-item-dropdown-sub-title').html($('.showcase-item-dropdown-sub-title.sub-title-no').text());
+                                            $('.showcase-item-dropdown-actual-notification').removeClass('active');
+                                            $('.showcase-item-dropdown-select').removeClass('active');
+                                    }
+                                    $('.showcase-item-dropdown-list .pipe-list').html(result.slice(1));
+                                    }
+                            });
+            }
+            handleNotification();
+            setInterval(handleNotification, 10000);
             $(function () {
                 var imagesPreview = function (input, placeToInsertImagePreview) {
                     if (input.files) {
                         var filesAmount = input.files.length;
-
                         for (i = 0; i < filesAmount; i++) {
                             var reader = new FileReader();
-
                             reader.onload = function (event) {
                                 $($.parseHTML("<img>"))
                                         .attr("src", event.target.result)
                                         .appendTo(placeToInsertImagePreview);
                             };
-
                             reader.readAsDataURL(input.files[i]);
                         }
                     }
@@ -1077,31 +1129,25 @@
                 var imagesPreview2 = function (input) {
                     if (input.files) {
                         var filesAmount = input.files.length;
-
                         for (i = 0; i < filesAmount; i++) {
                             var reader = new FileReader();
-
                             reader.onload = function (event) {
 
                                 $(".avatar").attr("src", event.target.result);
                             };
-
                             reader.readAsDataURL(input.files[i]);
                         }
                     }
                 };
-
-                $(".reponse-form-drag-area").on("drop", (event) => {
+                $(".reponse-form-drag-area").on("drop", function (event) {
                     event.preventDefault();
                     $("#image").prop("files", event.originalEvent.dataTransfer.files);
                     $("#image").trigger("change");
                 });
-
                 $("#image").on("change", function (e) {
                     $(".reponse-form-image-show").empty();
                     imagesPreview(this, "div.reponse-form-image-show");
                 });
-
                 $("#avatarImage").on("change", function (e) {
                     imagesPreview2(this);
                 });
