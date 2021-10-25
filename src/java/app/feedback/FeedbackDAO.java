@@ -51,11 +51,11 @@ public class FeedbackDAO {
         props.put("mail.smtp.port", "587");
         Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {
-                    @Override
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(username, password);
-                    }
-                });
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+            }
+        });
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(email));
@@ -120,11 +120,11 @@ public class FeedbackDAO {
         props.put("mail.smtp.port", "587");
         Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {
-                    @Override
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(username, password);
-                    }
-                });
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+            }
+        });
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(email));
@@ -139,8 +139,8 @@ public class FeedbackDAO {
             body.append("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\"><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><title>Demystifying Email Design</title><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">"
                     + "<script type=\"module\" src=\"https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js\"></script><script nomodule=\"\" src=\"https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js\"></script></head><body style=\"margin:0;padding:0\"><style></style><table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"630\" class=\"table-main\"><tbody><tr><td align=\"center\" bgcolor=\"#e6bb7a\" style=\"padding:20px 0\"><img src=\"https://cdn.discordapp.com/attachments/770804043794350100/888843339439407104/toolkit.png\" alt=\"Creating Email Magic\" width=\"80\" height=\"80\" style=\"display:block\" class=\"logo\"><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"60%\" style=\"padding:15px 0 0\"><tbody>"
                     + "<tr><td valign=\"top\" align=\"center\" style=\"font-size:20px;font-weight:700;letter-spacing:1rem;font-family:Poppins,sans-serif\">Traversy</td></tr><tr><td valign=\"top\" align=\"center\" style=\"font-family:'Dancing Script',cursive;font-size:35px;font-weight:600\"><span style=\"color:#1f6a7e;font-family:'Dancing Script',cursive\">Announcement</span> Email</td></tr></tbody></table></td></tr><tr><td bgcolor=\"#fff\" style=\"padding:20px\"><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\"><tbody><tr><td style=\"color:#151111;font-weight:600;font-size:30px;font-family:Poppins,sans-serif\">Hello !</td></tr><tr><td style=\"color:#151111;font-weight:500;font-size:14px;padding:10px 0;font-family:Poppins,sans-serif\">This email is sent automatically from the <a href=\"http://localhost:8084/SWP391_PROJECT/\" style=\"font-weight:800;text-decoration:none;color:#151111\">Traversy</a> system, notifying your feedback has been denied</td>"
-                    + "</tr><tr><td style=\"padding:10px 0\"><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" bgcolor=\"#EBEBEB\" style=\"border-radius:10px;padding:10px 0\"><tbody><tr><td><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"padding:0 10px\"><tbody><tr><td style=\"font-weight:600;font-size:20px;line-height:0;font-family:Poppins,sans-serif\">"+detail.getDeviceName()+"</td><td align=\"right\" style=\"color:#a7a7a7;font-weight:500;font-size:13.5px;font-family:Poppins,sans-serif\">Oct 21 2021</td></tr></tbody></table></td></tr><tr><td style=\"font-size:14px;padding:0 10px;font-family:Poppins,sans-serif\">Room "+detail.getLocation()+"</td></tr><tr><td style=\"font-size:14px;padding:0 10px;font-family:Poppins,sans-serif\">Quantity: "+detail.getQuanity()+"</td></tr><tr><td style=\"font-size:14px;padding:0 10px;font-family:Poppins,sans-serif\">Reason: Broken</td></tr><tr><td style=\"font-size:14px;padding:30px 10px 0;font-family:Poppins,sans-serif\">"
-                    + "<span style=\"font-weight:600\">Ban Reason:</span> "+banReason+"</td></tr></tbody></table></td></tr><tr><td style=\"color:#151111;font-weight:500;font-size:14px;padding:10px 0;font-family:Poppins,sans-serif\">Your account have been <span style=\"font-weight:800;text-decoration:none;color:#151111\">warning at level " + level + "</span> , so that it have been locked " + time + " from now on</td></tr></tbody></table></td></tr><tr><td bgcolor=\"#e6bb7a\" style=\"padding:30px 30px 30px 30px\"><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"font-family:Poppins,sans-serif\"><tbody><tr><td width=\"75%\" style=\"font-size:12px\">Copyright © 2021 Traversy<br>Designed by <a href=\"#\" style=\"color:#615d58;text-decoration:none;font-weight:600\">MinhDuc</a> All Rights Reserved.</td><td align=\"right\"><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"><tbody><tr><td><a href=\"https://www.facebook.com/\" style=\"color:#151111;font-size:25px\"><img\n"
+                    + "</tr><tr><td style=\"padding:10px 0\"><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" bgcolor=\"#EBEBEB\" style=\"border-radius:10px;padding:10px 0\"><tbody><tr><td><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"padding:0 10px\"><tbody><tr><td style=\"font-weight:600;font-size:20px;line-height:0;font-family:Poppins,sans-serif\">" + detail.getDeviceName() + "</td><td align=\"right\" style=\"color:#a7a7a7;font-weight:500;font-size:13.5px;font-family:Poppins,sans-serif\">Oct 21 2021</td></tr></tbody></table></td></tr><tr><td style=\"font-size:14px;padding:0 10px;font-family:Poppins,sans-serif\">Room " + detail.getLocation() + "</td></tr><tr><td style=\"font-size:14px;padding:0 10px;font-family:Poppins,sans-serif\">Quantity: " + detail.getQuanity() + "</td></tr><tr><td style=\"font-size:14px;padding:0 10px;font-family:Poppins,sans-serif\">Reason: Broken</td></tr><tr><td style=\"font-size:14px;padding:30px 10px 0;font-family:Poppins,sans-serif\">"
+                    + "<span style=\"font-weight:600\">Ban Reason:</span> " + banReason + "</td></tr></tbody></table></td></tr><tr><td style=\"color:#151111;font-weight:500;font-size:14px;padding:10px 0;font-family:Poppins,sans-serif\">Your account have been <span style=\"font-weight:800;text-decoration:none;color:#151111\">warning at level " + level + "</span> , so that it have been locked " + time + " from now on</td></tr></tbody></table></td></tr><tr><td bgcolor=\"#e6bb7a\" style=\"padding:30px 30px 30px 30px\"><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"font-family:Poppins,sans-serif\"><tbody><tr><td width=\"75%\" style=\"font-size:12px\">Copyright © 2021 Traversy<br>Designed by <a href=\"#\" style=\"color:#615d58;text-decoration:none;font-weight:600\">MinhDuc</a> All Rights Reserved.</td><td align=\"right\"><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"><tbody><tr><td><a href=\"https://www.facebook.com/\" style=\"color:#151111;font-size:25px\"><img\n"
                     + "                          src=\"https://toppng.com/uploads/preview/facebook-logo-black-facebook-logo-png-black-115636506480t2wll0es7.png\"\n"
                     + "                          width=\"25\"\n"
                     + "                          height=\"25\"\n"
@@ -171,8 +171,8 @@ public class FeedbackDAO {
 
         return check;
     }
-    
-     public boolean sendLastWarning(String userEmail) {
+
+    public boolean sendLastWarning(String userEmail) {
         String email;
         Boolean check = false;
         String name = "Facility's Feedback System";
@@ -188,18 +188,18 @@ public class FeedbackDAO {
         props.put("mail.smtp.port", "587");
         Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {
-                    @Override
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(username, password);
-                    }
-                });
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+            }
+        });
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(email));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(email)); //set nguoi nhan 
 
             StringBuffer body = new StringBuffer("<html>");
-           
+
             body.append("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\"><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><title>Demystifying Email Design</title><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><script type=\"module\" src=\"https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js\"></script><script nomodule=\"\" src=\"https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js\"></script></head><body style=\"margin:0;padding:0\"><style></style><table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"630\" class=\"table-main\"><tbody><tr><td align=\"center\" bgcolor=\"#e6bb7a\" style=\"padding:20px 0\"><img src=\"https://cdn.discordapp.com/attachments/770804043794350100/888843339439407104/toolkit.png\" alt=\"Creating Email Magic\" width=\"80\" height=\"80\" style=\"display:block\" class=\"logo\"><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"60%\" style=\"padding:15px 0 0\"><tbody><tr><td valign=\"top\" align=\"center\" style=\"font-size:20px;font-weight:700;letter-spacing:1rem;font-family:Poppins,sans-serif\">Traversy</td></tr><tr><td valign=\"top\" align=\"center\" style=\"font-family:'Dancing Script',cursive;font-size:35px;font-weight:600\"><span style=\"color:#1f6a7e;font-family:'Dancing Script',cursive\">Violation</span> Email</td></tr></tbody></table></td></tr><tr><td bgcolor=\"#fff\" style=\"padding:20px\"><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\"><tbody><tr><td style=\"color:#151111;font-weight:600;font-size:30px;font-family:Poppins,sans-serif\">Hello !</td></tr><tr><td style=\"color:#151111;font-weight:500;font-size:14px;padding:10px 0;font-family:Poppins,sans-serif\">I am a member of <a href=\"http://localhost:8084/SWP391_PROJECT\" style=\"font-weight:800;color:#151111;text-decoration:none\">Traversy</a> System, and I am reaching out to you regarding your email for activate account.</td></tr><tr><td style=\"color:#151111;font-weight:500;font-size:14px;font-family:Poppins,sans-serif\"><span style=\"font-weight:800\">As a one-time exception</span>, we've granted you another chance to rejoin the <a href=\"http://localhost:8084/SWP391_PROJECT\" style=\"font-weight:800;color:#151111;text-decoration:none\">Facilities Feedback System</a></td></tr><tr><td style=\"color:#151111;font-weight:500;font-size:14px;padding:10px 0;font-family:Poppins,sans-serif\">Thank you for helping us uphold a strong platform of integrity.</td></tr></tbody></table></td></tr><tr><td bgcolor=\"#e6bb7a\" style=\"padding:30px 30px 30px 30px\"><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"font-family:Poppins,sans-serif\"><tbody><tr><td width=\"75%\" style=\"font-size:12px\">Copyright © 2021 Traversy<br>Designed by <a href=\"#\" style=\"color:#615d58;text-decoration:none;font-weight:600\">MinhDuc</a> All Rights Reserved.</td><td align=\"right\"><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"><tbody><tr><td><a href=\"https://www.facebook.com/\" style=\"color:#151111;font-size:25px\"><img src=\"https://toppng.com/uploads/preview/facebook-logo-black-facebook-logo-png-black-115636506480t2wll0es7.png\" width=\"25\" height=\"25\" alt=\"\" style=\"border-radius:50%\"></a></td><td style=\"font-size:0;line-height:0\" width=\"20\">&amp;nbsp;</td><td><a href=\"http://www.twitter.com/\" style=\"color:#151111;font-size:25px\"><img src=\"https://pngimg.com/uploads/twitter/twitter_PNG2.png\" width=\"25\" height=\"25\" alt=\"\" style=\"object-fit:cover\"></a></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></body></html>");
 
             message.setContent(body.toString(), "text/html");
@@ -229,11 +229,11 @@ public class FeedbackDAO {
         props.put("mail.smtp.port", "587");
         Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {
-                    @Override
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(username, password);
-                    }
-                });
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+            }
+        });
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(email));
@@ -566,7 +566,7 @@ public class FeedbackDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 // lấy list detail bằng facilityName, join 2 bảng bằng facilityID
-                String sql = "SELECT t1.*, t4.Email as email, t4.FullName as fullname, t2.Name as statusName "
+                String sql = "SELECT TOP 10 t1.*, t4.Email as email, t4.FullName as fullname, t2.Name as statusName "
                         + " FROM tblFeedback t1 "
                         + " JOIN tblFeedbackStatus t2 "
                         + " ON t1.StatusID=t2.FeedbackStatusID "
@@ -581,6 +581,60 @@ public class FeedbackDAO {
                         + " order by t1.Date desc ";
                 ps = conn.prepareStatement(sql);
 //                ps.setString(1, '%' + search + '%');
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    String date = rs.getString("Date");
+                    String userId = rs.getString("UserID");
+                    String statusId = rs.getString("statusID");
+                    String email = rs.getString("email");
+                    String fullname = rs.getString("fullname");
+                    String statusName = rs.getString("statusName");
+                    list.add(new FeedbackDTO(feedbackId, userId, date, email, statusId, fullname, statusName));
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<FeedbackDTO> getListFeedbackForManagerNext(String search, int amount) throws SQLException {
+        List<FeedbackDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                // lấy list detail bằng facilityName, join 2 bảng bằng facilityID
+                String sql = "SELECT t1.*, t4.Email as email, t4.FullName as fullname, t2.Name as statusName "
+                        + " FROM tblFeedback t1 "
+                        + " JOIN tblFeedbackStatus t2 "
+                        + " ON t1.StatusID=t2.FeedbackStatusID "
+                        + " JOIN tblFeedbackDetail t5"
+                        + " ON t1.FeedbackID=t5.FeedbackID"
+                        + " JOIN tblFacilities t3 "
+                        + " ON t5.FacilityID = t3.FacilityID"
+                        + " JOIN tblUser t4 "
+                        + " ON t1.UserID = t4.UserID "
+                        + " WHERE t3.Name like N'" + "%" + search + "%" + "' "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name"
+                        + " order by t1.Date desc "
+                        + " OFFSET ? ROWS "
+                        + " FETCH NEXT 10 ROWS ONLY";
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, amount);
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     String feedbackId = rs.getString("FeedbackID");
@@ -665,7 +719,7 @@ public class FeedbackDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 // lấy list detail bằng facilityName, join 2 bảng bằng facilityID
-                String sql = "SELECT t1.*, t4.Email as email, t4.FullName as fullname, t2.Name as statusName "
+                String sql = "SELECT TOP 10 t1.*, t4.Email as email, t4.FullName as fullname, t2.Name as statusName "
                         + " FROM tblFeedback t1 "
                         + " JOIN tblFeedbackStatus t2 "
                         + " ON t1.StatusID=t2.FeedbackStatusID "
@@ -675,6 +729,56 @@ public class FeedbackDAO {
                         + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name"
                         + " order by t1.Date asc ";
                 ps = conn.prepareStatement(sql);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    String date = rs.getString("Date");
+                    String userId = rs.getString("UserID");
+                    String statusId = rs.getString("statusID");
+                    String email = rs.getString("email");
+                    String fullname = rs.getString("fullname");
+                    String statusName = rs.getString("statusName");
+                    list.add(new FeedbackDTO(feedbackId, userId, date, email, statusId, fullname, statusName));
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<FeedbackDTO> getListFeedbackByStatusDoneNext(int amount) throws SQLException {
+        List<FeedbackDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                // lấy list detail bằng facilityName, join 2 bảng bằng facilityID
+                String sql = "SELECT t1.*, t4.Email as email, t4.FullName as fullname, t2.Name as statusName "
+                        + " FROM tblFeedback t1 "
+                        + " JOIN tblFeedbackStatus t2 "
+                        + " ON t1.StatusID=t2.FeedbackStatusID "
+                        + " JOIN tblUser t4 "
+                        + " ON t1.UserID = t4.UserID "
+                        + " WHERE t1.statusID='done' "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name"
+                        + " order by t1.Date asc "
+                        + " OFFSET ? ROWS "
+                        + " FETCH NEXT 10 ROWS ONLY";
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, amount);
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     String feedbackId = rs.getString("FeedbackID");
@@ -759,7 +863,7 @@ public class FeedbackDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 // lấy list detail bằng facilityName, join 2 bảng bằng facilityID
-                String sql = "SELECT t1.*, t4.Email as email, t4.FullName as fullname, t2.Name as statusName "
+                String sql = "SELECT TOP 10 t1.*, t4.Email as email, t4.FullName as fullname, t2.Name as statusName "
                         + " FROM tblFeedback t1 "
                         + " JOIN tblFeedbackStatus t2 "
                         + " ON t1.StatusID=t2.FeedbackStatusID "
@@ -769,6 +873,56 @@ public class FeedbackDAO {
                         + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name"
                         + " order by t1.Date asc ";
                 ps = conn.prepareStatement(sql);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    String date = rs.getString("Date");
+                    String userId = rs.getString("UserID");
+                    String statusId = rs.getString("statusID");
+                    String email = rs.getString("email");
+                    String fullname = rs.getString("fullname");
+                    String statusName = rs.getString("statusName");
+                    list.add(new FeedbackDTO(feedbackId, userId, date, email, statusId, fullname, statusName));
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<FeedbackDTO> getListFeedbackByStatusFixingNext(int amount) throws SQLException {
+        List<FeedbackDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                // lấy list detail bằng facilityName, join 2 bảng bằng facilityID
+                String sql = "SELECT t1.*, t4.Email as email, t4.FullName as fullname, t2.Name as statusName "
+                        + " FROM tblFeedback t1 "
+                        + " JOIN tblFeedbackStatus t2 "
+                        + " ON t1.StatusID=t2.FeedbackStatusID "
+                        + " JOIN tblUser t4 "
+                        + " ON t1.UserID = t4.UserID "
+                        + " WHERE t1.statusID='onGoing' "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name"
+                        + " order by t1.Date asc "
+                        + " OFFSET ? ROWS "
+                        + " FETCH NEXT 10 ROWS ONLY";
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, amount);
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     String feedbackId = rs.getString("FeedbackID");
@@ -853,6 +1007,53 @@ public class FeedbackDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 // lấy list detail bằng facilityName, join 2 bảng bằng facilityID
+                String sql = "SELECT TOP 10 t1.*, t4.Email as email, t4.FullName as fullname, t2.Name as statusName "
+                        + " FROM tblFeedback t1 "
+                        + " JOIN tblFeedbackStatus t2 "
+                        + " ON t1.StatusID=t2.FeedbackStatusID "
+                        + " JOIN tblUser t4 "
+                        + " ON t1.UserID = t4.UserID "
+                        + " WHERE t1.statusID='pending'  "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name "
+                        + " order by t1.Date asc ";
+                ps = conn.prepareStatement(sql);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    String date = rs.getString("Date");
+                    String userId = rs.getString("UserID");
+                    String statusId = rs.getString("statusID");
+                    String email = rs.getString("email");
+                    String fullname = rs.getString("fullname");
+                    String statusName = rs.getString("statusName");
+                    list.add(new FeedbackDTO(feedbackId, userId, date, email, statusId, fullname, statusName));
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+    
+    public List<FeedbackDTO> getListFeedbackByStatusPendingAscForManagerFull() throws SQLException {
+        List<FeedbackDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                // lấy list detail bằng facilityName, join 2 bảng bằng facilityID
                 String sql = "SELECT t1.*, t4.Email as email, t4.FullName as fullname, t2.Name as statusName "
                         + " FROM tblFeedback t1 "
                         + " JOIN tblFeedbackStatus t2 "
@@ -863,6 +1064,56 @@ public class FeedbackDAO {
                         + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name "
                         + " order by t1.Date asc ";
                 ps = conn.prepareStatement(sql);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    String date = rs.getString("Date");
+                    String userId = rs.getString("UserID");
+                    String statusId = rs.getString("statusID");
+                    String email = rs.getString("email");
+                    String fullname = rs.getString("fullname");
+                    String statusName = rs.getString("statusName");
+                    list.add(new FeedbackDTO(feedbackId, userId, date, email, statusId, fullname, statusName));
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<FeedbackDTO> getListFeedbackByStatusPendingNext(int amount) throws SQLException {
+        List<FeedbackDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                // lấy list detail bằng facilityName, join 2 bảng bằng facilityID
+                String sql = "SELECT t1.*, t4.Email as email, t4.FullName as fullname, t2.Name as statusName "
+                        + " FROM tblFeedback t1 "
+                        + " JOIN tblFeedbackStatus t2 "
+                        + " ON t1.StatusID=t2.FeedbackStatusID "
+                        + " JOIN tblUser t4 "
+                        + " ON t1.UserID = t4.UserID "
+                        + " WHERE t1.statusID='pending'  "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name "
+                        + " order by t1.Date asc "
+                        + " OFFSET ? ROWS "
+                        + " FETCH NEXT 10 ROWS ONLY";
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, amount);
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     String feedbackId = rs.getString("FeedbackID");
@@ -946,7 +1197,7 @@ public class FeedbackDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 // lấy list detail bằng facilityName, join 2 bảng bằng facilityID
-                String sql = "SELECT t1.*, t4.Email as email, t4.FullName as fullname, t2.Name as statusName "
+                String sql = "SELECT TOP 10 t1.*, t4.Email as email, t4.FullName as fullname, t2.Name as statusName "
                         + " FROM tblFeedback t1 "
                         + " JOIN tblFeedbackStatus t2 "
                         + " ON t1.StatusID=t2.FeedbackStatusID "
@@ -955,6 +1206,55 @@ public class FeedbackDAO {
                         + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name "
                         + " order by t1.Date asc ";
                 ps = conn.prepareStatement(sql);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    String date = rs.getString("Date");
+                    String userId = rs.getString("UserID");
+                    String statusId = rs.getString("statusID");
+                    String email = rs.getString("email");
+                    String fullname = rs.getString("fullname");
+                    String statusName = rs.getString("statusName");
+                    list.add(new FeedbackDTO(feedbackId, userId, date, email, statusId, fullname, statusName));
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<FeedbackDTO> getAllListFeedbackByStatusNext(int amount) throws SQLException {
+        List<FeedbackDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                // lấy list detail bằng facilityName, join 2 bảng bằng facilityID
+                String sql = "SELECT t1.*, t4.Email as email, t4.FullName as fullname, t2.Name as statusName "
+                        + " FROM tblFeedback t1 "
+                        + " JOIN tblFeedbackStatus t2 "
+                        + " ON t1.StatusID=t2.FeedbackStatusID "
+                        + " JOIN tblUser t4 "
+                        + " ON t1.UserID = t4.UserID "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name "
+                        + " order by t1.Date asc "
+                        + " OFFSET ? ROWS "
+                        + " FETCH NEXT 10 ROWS ONLY";
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, amount);
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     String feedbackId = rs.getString("FeedbackID");
@@ -1378,7 +1678,7 @@ public class FeedbackDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 // lấy list detail bằng facilityName, join 2 bảng bằng facilityID
-                String sql = "SELECT t1.*, t4.Email as email, t4.FullName as fullname, t2.Name as statusName "
+                String sql = "SELECT TOP 10 t1.*, t4.Email as email, t4.FullName as fullname, t2.Name as statusName "
                         + " FROM tblFeedback t1 "
                         + " JOIN tblFeedbackStatus t2 "
                         + " ON t1.StatusID=t2.FeedbackStatusID "
@@ -1388,6 +1688,56 @@ public class FeedbackDAO {
                         + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name "
                         + " order by t1.Date asc ";
                 ps = conn.prepareStatement(sql);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    String date = rs.getString("Date");
+                    String userId = rs.getString("UserID");
+                    String statusId = rs.getString("statusID");
+                    String email = rs.getString("email");
+                    String fullname = rs.getString("fullname");
+                    String statusName = rs.getString("statusName");
+                    list.add(new FeedbackDTO(feedbackId, userId, date, email, statusId, fullname, statusName));
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<FeedbackDTO> getListFeedbackByStatusDenyNext(int amount) throws SQLException {
+        List<FeedbackDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                // lấy list detail bằng facilityName, join 2 bảng bằng facilityID
+                String sql = "SELECT t1.*, t4.Email as email, t4.FullName as fullname, t2.Name as statusName "
+                        + " FROM tblFeedback t1 "
+                        + " JOIN tblFeedbackStatus t2 "
+                        + " ON t1.StatusID=t2.FeedbackStatusID "
+                        + " JOIN tblUser t4 "
+                        + " ON t1.UserID = t4.UserID "
+                        + " WHERE t1.statusID='decline' "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name "
+                        + " order by t1.Date asc "
+                        + " OFFSET ? ROWS "
+                        + " FETCH NEXT 10 ROWS ONLY";
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, amount);
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     String feedbackId = rs.getString("FeedbackID");

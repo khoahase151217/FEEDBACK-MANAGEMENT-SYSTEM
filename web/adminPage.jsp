@@ -32,7 +32,7 @@
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
         ></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage2.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPageDetailModal.css" />
     </head>
     <body>
@@ -596,7 +596,7 @@
                                                 "
                                                 >
                                                 <div class="pipe">
-                                                    <div class="pipe-column">
+                                                    <div class="pipe-column" data-index="1">
                                                         <div class="pipe-heading">
                                                             <div class="pipe-title-wrapper">
                                                                 <span class="pending"></span>
@@ -639,8 +639,9 @@
                                                                 <p class="pipe-item-date">No result can be found ...</p>
                                                             </c:if>
                                                         </div>
+                                                        <input type="hidden" name="pending_count" value="${requestScope.PENDING_COUNT}"/>
                                                     </div>
-                                                    <div class="pipe-column">
+                                                    <div class="pipe-column" data-index="2">
                                                         <div class="pipe-heading">
                                                             <div class="pipe-title-wrapper">
                                                                 <span class="onGoing"></span>
@@ -684,7 +685,7 @@
                                                             </c:if>
                                                         </div>
                                                     </div>
-                                                    <div class="pipe-column">
+                                                    <div class="pipe-column" data-index="3">
                                                         <div class="pipe-heading">
                                                             <div class="pipe-title-wrapper">
                                                                 <span class="decline"></span>
@@ -728,7 +729,7 @@
                                                             </c:if>
                                                         </div>
                                                     </div>
-                                                    <div class="pipe-column">
+                                                    <div class="pipe-column" data-index="4">
                                                         <div class="pipe-heading">
                                                             <div class="pipe-title-wrapper">
                                                                 <span class="done"></span>
@@ -794,7 +795,7 @@
                                                 <div class="list-showcase">
                                                     <!-- list All -->
                                                     <div class="list-showcase-item ${requestScope.STYLE_LIST_ALL}">
-                                                        <div class="pipe-list">
+                                                        <div class="pipe-list" data-index="0">
                                                             <c:if test="${empty sessionScope.FEEDBACK_LIST_ALL}">
                                                                 <p class="showcase-desc">
                                                                     No result can be found ...
@@ -829,7 +830,7 @@
                                                     </div>
                                                     <!-- list pending -->
                                                     <div class="list-showcase-item ${requestScope.STYLE_LIST_PENDING}">
-                                                        <div class="pipe-list">
+                                                        <div class="pipe-list" data-index="1">
                                                             <c:if test="${empty sessionScope.FEEDBACK_LIST_PENDING}">
                                                                 <p class="showcase-desc">
                                                                     No result can be found ...
@@ -864,7 +865,7 @@
                                                     </div>
                                                     <!-- list on-going -->
                                                     <div class="list-showcase-item ${requestScope.STYLE_LIST_ONGOING}">
-                                                        <div class="pipe-list">
+                                                        <div class="pipe-list" data-index="2">
                                                             <c:if test="${empty sessionScope.FEEDBACK_LIST_FIXING}">
                                                                 <p class="showcase-desc">
                                                                     No result can be found ...
@@ -899,7 +900,7 @@
                                                     </div>
                                                     <!-- list decline -->
                                                     <div class="list-showcase-item ${requestScope.STYLE_LIST_DECLINE}">
-                                                        <div class="pipe-list">
+                                                        <div class="pipe-list" data-index="3">
                                                             <c:if test="${empty sessionScope.FEEDBACK_LIST_DENY}">
                                                                 <p class="showcase-desc">
                                                                     No result can be found ...
@@ -934,7 +935,7 @@
                                                     </div>
                                                     <!-- list done -->
                                                     <div class="list-showcase-item ${requestScope.STYLE_LIST_DONE}">
-                                                        <div class="pipe-list">
+                                                        <div class="pipe-list" data-index="4">
                                                             <c:if test="${empty sessionScope.FEEDBACK_LIST_DONE}">
                                                                 <p class="showcase-desc">
                                                                     No result can be found ...
@@ -1300,7 +1301,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
                                                 function handleNotification() {
-                                                    const count = Array.from(document.querySelectorAll('.pipe-list-pending')).length;
+//                                                    Array.from(document.querySelectorAll('.pipe-list-pending')).length
+                                                    const count = document.querySelector('input[name="pending_count"]').value;
                                                     $.ajax({
                                                         type: "POST",
                                                         url: "/SWP391_PROJECT/NotificationController",
@@ -1325,6 +1327,97 @@
                                                 handleNotification();
                                                 setInterval(handleNotification, 10000);
 
+                                                function loadResultsPipeStyle(index, list) {
+                                                    let amount = list.querySelectorAll('.pipe .pipe-item').length;
+                                                    let search = document.querySelector('input[name="search"]').value;
+                                                    $.ajax({
+                                                        url: "/SWP391_PROJECT/LoadFeedback",
+                                                        type: "post",
+                                                        data: {
+                                                            amount: amount,
+                                                            flag_navigation: index,
+                                                            search: search
+                                                        },
+                                                        beforeSend: function (xhr) {
+                                                            $(list).after($("<li class='loading'>Loading...</li>").fadeIn('slow')).data("loading", true);
+                                                        },
+                                                        success: function (data) {
+                                                            setTimeout(() => {
+                                                                var $results = $(list);
+
+                                                                $(".loading").fadeOut('fast', function () {
+                                                                    $(this).remove();
+                                                                });
+                                                                var $data = $(data);
+                                                                $results.append($data);
+                                                                $data.show("slow");
+                                                                $results.removeData("loading");
+                                                            }, 1500)
+                                                        }
+                                                    });
+                                                }
+                                                ;
+
+                                                function loadResultsListStyle(index, list) {
+                                                    let amount = list.querySelectorAll('.list-showcase-item .pipe-item').length;
+                                                    let search = document.querySelector('input[name="search"]').value;
+                                                    $.ajax({
+                                                        url: "/SWP391_PROJECT/LoadFeedback",
+                                                        type: "post",
+                                                        data: {
+                                                            amount: amount,
+                                                            flag_navigation: index,
+                                                            search: search
+                                                        },
+                                                        beforeSend: function (xhr) {
+                                                            $(list).after($("<li class='loading'>Loading...</li>").fadeIn('slow')).data("loading", true);
+                                                        },
+                                                        success: function (data) {
+                                                            setTimeout(() => {
+                                                                var $results = $(list);
+
+                                                                $(".loading").fadeOut('fast', function () {
+                                                                    $(this).remove();
+                                                                });
+                                                                var $data = $(data);
+                                                                $results.append($data);
+                                                                $data.show("slow");
+                                                                $results.removeData("loading");
+                                                            }, 1500)
+                                                        }
+                                                    });
+                                                }
+                                                ;
+
+//                                                    Javascript of load data when scroll of comment in adminPage.jsp
+//                                                function loadResultsComments(list) {
+//                                                    let amount = list.querySelectorAll('.pipe-comment-item').length;
+//                                                    $.ajax({
+//                                                        url: "/SWP391_PROJECT/LoadComment",
+//                                                        type: "post",
+//                                                        data: {
+//                                                            amount: amount
+//                                                        },
+//                                                        beforeSend: function (xhr) {
+//                                                            $(list).after($("<li class='loading'>Loading...</li>").fadeIn('slow')).data("loading", true);
+//                                                        },
+//                                                        success: function (data) {
+//                                                            setTimeout(() => {
+//                                                                var $results = $(list);
+//
+//                                                                $(".loading").fadeOut('fast', function () {
+//                                                                    $(this).remove();
+//                                                                });
+//                                                                var $data = $(data);
+//                                                                $results.append($data);
+//                                                                $data.show("slow");
+//                                                                $results.removeData("loading");
+//                                                            }, 1500)
+//                                                        }
+//                                                    });
+//                                                }
+//                                                ;
+
                                                 $(function () {
                                                     var imagesPreview2 = function (input, placeToInsertImagePreview) {
                                                         if (input.files) {
@@ -1347,6 +1440,45 @@
                                                         imagesPreview2(this);
                                                     });
 
+
+                                                    Array.from($(".pipe .pipe-list")).forEach(item => {
+                                                        item.addEventListener('scroll', (e) => {
+                                                            var list = e.target.closest('.pipe .pipe-list');
+                                                            if (!e.target.getAttribute("data-loading")) {
+                                                                if (Math.ceil(list.offsetHeight + list.scrollTop) === list.scrollHeight) {
+                                                                    loadResultsPipeStyle(e.target.closest('.pipe .pipe-column').dataset.index, list);
+                                                                }
+                                                            }
+                                                        });
+                                                    });
+
+                                                    Array.from($(".list-showcase-item .pipe-list")).forEach(item => {
+                                                        item.addEventListener('scroll', (e) => {
+                                                            var list = e.target.closest('.list-showcase-item .pipe-list');
+                                                            if (!e.target.getAttribute("data-loading")) {
+                                                                if (Math.ceil(list.offsetHeight + list.scrollTop) === list.scrollHeight) {
+                                                                    loadResultsListStyle(e.target.closest('.list-showcase-item .pipe-list').dataset.index, list);
+                                                                }
+                                                            }
+                                                        });
+                                                    });
+
+                                                    setTimeout(() => {
+                                                        $(".pipe-comment-item.active")[0].scrollIntoView({
+                                                            behavior: "smooth",
+                                                            block: "center"
+                                                        });
+                                                    }, 700);
+
+//                                                    Javascript of load data when scroll of comment in adminPage.jsp
+//                                                    document.querySelector(".comment-list-feedback .pipe-list").addEventListener('scroll', function (e) {
+//                                                        var list = e.target.closest('.comment-list-feedback .pipe-list');
+//                                                        if (!e.target.getAttribute("data-loading")) {
+//                                                            if (Math.ceil(list.offsetHeight + list.scrollTop) === list.scrollHeight) {
+//                                                                loadResultsComments(list);
+//                                                            }
+//                                                        }
+//                                                    });
                                                 });
         </script>
     </body>

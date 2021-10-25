@@ -99,3 +99,7 @@ function handleReloadPage() {
     window.location.replace("/SWP391_PROJECT/ShowFeedBackController");
 }
 
+function handleScrollIntoView(e) {
+    e.target.scrollIntoView({behavior: "smooth", block: "center", inline: "center"});
+}
+

@@ -554,6 +554,53 @@ public class EmployeesDAO {
         return list;
     }
 
+    public List<FeedbackDTO> showListFeedbackResponseNext(int amount) throws SQLException {
+        List<FeedbackDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " SELECT t1.*,t3.Email as email ,t3.FullName as fullName ,t4.Name as statusName FROM tblFeedback t1 "
+                        + " JOIN tblFeedbackDetail t2  ON t1.FeedbackID = t2.FeedbackID "
+                        + " JOIN tblUser t3 ON t1.UserID = t3.UserID "
+                        + " JOIN tblFeedbackStatus t4 ON t1.statusID = t4.FeedbackStatusID "
+                        + " WHERE t2.flag = 'true' AND t1.statusID not in ('decline', 'done') "
+                        + " group by t1.Date ,t1.FeedbackID,t1.statusID, t1.UserID, t3.Email, t3.FullName, t4.Name "
+                        + " ORDER BY t1.DATE "
+                        + " OFFSET ? ROWS "
+                        + " FETCH NEXT 10 ROWS ONLY";
+                stm = conn.prepareCall(sql);
+                stm.setInt(1, amount);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String feedbackID = rs.getString("FeedbackID");
+                    String userID = rs.getString("UserID");
+                    String date = rs.getString("date");
+                    String statusID = rs.getString("statusID");
+                    String email = rs.getString("email");
+                    String fullName = rs.getString("fullName");
+                    String statusName = rs.getString("statusName");
+                    list.add(new FeedbackDTO(feedbackID, userID, date, email, statusID, fullName, statusName));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
     public int countDeclineResponse(String feedbackDetailID, String userID) throws SQLException {
         int count = 0;
         Connection conn = null;
@@ -848,7 +895,7 @@ public class EmployeesDAO {
         return list;
     }
 
- public List<ResponseDTO> getListRecentDeclineRespone() throws SQLException {
+    public List<ResponseDTO> getListRecentDeclineRespone() throws SQLException {
         List<ResponseDTO> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ps = null;

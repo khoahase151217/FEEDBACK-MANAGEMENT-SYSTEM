@@ -132,6 +132,14 @@
         <servlet-name>LoadMoreFacilitiesController</servlet-name>
         <servlet-class>app.controller.LoadMoreFacilitiesController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoadFeedbackController</servlet-name>
+        <servlet-class>app.controller.LoadFeedbackController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoadCommentController</servlet-name>
+        <servlet-class>app.controller.LoadCommentController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -275,6 +283,14 @@
     <servlet-mapping>
         <servlet-name>LoadMoreFacilitiesController</servlet-name>
         <url-pattern>/LoadFacilities</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadFeedbackController</servlet-name>
+        <url-pattern>/LoadFeedback</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadCommentController</servlet-name>
+        <url-pattern>/LoadComment</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
