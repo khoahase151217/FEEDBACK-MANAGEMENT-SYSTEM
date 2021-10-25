@@ -34,7 +34,7 @@ public class SearchFeedbackDetailController extends HttpServlet {
         String url = ERROR;
         HttpSession session = request.getSession();
         session.setAttribute("DETAIL_LIST", null);
-        UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
+        UserDTO user = (UserDTO) session.getAttribute("LOGIN_ADMIN");
         //catch trường hợp chuyển trang về mất list
         try {
             String search = request.getParameter("search");

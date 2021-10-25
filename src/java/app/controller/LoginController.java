@@ -51,12 +51,17 @@ public class LoginController extends HttpServlet {
             HttpSession session = request.getSession();
 
             if (user != null) {
-                session.setAttribute("LOGIN_USER", user);
                 if ("AD".equals(user.getRoleID())) {
+                                    session.setAttribute("LOGIN_ADMIN", user);
+
                     url = ADMIN_PAGE;
                 } else if ("US".equals(user.getRoleID())) {
+                                    session.setAttribute("LOGIN_USER", user);
+
                     url = USER_PAGE;
                 } else {
+                                    session.setAttribute("LOGIN_EMP", user);
+
                     url = EMPLOYEE_PAGE;
                 }
 
@@ -106,11 +111,14 @@ public class LoginController extends HttpServlet {
                 }
                 if (flag) {
                     if ("AD".equals(user.getRoleID())) {
+                        session.setAttribute("LOGIN_ADMIN", user);
                         url = ADMIN_PAGE;
                     } else if ("US".equals(user.getRoleID())) {
+                        session.setAttribute("LOGIN_USER", user);
                         url = USER_PAGE;
                     } else {
                         url = EMPLOYEE_PAGE;
+                        session.setAttribute("LOGIN_EMP", user);
                     }
                 } else {
                     request.setAttribute("flag", null);

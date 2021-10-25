@@ -39,7 +39,7 @@ public class ShowFeedbackDetailForEmpController extends HttpServlet {
             String responseId = "";
             String feedbackID = (String) request.getParameter("feedbackID");
             String history = (String) request.getParameter("history");
-            UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
+            UserDTO user = (UserDTO) session.getAttribute("LOGIN_EMP");
             String feedbackDetailID = (String) request.getAttribute("FEEDBACK_DETAIL_ID");
             List<FeedbackDTO> listFB = (List<FeedbackDTO>)  session.getAttribute("LIST_FEEDBACK");
             int count=0;

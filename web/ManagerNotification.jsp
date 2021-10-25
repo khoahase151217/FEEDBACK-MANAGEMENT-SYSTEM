@@ -32,7 +32,7 @@
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
         ></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage2.css" />
         <!--<link rel="stylesheet" href="css/detailModal.css" />-->
     </head>
     <body>

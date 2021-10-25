@@ -50,7 +50,7 @@ public class AddResponseController extends HttpServlet {
             FileInputStream photo = null;
             SimpleDateFormat sdf = new SimpleDateFormat("E, MMM dd");
             String date = sdf.format(new Date());
-            UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
+            UserDTO user = (UserDTO) session.getAttribute("LOGIN_EMP");
             String feedbackDetailId = "";
             String des = "";
 

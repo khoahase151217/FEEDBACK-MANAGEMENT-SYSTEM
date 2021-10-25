@@ -5,12 +5,15 @@
  */
 package app.controller;
 
+import app.feedback.FeedbackDAO;
 import app.users.GooglePojo;
 import app.users.UserDAO;
 import app.users.UserDTO;
 import app.utils.GoogleUtils;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -60,6 +63,7 @@ public class LoginGoogleController extends HttpServlet {
                 dis.forward(request, response);
                 return;
             }
+            FeedbackDAO dao2 = new FeedbackDAO();
             UserDAO dao = new UserDAO();
             try {
                 UserDTO user = dao.checkLoginGoogle(googlePojo.getEmail());
@@ -69,22 +73,74 @@ public class LoginGoogleController extends HttpServlet {
                     url = SIGN_UP;
                 } else {
                     boolean checkStatus = user.getStatusID().equalsIgnoreCase("inactive");
-                    if (checkStatus != true) {
-                        session.setAttribute("LOGIN_USER", user);
-                        if (user.getRoleID().equals("US")) {
-                            url = STUDENT;
-                        } else if (user.getRoleID().equals("AD")) {
-                            url = ADMIN;
-                        } else {
-                            url = EMPLOYEE;
+                    if (checkStatus == true) {
+                        Date date = dao2.getDateWarning(user.getUserID());
+                        int level = dao2.getWarningLevel(user.getUserID());
+                        boolean flag = false;
+                        Calendar c = Calendar.getInstance();
+                        Date tmpDate;
+                        Date now = java.util.Calendar.getInstance().getTime();
+                        c.setTime(date);
+                        switch (level) {
+                            case 1:
+                                c.add(Calendar.MINUTE, 5);
+                                tmpDate = c.getTime();
+                                if (now.compareTo(tmpDate) >= 0) {
+                                    dao.UpdateUserStatusActive(user.getUserID(), "active");
+                                    flag = true;
+                                }
+                                break;
+                            case 2:
+                                c.add(Calendar.HOUR, 1);
+                                tmpDate = c.getTime();
+                                if (now.compareTo(tmpDate) >= 0) {
+                                    dao.UpdateUserStatusActive(user.getUserID(), "active");
+                                    flag = true;
+
+                                }
+                                break;
+                            case 3:
+                                c.add(Calendar.HOUR, 24);
+                                tmpDate = c.getTime();
+                                if (now.compareTo(tmpDate) >= 0) {
+                                    dao.UpdateUserStatusActive(user.getUserID(), "active");
+                                    flag = true;
+
+                                }
+                                break;
+
                         }
-                    } else {
-                        request.setAttribute("flag", null);
-                        request.setAttribute("INVALID", "invalid");
-                        request.setAttribute("ERROR_MESSAGE", "Your account is not authorized");
+                        if (flag) {
+                            if ("AD".equals(user.getRoleID())) {
+                                session.setAttribute("LOGIN_ADMIN", user);
+                                url = ADMIN;
+                            } else if ("US".equals(user.getRoleID())) {
+                                session.setAttribute("LOGIN_USER", user);
+                                url = STUDENT;
+                            } else {
+                                url = EMPLOYEE;
+                                session.setAttribute("LOGIN_EMP", user);
+                            }
+                        } else {
+                            request.setAttribute("flag", null);
+                            request.setAttribute("INVALID", "invalid");
+                            request.setAttribute("ERROR_MESSAGE", "Your account is not authorized");
+                            url = ERROR;
+                        }
+                    }else{
+                        if ("AD".equals(user.getRoleID())) {
+                                session.setAttribute("LOGIN_ADMIN", user);
+                                url = ADMIN;
+                            } else if ("US".equals(user.getRoleID())) {
+                                session.setAttribute("LOGIN_USER", user);
+                                url = STUDENT;
+                            } else {
+                                url = EMPLOYEE;
+                                session.setAttribute("LOGIN_EMP", user);
+                            }
                     }
                 }
-            } catch (SQLException ex) {
+            } catch (Exception ex) {
                 Logger.getLogger(LoginGoogleController.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
                 request.getRequestDispatcher(url).forward(request, response);

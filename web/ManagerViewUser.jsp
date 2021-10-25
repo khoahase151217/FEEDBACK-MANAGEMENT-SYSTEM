@@ -31,7 +31,7 @@
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
         ></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage1.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage2.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ManagerViewUser.css" />
     </head>
     <body>
@@ -283,17 +283,17 @@
                                 <div class="showcase-profile-image">
                                     <div class="showcase-profile-dropdown">
                                         <div class="showcase-profile-image">
-                                            <c:set var="avatar" value="${sessionScope.LOGIN_USER.image}"></c:set>
+                                            <c:set var="avatar" value="${sessionScope.LOGIN_ADMIN.image}"></c:set>
                                             <c:choose>
                                                 <c:when test="${fn:startsWith(avatar, 'http')}">
                                                     <img
-                                                        src="${sessionScope.LOGIN_USER.image}"
+                                                        src="${sessionScope.LOGIN_ADMIN.image}"
                                                         alt=""
                                                         />
                                                 </c:when>
                                                 <c:otherwise>
                                                     <img
-                                                        src="data:image/jpg/png;base64,${sessionScope.LOGIN_USER.image}"
+                                                        src="data:image/jpg/png;base64,${sessionScope.LOGIN_ADMIN.image}"
                                                         alt=""
                                                         />
                                                 </c:otherwise>

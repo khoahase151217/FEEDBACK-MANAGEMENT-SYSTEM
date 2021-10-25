@@ -45,7 +45,7 @@ public class SearchTaskEmpController extends HttpServlet {
         String historyActive = request.getParameter("HISTORY_DETAIL_ACTIVE");
         try {
             String search = request.getParameter("search");
-            UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
+            UserDTO user = (UserDTO) session.getAttribute("LOGIN_EMP");
             String task = request.getParameter("LIST_STYLE_TASK");
             String his = request.getParameter("LIST_STYLE_HISTORY");
 

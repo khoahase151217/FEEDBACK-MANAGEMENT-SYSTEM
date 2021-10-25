@@ -38,7 +38,7 @@ public class ShowFeedbackForEmpController extends HttpServlet {
         //catch trường hợp chuyển trang về mất list
         try {
             EmployeesDAO dao = new EmployeesDAO();
-            UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
+            UserDTO user = (UserDTO) session.getAttribute("LOGIN_EMP");
             list = dao.showListFeedback(user.getUserID());
             historyList = dao.showHistoryFeedback(user.getUserID());
             String history = "";

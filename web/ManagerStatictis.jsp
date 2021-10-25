@@ -283,17 +283,17 @@
                                 <div class="showcase-profile-image">
                                     <div class="showcase-profile-dropdown">
                                         <div class="showcase-profile-image">
-                                            <c:set var="avatar" value="${sessionScope.LOGIN_USER.image}"></c:set>
+                                            <c:set var="avatar" value="${sessionScope.LOGIN_ADMIN.image}"></c:set>
                                             <c:choose>
                                                 <c:when test="${fn:startsWith(avatar, 'http')}">
                                                     <img
-                                                        src="${sessionScope.LOGIN_USER.image}"
+                                                        src="${sessionScope.LOGIN_ADMIN.image}"
                                                         alt=""
                                                         />
                                                 </c:when>
                                                 <c:otherwise>
                                                     <img
-                                                        src="data:image/jpg/png;base64,${sessionScope.LOGIN_USER.image}"
+                                                        src="data:image/jpg/png;base64,${sessionScope.LOGIN_ADMIN.image}"
                                                         alt=""
                                                         />
                                                 </c:otherwise>
@@ -323,7 +323,7 @@
                                     <div class="statictis-chart">
                                         <div class="statictis-chart-header">
                                             <h2 class="statictis-chart-heading">
-                                                Welcome back, ${sessionScope.LOGIN_USER.fullName}
+                                                Welcome back, ${sessionScope.LOGIN_ADMIN.fullName}
                                             </h2>
                                             <form action="FacilityStatisticController" class="statictis-chart-form">
                                                 <select

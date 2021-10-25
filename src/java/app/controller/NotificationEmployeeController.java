@@ -42,17 +42,17 @@ public class NotificationEmployeeController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try {
             HttpSession session = request.getSession();
+            UserDTO user = (UserDTO) session.getAttribute("LOGIN_EMP");
             StatisticDAO dao = new StatisticDAO();
             List<FeedbackDetailDTO> list = new ArrayList<FeedbackDetailDTO>();
             List<FeedbackDTO> listFB = new ArrayList<FeedbackDTO>();
             String count = request.getParameter("notification");
-            String userId = request.getParameter("userId");
             int notification = 0;
             int check = Integer.parseInt(count);
-            int check2 = dao.countForNotificationEmployee(userId);
+            int check2 = dao.countForNotificationEmployee(user.getUserID());
             if (check2 > check) {
                 notification = check2 - check;
-                list = dao.getListFeedbackDetailForNotification(notification, userId);
+                list = dao.getListFeedbackDetailForNotification(notification, user.getUserID());
             }
             for (int i = 0; i<list.size(); i++) {
                 if(i==0){

@@ -269,7 +269,7 @@
                                     <div class="showcase-item-dropdown-list">
                                         <h4 class="showcase-item-dropdown-title">Notification</h4>
                                         <h5 class="showcase-item-dropdown-sub-title">
-                                            You have ${sessionScope.NOTIFICATION_QUANTITY} new feedback
+                                            You have ${sessionScope.NOTIFICATION_QUANTITY} new tasks
                                         </h5>
                                         <h5 class="showcase-item-dropdown-sub-title sub-title-no">
                                             No notification can be found ...
@@ -288,17 +288,17 @@
                                 <div class="showcase-profile-image">
                                     <div class="showcase-profile-dropdown">
                                         <div class="showcase-profile-avatar">
-                                            <c:set var="avatar" value="${sessionScope.LOGIN_USER.image}"></c:set>
+                                            <c:set var="avatar" value="${sessionScope.LOGIN_EMP.image}"></c:set>
                                             <c:choose>
                                                 <c:when test="${fn:startsWith(avatar, 'http')}">
                                                     <img
-                                                        src="${sessionScope.LOGIN_USER.image}"
+                                                        src="${sessionScope.LOGIN_EMP.image}"
                                                         alt=""
                                                         />
                                                 </c:when>
                                                 <c:otherwise>
                                                     <img
-                                                        src="data:image/jpg/png;base64,${sessionScope.LOGIN_USER.image}"
+                                                        src="data:image/jpg/png;base64,${sessionScope.LOGIN_EMP.image}"
                                                         alt=""
                                                         />
                                                 </c:otherwise>
@@ -343,7 +343,7 @@
                                         <input type="hidden" name="HISTORY_DETAIL_ACTIVE" value="${requestScope.HISTORY_ACTIVE}"/>
                                     </form>
                                     <div class="showcase-title-wrapper">
-                                        <h2 class="showcase-title">Welcome back, ${sessionScope.LOGIN_USER.fullName}</h2>
+                                        <h2 class="showcase-title">Welcome back, ${sessionScope.LOGIN_EMP.fullName}</h2>
                                         <p class="showcase-desc">
                                             You have <span>${sessionScope.COUNT} tasks</span> to complete
                                         </p>
@@ -1076,7 +1076,7 @@
                             <input id="COUNT_DETAIL_NOTIFICATION" type="hidden" name="COUNT_DETAIL_NOTIFICATION" value="${sessionScope.COUNT_DETAIL_NOTIFICATION}"/>
                         </c:otherwise>
                     </c:choose>
-                    <input id="LOGIN_USER" type="hidden" name="LOGIN_USER" value="${sessionScope.LOGIN_USER.userID}"/>
+                    <input id="LOGIN_EMP" type="hidden" name="LOGIN_USER" value="${sessionScope.LOGIN_EMP.userID}"/>
 
                 </div>
             </section>
@@ -1086,7 +1086,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
         <script>
-            const user = document.querySelector('#LOGIN_USER').value;
+            const user = document.querySelector('#LOGIN_EMP').value;
             function handleNotification() {
                 const count = document.querySelector('#COUNT_DETAIL_NOTIFICATION').value;
                 $.ajax({

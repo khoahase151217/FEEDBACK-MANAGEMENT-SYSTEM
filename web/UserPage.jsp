@@ -31,7 +31,7 @@
             />
 
         <!-- ioniconic -->
-        <script
+         <script
             type="module"
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
         ></script>
@@ -49,7 +49,7 @@
             referrerpolicy="no-referrer"
             />
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/User1.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/User.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/FeedbackForm.css" />
     </head>
     <body>
@@ -612,7 +612,39 @@
                                 </a>
                             </div>
                         </div>
+                        <div class="showcase-item showcase-item-dropdown-select"
+                             data-index="4"
+                             >
+                            <a href="#" class="showcase-link">
+                                <ion-icon
+                                    name="notifications-outline"
+                                    class="no-active-mode"
+                                    ></ion-icon>
+                                <ion-icon
+                                    name="notifications"
+                                    class="active-mode"
+                                    ></ion-icon>
+                            </a>
+                            <span></span>
+                            <div class="showcase-item-dropdown-list">
+                                <h4 class="showcase-item-dropdown-title">Notification</h4>
+                                <h5 class="showcase-item-dropdown-sub-title">
+                                    You have ${sessionScope.NOTIFICATION_QUANTITY} new tasks
+                                </h5>
+                                <h5 class="showcase-item-dropdown-sub-title sub-title-no">
+                                    No notification can be found ...
+                                </h5> 
+
+                                <div class="pipe-list">
+                                </div>
+                            </div>
+                            <div
+                                class="showcase-item-dropdown-actual-notification"
+                                >
+                            </div>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </header>
