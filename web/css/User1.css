@@ -933,29 +933,26 @@ ul {
     display: none;
 }
 
-.showcase-link dropdown-select {
-    position: relative;
-    /*transform: translateY (-10%)*/
-
-}
 .showcase-link ion-icon {
     font-size: 2rem;
 }
 
 .showcase-item-dropdown-list {
     position: absolute;
-    bottom: 0;
-    left: 100%;
+    top: 100%;
+    right:0;
     background: #fff;
-    z-index: 10;
+    z-index: 100;
     width: 300px;
     font-size: 1.2rem;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    transform: translateX(2%);
     padding: 10px 10px;
     border-radius: 6px;
     display: none;
     height: 300px;
+    z-index: 99;
+    animation: scale ease-in-out 0.4s;
+    transform-origin: 95% top;
 }
 
 .showcase-item-dropdown-list::after {
@@ -967,6 +964,11 @@ ul {
     right: 100%;
     background-color: transparent;
     z-index: 99;
+}
+
+.showcase-item-dropdown-select {
+    transform: translateY(30%);
+    position: relative;
 }
 
 .showcase-item-dropdown-select:hover .showcase-item-dropdown-list {
