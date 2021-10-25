@@ -1322,6 +1322,7 @@
                                                         }
                                                     });
                                                 }
+                                                handleNotification();
                                                 setInterval(handleNotification, 10000);
 
                                                 $(function () {
