@@ -193,18 +193,23 @@ public class StatisticDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 String sql = " DECLARE @check int;\n"
-                        + "set @check = ?\n"
-                        + "select top (@check) * from tblFeedback where statusID='pending'\n"
-                        + "order by Date desc ";
+                        + "set @check = ?;\n"
+                        + "select top (@check) * ,t2.FullName,t2.Email\n"
+                        + "from tblFeedback t1\n"
+                        + "JOIN tblUser t2 on t1.UserID = t2.UserID\n"
+                        + "where t1.statusID='pending'\n"
+                        + "order by t1.FeedbackID desc ";
                 stm = conn.prepareStatement(sql);
                 stm.setInt(1, check);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     String feedbackId = rs.getString("FeedbackID");
                     String userId = rs.getString("UserID");
+                    String fullName = rs.getString("FullName");
+                    String email = rs.getString("Email");
                     String date = rs.getString("Date");
                     String statusId = rs.getString("statusID");
-                    list.add(new FeedbackDTO(feedbackId, userId, date, statusId));
+                    list.add(new FeedbackDTO(feedbackId, userId, date, email, statusId, fullName));
                 }
             }
 
