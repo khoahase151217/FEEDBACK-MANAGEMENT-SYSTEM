@@ -31,7 +31,7 @@ import javax.servlet.http.HttpSession;
 
 public class FacilityStatisticController extends HttpServlet {
 
-    private static final String SUCCESS = "ManagerStatictis.jsp";
+    private static final String SUCCESS = "StatisticGoodEmpController";
     private static final String ERROR = "##";
 
     /**

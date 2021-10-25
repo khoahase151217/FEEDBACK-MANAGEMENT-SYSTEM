@@ -6,6 +6,7 @@
 package app.controller;
 
 import app.employees.EmployeesDAO;
+import app.response.ResponseDTO;
 import app.users.UserDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -29,7 +30,7 @@ import javax.servlet.http.HttpSession;
 public class StatisticBadEmpController extends HttpServlet {
 
     private static final String ERROR = "##";
-    private static final String SUCCESS = "##";
+    private static final String SUCCESS = "ManagerStatictis.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -40,15 +41,18 @@ public class StatisticBadEmpController extends HttpServlet {
         String txt3 = "";
         try {
             HttpSession session = request.getSession();
-            SimpleDateFormat month_date = new SimpleDateFormat("MMM ", Locale.ENGLISH);
-            SimpleDateFormat year_date = new SimpleDateFormat("YYYY ", Locale.ENGLISH);
+            SimpleDateFormat month_date = new SimpleDateFormat("MMM", Locale.ENGLISH);
+            SimpleDateFormat year_date = new SimpleDateFormat("YYYY", Locale.ENGLISH);
             Date date = new Date();
             String month = month_date.format(date);
             String year = year_date.format(date);
             EmployeesDAO dao = new EmployeesDAO();
             List<UserDTO> list = new ArrayList<UserDTO>();
+            List<ResponseDTO> listRes = new ArrayList<ResponseDTO>();
             list = dao.getListBadEMP(month, year);
+            listRes=dao.getListRecentDeclineRespone();
             session.setAttribute("LIST_BAD_EMP", list);
+            session.setAttribute("LIST_BAD_RECENT_RESPONE_EMP", listRes);
             url = SUCCESS;
         } catch (Exception e) {
             log("Error at StatisticBadEmpController" + e.toString());

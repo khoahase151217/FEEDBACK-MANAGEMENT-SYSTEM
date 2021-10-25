@@ -33,8 +33,8 @@
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
         ></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage1.css" />
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ManagerStatictis1.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ManagerStatictis.css" />
     </head>
     <body>
         <div class="user-form ${requestScope.edit_flag}">
@@ -407,7 +407,150 @@
                                         hãy đặt một cái class riêng cùng cấp với nó hoặc a tạo 1 cái div wrapper của a là con của cái div[class= "statictis-users"]
                                         rồi a hãy code css cho nó. Lưu ý: code css vào file ManagerStatictis.css nhé a (kh copy vào adminPage.css)
                                     -->
-                                    <div class="statictis-users" style="background-color: red;">
+                                    <div class="statictis-users" style="background-color: #f0e2cc;">
+                                        <div class="icon-profile-back profile-chevron-back">
+                                            <ion-icon name="chevron-back-outline"></ion-icon>
+                                        </div>
+                                        <div class="icon-profile-forward profile-chevron-forward">
+                                            <ion-icon name="chevron-forward-outline"></ion-icon>
+                                        </div>
+                                        <div class="statistic-user-header">
+                                            <label>Top 3 Users</label>
+                                        </div>
+                                        <div class="statistic-user-role">
+                                            <ul class="user-role-navigation">
+                                                <li class="role-navigation" id="roleStudent">
+                                                    <a href="#" id="studentTab">Students</a>
+                                                </li>
+                                                <li class="role-navigation active" id="roleEmployee">
+                                                    <a href="#" id="employeeTab">Employees</a>
+                                                </li>
+                                            </ul>
+                                            <span class="role-navigation-bar employee" id="tabnavigation"></span>
+                                        </div>
+                                        <div class="statistic-user-title">
+                                            <label>Profile</label>
+                                            <div class="statistic-behavior">
+                                                <ul class="user-behavior">
+                                                    <li class="behavior-navigation active" id="roleStudent">
+                                                        <a href="#" id="goodTab">Good Behavior</a>
+                                                    </li>
+                                                    <li class="behavior-navigation" id="roleEmployee">
+                                                        <a href="#" id="badTab">Bad Behavior</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <c:forEach var="userprofile" items="${sessionScope.LIST_GOOD_EMP}" varStatus="counter">
+                                            <div class="statistic-user-list">
+                                                <c:choose>
+                                                    <c:when test="${counter.count == 1}">
+                                                        <c:set var="userid" scope="session" value="${userprofile.userID}"/>
+                                                        <div class="statistic-user-wrapper active" data-index="${counter.count}">
+                                                            <div class="statistic-user-profile">
+                                                                <div class="statistic-user-avatar">
+                                                                    <img
+                                                                        src="data:image/jpg/png;base64,${userprofile.image}"
+                                                                        alt=""
+                                                                        />
+                                                                </div>
+                                                                <h1 class="user-name">${userprofile.fullName}</h1>
+                                                                <h2>${userprofile.roleName}</h2>
+                                                                <hr/>
+                                                            </div>
+                                                            <div class="user-feedback-list">
+                                                                <div class="user-feedback-title">
+                                                                    <label>Recent Feedback</label>
+                                                                    <div class="viewall">
+                                                                        <input type="submit" value="View All " class="viewall-button"/>
+                                                                        <img src="img/doublearrow.png"/>
+                                                                    </div>
+                                                                </div>
+                                                                <c:forEach var="recentfeedback" items="${sessionScope.LIST_GOOD_RECENT_RESPONE_EMP}">
+                                                                    <div class="pipe-item">
+                                                                        <div class="pipe-item-heading">
+                                                                            <div class="pipe-item-title-wrapper">
+                                                                                <h3 class="pipe-item-title">
+                                                                                    Feedback ${recentfeedback.feedbackDetailID}
+                                                                                </h3>
+                                                                                <p class="pipe-item-desc">
+                                                                                    <strong>Name:</strong> ${recentfeedback.userName}
+                                                                                </p>
+                                                                            </div>
+                                                                            <div class="pipe-item-date">
+                                                                                ${recentfeedback.date}
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="pipe-item-bottom">
+                                                                            <p class="pipe-bottom-item">
+                                                                                <strong>Status:</strong>
+                                                                                Done
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </c:forEach>
+                                                                <div class="unban-button">
+                                                                    <input type="submit" value="Unban"/>
+                                                                </div>
+                                                            </div>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <c:set var="userid" scope="session" value="${userprofile.userID}"/>
+                                                            <div class="statistic-user-wrapper" data-index="${counter.count}">
+                                                                <div class="statistic-user-profile">
+                                                                    <div class="statistic-user-avatar">
+                                                                        <img
+                                                                            src="data:image/jpg/png;base64,${userprofile.image}"
+                                                                            alt=""
+                                                                            />
+                                                                    </div>
+                                                                    <h1 class="user-name">${userprofile.fullName}</h1>
+                                                                    <h2>${userprofile.roleName}</h2>
+                                                                    <hr/>
+                                                                </div>
+                                                                <div class="user-feedback-list">
+                                                                    <div class="user-feedback-title">
+                                                                        <label>Recent Feedback</label>
+                                                                        <div class="viewall">
+                                                                            <input type="submit" value="View All " class="viewall-button"/>
+                                                                            <img src="img/doublearrow.png"/>
+                                                                        </div>
+                                                                    </div>
+                                                                    <c:forEach var="recentfeedback" items="${sessionScope.LIST_GOOD_RECENT_RESPONE_EMP}">
+                                                                        <c:if test="${userid eq recentfeedback.userID}">
+                                                                            <div class="pipe-item">
+                                                                                <div class="pipe-item-heading">
+                                                                                    <div class="pipe-item-title-wrapper">
+                                                                                        <h3 class="pipe-item-title">
+                                                                                            Feedback ${recentfeedback.feedbackDetailID}
+                                                                                        </h3>
+                                                                                        <p class="pipe-item-desc">
+                                                                                            <strong>Name:</strong> ${recentfeedback.userName}
+                                                                                        </p>
+                                                                                    </div>
+                                                                                    <div class="pipe-item-date">
+                                                                                        ${recentfeedback.date}
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="pipe-item-bottom">
+                                                                                    <p class="pipe-bottom-item">
+                                                                                        <strong>Status:</strong>
+                                                                                        Done
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </c:if>
+                                                                    </c:forEach>
+                                                                    <div class="unban-button">
+                                                                        <input type="submit" value="Unban"/>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </c:otherwise>
+                                                    </c:choose>    
+                                                </div>
+                                            </c:forEach>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -38,7 +38,7 @@ public class GetRecentFeedbackForGoodEmpController extends HttpServlet {
             String userID = (String) request.getParameter("userID");
             EmployeesDAO dao = new EmployeesDAO();
             List<ResponseDTO> list = new ArrayList<ResponseDTO>();
-            list = dao.getListRecentDoneRespone(userID);
+            list = dao.getListRecentDoneRespone();
             session.setAttribute("LIST_GOOD_RECENT_RESPONE_EMP", list);
             url = SUCCESS;
         } catch (Exception e) {

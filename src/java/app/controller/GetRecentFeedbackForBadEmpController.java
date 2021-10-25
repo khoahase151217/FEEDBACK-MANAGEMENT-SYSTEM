@@ -37,7 +37,7 @@ public class GetRecentFeedbackForBadEmpController extends HttpServlet {
             String userID = (String) request.getParameter("userID");
             EmployeesDAO dao = new EmployeesDAO();
             List<ResponseDTO> list = new ArrayList<ResponseDTO>();
-            list = dao.getListRecentDeclineRespone(userID);
+            list = dao.getListRecentDeclineRespone();
             session.setAttribute("LIST_BAD_RECENT_RESPONE_EMP", list);
             url = SUCCESS;
         } catch (Exception e) {

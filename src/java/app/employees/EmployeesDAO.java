@@ -803,6 +803,7 @@ public class EmployeesDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
+            conn = DBUtils.getConnection();
             if (conn != null) {
                 String sql = "SELECT TOP 3 t1.*,COUNT(t1.UserID) as count\n"
                         + " FROM tblUser t1\n"
@@ -847,23 +848,22 @@ public class EmployeesDAO {
         return list;
     }
 
-    public List<ResponseDTO> getListRecentDeclineRespone(String userID) throws SQLException {
+ public List<ResponseDTO> getListRecentDeclineRespone() throws SQLException {
         List<ResponseDTO> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
+            conn = DBUtils.getConnection();
             if (conn != null) {
                 String sql = "SELECT TOP 3 t1.*,t4.Name as FacilityName ,t2.Quantity as quantity ,t2.Location as Location\n"
                         + "FROM tblResponseFeedback t1\n"
                         + "JOIN tblFeedbackDetail t2 on t1.FeedbackDetailID =t2.FeedbackDetailID\n"
                         + "JOIN tblDeclinedResponse t3 on t3.ResponseID =t1.ResponseID\n"
                         + "JOIN tblFacilities t4 on t2.FacilityID = t4.FacilityID\n"
-                        + "WHERE t1.UserID=?\n"
                         + "GROUP BY t1.Date,t1.Description,t1.FeedbackDetailID,t1.Image,t1.ResponseID,t1.StatusID,t1.UserID,t4.Name,t2.Quantity,t2.Location\n"
                         + "ORDER BY t1.Date desc";
                 ps = conn.prepareStatement(sql);
-                ps.setString(1, userID);
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     String responeID = rs.getString("ResponseID");
@@ -871,9 +871,11 @@ public class EmployeesDAO {
                     String description = rs.getString("Description");
                     String date = rs.getString("Date");
                     String facilityName = rs.getString("FacilityName");
+                    String userID = rs.getString("UserID");
                     String location = rs.getString("Location");
                     String quantity = rs.getString("quantity");
-                    list.add(new ResponseDTO(feedbackdetailID, "", description, "", "", facilityName, location, "", quantity, date));
+                    list.add(new ResponseDTO(feedbackdetailID, userID, "", description, "", responeID, facilityName, location, "", quantity, date, ""));
+
                 }
             }
         } catch (Exception e) {
@@ -892,32 +894,33 @@ public class EmployeesDAO {
         return list;
     }
 
-    public List<ResponseDTO> getListRecentDoneRespone(String userID) throws SQLException {
+    public List<ResponseDTO> getListRecentDoneRespone() throws SQLException {
         List<ResponseDTO> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
+            conn = DBUtils.getConnection();
             if (conn != null) {
                 String sql = "SELECT TOP 3 t1.*,t2.Quantity as quantity,t3.Name as FacilityName,t2.Location as Location\n"
                         + "FROM tblResponseFeedback t1\n"
                         + "JOIN tblFeedbackDetail t2 on t1.FeedbackDetailID =t2.FeedbackDetailID\n"
                         + "JOIN tblFacilities t3 on t2.FacilityID = t3.FacilityID\n"
-                        + "WHERE t1.StatusID='done' AND t1.UserID=?\n"
                         + "GROUP BY t1.Date,t1.Description,t1.FeedbackDetailID,t1.Image,t1.ResponseID,t1.StatusID,t1.UserID,t3.Name,t2.Quantity,t2.Location\n"
                         + "ORDER BY t1.Date desc";
                 ps = conn.prepareStatement(sql);
-                ps.setString(1, userID);
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     String responeID = rs.getString("ResponseID");
                     String feedbackdetailID = rs.getString("FeedbackDetailID");
                     String description = rs.getString("Description");
                     String date = rs.getString("Date");
+                    String userID = rs.getString("UserID");
                     String facilityName = rs.getString("FacilityName");
                     String location = rs.getString("Location");
                     String quantity = rs.getString("quantity");
-                    list.add(new ResponseDTO(feedbackdetailID, "", description, "", "", facilityName, location, "", quantity, date));
+                    list.add(new ResponseDTO(feedbackdetailID, userID, "", description, "", responeID, facilityName, location, "", quantity, date, ""));
+
                 }
             }
         } catch (Exception e) {

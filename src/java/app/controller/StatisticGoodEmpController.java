@@ -6,6 +6,7 @@
 package app.controller;
 
 import app.employees.EmployeesDAO;
+import app.response.ResponseDTO;
 import app.users.UserDTO;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -30,7 +31,7 @@ import javax.servlet.http.HttpSession;
 public class StatisticGoodEmpController extends HttpServlet {
 
     private static final String ERROR = "##";
-    private static final String SUCCESS = "##";
+    private static final String SUCCESS = "StatisticBadEmpController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -39,15 +40,18 @@ public class StatisticGoodEmpController extends HttpServlet {
        
         try {
             HttpSession session = request.getSession();
-            SimpleDateFormat month_date = new SimpleDateFormat("MMM ", Locale.ENGLISH);
-            SimpleDateFormat year_date = new SimpleDateFormat("YYYY ", Locale.ENGLISH);
+            SimpleDateFormat month_date = new SimpleDateFormat("MMM", Locale.ENGLISH);
+            SimpleDateFormat year_date = new SimpleDateFormat("YYYY", Locale.ENGLISH);
             Date date = new Date();
             String month = month_date.format(date);
             String year = year_date.format(date);
             EmployeesDAO dao = new EmployeesDAO();
             List<UserDTO> list = new ArrayList<UserDTO>();
+            List<ResponseDTO> listRes = new ArrayList<ResponseDTO>();
             list = dao.getListGoodEMP(month, year);
+            listRes = dao.getListRecentDoneRespone();
             session.setAttribute("LIST_GOOD_EMP", list);
+            session.setAttribute("LIST_GOOD_RECENT_RESPONE_EMP", listRes);
             url = SUCCESS;
         } catch (Exception e) {
             log("Error at StatisticGoodEmpController" + e.toString());
