@@ -32,7 +32,7 @@
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
         ></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage1.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPageDetailModal.css" />
     </head>
     <body>
@@ -489,6 +489,13 @@
                                         </h5> 
 
                                         <div class="pipe-list">
+                                            <div class="pending-user-list">
+                                            </div>
+                                            <div class="pending-trash-list">
+
+                                            </div>
+                                            <div class="response-list">
+                                            </div>
                                         </div>
                                     </div>
                                     <div
@@ -1321,12 +1328,12 @@
                                                                 $('.showcase-item-dropdown-actual-notification').removeClass('active');
                                                                 $('.showcase-item-dropdown-select').removeClass('active');
                                                             }
-                                                            $($.parseHTML(result.slice(1))).appendTo($('.showcase-item-dropdown-list .pipe-list'));
-                                                            //$('.showcase-item-dropdown-list .pipe-list').html(result.slice(1));
+//                                                            $($.parseHTML(result.slice(1))).appendTo($('.showcase-item-dropdown-list .pipe-list'));
+                                                            $('.showcase-item-dropdown-list .pipe-list .pending-user-list').html(result.slice(1));
 
                                                         }
                                                     });
-                                                    
+
                                                     $.ajax({
                                                         type: "POST",
                                                         url: "/SWP391_PROJECT/NotificationTrashController",
@@ -1343,17 +1350,17 @@
                                                                 $('.showcase-item-dropdown-actual-notification').removeClass('active');
                                                                 $('.showcase-item-dropdown-select').removeClass('active');
                                                             }
-                                                             $($.parseHTML(result.slice(1))).appendTo($('.showcase-item-dropdown-list .pipe-list'));
+//                                                            $($.parseHTML(result.slice(1))).appendTo($('.showcase-item-dropdown-list .pipe-list'));
 
-                                                            //$('.showcase-item-dropdown-list .pipe-list').html(result.slice(1));
+                                                            $('.showcase-item-dropdown-list .pipe-list .pending-trash-list').html(result.slice(1));
 
                                                         }
                                                     });
                                                 }
                                                 handleNotification();
                                                 setInterval(handleNotification, 10000);
-                                                
-                                                
+
+
 
                                                 function loadResultsPipeStyle(index, list) {
                                                     let amount = list.querySelectorAll('.pipe .pipe-item').length;
