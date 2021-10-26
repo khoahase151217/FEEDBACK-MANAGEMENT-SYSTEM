@@ -65,8 +65,8 @@ public class ResponseDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = " INSERT INTO tblResponseFeedback( FeedbackDetailID, UserID, Image, Description, StatusID, Date ) "
-                        + " VALUES(?,?,?,?,?,?) ";
+                String sql = " INSERT INTO tblResponseFeedback( FeedbackDetailID, UserID, Image, Description, StatusID, Date,Realtime ) "
+                        + " VALUES(?,?,?,?,?,?,CURRENT_TIMESTAMP) ";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, response.getFeedbackDetailID());
                 ps.setString(2, response.getUserID());
@@ -97,7 +97,7 @@ public class ResponseDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 String sql = " UPDATE tblResponseFeedback "
-                        + " SET Image=?, Description=?,StatusID=? ,Date=?  "
+                        + " SET Image=?, Description=?,StatusID=? ,Date=? ,Realtime=CURRENT_TIMESTAMP "
                         + " WHERE FeedbackDetailID=? AND UserID=? ";
                 ps = conn.prepareStatement(sql);
                 ps.setBinaryStream(1, image);
