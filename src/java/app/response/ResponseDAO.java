@@ -206,7 +206,7 @@ public int countResponseFeedback(ResponseDTO response) throws SQLException {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 String sql = " UPDATE tblFeedback "
-                        + " SET statusID='pending' "
+                        + " SET statusID='pending' ,TrashDate=CURRENT_TIMESTAMP "
                         + " WHERE FeedbackID=? ";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, feedbackId);

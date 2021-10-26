@@ -21,7 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "UpdateFeedbackDeclineController", urlPatterns = {"/UpdateFeedbackDeclineController"})
 public class UpdateFeedbackDeclineController extends HttpServlet {
-  private static final String SUCCESS = "ShowFeedBackController";
+
+    private static final String SUCCESS = "ShowFeedBackController";
     private static final String ERROR = "##";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -35,23 +36,23 @@ public class UpdateFeedbackDeclineController extends HttpServlet {
             FeedbackDAO dao = new FeedbackDAO();
             ResponseDAO dao2 = new ResponseDAO();
             String employeeId = dao2.getEmployeeId(responseID);
-            String userId=dao.getUserIDByFeedbackDetailID(feedbackDetailID);
+            String userId = dao.getUserIDByFeedbackDetailID(feedbackDetailID);
             String feedbackId = dao.getFeedbackIDByFeedbackDetailID2(feedbackDetailID);
-            if(dao.updateDecline(feedbackDetailID, userId, feedbackId)){
-                dao2.updateResponseStatus(feedbackDetailID,employeeId);
-                if(dao2.countDeclineResponse(responseID)!=0){
+            if (dao.updateDecline(feedbackDetailID, userId, feedbackId)) {
+                dao2.updateResponseStatus(feedbackDetailID, employeeId);
+                if (dao2.countDeclineResponse(responseID) != 0) {
                     dao2.updateDeclineResponse(declineReason, responseID);
-                                    url = SUCCESS;
-                }else{
+                    url = SUCCESS;
+                } else {
                     dao2.insertDeclinedResponse(declineReason, responseID);
-                                    url = SUCCESS;
+                    url = SUCCESS;
                 }
             }
         } catch (Exception e) {
             log("Error at UpdateFeedbackDeclineController:" + e.toString());
-        }finally{
+        } finally {
             request.getRequestDispatcher(url).forward(request, response);
-    }
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

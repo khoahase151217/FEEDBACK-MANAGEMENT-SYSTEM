@@ -18,6 +18,7 @@ public class FeedbackDTO {
     private String statusId;
     private String fullName;
     private String statusName;
+    private String trashDate;
 
     public String getStatusName() {
         return statusName;
@@ -85,6 +86,17 @@ public class FeedbackDTO {
         this.statusName = statusName;
     }
 
+    public FeedbackDTO(String feedbackID, String userID, String date, String email, String statusId, String fullName, String statusName, String trashDate) {
+        this.feedbackID = feedbackID;
+        this.userID = userID;
+        this.date = date;
+        this.email = email;
+        this.statusId = statusId;
+        this.fullName = fullName;
+        this.statusName = statusName;
+        this.trashDate = trashDate;
+    }
+
     public FeedbackDTO(String userID, String date) {
         this.userID = userID;
         this.date = date;
@@ -129,5 +141,14 @@ public class FeedbackDTO {
     public void setDate(String date) {
         this.date = date;
     }
+
+    public String getTrashDate() {
+        return trashDate;
+    }
+
+    public void setTrashDate(String trashDate) {
+        this.trashDate = trashDate;
+    }
+    
 
 }

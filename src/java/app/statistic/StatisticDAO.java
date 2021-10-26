@@ -5,9 +5,9 @@
  */
 package app.statistic;
 
-import app.facility.FacilityDTO;
 import app.feedback.FeedbackDTO;
 import app.feedback.FeedbackDetailDTO;
+import app.response.ResponseDTO;
 import app.utils.DBUtils;
 import java.io.IOException;
 import java.sql.Connection;
@@ -199,8 +199,52 @@ public class StatisticDAO {
                         + "select top (@check) * ,t2.FullName,t2.Email\n"
                         + "from tblFeedback t1\n"
                         + "JOIN tblUser t2 on t1.UserID = t2.UserID\n"
-                        + "where t1.statusID='pending'\n"
+                        + "where t1.statusID='pending' and t1.TrashDate IS  NULL \n"
                         + "order by t1.FeedbackID desc ";
+                stm = conn.prepareStatement(sql);
+                stm.setInt(1, check);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    String userId = rs.getString("UserID");
+                    String fullName = rs.getString("FullName");
+                    String email = rs.getString("Email");
+                    String date = rs.getString("Date");
+                    String statusId = rs.getString("statusID");
+                    list.add(new FeedbackDTO(feedbackId, userId, date, email, statusId, fullName));
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+     public List<FeedbackDTO> getListFeedbackForNotificationTrash(int check) throws SQLException {
+        List<FeedbackDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " DECLARE @check int;\n"
+                        + "set @check = ?;\n"
+                        + "select top (@check) * ,t2.FullName,t2.Email\n"
+                        + "from tblFeedback t1\n"
+                        + "JOIN tblUser t2 on t1.UserID = t2.UserID\n"
+                        + "where t1.statusID='pending' and t1.trashDate is not null  \n"
+                        + "order by t1.TrashDate desc ";
                 stm = conn.prepareStatement(sql);
                 stm.setInt(1, check);
                 rs = stm.executeQuery();
@@ -315,6 +359,47 @@ public class StatisticDAO {
         return list;
     }
 
+    public List<ResponseDTO> getListFeedbackDetailForNotificationResponse(int check, String userId) throws SQLException {
+        List<ResponseDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " DECLARE @check int;\n"
+                        + "set @check = ?;\n"
+                        + "select top (@check) t1.* , t2.FeedbackID \n"
+                        + "from tblResponseFeedback t1\n"
+                        + "join tblFeedbackDetail t2 on t1.FeedbackDetailID=t2.FeedbackDetailID\n"
+                        + "where t1.UserID=? and t1.StatusID = 'done'\n"
+                        + "order by t1.Date desc ";
+                stm = conn.prepareStatement(sql);
+                stm.setInt(1, check);
+                stm.setString(2, userId);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    list.add(new ResponseDTO("", "", "", "", "", "", "", "", "", "", "", false, false, "", feedbackId));
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
     public int countForNotification() throws SQLException {
         int count = 0;
         Connection conn = null;
@@ -325,7 +410,41 @@ public class StatisticDAO {
             if (conn != null) {
                 String sql = "SELECT COUNT(FeedbackID) as count"
                         + " FROM tblFeedback  "
-                        + " WHERE StatusID ='pending'";
+                        + " WHERE StatusID ='pending' and trashDate is null";
+                stm = conn.prepareCall(sql);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    count = rs.getInt("count");
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return count;
+    }
+    
+        public int countForNotificationTrash() throws SQLException {
+        int count = 0;
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT COUNT(FeedbackID) as count"
+                        + " FROM tblFeedback  "
+                        + " WHERE StatusID ='pending' and trashDate is not null";
                 stm = conn.prepareCall(sql);
                 rs = stm.executeQuery();
                 if (rs.next()) {
@@ -394,6 +513,40 @@ public class StatisticDAO {
             if (conn != null) {
                 String sql = " select count(FeedbackDetailID)as count from tblFeedbackDetail "
                         + " where UserID=? and flag='false' ";
+                stm = conn.prepareStatement(sql);
+                stm.setString(1, userId);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    count = rs.getInt("count");
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return count;
+    }
+
+    public int countForNotificationEmployeeResponse(String userId) throws SQLException {
+        int count = 0;
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " Select count(feedbackdetailID) as count from tblResponseFeedback\n"
+                        + "Where UserID=? ";
                 stm = conn.prepareStatement(sql);
                 stm.setString(1, userId);
                 rs = stm.executeQuery();

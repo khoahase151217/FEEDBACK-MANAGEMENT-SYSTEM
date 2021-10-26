@@ -640,6 +640,7 @@
                                                             </c:if>
                                                         </div>
                                                         <input type="hidden" name="pending_count" value="${requestScope.PENDING_COUNT}"/>
+                                                        <input type="hidden" name="pending_count_trash" value="${requestScope.PENDING_TRASH_COUNT}"/>
                                                     </div>
                                                     <div class="pipe-column" data-index="2">
                                                         <div class="pipe-heading">
@@ -1303,6 +1304,7 @@
                                                 function handleNotification() {
 //                                                    Array.from(document.querySelectorAll('.pipe-list-pending')).length
                                                     const count = document.querySelector('input[name="pending_count"]').value;
+                                                    const countTrash = document.querySelector('input[name="pending_count_trash"]').value;
                                                     $.ajax({
                                                         type: "POST",
                                                         url: "/SWP391_PROJECT/NotificationController",
@@ -1319,13 +1321,39 @@
                                                                 $('.showcase-item-dropdown-actual-notification').removeClass('active');
                                                                 $('.showcase-item-dropdown-select').removeClass('active');
                                                             }
-                                                            $('.showcase-item-dropdown-list .pipe-list').html(result.slice(1));
+                                                            $($.parseHTML(result.slice(1))).appendTo($('.showcase-item-dropdown-list .pipe-list'));
+                                                            //$('.showcase-item-dropdown-list .pipe-list').html(result.slice(1));
+
+                                                        }
+                                                    });
+                                                    
+                                                    $.ajax({
+                                                        type: "POST",
+                                                        url: "/SWP391_PROJECT/NotificationTrashController",
+                                                        data: {notification: countTrash},
+                                                        success: function (result) {
+                                                            if (result !== '') {
+                                                                var lenght = result.slice(0, 1);
+                                                                $('.showcase-item-dropdown-actual-notification').addClass('active');
+                                                                $('.showcase-item-dropdown-actual-notification').html(lenght);
+                                                                $('.showcase-item-dropdown-select').addClass('active');
+                                                                $('.showcase-item-dropdown-sub-title').html("You have " + lenght + " new feedback");
+                                                            } else {
+                                                                $('.showcase-item-dropdown-sub-title').html($('.showcase-item-dropdown-sub-title.sub-title-no').text());
+                                                                $('.showcase-item-dropdown-actual-notification').removeClass('active');
+                                                                $('.showcase-item-dropdown-select').removeClass('active');
+                                                            }
+                                                             $($.parseHTML(result.slice(1))).appendTo($('.showcase-item-dropdown-list .pipe-list'));
+
+                                                            //$('.showcase-item-dropdown-list .pipe-list').html(result.slice(1));
 
                                                         }
                                                     });
                                                 }
                                                 handleNotification();
                                                 setInterval(handleNotification, 10000);
+                                                
+                                                
 
                                                 function loadResultsPipeStyle(index, list) {
                                                     let amount = list.querySelectorAll('.pipe .pipe-item').length;

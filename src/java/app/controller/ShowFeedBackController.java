@@ -8,7 +8,7 @@ package app.controller;
 import app.feedback.FeedbackDAO;
 import app.feedback.FeedbackDTO;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -52,8 +52,19 @@ public class ShowFeedBackController extends HttpServlet {
 
             List<FeedbackDTO> listPending = dao.getListFeedbackByStatusPendingAscForManager();
             List<FeedbackDTO> listPendingFull = dao.getListFeedbackByStatusPendingAscForManagerFull();
+            List<FeedbackDTO> listPendingTrash =new ArrayList<>();
+            List<FeedbackDTO> listPendingUser =new ArrayList<>();
+            for (FeedbackDTO pending : listPendingFull) {
+                if(pending.getTrashDate()!=null){
+                    listPendingTrash.add(pending);
+                }
+                else{
+                    listPendingUser.add(pending);
+                }
+            }
             session.setAttribute("FEEDBACK_LIST_PENDING", listPending);
-            request.setAttribute("PENDING_COUNT", listPendingFull.size());
+            request.setAttribute("PENDING_TRASH_COUNT", listPendingTrash.size());
+            request.setAttribute("PENDING_COUNT", listPendingUser.size());
 
             List<FeedbackDTO> listDeny = dao.getListFeedbackByStatusDenyAscForManager();
             session.setAttribute("FEEDBACK_LIST_DENY", listDeny);

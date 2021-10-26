@@ -726,7 +726,7 @@ public class FeedbackDAO {
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t1.statusID='done' "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name"
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name,t1.TrashDate "
                         + " order by t1.Date asc ";
                 ps = conn.prepareStatement(sql);
                 rs = ps.executeQuery();
@@ -870,7 +870,7 @@ public class FeedbackDAO {
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t1.statusID='onGoing' "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name"
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name,t1.TrashDate "
                         + " order by t1.Date asc ";
                 ps = conn.prepareStatement(sql);
                 rs = ps.executeQuery();
@@ -1014,7 +1014,7 @@ public class FeedbackDAO {
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t1.statusID='pending'  "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name,t1.TrashDate  "
                         + " order by t1.Date asc ";
                 ps = conn.prepareStatement(sql);
                 rs = ps.executeQuery();
@@ -1061,7 +1061,7 @@ public class FeedbackDAO {
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t1.statusID='pending'  "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name,t1.TrashDate  "
                         + " order by t1.Date asc ";
                 ps = conn.prepareStatement(sql);
                 rs = ps.executeQuery();
@@ -1073,7 +1073,8 @@ public class FeedbackDAO {
                     String email = rs.getString("email");
                     String fullname = rs.getString("fullname");
                     String statusName = rs.getString("statusName");
-                    list.add(new FeedbackDTO(feedbackId, userId, date, email, statusId, fullname, statusName));
+                    String TrashDate = rs.getString("TrashDate");
+                    list.add(new FeedbackDTO(feedbackId, userId, date, email, statusId, fullname, statusName,TrashDate));
                 }
             }
 
@@ -1203,7 +1204,7 @@ public class FeedbackDAO {
                         + " ON t1.StatusID=t2.FeedbackStatusID "
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name,t1.TrashDate  "
                         + " order by t1.Date asc ";
                 ps = conn.prepareStatement(sql);
                 rs = ps.executeQuery();
@@ -1685,7 +1686,7 @@ public class FeedbackDAO {
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t1.statusID='decline' "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name,t1.TrashDate  "
                         + " order by t1.Date asc ";
                 ps = conn.prepareStatement(sql);
                 rs = ps.executeQuery();
