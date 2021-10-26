@@ -627,7 +627,7 @@ public class StatisticDAO {
                         + " JOIN tblResponseFeedback t4 on t4.feedbackdetailID= t3.feedbackdetailID\n"
                         + "JOIN tblUser t5\n"
                         + "ON t5.UserID = t3.UserID\n"
-                        + "WHERE t1.FeedbackID='76'";
+                        + "WHERE t1.FeedbackID=?";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, feedbackID);
                 rs = ps.executeQuery();
