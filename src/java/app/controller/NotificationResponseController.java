@@ -55,11 +55,11 @@ public class NotificationResponseController extends HttpServlet {
                 list = dao.getListFeedbackDetailForNotificationResponse(notification);
                 for (int i = 0; i<list.size(); i++) {
                 if(i==0){
-                    FeedbackDTO feedback = dao.getFeedbackByID(list.get(i).getFeedbackID());
+                    FeedbackDTO feedback = dao.getFeedbackByIDResponse(list.get(i).getFeedbackID());
                     listFB.add(feedback);
                 }else{
                     if(!list.get(i).getFeedbackID().equals(list.get(i-1).getFeedbackID())){
-                         FeedbackDTO feedback = dao.getFeedbackByID(list.get(i).getFeedbackID());
+                         FeedbackDTO feedback = dao.getFeedbackByIDResponse(list.get(i).getFeedbackID());
                          listFB.add(feedback);
                     }
                 }
@@ -84,7 +84,7 @@ public class NotificationResponseController extends HttpServlet {
                         + "                                                <div class=\"pipe-item-bottom\">\n"
                         + "                                                    <p class=\"pipe-bottom-item\">\n"
                         + "                                                        <strong>Response by</strong>\n"
-                        + "                                                        " + feedback.getEmail() + "\n"
+                        + "                                                        " + feedback.getEmpName()+ "\n"
                         + "                                                    </p>\n"
                         + "                                                </div>\n"
                         + "                                            </div>");

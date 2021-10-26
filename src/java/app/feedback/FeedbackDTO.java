@@ -19,6 +19,7 @@ public class FeedbackDTO {
     private String fullName;
     private String statusName;
     private String trashDate;
+    private String empName;
 
     public String getStatusName() {
         return statusName;
@@ -54,6 +55,17 @@ public class FeedbackDTO {
         this.statusId = statusId;
     }
 
+    public FeedbackDTO(String feedbackID, String userID, String date, String email, String statusId, String fullName, String statusName, String trashDate, String empName) {
+        this.feedbackID = feedbackID;
+        this.userID = userID;
+        this.date = date;
+        this.email = email;
+        this.statusId = statusId;
+        this.fullName = fullName;
+        this.statusName = statusName;
+        this.trashDate = trashDate;
+        this.empName = empName;
+    }
     public FeedbackDTO(String feedbackID, String userID, String date, String email, String statusId, String fullName) {
         this.feedbackID = feedbackID;
         this.userID = userID;
@@ -61,7 +73,10 @@ public class FeedbackDTO {
         this.email = email;
         this.statusId = statusId;
         this.fullName = fullName;
+      
     }
+
+    
 
 //    public FeedbackDTO(String feedbackID, String userID, String date, String email) {
 //        this.feedbackID = feedbackID;
@@ -149,6 +164,16 @@ public class FeedbackDTO {
     public void setTrashDate(String trashDate) {
         this.trashDate = trashDate;
     }
+
+    public String getEmpName() {
+        return empName;
+    }
+
+    public void setEmpName(String empName) {
+        this.empName = empName;
+    }
+    
+    
     
 
 }

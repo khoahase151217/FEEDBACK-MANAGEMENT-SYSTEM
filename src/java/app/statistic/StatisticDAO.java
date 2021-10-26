@@ -230,7 +230,8 @@ public class StatisticDAO {
         }
         return list;
     }
-     public List<FeedbackDTO> getListFeedbackForNotificationTrash(int check) throws SQLException {
+
+    public List<FeedbackDTO> getListFeedbackForNotificationTrash(int check) throws SQLException {
         List<FeedbackDTO> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement stm = null;
@@ -432,8 +433,8 @@ public class StatisticDAO {
         }
         return count;
     }
-    
-        public int countForNotificationTrash() throws SQLException {
+
+    public int countForNotificationTrash() throws SQLException {
         int count = 0;
         Connection conn = null;
         PreparedStatement stm = null;
@@ -610,4 +611,51 @@ public class StatisticDAO {
         return feedback;
     }
 
+    public FeedbackDTO getFeedbackByIDResponse(String feedbackID) throws SQLException, IOException {
+        FeedbackDTO feedback = new FeedbackDTO();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT t1.* , t2.Email, t2.FullName, t5.FullName as emp\n"
+                        + "FROM tblFeedback t1  \n"
+                        + "JOIN tblUser t2 \n"
+                        + "ON t1.UserID = t2.UserID \n"
+                        + " JOIN tblFeedbackDetail t3 on t1.feedbackID =t3.feedbackID\n"
+                        + " JOIN tblResponseFeedback t4 on t4.feedbackdetailID= t3.feedbackdetailID\n"
+                        + "JOIN tblUser t5\n"
+                        + "ON t5.UserID = t3.UserID\n"
+                        + "WHERE t1.FeedbackID='76'";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, feedbackID);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    String userId = rs.getString("UserID");
+                    String fullName = rs.getString("FullName");
+                    String email = rs.getString("Email");
+                    String date = rs.getString("Date");
+                    String statusId = rs.getString("statusID");
+                    String emp = rs.getString("emp");
+                    feedback = new FeedbackDTO(feedbackID, userId, date, email, statusId, fullName, "", "", emp);
+
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+
+        }
+        return feedback;
+    }
 }
