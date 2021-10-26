@@ -359,7 +359,7 @@ public class StatisticDAO {
         return list;
     }
 
-    public List<ResponseDTO> getListFeedbackDetailForNotificationResponse(int check, String userId) throws SQLException {
+    public List<ResponseDTO> getListFeedbackDetailForNotificationResponse(int check) throws SQLException {
         List<ResponseDTO> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement stm = null;
@@ -372,11 +372,10 @@ public class StatisticDAO {
                         + "select top (@check) t1.* , t2.FeedbackID \n"
                         + "from tblResponseFeedback t1\n"
                         + "join tblFeedbackDetail t2 on t1.FeedbackDetailID=t2.FeedbackDetailID\n"
-                        + "where t1.UserID=? and t1.StatusID = 'done'\n"
+                        + "where t1.StatusID = 'done'\n"
                         + "order by t1.Date desc ";
                 stm = conn.prepareStatement(sql);
                 stm.setInt(1, check);
-                stm.setString(2, userId);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     String feedbackId = rs.getString("FeedbackID");
@@ -537,7 +536,7 @@ public class StatisticDAO {
         return count;
     }
 
-    public int countForNotificationEmployeeResponse(String userId) throws SQLException {
+    public int countForNotificationEmployeeResponse() throws SQLException {
         int count = 0;
         Connection conn = null;
         PreparedStatement stm = null;
@@ -545,10 +544,8 @@ public class StatisticDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = " Select count(feedbackdetailID) as count from tblResponseFeedback\n"
-                        + "Where UserID=? ";
+                String sql = " Select count(feedbackdetailID) as count from tblResponseFeedback\n";
                 stm = conn.prepareStatement(sql);
-                stm.setString(1, userId);
                 rs = stm.executeQuery();
                 if (rs.next()) {
                     count = rs.getInt("count");

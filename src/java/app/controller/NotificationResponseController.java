@@ -49,10 +49,10 @@ public class NotificationResponseController extends HttpServlet {
             String count = request.getParameter("notification");
             int notification = 0;
             int check = Integer.parseInt(count);
-            int check2 = dao.countForNotificationEmployeeResponse(user.getUserID());
+            int check2 = dao.countForNotificationEmployeeResponse();
             if (check2 > check) {
                 notification = check2 - check;
-                list = dao.getListFeedbackDetailForNotificationResponse(notification, user.getUserID());
+                list = dao.getListFeedbackDetailForNotificationResponse(notification);
                 for (int i = 0; i<list.size(); i++) {
                 if(i==0){
                     FeedbackDTO feedback = dao.getFeedbackByID(list.get(i).getFeedbackID());

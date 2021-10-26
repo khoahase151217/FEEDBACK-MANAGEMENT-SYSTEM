@@ -43,6 +43,8 @@ public class ShowFeedbackResponeDetailForManagerController extends HttpServlet {
             }
             List<ResponseDTO> dto = dao.showListResponeDetail(feedbackID);
             int count = dao.countDetail(feedbackID);
+            int countRes = dao.countResponse();
+            session.setAttribute("COUNT_RESPONSE", countRes);
             if (count == dto.size()) {
                 request.setAttribute("COMPLETED_ITEM", true);
             }

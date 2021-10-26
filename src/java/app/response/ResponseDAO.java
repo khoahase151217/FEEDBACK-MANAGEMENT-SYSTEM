@@ -21,7 +21,8 @@ import java.util.List;
  * @author ADMIN
  */
 public class ResponseDAO {
-public int countResponseFeedback(ResponseDTO response) throws SQLException {
+
+    public int countResponseFeedback(ResponseDTO response) throws SQLException {
         int count = 0;
         Connection conn = null;
         PreparedStatement stm = null;
@@ -56,6 +57,7 @@ public int countResponseFeedback(ResponseDTO response) throws SQLException {
         }
         return count;
     }
+
     public boolean insertResponseFeedback(ResponseDTO response, FileInputStream image) throws SQLException, ClassNotFoundException {
         boolean check = false;
         Connection conn = null;
@@ -86,7 +88,8 @@ public int countResponseFeedback(ResponseDTO response) throws SQLException {
         }
         return check;
     }
-     public boolean updateResponseFeedback(ResponseDTO response, FileInputStream image) throws SQLException {
+
+    public boolean updateResponseFeedback(ResponseDTO response, FileInputStream image) throws SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ps = null;
@@ -145,6 +148,7 @@ public int countResponseFeedback(ResponseDTO response) throws SQLException {
         }
         return check;
     }
+
     public boolean insertDeclinedResponse(String declineReason, String responseId) throws SQLException, ClassNotFoundException {
         boolean check = false;
         Connection conn = null;
@@ -223,7 +227,6 @@ public int countResponseFeedback(ResponseDTO response) throws SQLException {
         }
         return check;
     }
-   
 
     public String getUserId(String feedbackId) throws SQLException {
         String userId = "";
@@ -253,6 +256,7 @@ public int countResponseFeedback(ResponseDTO response) throws SQLException {
         }
         return userId;
     }
+
     public String getEmployeeId(String responseId) throws SQLException {
         String userId = "";
         Connection conn = null;
@@ -402,8 +406,8 @@ public int countResponseFeedback(ResponseDTO response) throws SQLException {
         }
         return count;
     }
-    
-public int countDeclineResponse(String responseId) throws SQLException {
+
+    public int countDeclineResponse(String responseId) throws SQLException {
         int count = 0;
         Connection conn = null;
         PreparedStatement ps = null;
@@ -432,7 +436,8 @@ public int countDeclineResponse(String responseId) throws SQLException {
         }
         return count;
     }
-    public boolean updateResponseStatus(String feedbackDetailID,String employeeId) throws SQLException {
+
+    public boolean updateResponseStatus(String feedbackDetailID, String employeeId) throws SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ps = null;
@@ -458,7 +463,8 @@ public int countDeclineResponse(String responseId) throws SQLException {
         }
         return check;
     }
-    public boolean updateDeclineResponse(String declineReason,String responseID) throws SQLException {
+
+    public boolean updateDeclineResponse(String declineReason, String responseID) throws SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ps = null;
@@ -483,5 +489,38 @@ public int countDeclineResponse(String responseId) throws SQLException {
             }
         }
         return check;
+    }
+
+    public int countResponse() throws SQLException {
+        int count = 0;
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT COUNT(ResponseID) as count"
+                        + " FROM tblResponseFeedback  ";
+                stm = conn.prepareCall(sql);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    count = rs.getInt("count");
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return count;
     }
 }

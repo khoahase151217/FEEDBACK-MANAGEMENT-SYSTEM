@@ -492,7 +492,6 @@
                                             <div class="pending-user-list">
                                             </div>
                                             <div class="pending-trash-list">
-
                                             </div>
                                             <div class="response-list">
                                             </div>
@@ -1300,20 +1299,20 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <c:choose>
-                    <c:when test="${sessionScope.COUNT_RESPONSE eq null}" >
-                        <input id="COUNT_RESPONSE" type="hidden" name="COUNT_RESPONSE" value="0"/>
+                    <c:choose>
+                        <c:when test="${sessionScope.COUNT_RESPONSE eq null}" >
+                            <input id="COUNT_RESPONSE" type="hidden" name="COUNT_RESPONSE" value="0"/>
 
-                    </c:when>
-                    <c:otherwise >
-                        <input id="COUNT_RESPONSE" type="hidden" name="COUNT_RESPONSE" value="${sessionScope.COUNT_RESPONSE}"/>
-                    </c:otherwise>
-                </c:choose>
+                        </c:when>
+                        <c:otherwise >
+                            <input id="COUNT_RESPONSE" type="hidden" name="COUNT_RESPONSE" value="${sessionScope.COUNT_RESPONSE}"/>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
             </section>
         </main>
         <script src="${pageContext.request.contextPath}/js/adminPage.js"></script>
-        <script src="${pageContext.request.contextPath}/js/ManagerFB1.js"></script>
+        <script src="${pageContext.request.contextPath}/js/ManagerFB.js"></script>
         <!-- Query -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
@@ -1383,7 +1382,7 @@
                                                                 $('.showcase-item-dropdown-actual-notification').removeClass('active');
                                                                 $('.showcase-item-dropdown-select').removeClass('active');
                                                             }
-                                                            $('.showcase-item-dropdown-list .pipe-list').html(result.slice(1));
+                                                            $('.showcase-item-dropdown-list .response-list').html(result.slice(1));
                                                         }
                                                     });
                                                 }
