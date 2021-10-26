@@ -577,7 +577,7 @@ public class FeedbackDAO {
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t3.Name like N'" + "%" + search + "%" + "' "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name"
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name"
                         + " order by t1.Date desc ";
                 ps = conn.prepareStatement(sql);
 //                ps.setString(1, '%' + search + '%');

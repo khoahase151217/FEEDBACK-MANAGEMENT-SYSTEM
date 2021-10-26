@@ -969,18 +969,19 @@ ul {
 
 .showcase-item-dropdown-list::after {
     content: "";
-    height: 100%;
-    width: 2%;
+    height: 2%;
+    width: 100%;
     position: absolute;
-    top: 0;
-    right: 100%;
+    bottom: 100%;
+    left: 0;
     background-color: transparent;
-    z-index: 99;
+    z-index: 10;
 }
 
 .showcase-item-dropdown-select {
     transform: translateY(30%);
     position: relative;
+    z-index: 10;
 }
 
 .showcase-item-dropdown-select:hover .showcase-item-dropdown-list {

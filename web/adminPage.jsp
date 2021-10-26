@@ -32,7 +32,7 @@
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
         ></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage1.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPageDetailModal.css" />
     </head>
     <body>
@@ -645,8 +645,8 @@
                                                                 <p class="pipe-item-date">No result can be found ...</p>
                                                             </c:if>
                                                         </div>
-                                                        <input type="hidden" name="pending_count" value="${requestScope.PENDING_COUNT}"/>
-                                                        <input type="hidden" name="pending_count_trash" value="${requestScope.PENDING_TRASH_COUNT}"/>
+                                                        <input type="hidden" name="pending_count" value="${sessionScope.PENDING_COUNT}"/>
+                                                        <input type="hidden" name="pending_count_trash" value="${sessionScope.PENDING_TRASH_COUNT}"/>
                                                     </div>
                                                     <div class="pipe-column" data-index="2">
                                                         <div class="pipe-heading">
@@ -1325,19 +1325,38 @@
                                                         url: "/SWP391_PROJECT/NotificationController",
                                                         data: {notification: count},
                                                         success: function (result) {
+                                                            var trash = JSON.parse(localStorage.getItem("trashFeedback"));
+                                                            var response = JSON.parse(localStorage.getItem("responseFeedback"));
+                                                            if (!trash || !response) {
+                                                                var finalCount = 0;
+                                                            }else {
+                                                                finalCount = trash.finalCount + response.finalCount;
+                                                            }
+                                                            var pendingUserFeedback = {
+                                                                finalCount: finalCount,
+                                                                name: "Pending user"
+                                                            };
                                                             if (result !== '') {
                                                                 var lenght = result.slice(0, 1);
-                                                                $('.showcase-item-dropdown-actual-notification').addClass('active');
-                                                                $('.showcase-item-dropdown-actual-notification').html(lenght);
-                                                                $('.showcase-item-dropdown-select').addClass('active');
-                                                                $('.showcase-item-dropdown-sub-title').html("You have " + lenght + " new feedback");
+                                                                pendingUserFeedback.finalCount = parseInt(lenght);
+                                                                finalCount += parseInt(lenght);
+//                                                                var lenght = Array.from(document.querySelectorAll('.showcase-item-dropdown-list .notification-item')).length;
+                                                                if (finalCount !== 0) {
+                                                                    $('.showcase-item-dropdown-actual-notification').addClass('active');
+                                                                    $('.showcase-item-dropdown-actual-notification').html(finalCount);
+                                                                    $('.showcase-item-dropdown-select').addClass('active');
+                                                                    $('.showcase-item-dropdown-sub-title').html("You have " + finalCount + " new feedback");
+                                                                }
+
                                                             } else {
                                                                 $('.showcase-item-dropdown-sub-title').html($('.showcase-item-dropdown-sub-title.sub-title-no').text());
                                                                 $('.showcase-item-dropdown-actual-notification').removeClass('active');
                                                                 $('.showcase-item-dropdown-select').removeClass('active');
+                                                                pendingUserFeedback.finalCount = 0;
                                                             }
 //                                                            $($.parseHTML(result.slice(1))).appendTo($('.showcase-item-dropdown-list .pipe-list'));
                                                             $('.showcase-item-dropdown-list .pipe-list .pending-user-list').html(result.slice(1));
+                                                            localStorage.setItem("pendingUserFeedback", JSON.stringify(pendingUserFeedback));
 
                                                         }
                                                     });
@@ -1347,19 +1366,37 @@
                                                         url: "/SWP391_PROJECT/NotificationTrashController",
                                                         data: {notification: countTrash},
                                                         success: function (result) {
+                                                            var pendingUser = JSON.parse(localStorage.getItem("pendingUserFeedback"));
+                                                            var response = JSON.parse(localStorage.getItem("responseFeedback"));
+                                                            if (!pendingUser || !response) {
+                                                                var finalCount = 0;
+                                                            }else {
+                                                                finalCount = pendingUser.finalCount + response.finalCount;
+                                                            }
+                                                            var trashFeedback = {
+                                                                finalCount: finalCount,
+                                                                name: "trash feedback"
+                                                            };
                                                             if (result !== '') {
                                                                 var lenght = result.slice(0, 1);
-                                                                $('.showcase-item-dropdown-actual-notification').addClass('active');
-                                                                $('.showcase-item-dropdown-actual-notification').html(lenght);
-                                                                $('.showcase-item-dropdown-select').addClass('active');
-                                                                $('.showcase-item-dropdown-sub-title').html("You have " + lenght + " new feedback");
+                                                                trashFeedback.finalCount = parseInt(lenght);
+                                                                finalCount += parseInt(lenght);
+//                                                                var lenght = Array.from(document.querySelectorAll('.showcase-item-dropdown-list .notification-item')).length;
+                                                                if (finalCount !== 0) {
+                                                                    $('.showcase-item-dropdown-actual-notification').addClass('active');
+                                                                    $('.showcase-item-dropdown-actual-notification').html(finalCount);
+                                                                    $('.showcase-item-dropdown-select').addClass('active');
+                                                                    $('.showcase-item-dropdown-sub-title').html("You have " + finalCount + " new feedback");
+                                                                }
                                                             } else {
                                                                 $('.showcase-item-dropdown-sub-title').html($('.showcase-item-dropdown-sub-title.sub-title-no').text());
                                                                 $('.showcase-item-dropdown-actual-notification').removeClass('active');
                                                                 $('.showcase-item-dropdown-select').removeClass('active');
+                                                                trashFeedback.finalCount = 0;
                                                             }
 //                                                            $($.parseHTML(result.slice(1))).appendTo($('.showcase-item-dropdown-list .pipe-list'));
 
+                                                            localStorage.setItem("trashFeedback", JSON.stringify(trashFeedback));
                                                             $('.showcase-item-dropdown-list .pipe-list .pending-trash-list').html(result.slice(1));
 
                                                         }
@@ -1371,17 +1408,35 @@
                                                         url: "/SWP391_PROJECT/NotificationResponseController",
                                                         data: {notification: countRes},
                                                         success: function (result) {
+                                                            var pendingUser = JSON.parse(localStorage.getItem("pendingUserFeedback"));
+                                                            var trash = JSON.parse(localStorage.getItem("trashFeedback"));
+                                                            if (!pendingUser && !trash) {
+                                                                var finalCount = 0;
+                                                            }else {
+                                                                finalCount = pendingUser.finalCount + trash.finalCount;
+                                                            }
+                                                            var responseFeedback = {
+                                                                finalCount: finalCount,
+                                                                name: "response feedback"
+                                                            };
                                                             if (result !== '') {
                                                                 var lenght = result.slice(0, 1);
-                                                                $('.showcase-item-dropdown-actual-notification').addClass('active');
-                                                                $('.showcase-item-dropdown-actual-notification').html(lenght);
-                                                                $('.showcase-item-dropdown-select').addClass('active');
-                                                                $('.showcase-item-dropdown-sub-title').html("You have " + lenght + " new feedback");
+                                                                responseFeedback.finalCount = parseInt(lenght);
+                                                                finalCount += parseInt(lenght);
+//                                                                var lenght = Array.from(document.querySelectorAll('.showcase-item-dropdown-list .notification-item')).length;
+                                                                if (finalCount !== 0) {
+                                                                    $('.showcase-item-dropdown-actual-notification').addClass('active');
+                                                                    $('.showcase-item-dropdown-actual-notification').html(finalCount);
+                                                                    $('.showcase-item-dropdown-select').addClass('active');
+                                                                    $('.showcase-item-dropdown-sub-title').html("You have " + finalCount + " new feedback");
+                                                                }
                                                             } else {
                                                                 $('.showcase-item-dropdown-sub-title').html($('.showcase-item-dropdown-sub-title.sub-title-no').text());
                                                                 $('.showcase-item-dropdown-actual-notification').removeClass('active');
                                                                 $('.showcase-item-dropdown-select').removeClass('active');
+                                                                responseFeedback.finalCount = 0;
                                                             }
+                                                            localStorage.setItem("responseFeedback", JSON.stringify(responseFeedback));
                                                             $('.showcase-item-dropdown-list .response-list').html(result.slice(1));
                                                         }
                                                     });

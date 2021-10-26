@@ -298,10 +298,6 @@ img {
     margin-top: 1rem;
 }
 
-.showcase-item-dropdown-list .notification-item .pipe-item-bottom {
-    color: #fd0100;
-}
-
 .showcase-item-dropdown-list .pipe-list {
     width: 100%;
     height: calc(100% - 4rem);

@@ -65,7 +65,7 @@ public class NotificationTrashController extends HttpServlet {
                         + "                                                </div>\n"
                         + "                                                <div class=\"pipe-item-bottom\">\n"
                         + "                                                    <p class=\"pipe-bottom-item\">\n"
-                        + "                                                        <strong style=\"color:#fd0100>Denied because of misInformation</strong>\n"
+                        + "                                                        <strong style=\"color:#fd0100\">Denied because of misInformation</strong>\n"
                         + "                                                    </p>\n"
                         + "                                                </div>\n"
                         + "                                            </div>");

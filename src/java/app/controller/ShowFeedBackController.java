@@ -63,8 +63,8 @@ public class ShowFeedBackController extends HttpServlet {
                 }
             }
             session.setAttribute("FEEDBACK_LIST_PENDING", listPending);
-            request.setAttribute("PENDING_TRASH_COUNT", listPendingTrash.size());
-            request.setAttribute("PENDING_COUNT", listPendingUser.size());
+            session.setAttribute("PENDING_TRASH_COUNT", listPendingTrash.size());
+            session.setAttribute("PENDING_COUNT", listPendingUser.size());
 
             List<FeedbackDTO> listDeny = dao.getListFeedbackByStatusDenyAscForManager();
             session.setAttribute("FEEDBACK_LIST_DENY", listDeny);
