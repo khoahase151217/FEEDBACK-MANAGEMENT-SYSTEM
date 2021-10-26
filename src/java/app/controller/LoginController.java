@@ -52,15 +52,15 @@ public class LoginController extends HttpServlet {
 
             if (user != null) {
                 if ("AD".equals(user.getRoleID())) {
-                                    session.setAttribute("LOGIN_ADMIN", user);
+                    session.setAttribute("LOGIN_ADMIN", user);
 
                     url = ADMIN_PAGE;
                 } else if ("US".equals(user.getRoleID())) {
-                                    session.setAttribute("LOGIN_USER", user);
+                    session.setAttribute("LOGIN_USER", user);
 
                     url = USER_PAGE;
                 } else {
-                                    session.setAttribute("LOGIN_EMP", user);
+                    session.setAttribute("LOGIN_EMP", user);
 
                     url = EMPLOYEE_PAGE;
                 }
@@ -84,7 +84,7 @@ public class LoginController extends HttpServlet {
                     case 1:
                         c.add(Calendar.MINUTE, 5);
                         tmpDate = c.getTime();
-                        if (now.compareTo(tmpDate) >=0) {
+                        if (now.compareTo(tmpDate) >= 0) {
                             dao.UpdateUserStatusActive(user.getUserID(), "active");
                             flag = true;
                         }
@@ -92,7 +92,7 @@ public class LoginController extends HttpServlet {
                     case 2:
                         c.add(Calendar.HOUR, 1);
                         tmpDate = c.getTime();
-                        if (now.compareTo(tmpDate) >=0) {
+                        if (now.compareTo(tmpDate) >= 0) {
                             dao.UpdateUserStatusActive(user.getUserID(), "active");
                             flag = true;
 
@@ -101,7 +101,7 @@ public class LoginController extends HttpServlet {
                     case 3:
                         c.add(Calendar.HOUR, 24);
                         tmpDate = c.getTime();
-                        if (now.compareTo(tmpDate) >=0) {
+                        if (now.compareTo(tmpDate) >= 0) {
                             dao.UpdateUserStatusActive(user.getUserID(), "active");
                             flag = true;
 

@@ -465,7 +465,6 @@ ul {
     justify-content: space-between;
     background-color: rgba(226, 226, 226, 0.705);
     border: none;
-    margin-bottom: 20px;
     transition: background-color 0.2s linear;
 }
 .hero .pipe-item-done {
@@ -1189,7 +1188,7 @@ ul {
     gap: 0 5px;
     font-weight: 600;
 }
-.hero .pipe-item {
+.pipe-list .pipe-item {
     padding: 5px 11px;
     border-radius: 6px;
     display: flex;
@@ -1197,9 +1196,14 @@ ul {
     justify-content: space-between;
     background-color: rgba(226, 226, 226, 0.705);
     border: none;
-    margin-bottom: 20px;
     transition: background-color 0.4s linear;
 }
+
+.pipe-list>.pipe-item:not(:last-child) {
+    margin-bottom: 20px;
+
+}
+
 .hero .pipe-item-heading {
     display: flex;
     justify-content: space-between;

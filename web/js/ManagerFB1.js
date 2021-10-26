@@ -100,6 +100,6 @@ function handleReloadPage() {
 }
 
 function handleScrollIntoView(e) {
-    e.target.scrollIntoView({behavior: "smooth", block: "center", inline: "center"});
+    e.target.scrollIntoView({behavior: "smooth", block: "center"});
 }
 

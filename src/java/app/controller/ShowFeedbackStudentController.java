@@ -77,17 +77,32 @@ public class ShowFeedbackStudentController extends HttpServlet {
                             statusName = list.get(i - 1).getStatusName();
                             switch (statusId) {
                                 case "done":
+                                    if (listDone.size() == 10) {
+                                        continue;
+                                    }
                                     listDone.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
                                     break;
                                 case "decline":
+                                    if (listDecline.size() == 10) {
+                                        continue;
+                                    }
                                     listDecline.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
                                     break;
                                 case "onGoing":
+                                    if (listOngoing.size() == 10) {
+                                        continue;
+                                    }
                                     listOngoing.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
                                     break;
                                 default:
+                                    if (listOngoing.size() == 10) {
+                                        continue;
+                                    }
                                     listOngoing.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
                                     break;
+                            }
+                            if (listAll.size() == 10) {
+                                continue;
                             }
                             listAll.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
                             break;
@@ -99,25 +114,41 @@ public class ShowFeedbackStudentController extends HttpServlet {
                             statusName = list.get(i - 1).getStatusName();
                             switch (statusId) {
                                 case "done":
+                                    if (listDone.size() == 10) {
+                                        continue;
+                                    }
                                     listDone.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
                                     break;
                                 case "decline":
+                                    if (listDecline.size() == 10) {
+                                        continue;
+                                    }
                                     listDecline.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
                                     break;
                                 case "onGoing":
+                                    if (listOngoing.size() == 10) {
+                                        continue;
+                                    }
                                     listOngoing.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
                                     break;
                                 default:
+                                    if (listOngoing.size() == 10) {
+                                        continue;
+                                    }
                                     listOngoing.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
                                     break;
                             }
-                            listAll.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
-                            deviceNameArray = "";
-                            locationArray = "";
-                            imageList = new ArrayList<String>();
-                            deviceNameArray = list.get(i).getDeviceName();
-                            locationArray = list.get(i).getLocation();
-                            imageList.add(list.get(i).getImage());
+                            if (listAll.size() == 10) {
+                                continue;
+                            } else {
+                                listAll.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
+                                deviceNameArray = "";
+                                locationArray = "";
+                                imageList = new ArrayList<String>();
+                                deviceNameArray = list.get(i).getDeviceName();
+                                locationArray = list.get(i).getLocation();
+                                imageList.add(list.get(i).getImage());
+                            }
 
                         } else {
                             deviceNameArray = deviceNameArray.concat(", ");

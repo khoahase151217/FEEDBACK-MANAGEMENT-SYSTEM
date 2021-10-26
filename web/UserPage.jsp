@@ -49,7 +49,7 @@
             referrerpolicy="no-referrer"
             />
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/User1.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/User.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/FeedbackForm.css" />
     </head>
     <body>
@@ -1315,16 +1315,115 @@
                                                                     }
                                                                 });
                                                             }
-                                                            handleNotification();
-                                                            setInterval(handleNotification, 10000);
+
+                                                            var imagesPreview = function (input, placeToInsertImagePreview) {
+                                                                if (input.files) {
+                                                                    var filesAmount = input.files.length;
+
+                                                                    for (i = 0; i < filesAmount; i++) {
+                                                                        var reader = new FileReader();
+
+                                                                        reader.onload = function (event) {
+                                                                            $($.parseHTML("<img>"))
+                                                                                    .attr("src", event.target.result)
+                                                                                    .appendTo(placeToInsertImagePreview);
+                                                                        };
+
+                                                                        reader.readAsDataURL(input.files[i]);
+                                                                    }
+                                                                }
+                                                            };
+
+                                                            var imagesPreview2 = function (input) {
+                                                                if (input.files) {
+                                                                    var filesAmount = input.files.length;
+
+                                                                    for (i = 0; i < filesAmount; i++) {
+                                                                        var reader = new FileReader();
+
+                                                                        reader.onload = function (event) {
+                                                                            $(".avatar").attr("src", event.target.result);
+                                                                        };
+
+                                                                        reader.readAsDataURL(input.files[i]);
+                                                                    }
+                                                                }
+                                                            };
+
+                                                            function loadResultsPipeStyle(index, list) {
+                                                                let amount = list.querySelectorAll('.pipe .pipe-item').length;
+                                                                let search = document.querySelector('input[name="search"]').value;
+                                                                $.ajax({
+                                                                    url: "/SWP391_PROJECT/LoadFeedback",
+                                                                    type: "post",
+                                                                    data: {
+                                                                        amount: amount,
+                                                                        flag_navigation: index,
+                                                                        search: search
+                                                                    },
+                                                                    beforeSend: function (xhr) {
+                                                                        $(list).after($("<li class='loading'>Loading...</li>").fadeIn('slow')).data("loading", true);
+                                                                    },
+                                                                    success: function (data) {
+                                                                        setTimeout(() => {
+                                                                            var $results = $(list);
+
+                                                                            $(".loading").fadeOut('fast', function () {
+                                                                                $(this).remove();
+                                                                            });
+                                                                            var $data = $(data);
+                                                                            $results.append($data);
+                                                                            $data.show("slow");
+                                                                            $results.removeData("loading");
+                                                                        }, 1500)
+                                                                    }
+                                                                });
+                                                            }
+                                                            ;
+                                                            function loadResultsListStyle(index, list) {
+                                                                let amount = list.querySelectorAll('.list-showcase-item .pipe-item').length;
+                                                                let search = document.querySelector('input[name="search"]').value;
+                                                                $.ajax({
+                                                                    url: "/SWP391_PROJECT/LoadFeedback",
+                                                                    type: "post",
+                                                                    data: {
+                                                                        amount: amount,
+                                                                        flag_navigation: index,
+                                                                        search: search
+                                                                    },
+                                                                    beforeSend: function (xhr) {
+                                                                        $(list).after($("<li class='loading'>Loading...</li>").fadeIn('slow')).data("loading", true);
+                                                                    },
+                                                                    success: function (data) {
+                                                                        setTimeout(() => {
+                                                                            var $results = $(list);
+
+                                                                            $(".loading").fadeOut('fast', function () {
+                                                                                $(this).remove();
+                                                                            });
+                                                                            var $data = $(data);
+                                                                            $results.append($data);
+                                                                            $data.show("slow");
+                                                                            $results.removeData("loading");
+                                                                        }, 1500)
+                                                                    }
+                                                                });
+                                                            }
+                                                            ;
+
                                                             $(function () {
-                                                                // This code will attach `fileselect` event to all file inputs on the page
+
+                                                            });
+
+                                                            $(function () {
+
                                                                 $(document).on("change", ":file", function () {
                                                                     var input = $(this),
                                                                             numFiles = input.get(0).files ? input.get(0).files.length : 1,
                                                                             label = input.val().replace(/\\/g, "/").replace(/.*\//, "");
                                                                     input.trigger("fileselect", [numFiles, label]);
                                                                 });
+
                                                                 $(document).ready(function () {
                                                                     $(":file").on("fileselect", function (event, numFiles, label) {
                                                                         var input = $(this).parents(".input-file-wrap").find(":text"),
@@ -1334,44 +1433,7 @@
                                                                         }
                                                                     });
                                                                 });
-                                                            });
 
-                                                            $(function () {
-
-                                                                var imagesPreview = function (input, placeToInsertImagePreview) {
-                                                                    if (input.files) {
-                                                                        var filesAmount = input.files.length;
-
-                                                                        for (i = 0; i < filesAmount; i++) {
-                                                                            var reader = new FileReader();
-
-                                                                            reader.onload = function (event) {
-                                                                                $($.parseHTML("<img>"))
-                                                                                        .attr("src", event.target.result)
-                                                                                        .appendTo(placeToInsertImagePreview);
-                                                                            };
-
-                                                                            reader.readAsDataURL(input.files[i]);
-                                                                        }
-                                                                    }
-                                                                };
-
-                                                                var imagesPreview2 = function (input, placeToInsertImagePreview) {
-                                                                    if (input.files) {
-                                                                        var filesAmount = input.files.length;
-
-                                                                        for (i = 0; i < filesAmount; i++) {
-                                                                            var reader = new FileReader();
-
-                                                                            reader.onload = function (event) {
-
-                                                                                $(".avatar").attr("src", event.target.result);
-                                                                            };
-
-                                                                            reader.readAsDataURL(input.files[i]);
-                                                                        }
-                                                                    }
-                                                                };
 
                                                                 $("#gallery-photo-add-1").on("change", function (e) {
                                                                     imagesPreview(this, "div.tab-img-1");
@@ -1392,6 +1454,9 @@
                                                                 $("#image").on("change", function (e) {
                                                                     imagesPreview2(this);
                                                                 });
+
+//                                                                handleNotification();
+//                                                                setInterval(handleNotification, 10000);
                                                             });
         </script>
     </body>
