@@ -76,7 +76,7 @@ public class NotificationResponseController extends HttpServlet {
                         + "                                                    <div class=\"pipe-item-title-wrapper\">\n"
                         + "                                                        <h3 class=\"pipe-item-title\">Feedback " + feedback.getFeedbackID() + "</h3>\n"
                         + "                                                        <p class=\"pipe-item-desc\">\n"
-                        + "                                                            <strong>Send by:</strong> " + feedback.getFullName() + "\n"
+                        + "                                                            <strong>Send by:</strong> " + feedback.getEmail()+ "\n"
                         + "                                                        </p>\n"
                         + "                                                    </div>\n"
                         + "                                                    <div class=\"pipe-item-date\">" + feedback.getDate() + "</div>\n"
