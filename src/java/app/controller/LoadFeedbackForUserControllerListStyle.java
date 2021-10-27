@@ -7,12 +7,15 @@ package app.controller;
 
 import app.feedback.FeedbackDAO;
 import app.feedback.FeedbackDTO;
+import app.users.Comparator;
 import app.users.UserDTO;
 import app.users.UserHistoryDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -44,52 +47,97 @@ public class LoadFeedbackForUserControllerListStyle extends HttpServlet {
             String amount = request.getParameter("amount");
             String flag = request.getParameter("flag_navigation");
             String search = request.getParameter("search");
+            String feeedbackID = request.getParameter("FEEDBACKID_FROM_SEARCH");
             FeedbackDAO dao = new FeedbackDAO();
             switch (flag) {
                 case "0":
                     if (!search.equals("")) {
-                        List<UserHistoryDTO> listAll = dao.searchListFeedbackForUserNext(user.getUserID(), Integer.parseInt(amount), search);
-                        List<UserHistoryDTO> listAllCheck = dao.searchListFeedbackForUserNextForCheck(user.getUserID(), Integer.parseInt(amount) + 10, search);
-                        int count_flag = 0;
-                        for (UserHistoryDTO userHistory : listAllCheck) {
-                            if (userHistory.getFeedbackId().equalsIgnoreCase(listAll.get(listAll.size() - 1).getFeedbackId())) {
-                                count_flag++;
-                            }
-                        }
-                        int newAmount;
-                        if (count_flag > 0) {
-                            newAmount = Integer.parseInt(amount) + 10 + count_flag;
-                            listAll = dao.searchListFeedbackForUserNext(user.getUserID(), Integer.parseInt(amount), search, newAmount);
-                        } else {
-                            newAmount = Integer.parseInt(amount) + 10;
-                        }
-                        List<UserHistoryDTO> newlistAll = new ArrayList<>();
                         String html = "";
-                        String check = "";
-                        UserHistoryDTO tmpUserHistory = new UserHistoryDTO();
-                        for (UserHistoryDTO UserHistory : listAll) {
-                            if (UserHistory.getFeedbackId().equalsIgnoreCase(check)) {
-                                List<String> imageList = tmpUserHistory.getImageList();
-                                String deviceName = tmpUserHistory.getDeviceName();
-                                String location = tmpUserHistory.getLocation();
-                                if (UserHistory.getImage() != null) {
-                                    imageList.add(UserHistory.getImage());
-                                    tmpUserHistory.setImageList(imageList);
-                                }
-                                tmpUserHistory.setDeviceName(deviceName.concat(", ").concat(UserHistory.getDeviceName()));
-                                tmpUserHistory.setLocation(location.concat(", ").concat(UserHistory.getLocation()));
-                            } else {
-                                List<String> imageList = new ArrayList<String>();
-                                if (UserHistory.getImage() != null) {
-                                    imageList.add(UserHistory.getImage());
-                                    UserHistory.setImageList(imageList);
-                                }
-                                tmpUserHistory = UserHistory;
-                                newlistAll.add(UserHistory);
+                        List<UserHistoryDTO> list = dao.getListFeedbackForUserForLoadingMoreData(user.getUserID());
+                        int position = 0;
+                        int count = 0;
+                        for (int i = 0; i < list.size(); i++) {
+                            if (list.get(i).getFeedbackId().equals(feeedbackID) && !list.get(i + 1).getFeedbackId().equals(feeedbackID)) {
+                                position = i + 1;
+                                break;
                             }
-                            check = UserHistory.getFeedbackId();
                         }
-                        for (UserHistoryDTO UserHistory : newlistAll) {
+                        List<UserHistoryDTO> listAll = dao.getListFeedbackForUserNextForSearch(user.getUserID(), position);
+                        List<UserHistoryDTO> newlistAll = new ArrayList<>();
+                        List<String> deviceName = new ArrayList<String>();
+                        String deviceNameArray = null;
+                        String locationArray = null;
+                        List<String> imageList = new ArrayList<String>();
+
+                        String feedbackId;
+                        String date;
+                        String statusId;
+                        String statusName;
+                        for (int i = 0; i < listAll.size() + 1; i++) {
+                            if (i == 0) {
+                                deviceNameArray = listAll.get(i).getDeviceName();
+                                deviceName.add(listAll.get(i).getDeviceName());
+                                locationArray = listAll.get(i).getLocation();
+                                imageList.add(listAll.get(i).getImage());
+
+                            } else {
+                                //optimize code at final sprint
+                                if (i == listAll.size()) {
+                                    feedbackId = listAll.get(i - 1).getFeedbackId();
+                                    date = listAll.get(i - 1).getDate();
+                                    statusId = listAll.get(i - 1).getStatusId();
+                                    statusName = listAll.get(i - 1).getStatusName();
+                                    for (String device : deviceName) {
+                                        if (device.toUpperCase().contains(search.toUpperCase())) {
+                                            newlistAll.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
+                                        }
+                                    }
+
+                                    break;
+                                }
+                                if (!listAll.get(i).getFeedbackId().equals(listAll.get(i - 1).getFeedbackId())) {
+                                    feedbackId = listAll.get(i - 1).getFeedbackId();
+                                    date = listAll.get(i - 1).getDate();
+                                    statusId = listAll.get(i - 1).getStatusId();
+                                    statusName = listAll.get(i - 1).getStatusName();
+                                    for (String device : deviceName) {
+                                        if (device.toUpperCase().contains(search.toUpperCase())) {
+                                            newlistAll.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
+                                        }
+                                    }
+                                    deviceNameArray = "";
+                                    locationArray = "";
+                                    deviceName = new ArrayList<String>();
+                                    imageList = new ArrayList<String>();
+                                    deviceName.add(listAll.get(i).getDeviceName());
+                                    deviceNameArray = listAll.get(i).getDeviceName();
+                                    locationArray = listAll.get(i).getLocation();
+                                    imageList.add(listAll.get(i).getImage());
+
+                                } else {
+                                    deviceName.add(listAll.get(i).getDeviceName());
+                                    deviceNameArray = deviceNameArray.concat(", ");
+                                    deviceNameArray = deviceNameArray.concat(listAll.get(i).getDeviceName());
+                                    locationArray = locationArray.concat(", ");
+                                    locationArray = locationArray.concat(listAll.get(i).getLocation());
+                                    imageList.add(listAll.get(i).getImage());
+                                }
+                            }
+                        }
+                        boolean all_flag = true;
+                        Set<UserHistoryDTO> historySet = new TreeSet<UserHistoryDTO>(new Comparator());
+                        for (UserHistoryDTO history : newlistAll) {
+                            if (all_flag) {
+                                if (historySet.size() == 10) {
+                                    all_flag = false;
+                                } else {
+                                    historySet.add(history);
+                                }
+                            }
+                        }
+                        List<UserHistoryDTO> withoutDuplicates = new ArrayList<UserHistoryDTO>(historySet);
+                        String newAmount = withoutDuplicates.get(withoutDuplicates.size() - 1).getFeedbackId();
+                        for (UserHistoryDTO UserHistory : withoutDuplicates) {
                             String imageHtml = "";
                             for (String image : UserHistory.getImageList()) {
                                 if (!image.equals("")) {
@@ -130,7 +178,7 @@ public class LoadFeedbackForUserControllerListStyle extends HttpServlet {
                         int newAmount;
                         if (count_flag > 0) {
                             newAmount = Integer.parseInt(amount) + 10 + count_flag;
-                            listAll = dao.getListFeedbackForUserNext(user.getUserID(), Integer.parseInt(amount), newAmount);
+                            listAll = dao.getListFeedbackForUserNext(user.getUserID(), Integer.parseInt(amount), 10 + count_flag);
                         } else {
                             newAmount = Integer.parseInt(amount) + 10;
                         }

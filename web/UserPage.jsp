@@ -49,7 +49,7 @@
             referrerpolicy="no-referrer"
             />
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/User1.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/User.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/FeedbackForm.css" />
     </head>
     <body>
@@ -1281,10 +1281,26 @@
                                                 <input type="hidden" name="amount_all" value="${requestScope.COUNT_FLAG_ALL}">
                                             </c:otherwise>
                                         </c:choose>
+                                        <c:choose>
+                                            <c:when test="${requestScope.FEEDBACKID_FROM_SEARCH == null}">
+                                                <input type="hidden" name="FEEDBACKID_FROM_SEARCH" value="0">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <input type="hidden" name="FEEDBACKID_FROM_SEARCH" value="${requestScope.FEEDBACKID_FROM_SEARCH}">
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <c:choose>
+                            <c:when test="${sessionScope.LIST_DONE_COUNT == null}">
+                                <input type="hidden" name="LIST_DONE_COUNT" value="">
+                            </c:when>
+                            <c:otherwise>
+                                <input type="hidden" name="LIST_DONE_COUNT" value="${sessionScope.LIST_DONE_COUNT}">
+                            </c:otherwise>
+                        </c:choose>              
                     </div>
                 </div>
             </section>
@@ -1363,7 +1379,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
                                                             function handleNotification() {
-                                                                const count = Array.from(document.querySelectorAll('.pipe-item-done')).length;
+                                                                const count = document.querySelector('input[name="LIST_DONE_COUNT"]').value;
                                                                 $.ajax({
                                                                     type: "POST",
                                                                     url: "/SWP391_PROJECT/NotificationUserController",
@@ -1385,8 +1401,8 @@
                                                                     }
                                                                 });
                                                             }
-                                                                handleNotification();
-                                                                setInterval(handleNotification, 10000);
+                                                            handleNotification();
+                                                            setInterval(handleNotification, 10000);
                                                             var imagesPreview = function (input, placeToInsertImagePreview) {
                                                                 if (input.files) {
                                                                     var filesAmount = input.files.length;
@@ -1460,20 +1476,20 @@
                                                                             });
                                                                             switch (index) {
                                                                                 case "0":
-                                                                                    list.closest('.pipe').querySelector('input[name="amount_all"]').value = data.slice(1, 3);
+                                                                                    list.closest('.pipe').querySelector('input[name="amount_all"]').value = data.slice(1, data.indexOf("<") - 1);
                                                                                     break;
                                                                                 case "1":
-                                                                                    list.closest('.pipe').querySelector('input[name="amount_done"]').value = data.slice(1, 3);
+                                                                                    list.closest('.pipe').querySelector('input[name="amount_done"]').value = data.slice(1, data.indexOf("<") - 1);
                                                                                     break;
                                                                                 case "2":
-                                                                                    list.closest('.pipe').querySelector('input[name="amount_onGoing"]').value = data.slice(1, 3);
+                                                                                    list.closest('.pipe').querySelector('input[name="amount_onGoing"]').value = data.slice(1, data.indexOf("<") - 1);
                                                                                     break;
                                                                                 default:
-                                                                                    list.closest('.pipe').querySelector('input[name="amount_decline"]').value = data.slice(1, 3);
+                                                                                    list.closest('.pipe').querySelector('input[name="amount_decline"]').value = data.slice(1, data.indexOf("<") - 1);
                                                                                     break;
                                                                             }
                                                                             ;
-                                                                            var $data = $(data.slice(4));
+                                                                            var $data = $(data.slice(data.indexOf("<")));
                                                                             $results.append($data);
                                                                             $data.show("slow");
                                                                             $results.removeData("loading");
@@ -1500,13 +1516,15 @@
 
                                                                 }
                                                                 let search = document.querySelector('input[name="search"]').value;
+                                                                let FEEDBACKID_FROM_SEARCH = document.querySelector('input[name="FEEDBACKID_FROM_SEARCH"]').value;
                                                                 $.ajax({
                                                                     url: "/SWP391_PROJECT/LoadFeedbackUserList",
                                                                     type: "post",
                                                                     data: {
                                                                         amount: amount,
                                                                         flag_navigation: index,
-                                                                        search: search
+                                                                        search: search,
+                                                                        FEEDBACKID_FROM_SEARCH: FEEDBACKID_FROM_SEARCH
                                                                     },
                                                                     beforeSend: function (xhr) {
                                                                         $(list).after($("<li class='loading'>Loading...</li>").fadeIn('slow')).data("loading", true);
@@ -1518,23 +1536,26 @@
                                                                             $(".loading").fadeOut('fast', function () {
                                                                                 $(this).remove();
                                                                             });
-
                                                                             switch (index) {
                                                                                 case "0":
-                                                                                    list.closest('.list-showcase').querySelector('input[name="amount_all"]').value = data.slice(1, 3);
+                                                                                    if (search) {
+                                                                                        list.closest('.list-showcase').querySelector('input[name="FEEDBACKID_FROM_SEARCH"]').value = data.slice(1, data.indexOf("<") - 1);
+                                                                                    } else {
+                                                                                        list.closest('.list-showcase').querySelector('input[name="amount_all"]').value = data.slice(1, data.indexOf("<") - 1);
+                                                                                    }
                                                                                     break;
                                                                                 case "1":
-                                                                                    list.closest('.list-showcase').querySelector('input[name="amount_done"]').value = data.slice(1, 3);
+                                                                                    list.closest('.list-showcase').querySelector('input[name="amount_done"]').value = data.slice(1, data.indexOf("<") - 1);
                                                                                     break;
                                                                                 case "2":
-                                                                                    list.closest('.list-showcase').querySelector('input[name="amount_onGoing"]').value = data.slice(1, 3);
+                                                                                    list.closest('.list-showcase').querySelector('input[name="amount_onGoing"]').value = data.slice(1, data.indexOf("<") - 1);
                                                                                     break;
                                                                                 default:
-                                                                                    list.closest('.list-showcase').querySelector('input[name="amount_decline"]').value = data.slice(1, 3);
+                                                                                    list.closest('.list-showcase').querySelector('input[name="amount_decline"]').value = data.slice(1, data.indexOf("<") - 1);
                                                                                     break;
                                                                             }
                                                                             ;
-                                                                            var $data = $(data.slice(4));
+                                                                            var $data = $(data.slice(data.indexOf("<")));
                                                                             $results.append($data);
                                                                             $data.show("slow");
                                                                             $results.removeData("loading");
@@ -1607,31 +1628,31 @@
                                                                     });
                                                                 });
 
-                                                                
-                                                            });
-                                                            window.onload = function() {
-                                                   const flag = localStorage.getItem('flag');  
-                if(JSON.parse(flag) === true){
-        var feedback = JSON.parse(localStorage.getItem('feedbackDoneID'));
-        var id = feedback[1].toString();
-        var loop = document.getElementsByClassName("pipe-item-title");
-//        var loopComment = document.getElementsByClassName("pipe-item-title-comment");
-        
-        for (let i = 0; i < Array.from(loop).length; i++) {
-            console.log(Array.from(loop)[i].innerHTML);
-            if ((Array.from(loop)[i].innerHTML).includes(id)) {
-                setTimeout(function()  {
-                (loop[i]).scrollIntoView({
-                    behavior: "smooth",
-                    block: "center"
-                });
-                }, 700);
-                }
-        }
-           localStorage.removeItem('flag');
 
-        }
-    }
+                                                            });
+                                                            window.onload = function () {
+                                                                const flag = localStorage.getItem('flag');
+                                                                if (JSON.parse(flag) === true) {
+                                                                    var feedback = JSON.parse(localStorage.getItem('feedbackDoneID'));
+                                                                    var id = feedback[1].toString();
+                                                                    var loop = document.getElementsByClassName("pipe-item-title");
+//        var loopComment = document.getElementsByClassName("pipe-item-title-comment");
+
+                                                                    for (let i = 0; i < Array.from(loop).length; i++) {
+                                                                        console.log(Array.from(loop)[i].innerHTML);
+                                                                        if ((Array.from(loop)[i].innerHTML).includes(id)) {
+                                                                            setTimeout(function () {
+                                                                                (loop[i]).scrollIntoView({
+                                                                                    behavior: "smooth",
+                                                                                    block: "center"
+                                                                                });
+                                                                            }, 700);
+                                                                        }
+                                                                    }
+                                                                    localStorage.removeItem('flag');
+
+                                                                }
+                                                            }
         </script>
     </body>
 </html>

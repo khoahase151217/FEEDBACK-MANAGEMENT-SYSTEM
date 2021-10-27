@@ -57,12 +57,12 @@ public class SearchUserFeedbackController extends HttpServlet {
             UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
             String userID = user.getUserID();
             String search = request.getParameter("search");
-            
+
             // front-end case [62 - 78]            
             String amount_done = request.getParameter("amount_done");
             String amount_decline = request.getParameter("amount_decline");
             String amount_onGoing = request.getParameter("amount_onGoing");
-            int count_all_flag = 0;
+            String amount_all = request.getParameter("amount_all");
             boolean all_flag = true;
             if (!amount_done.equals("")) {
                 request.setAttribute("COUNT_FLAG_DONE", amount_done);
@@ -73,9 +73,9 @@ public class SearchUserFeedbackController extends HttpServlet {
             if (!amount_onGoing.equals("")) {
                 request.setAttribute("COUNT_FLAG_ONGOING", amount_onGoing);
             }
-//            if (!amount_all.equals("")) {
-//                request.setAttribute("COUNT_FLAG_ALL", amount_all);
-//            }
+            if (!amount_all.equals("")) {
+                request.setAttribute("COUNT_FLAG_ALL", amount_all);
+            }
             FeedbackDAO dao = new FeedbackDAO();
             List<UserHistoryDTO> list = dao.getListFeedbackForUser(userID);
             if (!search.matches(FULL__NAME_REGEX)) {
@@ -96,7 +96,6 @@ public class SearchUserFeedbackController extends HttpServlet {
                     String date;
                     String statusId;
                     String statusName;
-                    int count = 0;
                     for (int i = 0; i < list.size() + 1; i++) {
                         if (i == 0) {
                             deviceNameArray = list.get(i).getDeviceName();
@@ -113,9 +112,6 @@ public class SearchUserFeedbackController extends HttpServlet {
                                 statusName = list.get(i - 1).getStatusName();
                                 for (String device : deviceName) {
                                     if (device.toUpperCase().contains(search.toUpperCase())) {
-                                        if (listAll.size() == 10) {
-                                            continue;
-                                        }
                                         listAll.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
                                     }
                                 }
@@ -129,9 +125,6 @@ public class SearchUserFeedbackController extends HttpServlet {
                                 statusName = list.get(i - 1).getStatusName();
                                 for (String device : deviceName) {
                                     if (device.toUpperCase().contains(search.toUpperCase())) {
-                                        if (listAll.size() == 10) {
-                                            continue;
-                                        }
                                         listAll.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
                                     }
                                 }
@@ -156,9 +149,18 @@ public class SearchUserFeedbackController extends HttpServlet {
                     }
                     Set<UserHistoryDTO> historySet = new TreeSet<UserHistoryDTO>(new Comparator());
                     for (UserHistoryDTO history : listAll) {
-                        historySet.add(history);
+                        if (all_flag) {
+                            if (historySet.size() == 10) {
+                                all_flag = false;
+                            } else {
+                                historySet.add(history);
+                            }
+                        }
                     }
                     List<UserHistoryDTO> withoutDuplicates = new ArrayList<UserHistoryDTO>(historySet);
+                    if (!withoutDuplicates.isEmpty()) {
+                        request.setAttribute("FEEDBACKID_FROM_SEARCH", withoutDuplicates.get(withoutDuplicates.size() - 1).getFeedbackId());
+                    }
                     session.setAttribute("HISTORY_ALL", withoutDuplicates);
                     request.setAttribute("SEARCH", search);
                     String style_pipe = (String) request.getAttribute("STYLE_PIPE");

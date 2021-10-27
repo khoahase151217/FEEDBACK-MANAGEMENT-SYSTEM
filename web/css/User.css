@@ -932,6 +932,7 @@ ul {
 }
 .showcase-item.active .active-mode {
     display: block;
+    color: #151111;
 }
 .showcase-item.active ion-icon {
     color: #e6bb7a;
@@ -940,10 +941,11 @@ ul {
     width: 15px;
     height: 3px;
     display: block;
-    background: #e6bb7a;
+    background: #151111;
     margin: 0 auto;
     margin-top: 2px;
     border-radius: 5px;
+    /*#e6bb7a*/
 }
 .showcase-item .active-mode {
     display: none;
@@ -986,6 +988,7 @@ ul {
     transform: translateY(30%);
     position: relative;
     z-index: 10;
+    margin-left: 1.75rem;
 }
 
 .showcase-item-dropdown-select:hover .showcase-item-dropdown-list {
@@ -1523,12 +1526,14 @@ ul {
     gap: 0 2rem;
 }
 
-.content-item-main-category-item.active.list .list-showcase .pipe-list .pipe-item .image-all-wrapper .pipe-item-image{
+.content-item-main-category-item.active.list .list-showcase .pipe-list .pipe-item .image-all-wrapper .pipe-item-image,
+.content-item-main-category-item.active.list .list-showcase .pipe-list .pipe-item-done .image-all-wrapper .pipe-item-image{
     width: calc(20% - 15px);
     height: 18rem;
 }
 
-.content-item-main-category-item.active.list .list-showcase .pipe-list .pipe-item .image-all-wrapper .pipe-item-image img {
+.content-item-main-category-item.active.list .list-showcase .pipe-list .pipe-item .image-all-wrapper .pipe-item-image img,
+.content-item-main-category-item.active.list .list-showcase .pipe-list .pipe-item-done .image-all-wrapper .pipe-item-image img{
     width: 100%;
 }
 

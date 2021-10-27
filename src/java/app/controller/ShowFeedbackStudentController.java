@@ -51,7 +51,7 @@ public class ShowFeedbackStudentController extends HttpServlet {
             List<UserHistoryDTO> listFullDone = dao.getListFeedbackForUserDone(user.getUserID());
             List<UserHistoryDTO> listFullOngoing = dao.getListFeedbackForUserOngoing(user.getUserID());
             List<UserHistoryDTO> listFullDecline = dao.getListFeedbackForUserDecline(user.getUserID());
-            if (!listFull.isEmpty()||!listFullDone.isEmpty()||!listFullOngoing.isEmpty()||!listFullDecline.isEmpty()) {
+            if (!listFull.isEmpty() || !listFullDone.isEmpty() || !listFullOngoing.isEmpty() || !listFullDecline.isEmpty()) {
                 String deviceNameArray = null;
                 String locationArray = null;
                 List<String> imageList = new ArrayList<String>();
@@ -64,206 +64,256 @@ public class ShowFeedbackStudentController extends HttpServlet {
                 String date;
                 String statusId;
                 String statusName;
-                if(!listFull.isEmpty()){
-                for (int i = 0; i < listFull.size() + 1; i++) {
-                    if (i == 0) {
-                        deviceNameArray = listFull.get(i).getDeviceName();
-                        locationArray = listFull.get(i).getLocation();
-                        imageList.add(listFull.get(i).getImage());
 
-                    } else {
-                        //optimize code at final sprint
-                        if (i == listFull.size()) {
-                            feedbackId = listFull.get(i - 1).getFeedbackId();
-                            date = listFull.get(i - 1).getDate();
-                            statusId = listFull.get(i - 1).getStatusId();
-                            statusName = listFull.get(i - 1).getStatusName();
-                            listAll.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
-                            deviceNameArray = "";
-                            locationArray = "";
-                            imageList = new ArrayList<String>();
-                            break;
+                // list ALL
+                if (!listFull.isEmpty()) {
+                    List<UserHistoryDTO> listAllCheck = dao.getListFeedbackForUserNextForCheck(user.getUserID(), listFull.size());
+                    int count_flag = 0;
+                    for (UserHistoryDTO userHistory : listAllCheck) {
+                        if (userHistory.getFeedbackId().equalsIgnoreCase(listFull.get(listFull.size() - 1).getFeedbackId())) {
+                            count_flag++;
                         }
-                        if (!listFull.get(i).getFeedbackId().equals(listFull.get(i - 1).getFeedbackId())) {
-                            feedbackId = listFull.get(i - 1).getFeedbackId();
-                            date = listFull.get(i - 1).getDate();
-                            statusId = listFull.get(i - 1).getStatusId();
-                            statusName = listFull.get(i - 1).getStatusName();
-                            listAll.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
-                            deviceNameArray = "";
-                            locationArray = "";
-                            imageList = new ArrayList<String>();
+                    }
+                    int newAmount;
+                    if (count_flag > 0) {
+                        newAmount = listFull.size() + count_flag;
+                        listFull = dao.getListFeedbackForUserNext(user.getUserID(), 0, newAmount);
+                    } else {
+                        newAmount = 10;
+                    }
+                    for (int i = 0; i < listFull.size() + 1; i++) {
+                        if (i == 0) {
                             deviceNameArray = listFull.get(i).getDeviceName();
                             locationArray = listFull.get(i).getLocation();
                             imageList.add(listFull.get(i).getImage());
 
                         } else {
-                            deviceNameArray = deviceNameArray.concat(", ");
-                            deviceNameArray = deviceNameArray.concat(listFull.get(i).getDeviceName());
-                            locationArray = locationArray.concat(", ");
-                            locationArray = locationArray.concat(listFull.get(i).getLocation());
-                            imageList.add(listFull.get(i).getImage());
+                            //optimize code at final sprint
+                            if (i == listFull.size()) {
+                                feedbackId = listFull.get(i - 1).getFeedbackId();
+                                date = listFull.get(i - 1).getDate();
+                                statusId = listFull.get(i - 1).getStatusId();
+                                statusName = listFull.get(i - 1).getStatusName();
+                                listAll.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
+                                deviceNameArray = "";
+                                locationArray = "";
+                                imageList = new ArrayList<String>();
+                                break;
+                            }
+                            if (!listFull.get(i).getFeedbackId().equals(listFull.get(i - 1).getFeedbackId())) {
+                                feedbackId = listFull.get(i - 1).getFeedbackId();
+                                date = listFull.get(i - 1).getDate();
+                                statusId = listFull.get(i - 1).getStatusId();
+                                statusName = listFull.get(i - 1).getStatusName();
+                                listAll.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
+                                deviceNameArray = "";
+                                locationArray = "";
+                                imageList = new ArrayList<String>();
+                                deviceNameArray = listFull.get(i).getDeviceName();
+                                locationArray = listFull.get(i).getLocation();
+                                imageList.add(listFull.get(i).getImage());
 
+                            } else {
+                                deviceNameArray = deviceNameArray.concat(", ");
+                                deviceNameArray = deviceNameArray.concat(listFull.get(i).getDeviceName());
+                                locationArray = locationArray.concat(", ");
+                                locationArray = locationArray.concat(listFull.get(i).getLocation());
+                                imageList.add(listFull.get(i).getImage());
+
+                            }
                         }
                     }
+                    request.setAttribute("COUNT_FLAG_ALL", newAmount);
                 }
-                }
-                if(!listFullDone.isEmpty()){
-                for (int i = 0; i < listFullDone.size() + 1; i++) {
-                    if (i == 0) {
-                        deviceNameArray = listFullDone.get(i).getDeviceName();
-                        locationArray = listFullDone.get(i).getLocation();
-                        imageList.add(listFullDone.get(i).getImage());
 
-                    } else {
-                        //optimize code at final sprint
-                        if (i == listFullDone.size()) {
-                            feedbackId = listFullDone.get(i - 1).getFeedbackId();
-                            date = listFullDone.get(i - 1).getDate();
-                            statusId = listFullDone.get(i - 1).getStatusId();
-                            statusName = listFullDone.get(i - 1).getStatusName();
-                            listDone.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
-                            deviceNameArray = "";
-                            locationArray = "";
-                            imageList = new ArrayList<String>();
-                            break;
+                // list DONE
+                if (!listFullDone.isEmpty()) {
+                    List<UserHistoryDTO> listDoneCheck = dao.getListFeedbackDoneForUserNextCheck(user.getUserID(),listFullDone.size());
+                    int count_flag = 0;
+                    for (UserHistoryDTO userHistory : listDoneCheck) {
+                        if (userHistory.getFeedbackId().equalsIgnoreCase(listFullDone.get(listFullDone.size() - 1).getFeedbackId())) {
+                            count_flag++;
                         }
-                        if (!listFullDone.get(i).getFeedbackId().equals(listFullDone.get(i - 1).getFeedbackId())) {
-                            feedbackId = listFullDone.get(i - 1).getFeedbackId();
-                            date = listFullDone.get(i - 1).getDate();
-                            statusId = listFullDone.get(i - 1).getStatusId();
-                            statusName = listFullDone.get(i - 1).getStatusName();
-                            listDone.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
-                            deviceNameArray = "";
-                            locationArray = "";
-                            imageList = new ArrayList<String>();
+                    }
+                    int newAmount;
+                    if (count_flag > 0) {
+                        newAmount = listFullDone.size() + count_flag;
+                        listFullDone = dao.getListFeedbackDoneForUserNext(user.getUserID(), 0, newAmount);
+                    } else {
+                        newAmount = 10;
+                    }
+                    for (int i = 0; i < listFullDone.size() + 1; i++) {
+                        if (i == 0) {
                             deviceNameArray = listFullDone.get(i).getDeviceName();
                             locationArray = listFullDone.get(i).getLocation();
                             imageList.add(listFullDone.get(i).getImage());
 
                         } else {
-                            deviceNameArray = deviceNameArray.concat(", ");
-                            deviceNameArray = deviceNameArray.concat(listFullDone.get(i).getDeviceName());
-                            locationArray = locationArray.concat(", ");
-                            locationArray = locationArray.concat(listFullDone.get(i).getLocation());
-                            imageList.add(listFullDone.get(i).getImage());
+                            //optimize code at final sprint
+                            if (i == listFullDone.size()) {
+                                feedbackId = listFullDone.get(i - 1).getFeedbackId();
+                                date = listFullDone.get(i - 1).getDate();
+                                statusId = listFullDone.get(i - 1).getStatusId();
+                                statusName = listFullDone.get(i - 1).getStatusName();
+                                listDone.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
+                                deviceNameArray = "";
+                                locationArray = "";
+                                imageList = new ArrayList<String>();
+                                break;
+                            }
+                            if (!listFullDone.get(i).getFeedbackId().equals(listFullDone.get(i - 1).getFeedbackId())) {
+                                feedbackId = listFullDone.get(i - 1).getFeedbackId();
+                                date = listFullDone.get(i - 1).getDate();
+                                statusId = listFullDone.get(i - 1).getStatusId();
+                                statusName = listFullDone.get(i - 1).getStatusName();
+                                listDone.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
+                                deviceNameArray = "";
+                                locationArray = "";
+                                imageList = new ArrayList<String>();
+                                deviceNameArray = listFullDone.get(i).getDeviceName();
+                                locationArray = listFullDone.get(i).getLocation();
+                                imageList.add(listFullDone.get(i).getImage());
 
+                            } else {
+                                deviceNameArray = deviceNameArray.concat(", ");
+                                deviceNameArray = deviceNameArray.concat(listFullDone.get(i).getDeviceName());
+                                locationArray = locationArray.concat(", ");
+                                locationArray = locationArray.concat(listFullDone.get(i).getLocation());
+                                imageList.add(listFullDone.get(i).getImage());
+
+                            }
                         }
                     }
+                    request.setAttribute("COUNT_FLAG_DONE", newAmount);
                 }
-                }
-                if(!listFullOngoing.isEmpty()){
-                for (int i = 0; i < listFullOngoing.size() + 1; i++) {
-                    if (i == 0) {
-                        deviceNameArray = listFullOngoing.get(i).getDeviceName();
-                        locationArray = listFullOngoing.get(i).getLocation();
-                        imageList.add(listFullOngoing.get(i).getImage());
 
-                    } else {
-                        //optimize code at final sprint
-                        if (i == listFullOngoing.size()) {
-                            feedbackId = listFullOngoing.get(i - 1).getFeedbackId();
-                            date = listFullOngoing.get(i - 1).getDate();
-                            statusId = listFullOngoing.get(i - 1).getStatusId();
-                            statusName = listFullOngoing.get(i - 1).getStatusName();
-                            listOngoing.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
-                            deviceNameArray = "";
-                            locationArray = "";
-                            imageList = new ArrayList<String>();
-                            break;
+                // list ON-GOING
+                if (!listFullOngoing.isEmpty()) {
+                    List<UserHistoryDTO> listOnGoingCheck = dao.getListFeedbackOnGoingForUserNextCheck(user.getUserID(), listFullOngoing.size());
+                    int count_flag = 0;
+                    for (UserHistoryDTO userHistory : listOnGoingCheck) {
+                        if (userHistory.getFeedbackId().equalsIgnoreCase(listFullOngoing.get(listFullOngoing.size() - 1).getFeedbackId())) {
+                            count_flag++;
                         }
-                        if (!listFullOngoing.get(i).getFeedbackId().equals(listFullOngoing.get(i - 1).getFeedbackId())) {
-                            feedbackId = listFullOngoing.get(i - 1).getFeedbackId();
-                            date = listFullOngoing.get(i - 1).getDate();
-                            statusId = listFullOngoing.get(i - 1).getStatusId();
-                            statusName = listFullOngoing.get(i - 1).getStatusName();
-                            listOngoing.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
-                            deviceNameArray = "";
-                            locationArray = "";
-                            imageList = new ArrayList<String>();
+                    }
+                    int newAmount;
+                    if (count_flag > 0) {
+                        newAmount = listFullOngoing.size() + count_flag;
+                        listFullOngoing = dao.getListFeedbackOnGoingForUserNext(user.getUserID(), 0, newAmount);
+                    } else {
+                        newAmount = 10;
+                    }
+                    for (int i = 0; i < listFullOngoing.size() + 1; i++) {
+                        if (i == 0) {
                             deviceNameArray = listFullOngoing.get(i).getDeviceName();
                             locationArray = listFullOngoing.get(i).getLocation();
                             imageList.add(listFullOngoing.get(i).getImage());
 
                         } else {
-                            deviceNameArray = deviceNameArray.concat(", ");
-                            deviceNameArray = deviceNameArray.concat(listFullOngoing.get(i).getDeviceName());
-                            locationArray = locationArray.concat(", ");
-                            locationArray = locationArray.concat(listFullOngoing.get(i).getLocation());
-                            imageList.add(listFullOngoing.get(i).getImage());
+                            //optimize code at final sprint
+                            if (i == listFullOngoing.size()) {
+                                feedbackId = listFullOngoing.get(i - 1).getFeedbackId();
+                                date = listFullOngoing.get(i - 1).getDate();
+                                statusId = listFullOngoing.get(i - 1).getStatusId();
+                                statusName = listFullOngoing.get(i - 1).getStatusName();
+                                listOngoing.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
+                                deviceNameArray = "";
+                                locationArray = "";
+                                imageList = new ArrayList<String>();
+                                break;
+                            }
+                            if (!listFullOngoing.get(i).getFeedbackId().equals(listFullOngoing.get(i - 1).getFeedbackId())) {
+                                feedbackId = listFullOngoing.get(i - 1).getFeedbackId();
+                                date = listFullOngoing.get(i - 1).getDate();
+                                statusId = listFullOngoing.get(i - 1).getStatusId();
+                                statusName = listFullOngoing.get(i - 1).getStatusName();
+                                listOngoing.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
+                                deviceNameArray = "";
+                                locationArray = "";
+                                imageList = new ArrayList<String>();
+                                deviceNameArray = listFullOngoing.get(i).getDeviceName();
+                                locationArray = listFullOngoing.get(i).getLocation();
+                                imageList.add(listFullOngoing.get(i).getImage());
 
+                            } else {
+                                deviceNameArray = deviceNameArray.concat(", ");
+                                deviceNameArray = deviceNameArray.concat(listFullOngoing.get(i).getDeviceName());
+                                locationArray = locationArray.concat(", ");
+                                locationArray = locationArray.concat(listFullOngoing.get(i).getLocation());
+                                imageList.add(listFullOngoing.get(i).getImage());
+
+                            }
                         }
                     }
+                    request.setAttribute("COUNT_FLAG_ONGOING", newAmount);
                 }
-                }
-                if(!listFullDecline.isEmpty()){
-                for (int i = 0; i < listDecline.size() + 1; i++) {
-                    if (i == 0) {
-                        deviceNameArray = listDecline.get(i).getDeviceName();
-                        locationArray = listDecline.get(i).getLocation();
-                        imageList.add(listDecline.get(i).getImage());
 
-                    } else {
-                        //optimize code at final sprint
-                        if (i == listDecline.size()) {
-                            feedbackId = listDecline.get(i - 1).getFeedbackId();
-                            date = listDecline.get(i - 1).getDate();
-                            statusId = listDecline.get(i - 1).getStatusId();
-                            statusName = listDecline.get(i - 1).getStatusName();
-                            listDecline.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
-                            deviceNameArray = "";
-                            locationArray = "";
-                            imageList = new ArrayList<String>();
-                            break;
+                // list DECLINE
+                if (!listFullDecline.isEmpty()) {
+                    List<UserHistoryDTO> listDenyCheck = dao.getListFeedbackDeclineForUserNextCheck(user.getUserID(), listFullDecline.size());
+                    int count_flag = 0;
+                    for (UserHistoryDTO userHistory : listDenyCheck) {
+                        if (userHistory.getFeedbackId().equalsIgnoreCase(listFullDecline.get(listFullDecline.size() - 1).getFeedbackId())) {
+                            count_flag++;
                         }
-                        if (!listDecline.get(i).getFeedbackId().equals(listDecline.get(i - 1).getFeedbackId())) {
-                            feedbackId = listDecline.get(i - 1).getFeedbackId();
-                            date = listDecline.get(i - 1).getDate();
-                            statusId = listDecline.get(i - 1).getStatusId();
-                            statusName = listDecline.get(i - 1).getStatusName();
-                            listDecline.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
-                            deviceNameArray = "";
-                            locationArray = "";
-                            imageList = new ArrayList<String>();
+                    }
+                    int newAmount = 0;
+                    if (count_flag > 0) {
+                        newAmount = listFullDecline.size() + count_flag;
+                        listFullDecline = dao.getListFeedbackDeclineForUserNext(user.getUserID(), 0, newAmount);
+                    } else {
+                        newAmount = 10;
+                    }
+                    for (int i = 0; i < listDecline.size() + 1; i++) {
+                        if (i == 0) {
                             deviceNameArray = listDecline.get(i).getDeviceName();
                             locationArray = listDecline.get(i).getLocation();
                             imageList.add(listDecline.get(i).getImage());
 
                         } else {
-                            deviceNameArray = deviceNameArray.concat(", ");
-                            deviceNameArray = deviceNameArray.concat(listDecline.get(i).getDeviceName());
-                            locationArray = locationArray.concat(", ");
-                            locationArray = locationArray.concat(listDecline.get(i).getLocation());
-                            imageList.add(listDecline.get(i).getImage());
+                            //optimize code at final sprint
+                            if (i == listDecline.size()) {
+                                feedbackId = listDecline.get(i - 1).getFeedbackId();
+                                date = listDecline.get(i - 1).getDate();
+                                statusId = listDecline.get(i - 1).getStatusId();
+                                statusName = listDecline.get(i - 1).getStatusName();
+                                listDecline.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
+                                deviceNameArray = "";
+                                locationArray = "";
+                                imageList = new ArrayList<String>();
+                                break;
+                            }
+                            if (!listDecline.get(i).getFeedbackId().equals(listDecline.get(i - 1).getFeedbackId())) {
+                                feedbackId = listDecline.get(i - 1).getFeedbackId();
+                                date = listDecline.get(i - 1).getDate();
+                                statusId = listDecline.get(i - 1).getStatusId();
+                                statusName = listDecline.get(i - 1).getStatusName();
+                                listDecline.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
+                                deviceNameArray = "";
+                                locationArray = "";
+                                imageList = new ArrayList<String>();
+                                deviceNameArray = listDecline.get(i).getDeviceName();
+                                locationArray = listDecline.get(i).getLocation();
+                                imageList.add(listDecline.get(i).getImage());
 
+                            } else {
+                                deviceNameArray = deviceNameArray.concat(", ");
+                                deviceNameArray = deviceNameArray.concat(listDecline.get(i).getDeviceName());
+                                locationArray = locationArray.concat(", ");
+                                locationArray = locationArray.concat(listDecline.get(i).getLocation());
+                                imageList.add(listDecline.get(i).getImage());
+
+                            }
                         }
                     }
-                }
+                    request.setAttribute("COUNT_FLAG_DECLINE", newAmount);
                 }
 
                 session.setAttribute("HISTORY_ALL", listAll);
                 session.setAttribute("HISTORY_DONE", listDone);
                 session.setAttribute("HISTORY_DENY", listDecline);
                 session.setAttribute("HISTORY_ONGOING", listOngoing);
-
-                // Front-end case [263 - 279] 
-                if (listAll.size() < 10) {
-                    List<UserHistoryDTO> listAllCheck = dao.getListFeedbackForUserNextFull(user.getUserID(), Integer.parseInt("0"));
-                    request.setAttribute("COUNT_FLAG_ALL", listAllCheck.size());
-                }
-                if (listDone.size() < 10) {
-                    List<UserHistoryDTO> listDoneCheck = dao.getListFeedbackDoneForUserNextFull(user.getUserID(), Integer.parseInt("0"));
-                    request.setAttribute("COUNT_FLAG_DONE", listDoneCheck.size());
-                }
-                if (listDecline.size() < 10) {
-                    List<UserHistoryDTO> listDeclineCheck = dao.getListFeedbackDeclineForUserNextFull(user.getUserID(), Integer.parseInt("0"));
-                    request.setAttribute("COUNT_FLAG_DECLINE", listDeclineCheck.size());
-                }
-                if (listOngoing.size() < 10) {
-                    List<UserHistoryDTO> listOnGoingCheck = dao.getListFeedbackOnGoingForUserNextFull(user.getUserID(), Integer.parseInt("0"));
-                    request.setAttribute("COUNT_FLAG_ONGOING", listOnGoingCheck.size());
-                }
-
+                session.setAttribute("LIST_DONE_COUNT", dao.countFeedbackDoneForStudent(user.getUserID()));
                 String style_pipe = (String) request.getAttribute("STYLE_PIPE");
                 String style_list = (String) request.getAttribute("STYLE_LIST");
                 if (style_list == null && style_pipe == null) {

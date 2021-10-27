@@ -44,6 +44,9 @@ public class NotificationUserController extends HttpServlet {
             UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
             List<FeedbackDTO> list = new ArrayList<FeedbackDTO>();
             String count = request.getParameter("notification");
+            if(count.equals("")){
+                return;
+            }
             int notification = 0;
             int check = Integer.parseInt(count);
             int check2 = dao.countForNotificationUser(user.getUserID());
