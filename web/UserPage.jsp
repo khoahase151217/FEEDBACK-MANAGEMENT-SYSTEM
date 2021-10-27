@@ -1358,7 +1358,7 @@
             </div>
         </footer>
 
-        <script src="${pageContext.request.contextPath}/js/User1.js"></script>
+        <script src="${pageContext.request.contextPath}/js/User.js"></script>
         <!-- Query -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
@@ -1385,7 +1385,8 @@
                                                                     }
                                                                 });
                                                             }
-
+                                                                handleNotification();
+                                                                setInterval(handleNotification, 10000);
                                                             var imagesPreview = function (input, placeToInsertImagePreview) {
                                                                 if (input.files) {
                                                                     var filesAmount = input.files.length;
@@ -1606,9 +1607,31 @@
                                                                     });
                                                                 });
 
-//                                                                handleNotification();
-//                                                                setInterval(handleNotification, 10000);
+                                                                
                                                             });
+                                                            window.onload = function() {
+                                                   const flag = localStorage.getItem('flag');  
+                if(JSON.parse(flag) === true){
+        var feedback = JSON.parse(localStorage.getItem('feedbackDoneID'));
+        var id = feedback[1].toString();
+        var loop = document.getElementsByClassName("pipe-item-title");
+//        var loopComment = document.getElementsByClassName("pipe-item-title-comment");
+        
+        for (let i = 0; i < Array.from(loop).length; i++) {
+            console.log(Array.from(loop)[i].innerHTML);
+            if ((Array.from(loop)[i].innerHTML).includes(id)) {
+                setTimeout(function()  {
+                (loop[i]).scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+                }, 700);
+                }
+        }
+           localStorage.removeItem('flag');
+
+        }
+    }
         </script>
     </body>
 </html>

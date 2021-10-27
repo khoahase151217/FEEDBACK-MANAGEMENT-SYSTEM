@@ -325,6 +325,10 @@ Array.from(listFBCategory).forEach((item) => {
         Array.from(FbListItems)[index].classList.add("active");
     });
 });
-function handleReloadPage() {
+function handleReloadUserPage(e) {
+    var h3 = e.target.closest(".notification-item").querySelector(".pipe-item-title").innerHTML;
+    var feedbackid = h3.split(" ");
+    localStorage.setItem("feedbackDoneID", JSON.stringify(feedbackid));
+    localStorage.setItem('flag', true);
     window.location.replace("/SWP391_PROJECT/ShowFacilityStudentController");
 }
