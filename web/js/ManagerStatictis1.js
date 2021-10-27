@@ -12,3 +12,10 @@ Array.from(notificationItems).forEach((item) => {
     });
 });
 
+function handleReloadPage(e) {
+    var h3 = e.target.closest(".notification-item").querySelector(".pipe-item-title").innerHTML;
+    var feedbackid = h3.split(" ");
+    localStorage.setItem("feedbackID", JSON.stringify(feedbackid));
+    localStorage.setItem('flag', true);  
+    window.location.replace("/SWP391_PROJECT/ShowFeedBackController");
+}

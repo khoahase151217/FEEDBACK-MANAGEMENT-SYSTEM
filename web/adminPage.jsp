@@ -1312,12 +1312,11 @@
             </section>
         </main>
         <script src="${pageContext.request.contextPath}/js/adminPage.js"></script>
-        <script src="${pageContext.request.contextPath}/js/ManagerFB1.js"></script>
+        <script src="${pageContext.request.contextPath}/js/ManagerFB.js"></script>
         <!-- Query -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
                                                 function handleNotification() {
-//                                                    Array.from(document.querySelectorAll('.pipe-list-pending')).length
                                                     const count = document.querySelector('input[name="pending_count"]').value;
                                                     const countTrash = document.querySelector('input[name="pending_count_trash"]').value;
                                                     $.ajax({
@@ -1329,7 +1328,7 @@
                                                             var response = JSON.parse(localStorage.getItem("responseFeedback"));
                                                             if (!trash || !response) {
                                                                 var finalCount = 0;
-                                                            }else {
+                                                            } else {
                                                                 finalCount = trash.finalCount + response.finalCount;
                                                             }
                                                             var pendingUserFeedback = {
@@ -1354,7 +1353,6 @@
                                                                 $('.showcase-item-dropdown-select').removeClass('active');
                                                                 pendingUserFeedback.finalCount = 0;
                                                             }
-//                                                            $($.parseHTML(result.slice(1))).appendTo($('.showcase-item-dropdown-list .pipe-list'));
                                                             $('.showcase-item-dropdown-list .pipe-list .pending-user-list').html(result.slice(1));
                                                             localStorage.setItem("pendingUserFeedback", JSON.stringify(pendingUserFeedback));
 
@@ -1370,7 +1368,7 @@
                                                             var response = JSON.parse(localStorage.getItem("responseFeedback"));
                                                             if (!pendingUser || !response) {
                                                                 var finalCount = 0;
-                                                            }else {
+                                                            } else {
                                                                 finalCount = pendingUser.finalCount + response.finalCount;
                                                             }
                                                             var trashFeedback = {
@@ -1381,7 +1379,6 @@
                                                                 var lenght = result.slice(0, 1);
                                                                 trashFeedback.finalCount = parseInt(lenght);
                                                                 finalCount += parseInt(lenght);
-//                                                                var lenght = Array.from(document.querySelectorAll('.showcase-item-dropdown-list .notification-item')).length;
                                                                 if (finalCount !== 0) {
                                                                     $('.showcase-item-dropdown-actual-notification').addClass('active');
                                                                     $('.showcase-item-dropdown-actual-notification').html(finalCount);
@@ -1394,7 +1391,6 @@
                                                                 $('.showcase-item-dropdown-select').removeClass('active');
                                                                 trashFeedback.finalCount = 0;
                                                             }
-//                                                            $($.parseHTML(result.slice(1))).appendTo($('.showcase-item-dropdown-list .pipe-list'));
 
                                                             localStorage.setItem("trashFeedback", JSON.stringify(trashFeedback));
                                                             $('.showcase-item-dropdown-list .pipe-list .pending-trash-list').html(result.slice(1));
@@ -1412,7 +1408,7 @@
                                                             var trash = JSON.parse(localStorage.getItem("trashFeedback"));
                                                             if (!pendingUser && !trash) {
                                                                 var finalCount = 0;
-                                                            }else {
+                                                            } else {
                                                                 finalCount = pendingUser.finalCount + trash.finalCount;
                                                             }
                                                             var responseFeedback = {
@@ -1423,7 +1419,6 @@
                                                                 var lenght = result.slice(0, 1);
                                                                 responseFeedback.finalCount = parseInt(lenght);
                                                                 finalCount += parseInt(lenght);
-//                                                                var lenght = Array.from(document.querySelectorAll('.showcase-item-dropdown-list .notification-item')).length;
                                                                 if (finalCount !== 0) {
                                                                     $('.showcase-item-dropdown-actual-notification').addClass('active');
                                                                     $('.showcase-item-dropdown-actual-notification').html(finalCount);
@@ -1441,10 +1436,6 @@
                                                         }
                                                     });
                                                 }
-                                                handleNotification();
-                                                setInterval(handleNotification, 10000);
-
-
 
                                                 function loadResultsPipeStyle(index, list) {
                                                     let amount = list.querySelectorAll('.pipe .pipe-item').length;
@@ -1538,6 +1529,9 @@
 //                                                ;
 
                                                 $(function () {
+                                                    handleNotification();
+                                                    setInterval(handleNotification, 10000);
+
                                                     var imagesPreview2 = function (input, placeToInsertImagePreview) {
                                                         if (input.files) {
                                                             var filesAmount = input.files.length;
@@ -1599,26 +1593,26 @@
 //                                                        }
 //                                                    });
                                                 });
-                                                window.onload = function() {
-                                                   const flag = localStorage.getItem('flag');  
-                if(JSON.parse(flag) === true){
-        var feedback = JSON.parse(localStorage.getItem('feedbackID'));
-        var id = feedback[1].toString();
-        var loop = document.getElementsByClassName("pipe-item-title");
+                                                window.onload = function () {
+                                                    const flag = localStorage.getItem('flag');
+                                                    if (JSON.parse(flag) === true) {
+                                                        var feedback = JSON.parse(localStorage.getItem('feedbackID'));
+                                                        var id = feedback[1].toString();
+                                                        var loop = document.getElementsByClassName("pipe-item-title");
 //        var loopComment = document.getElementsByClassName("pipe-item-title-comment");
-        var loopActive = document.getElementsByTagName("a");
-        
-        for (let i = 0; i < Array.from(loop).length; i++) {
-            console.log(Array.from(loop)[i].innerHTML);
-            if ((Array.from(loop)[i].innerHTML).includes(id)) {
-                setTimeout(function()  {
-                (loop[i]).scrollIntoView({
-                    behavior: "smooth",
-                    block: "center"
-                });
-                }, 700);
-                }
-        }
+                                                        var loopActive = document.getElementsByTagName("a");
+
+                                                        for (let i = 0; i < Array.from(loop).length; i++) {
+                                                            console.log(Array.from(loop)[i].innerHTML);
+                                                            if ((Array.from(loop)[i].innerHTML).includes(id)) {
+                                                                setTimeout(function () {
+                                                                    (loop[i]).scrollIntoView({
+                                                                        behavior: "smooth",
+                                                                        block: "center"
+                                                                    });
+                                                                }, 700);
+                                                            }
+                                                        }
 //        for (let i = 0; i < Array.from(loopComment).length; i++) {
 //            if ((Array.from(loopComment)[i].innerHTML).includes(id)) {
 //                $('.navigation-item').each(function(index, item) {
@@ -1637,16 +1631,16 @@
 //                        }); 
 //                    }
 //                }
-        for (let i = 0; i < Array.from(loopActive).length; i++) {
-            if ((loopActive[i].href).includes(id) && (loopActive[i].href).includes("response_id") ) {
-                loopActive[i].click();
-                    }
-                }
-                
-           localStorage.removeItem('flag');
+                                                        for (let i = 0; i < Array.from(loopActive).length; i++) {
+                                                            if ((loopActive[i].href).includes(id) && (loopActive[i].href).includes("response_id")) {
+                                                                loopActive[i].click();
+                                                            }
+                                                        }
 
-        }
-    }
+                                                        localStorage.removeItem('flag');
+
+                                                    }
+                                                }
         </script>
     </body>
 </html>

@@ -213,8 +213,8 @@
                                     <span></span>
                                 </li>
                                 <li
-                                    class="showcase-item active showcase-item-dropdown-select"
-                                    data-index="3"
+                                    class="showcase-item showcase-item-dropdown-select"
+                                    data-index="4"
                                     >
                                     <a href="#" class="showcase-link">
                                         <ion-icon
@@ -230,52 +230,24 @@
                                     <div class="showcase-item-dropdown-list">
                                         <h4 class="showcase-item-dropdown-title">Notification</h4>
                                         <h5 class="showcase-item-dropdown-sub-title">
-                                            You have 2 new feedback
+                                            You have ${sessionScope.NOTIFICATION_QUANTITY} new feedback
                                         </h5>
-                                        <!-- <h5 class="showcase-item-dropdown-sub-title sub-title-no">
-                                          No notification can be found ...
-                                        </h5> -->
+                                        <h5 class="showcase-item-dropdown-sub-title sub-title-no">
+                                            No notification can be found ...
+                                        </h5> 
+
                                         <div class="pipe-list">
-                                            <div class="notification-item">
-                                                <div class="pipe-item-heading">
-                                                    <div class="pipe-item-title-wrapper">
-                                                        <h3 class="pipe-item-title">Feedback #1</h3>
-                                                        <p class="pipe-item-desc">
-                                                            <strong>Name:</strong> Nguyen Duong Minh duc
-                                                        </p>
-                                                    </div>
-                                                    <div class="pipe-item-date">Tue, August 18</div>
-                                                </div>
-                                                <div class="pipe-item-bottom">
-                                                    <p class="pipe-bottom-item">
-                                                        <strong>Send by</strong>
-                                                        ducndmse151198@fpt.edu.vn
-                                                    </p>
-                                                </div>
+                                            <div class="pending-user-list">
                                             </div>
-                                            <div class="notification-item">
-                                                <div class="pipe-item-heading">
-                                                    <div class="pipe-item-title-wrapper">
-                                                        <h3 class="pipe-item-title">Feedback #1</h3>
-                                                        <p class="pipe-item-desc">
-                                                            <strong>Name:</strong> Nguyen Duong Minh duc
-                                                        </p>
-                                                    </div>
-                                                    <div class="pipe-item-date">Tue, August 18</div>
-                                                </div>
-                                                <div class="pipe-item-bottom">
-                                                    <p class="pipe-bottom-item">
-                                                        <strong>Send by</strong>
-                                                        ducndmse151198@fpt.edu.vn
-                                                    </p>
-                                                </div>
+                                            <div class="pending-trash-list">
+                                            </div>
+                                            <div class="response-list">
                                             </div>
                                         </div>
                                     </div>
                                     <div
-                                        class="showcase-item-dropdown-actual-notification active"
+                                        class="showcase-item-dropdown-actual-notification"
                                         >
-                                        2
                                     </div>
                                 </li>
                             </ul>
@@ -555,17 +527,148 @@
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" name="pending_count" value="${sessionScope.PENDING_COUNT}"/>
+                        <input type="hidden" name="pending_count_trash" value="${sessionScope.PENDING_TRASH_COUNT}"/>
+                        <c:choose>
+                            <c:when test="${sessionScope.COUNT_RESPONSE eq null}" >
+                                <input id="COUNT_RESPONSE" type="hidden" name="COUNT_RESPONSE" value="0"/>
+
+                            </c:when>
+                            <c:otherwise >
+                                <input id="COUNT_RESPONSE" type="hidden" name="COUNT_RESPONSE" value="${sessionScope.COUNT_RESPONSE}"/>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
             </section>
         </main>
-        <script src="${pageContext.request.contextPath}/js/ManagerStatictis.js"></script>
+        <script src="${pageContext.request.contextPath}/js/ManagerStatictis1.js"></script>
         <script
             type="text/javascript"
             src="https://www.gstatic.com/charts/loader.js"
         ></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
+            function handleNotification() {
+                const count = document.querySelector('input[name="pending_count"]').value;
+                const countTrash = document.querySelector('input[name="pending_count_trash"]').value;
+                $.ajax({
+                    type: "POST",
+                    url: "/SWP391_PROJECT/NotificationController",
+                    data: {notification: count},
+                    success: function (result) {
+                        var trash = JSON.parse(localStorage.getItem("trashFeedback"));
+                        var response = JSON.parse(localStorage.getItem("responseFeedback"));
+                        if (!trash || !response) {
+                            var finalCount = 0;
+                        } else {
+                            finalCount = trash.finalCount + response.finalCount;
+                        }
+                        var pendingUserFeedback = {
+                            finalCount: finalCount,
+                            name: "Pending user"
+                        };
+                        if (result !== '') {
+                            var lenght = result.slice(0, 1);
+                            pendingUserFeedback.finalCount = parseInt(lenght);
+                            finalCount += parseInt(lenght);
+                            if (finalCount !== 0) {
+                                $('.showcase-item-dropdown-actual-notification').addClass('active');
+                                $('.showcase-item-dropdown-actual-notification').html(finalCount);
+                                $('.showcase-item-dropdown-select').addClass('active');
+                                $('.showcase-item-dropdown-sub-title').html("You have " + finalCount + " new feedback");
+                            }
+
+                        } else {
+                            $('.showcase-item-dropdown-sub-title').html($('.showcase-item-dropdown-sub-title.sub-title-no').text());
+                            $('.showcase-item-dropdown-actual-notification').removeClass('active');
+                            $('.showcase-item-dropdown-select').removeClass('active');
+                            pendingUserFeedback.finalCount = 0;
+                        }
+                        $('.showcase-item-dropdown-list .pipe-list .pending-user-list').html(result.slice(1));
+                        localStorage.setItem("pendingUserFeedback", JSON.stringify(pendingUserFeedback));
+
+                    }
+                });
+
+                $.ajax({
+                    type: "POST",
+                    url: "/SWP391_PROJECT/NotificationTrashController",
+                    data: {notification: countTrash},
+                    success: function (result) {
+                        var pendingUser = JSON.parse(localStorage.getItem("pendingUserFeedback"));
+                        var response = JSON.parse(localStorage.getItem("responseFeedback"));
+                        if (!pendingUser || !response) {
+                            var finalCount = 0;
+                        } else {
+                            finalCount = pendingUser.finalCount + response.finalCount;
+                        }
+                        var trashFeedback = {
+                            finalCount: finalCount,
+                            name: "trash feedback"
+                        };
+                        if (result !== '') {
+                            var lenght = result.slice(0, 1);
+                            trashFeedback.finalCount = parseInt(lenght);
+                            finalCount += parseInt(lenght);
+                            if (finalCount !== 0) {
+                                $('.showcase-item-dropdown-actual-notification').addClass('active');
+                                $('.showcase-item-dropdown-actual-notification').html(finalCount);
+                                $('.showcase-item-dropdown-select').addClass('active');
+                                $('.showcase-item-dropdown-sub-title').html("You have " + finalCount + " new feedback");
+                            }
+                        } else {
+                            $('.showcase-item-dropdown-sub-title').html($('.showcase-item-dropdown-sub-title.sub-title-no').text());
+                            $('.showcase-item-dropdown-actual-notification').removeClass('active');
+                            $('.showcase-item-dropdown-select').removeClass('active');
+                            trashFeedback.finalCount = 0;
+                        }
+
+                        localStorage.setItem("trashFeedback", JSON.stringify(trashFeedback));
+                        $('.showcase-item-dropdown-list .pipe-list .pending-trash-list').html(result.slice(1));
+
+                    }
+                });
+
+                const countRes = document.querySelector('#COUNT_RESPONSE').value;
+                $.ajax({
+                    type: "POST",
+                    url: "/SWP391_PROJECT/NotificationResponseController",
+                    data: {notification: countRes},
+                    success: function (result) {
+                        var pendingUser = JSON.parse(localStorage.getItem("pendingUserFeedback"));
+                        var trash = JSON.parse(localStorage.getItem("trashFeedback"));
+                        if (!pendingUser && !trash) {
+                            var finalCount = 0;
+                        } else {
+                            finalCount = pendingUser.finalCount + trash.finalCount;
+                        }
+                        var responseFeedback = {
+                            finalCount: finalCount,
+                            name: "response feedback"
+                        };
+                        if (result !== '') {
+                            var lenght = result.slice(0, 1);
+                            responseFeedback.finalCount = parseInt(lenght);
+                            finalCount += parseInt(lenght);
+                            if (finalCount !== 0) {
+                                $('.showcase-item-dropdown-actual-notification').addClass('active');
+                                $('.showcase-item-dropdown-actual-notification').html(finalCount);
+                                $('.showcase-item-dropdown-select').addClass('active');
+                                $('.showcase-item-dropdown-sub-title').html("You have " + finalCount + " new feedback");
+                            }
+                        } else {
+                            $('.showcase-item-dropdown-sub-title').html($('.showcase-item-dropdown-sub-title.sub-title-no').text());
+                            $('.showcase-item-dropdown-actual-notification').removeClass('active');
+                            $('.showcase-item-dropdown-select').removeClass('active');
+                            responseFeedback.finalCount = 0;
+                        }
+                        localStorage.setItem("responseFeedback", JSON.stringify(responseFeedback));
+                        $('.showcase-item-dropdown-list .response-list').html(result.slice(1));
+                    }
+                });
+            }
+
             window.addEventListener("resize", (e) => {
                 if (
                         document.documentElement.clientWidth <= 1600 ||
@@ -594,7 +697,10 @@
                     });
                 }
             });
-            $(document).ready(function () {
+            $(function () {
+                handleNotification();
+                setInterval(handleNotification, 10000);
+
                 $.ajax({
                     url: "/SWP391_PROJECT/FeedbackStatisticByYear",
                     dataType: "JSON",
