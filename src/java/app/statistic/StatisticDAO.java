@@ -545,7 +545,8 @@ public class StatisticDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = " Select count(feedbackdetailID) as count from tblResponseFeedback\n";
+                String sql = " Select count(feedbackdetailID) as count from tblResponseFeedback\n"
+                        + " where StatusID='done' ";
                 stm = conn.prepareStatement(sql);
                 rs = stm.executeQuery();
                 if (rs.next()) {

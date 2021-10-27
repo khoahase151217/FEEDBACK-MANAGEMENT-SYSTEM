@@ -1599,6 +1599,54 @@
 //                                                        }
 //                                                    });
                                                 });
+                                                window.onload = function() {
+                                                   const flag = localStorage.getItem('flag');  
+                if(JSON.parse(flag) === true){
+        var feedback = JSON.parse(localStorage.getItem('feedbackID'));
+        var id = feedback[1].toString();
+        var loop = document.getElementsByClassName("pipe-item-title");
+//        var loopComment = document.getElementsByClassName("pipe-item-title-comment");
+        var loopActive = document.getElementsByTagName("a");
+        
+        for (let i = 0; i < Array.from(loop).length; i++) {
+            console.log(Array.from(loop)[i].innerHTML);
+            if ((Array.from(loop)[i].innerHTML).includes(id)) {
+                setTimeout(function()  {
+                (loop[i]).scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+                }, 700);
+                }
+        }
+//        for (let i = 0; i < Array.from(loopComment).length; i++) {
+//            if ((Array.from(loopComment)[i].innerHTML).includes(id)) {
+//                $('.navigation-item').each(function(index, item) {
+//                        if (parseInt($(item).data('index')) === 0) {
+//                                $(item).removeClass('active');
+//                            } else {
+//                                $(item).addClass('active');
+//                            }
+//                        }); 
+//                $('.content-item-main .content-item-main-list .content-item-main-item').each(function(index, item) {
+//                        if (parseInt($(item).data('index')) === 1) {
+//                                $(item).removeClass('active');
+//                            } else {
+//                                $(item).addClass('active');
+//                            }
+//                        }); 
+//                    }
+//                }
+        for (let i = 0; i < Array.from(loopActive).length; i++) {
+            if ((loopActive[i].href).includes(id) && (loopActive[i].href).includes("response_id") ) {
+                loopActive[i].click();
+                    }
+                }
+                
+           localStorage.removeItem('flag');
+
+        }
+    }
         </script>
     </body>
 </html>

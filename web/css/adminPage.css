@@ -262,7 +262,9 @@ img {
     display: none;
 }
 
-.showcase-item-dropdown-list .pipe-item-title {
+.showcase-item-dropdown-list .
+
+{
     font-size: 1.2rem;
 }
 .showcase-item-dropdown-list .pipe-item-desc {
@@ -607,6 +609,7 @@ img {
 .showcase .pipe-item-title {
     font-size: 1.8rem;
 }
+
 .showcase .pipe-item-desc {
     margin-top: 0.25rem;
     color: #151111;
@@ -1000,6 +1003,7 @@ img {
     overflow: hidden;
     color: #e6bb7a;
 }
+
 .facility-content-main .pipe-item-desc {
     color: #a7a7a7;
     font-size: 1.2rem;

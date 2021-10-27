@@ -54,7 +54,7 @@ public class NotificationTrashController extends HttpServlet {
                 out.println(list.size());
             }
             for (FeedbackDTO feedback : list) {
-                out.println("<div class=\"notification-item\" onclick=\"handleReloadPage()\">\n"
+                out.println("<div class=\"notification-item\" onclick=\"handleReloadPage(event)\">\n"
                         + "                                                <div class=\"pipe-item-heading\">\n"
                         + "                                                    <div class=\"pipe-item-title-wrapper\">\n"
                         + "                                                        <h3 class=\"pipe-item-title\">Feedback " + feedback.getFeedbackID() + "</h3>\n"

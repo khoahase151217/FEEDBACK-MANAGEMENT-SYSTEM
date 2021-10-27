@@ -1,4 +1,13 @@
-// Menu event listener
+
+
+// Javascript for Feedback Page
+//Array.from(items).forEach((item) => {
+//    item.addEventListener("click", (e) => {
+//        Array.from(items).forEach((item) => item.classList.remove("active"));
+//        e.target.closest(".showcase-item").classList.add("active");
+//
+//        Array.from(contents).forEach((content) =>
+//            content.classList.remove("active")// Menu event listener
 const items = document.querySelectorAll(".showcase-item");
 const contents = document.querySelectorAll(".showcase-content-item");
 const navigationItems = document.querySelectorAll(".navigation-item");
@@ -29,15 +38,6 @@ window.addEventListener('load', () => {
     }
 
 });
-
-// Javascript for Feedback Page
-//Array.from(items).forEach((item) => {
-//    item.addEventListener("click", (e) => {
-//        Array.from(items).forEach((item) => item.classList.remove("active"));
-//        e.target.closest(".showcase-item").classList.add("active");
-//
-//        Array.from(contents).forEach((content) =>
-//            content.classList.remove("active")
 //        );
 //        let index = e.target.closest(".showcase-item").dataset.index;
 //        Array.from(contents)[index].classList.add("active");

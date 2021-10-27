@@ -38,23 +38,23 @@ if (taskList.length === 1) {
 
 taskChervonForward.addEventListener("click", () => {
     const index =
-            document.querySelector(".task-detail.active").dataset.index ===
-            taskList.length.toString()
-            ? 0
-            : document.querySelector(".task-detail.active").dataset.index;
+        document.querySelector(".task-detail.active").dataset.index ===
+        taskList.length.toString() ?
+        0 :
+        document.querySelector(".task-detail.active").dataset.index;
     Array.from(taskList).forEach((ele) => ele.classList.remove("active"));
     Array.from(taskList)[index].classList.add("active");
 });
 
 taskChervonBack.addEventListener("click", () => {
     const index =
-            Number.parseInt(
-                    document.querySelector(".task-detail.active").dataset.index
-                    ) === 1
-            ? taskList.length + 1
-            : Number.parseInt(
-                    document.querySelector(".task-detail.active").dataset.index
-                    );
+        Number.parseInt(
+            document.querySelector(".task-detail.active").dataset.index
+        ) === 1 ?
+        taskList.length + 1 :
+        Number.parseInt(
+            document.querySelector(".task-detail.active").dataset.index
+        );
 
     document.querySelector(".task-detail.active").classList.remove("active");
     Array.from(taskList)[index - 2].classList.add("active");
@@ -80,8 +80,7 @@ taskChervonForward.addEventListener("mouseout", (e) => {
 
 if (Array.from(pipeCommentItems).length === 0) {
     document.querySelector('.feedback-detail').style.display = 'none';
-}
-;
+};
 
 document.querySelector(".reponse-form").addEventListener("click", (e) => {
     if (!e.target.classList.contains("modal"))
@@ -95,11 +94,19 @@ document.querySelector(".modal-decline").addEventListener("click", (e) => {
     }
 });
 
-function handleReloadPage() {
-    window.location.replace("/SWP391_PROJECT/ShowFeedBackController");
-}
+
 
 function handleScrollIntoView(e) {
-    e.target.scrollIntoView({behavior: "smooth", block: "center"});
+    e.target.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
 }
 
+function handleReloadPage(e) {
+    var h3 = e.target.closest(".notification-item").querySelector(".pipe-item-title").innerHTML;
+    var feedbackid = h3.split(" ");
+    localStorage.setItem("feedbackID", JSON.stringify(feedbackid));
+    localStorage.setItem('flag', true);  
+    window.location.replace("/SWP391_PROJECT/ShowFeedBackController");
+}

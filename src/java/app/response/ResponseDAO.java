@@ -500,7 +500,8 @@ public class ResponseDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 String sql = "SELECT COUNT(ResponseID) as count"
-                        + " FROM tblResponseFeedback  ";
+                        + " FROM tblResponseFeedback "
+                        + " where StatusID='done' ";
                 stm = conn.prepareCall(sql);
                 rs = stm.executeQuery();
                 if (rs.next()) {
