@@ -62,6 +62,17 @@ public class ShowFeedbackStudentController extends HttpServlet {
                 String statusId;
                 String statusName;
                 int count = 0;
+
+                //  Front-end case [67- 74]           
+                int count_done_flag = 0;
+                int count_onGoing_flag = 0;
+                int count_decline_flag = 0;
+                int count_all_flag = 0;
+                boolean all_flag = true;
+                boolean done_flag = true;
+                boolean decline_flag = true;
+                boolean onGoing_flag = true;
+
                 for (int i = 0; i < list.size() + 1; i++) {
                     if (i == 0) {
                         deviceNameArray = list.get(i).getDeviceName();
@@ -77,34 +88,71 @@ public class ShowFeedbackStudentController extends HttpServlet {
                             statusName = list.get(i - 1).getStatusName();
                             switch (statusId) {
                                 case "done":
-                                    if (listDone.size() == 10) {
-                                        continue;
+                                    // Front-end case [92 - 98]  
+                                    if (done_flag) {
+                                        if (listDone.size() == 10 && feedbackId.equalsIgnoreCase(listDone.get(listDone.size() - 1).getFeedbackId())) {
+                                            count_done_flag++;
+                                        } else if (listDone.size() == 10 && !feedbackId.equalsIgnoreCase(listDone.get(listDone.size() - 1).getFeedbackId())) {
+                                            request.setAttribute("COUNT_FLAG_DONE", i - 1 + count_done_flag);
+                                            done_flag = false;
+                                        } else {
+                                            listDone.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
+                                        }
                                     }
-                                    listDone.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
                                     break;
                                 case "decline":
-                                    if (listDecline.size() == 10) {
-                                        continue;
+                                    // Front-end case [104 - 111]  
+                                    if (decline_flag) {
+                                        if (listDecline.size() == 10 && feedbackId.equalsIgnoreCase(listDecline.get(listDecline.size() - 1).getFeedbackId())) {
+                                            count_decline_flag++;
+                                        } else if (listDecline.size() == 10 && !feedbackId.equalsIgnoreCase(listDecline.get(listDecline.size() - 1).getFeedbackId())) {
+                                            request.setAttribute("COUNT_FLAG_DECLINE", i - 1 + count_decline_flag);
+                                            decline_flag = false;
+                                        } else {
+                                            listDecline.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
+                                        }
                                     }
-                                    listDecline.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
                                     break;
                                 case "onGoing":
-                                    if (listOngoing.size() == 10) {
-                                        continue;
+                                    // Front-end case [118 - 125]                                
+                                    if (onGoing_flag) {
+                                        if (listOngoing.size() == 10 && feedbackId.equalsIgnoreCase(listOngoing.get(listOngoing.size() - 1).getFeedbackId())) {
+                                            count_onGoing_flag++;
+                                        } else if (listOngoing.size() == 10 && !feedbackId.equalsIgnoreCase(listOngoing.get(listOngoing.size() - 1).getFeedbackId())) {
+                                            request.setAttribute("COUNT_FLAG_ONGOING", i - 1 + count_onGoing_flag);
+                                            onGoing_flag = false;
+
+                                        } else {
+                                            listOngoing.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
+                                        }
                                     }
-                                    listOngoing.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
                                     break;
                                 default:
-                                    if (listOngoing.size() == 10) {
-                                        continue;
+                                    // Front-end case [132 - 138]                                
+                                    if (onGoing_flag) {
+                                        if (listOngoing.size() == 10 && feedbackId.equalsIgnoreCase(listOngoing.get(listOngoing.size() - 1).getFeedbackId())) {
+                                            count_onGoing_flag++;
+                                        } else if (listOngoing.size() == 10 && !feedbackId.equalsIgnoreCase(listOngoing.get(listOngoing.size() - 1).getFeedbackId())) {
+                                            request.setAttribute("COUNT_FLAG_ONGOING", i - 1 + count_onGoing_flag);
+                                            onGoing_flag = false;
+                                        } else {
+                                            listOngoing.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
+                                        }
                                     }
-                                    listOngoing.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
                                     break;
                             }
-                            if (listAll.size() == 10) {
-                                continue;
+                            // Front-end case [145 - 151]
+                            if (all_flag) {
+                                if (listAll.size() == 10 && feedbackId.equalsIgnoreCase(listAll.get(listAll.size() - 1).getFeedbackId())) {
+                                    count_all_flag++;
+                                } else if (listAll.size() == 10 && !feedbackId.equalsIgnoreCase(listAll.get(listAll.size() - 1).getFeedbackId())) {
+                                    request.setAttribute("COUNT_FLAG_ALL", i - 1 + count_all_flag);
+                                    all_flag = false;
+                                } else {
+                                    listAll.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
+                                }
+
                             }
-                            listAll.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
                             break;
                         }
                         if (!list.get(i).getFeedbackId().equals(list.get(i - 1).getFeedbackId())) {
@@ -114,34 +162,81 @@ public class ShowFeedbackStudentController extends HttpServlet {
                             statusName = list.get(i - 1).getStatusName();
                             switch (statusId) {
                                 case "done":
-                                    if (listDone.size() == 10) {
-                                        continue;
+                                    // Front-end case [166 - 172]  
+                                    if (done_flag) {
+                                        if (listDone.size() == 10 && feedbackId.equalsIgnoreCase(listDone.get(listDone.size() - 1).getFeedbackId())) {
+                                            count_done_flag++;
+                                        } else if (listDone.size() == 10 && !feedbackId.equalsIgnoreCase(listDone.get(listDone.size() - 1).getFeedbackId())) {
+                                            request.setAttribute("COUNT_FLAG_DONE", i - 1 + count_done_flag);
+                                            done_flag = false;
+                                        } else {
+                                            listDone.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
+                                        }
                                     }
-                                    listDone.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
                                     break;
                                 case "decline":
-                                    if (listDecline.size() == 10) {
-                                        continue;
+                                    // Front-end case [179 - 185] 
+                                    if (decline_flag) {
+                                        if (listDecline.size() == 10 && feedbackId.equalsIgnoreCase(listDecline.get(listDecline.size() - 1).getFeedbackId())) {
+                                            count_decline_flag++;
+                                        } else if (listDecline.size() == 10 && !feedbackId.equalsIgnoreCase(listDecline.get(listDecline.size() - 1).getFeedbackId())) {
+                                            request.setAttribute("COUNT_FLAG_DECLINE", i - 1 + count_decline_flag);
+                                            decline_flag = false;
+                                        } else {
+                                            listDecline.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
+                                        }
                                     }
-                                    listDecline.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
                                     break;
                                 case "onGoing":
-                                    if (listOngoing.size() == 10) {
-                                        continue;
+                                    // Front-end case [192 - 198] 
+                                    if (onGoing_flag) {
+                                        if (listOngoing.size() == 10 && feedbackId.equalsIgnoreCase(listOngoing.get(listOngoing.size() - 1).getFeedbackId())) {
+                                            count_onGoing_flag++;
+                                        } else if (listOngoing.size() == 10 && !feedbackId.equalsIgnoreCase(listOngoing.get(listOngoing.size() - 1).getFeedbackId())) {
+                                            request.setAttribute("COUNT_FLAG_ONGOING", i - 1 + count_onGoing_flag);
+                                            onGoing_flag = false;
+                                        } else {
+                                            listOngoing.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
+                                        }
                                     }
-                                    listOngoing.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
                                     break;
                                 default:
-                                    if (listOngoing.size() == 10) {
-                                        continue;
+                                    // Front-end case [205 - 211]   
+                                    if (onGoing_flag) {
+                                        if (listOngoing.size() == 10 && feedbackId.equalsIgnoreCase(listOngoing.get(listOngoing.size() - 1).getFeedbackId())) {
+                                            count_onGoing_flag++;
+                                        } else if (listOngoing.size() == 10 && !feedbackId.equalsIgnoreCase(listOngoing.get(listOngoing.size() - 1).getFeedbackId())) {
+                                            request.setAttribute("COUNT_FLAG_ONGOING", i - 1 + count_onGoing_flag);
+                                            onGoing_flag = false;
+                                        } else {
+                                            listOngoing.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
+                                        }
                                     }
-                                    listOngoing.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
                                     break;
                             }
-                            if (listAll.size() == 10) {
-                                continue;
+                            // Front-end case [218 - 239] 
+                            if (all_flag) {
+                                if (listAll.size() == 10 && feedbackId.equalsIgnoreCase(listAll.get(listAll.size() - 1).getFeedbackId())) {
+                                    count_all_flag++;
+                                } else if (listAll.size() == 10 && !feedbackId.equalsIgnoreCase(listAll.get(listAll.size() - 1).getFeedbackId())) {
+                                    deviceNameArray = "";
+                                    locationArray = "";
+                                    imageList = new ArrayList<String>();
+                                    deviceNameArray = list.get(i).getDeviceName();
+                                    locationArray = list.get(i).getLocation();
+                                    imageList.add(list.get(i).getImage());
+                                    request.setAttribute("COUNT_FLAG_ALL", i - 1 + count_all_flag);
+                                    all_flag = false;
+                                } else {
+                                    listAll.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
+                                    deviceNameArray = "";
+                                    locationArray = "";
+                                    imageList = new ArrayList<String>();
+                                    deviceNameArray = list.get(i).getDeviceName();
+                                    locationArray = list.get(i).getLocation();
+                                    imageList.add(list.get(i).getImage());
+                                }
                             } else {
-                                listAll.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
                                 deviceNameArray = "";
                                 locationArray = "";
                                 imageList = new ArrayList<String>();
@@ -149,7 +244,6 @@ public class ShowFeedbackStudentController extends HttpServlet {
                                 locationArray = list.get(i).getLocation();
                                 imageList.add(list.get(i).getImage());
                             }
-
                         } else {
                             deviceNameArray = deviceNameArray.concat(", ");
                             deviceNameArray = deviceNameArray.concat(list.get(i).getDeviceName());
@@ -165,6 +259,25 @@ public class ShowFeedbackStudentController extends HttpServlet {
                 session.setAttribute("HISTORY_DONE", listDone);
                 session.setAttribute("HISTORY_DENY", listDecline);
                 session.setAttribute("HISTORY_ONGOING", listOngoing);
+                
+                // Front-end case [163 - 278] 
+                if (listAll.size() < 10) {
+                    List<UserHistoryDTO> listAllCheck = dao.getListFeedbackForUserNextFull(user.getUserID(), Integer.parseInt("0"));
+                    request.setAttribute("COUNT_FLAG_ALL", listAllCheck.size());
+                }
+                if (listDone.size() < 10) {
+                    List<UserHistoryDTO> listDoneCheck = dao.getListFeedbackDoneForUserNextFull(user.getUserID(), Integer.parseInt("0"));
+                    request.setAttribute("COUNT_FLAG_DONE", listDoneCheck.size());
+                }
+                if (listDecline.size() < 10) {
+                    List<UserHistoryDTO> listDeclineCheck = dao.getListFeedbackDeclineForUserNextFull(user.getUserID(), Integer.parseInt("0"));
+                    request.setAttribute("COUNT_FLAG_DECLINE", listDeclineCheck.size());
+                }
+                if (listOngoing.size() < 10) {
+                    List<UserHistoryDTO> listOnGoingCheck = dao.getListFeedbackOnGoingForUserNextFull(user.getUserID(), Integer.parseInt("0"));
+                    request.setAttribute("COUNT_FLAG_ONGOING", listOnGoingCheck.size());
+                }
+                
                 String style_pipe = (String) request.getAttribute("STYLE_PIPE");
                 String style_list = (String) request.getAttribute("STYLE_LIST");
                 if (style_list == null && style_pipe == null) {

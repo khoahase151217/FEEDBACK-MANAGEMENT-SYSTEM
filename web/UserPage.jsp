@@ -49,7 +49,7 @@
             referrerpolicy="no-referrer"
             />
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/User.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/User1.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/FeedbackForm.css" />
     </head>
     <body>
@@ -573,6 +573,10 @@
                                 <div class="actual-input">
                                     <input type="text" name="search" id="search" placeholder="Search ..." value="${requestScope.
                                                                                                                    SEARCH}"/>
+                                    <input type="hidden" name="amount_done" value="${requestScope.COUNT_FLAG_DONE}">
+                                    <input type="hidden" name="amount_decline" value="${requestScope.COUNT_FLAG_DECLINE}">
+                                    <input type="hidden" name="amount_onGoing" value="${requestScope.COUNT_FLAG_ONGOING}">
+                                    <input type="hidden" name="amount_all" value="${requestScope.COUNT_FLAG_ALL}">
                                     <!--<label>Search ...</label>-->
                                 </div>
                             </div>
@@ -687,7 +691,7 @@
                                                     <ion-icon name="chevron-down-outline"></ion-icon>
                                                 </div>
                                             </div>
-                                            <div class="pipe-list">
+                                            <div class="pipe-list" data-index="1">
                                                 <c:if test="${empty sessionScope.HISTORY_DONE}">
                                                     <p class="pipe-item-date">No result can be found ...</p>
                                                 </c:if>
@@ -791,7 +795,7 @@
                                                     <ion-icon name="chevron-down-outline"></ion-icon>
                                                 </div>
                                             </div>
-                                            <div class="pipe-list">
+                                            <div class="pipe-list" data-index="2">
                                                 <c:if test="${empty sessionScope.HISTORY_ONGOING}">
                                                     <p class="pipe-item-date">No result can be found ...</p>
                                                 </c:if>
@@ -894,7 +898,7 @@
                                                     <ion-icon name="chevron-down-outline"></ion-icon>
                                                 </div>
                                             </div>
-                                            <div class="pipe-list">
+                                            <div class="pipe-list" data-index="3">
                                                 <c:if test="${empty sessionScope.HISTORY_DENY}">
                                                     <p class="pipe-item-date">No result can be found ...</p>
                                                 </c:if>
@@ -986,6 +990,39 @@
                                                 %> 
                                             </div>
                                         </div>
+
+                                        <c:choose>
+                                            <c:when test="${requestScope.COUNT_FLAG_DONE == null}">
+                                                <input type="hidden" name="amount_done" value="0">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <input type="hidden" name="amount_done" value="${requestScope.COUNT_FLAG_DONE}">
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <c:choose>
+                                            <c:when test="${requestScope.COUNT_FLAG_ONGOING == null}">
+                                                <input type="hidden" name="amount_onGoing" value="0">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <input type="hidden" name="amount_onGoing" value="${requestScope.COUNT_FLAG_ONGOING}">
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <c:choose>
+                                            <c:when test="${requestScope.COUNT_FLAG_DECLINE == null}">
+                                                <input type="hidden" name="amount_decline" value="0">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <input type="hidden" name="amount_decline" value="${requestScope.COUNT_FLAG_DECLINE}">
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <c:choose>
+                                            <c:when test="${requestScope.COUNT_FLAG_ALL == null}">
+                                                <input type="hidden" name="amount_all" value="0">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <input type="hidden" name="amount_all" value="${requestScope.COUNT_FLAG_ALL}">
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
                                 </div>
                                 <!--LIST--> 
@@ -1001,7 +1038,7 @@
                                     <div class="list-showcase">
                                         <!-- list All -->
                                         <div class="list-showcase-item ${requestScope.STYLE_LIST_ALL}">
-                                            <div class="pipe-list">
+                                            <div class="pipe-list" data-index="0">
                                                 <c:if test="${empty sessionScope.HISTORY_ALL}">
                                                     <p class="pipe-item-date">No result can be found ...</p>
                                                 </c:if>
@@ -1056,7 +1093,7 @@
                                         </div>
                                         <!-- list done -->
                                         <div class="list-showcase-item ${requestScope.STYLE_LIST_DONE}">
-                                            <div class="pipe-list">
+                                            <div class="pipe-list" data-index="1">
                                                 <c:if test="${empty sessionScope.HISTORY_DONE}">
                                                     <p class="pipe-item-date">No result can be found ...</p>
                                                 </c:if>
@@ -1110,7 +1147,7 @@
                                         </div>
                                         <!-- list on-going -->
                                         <div class="list-showcase-item ${requestScope.STYLE_LIST_ONGOING}">
-                                            <div class="pipe-list">
+                                            <div class="pipe-list" data-index="2">
                                                 <c:if test="${empty sessionScope.HISTORY_ONGOING}">
                                                     <p class="pipe-item-date">No result can be found ...</p>
                                                 </c:if>
@@ -1162,7 +1199,7 @@
                                         </div>
                                         <!-- list decline -->
                                         <div class="list-showcase-item ${requestScope.STYLE_LIST_DECLINE}">
-                                            <div class="pipe-list">
+                                            <div class="pipe-list" data-index="3">
                                                 <c:if test="${empty sessionScope.HISTORY_DENY}">
                                                     <p class="pipe-item-date">No result can be found ...</p>
                                                 </c:if>
@@ -1211,6 +1248,39 @@
                                                 %> 
                                             </div>
                                         </div>
+
+                                        <c:choose>
+                                            <c:when test="${requestScope.COUNT_FLAG_DONE == null}">
+                                                <input type="hidden" name="amount_done" value="0">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <input type="hidden" name="amount_done" value="${requestScope.COUNT_FLAG_DONE}">
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <c:choose>
+                                            <c:when test="${requestScope.COUNT_FLAG_ONGOING == null}">
+                                                <input type="hidden" name="amount_onGoing" value="0">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <input type="hidden" name="amount_onGoing" value="${requestScope.COUNT_FLAG_ONGOING}">
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <c:choose>
+                                            <c:when test="${requestScope.COUNT_FLAG_DECLINE == null}">
+                                                <input type="hidden" name="amount_decline" value="0">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <input type="hidden" name="amount_decline" value="${requestScope.COUNT_FLAG_DECLINE}">
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <c:choose>
+                                            <c:when test="${requestScope.COUNT_FLAG_ALL == null}">
+                                                <input type="hidden" name="amount_all" value="0">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <input type="hidden" name="amount_all" value="${requestScope.COUNT_FLAG_ALL}">
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
                                 </div>
                             </div>
@@ -1351,10 +1421,26 @@
                                                             };
 
                                                             function loadResultsPipeStyle(index, list) {
-                                                                let amount = list.querySelectorAll('.pipe .pipe-item').length;
+                                                                let amount;
+                                                                switch (index) {
+                                                                    case "0":
+                                                                        amount = list.closest('.pipe').querySelector('input[name="amount_all"]').value;
+                                                                        break;
+                                                                    case "1":
+                                                                        amount = list.closest('.pipe').querySelector('input[name="amount_done"]').value;
+                                                                        break;
+                                                                    case "2":
+                                                                        amount = list.closest('.pipe').querySelector('input[name="amount_onGoing"]').value;
+                                                                        break;
+                                                                    default:
+                                                                        amount = list.closest('.pipe').querySelector('input[name="amount_decline"]').value;
+                                                                        break;
+
+                                                                }
+                                                                ;
                                                                 let search = document.querySelector('input[name="search"]').value;
                                                                 $.ajax({
-                                                                    url: "/SWP391_PROJECT/LoadFeedback",
+                                                                    url: "/SWP391_PROJECT/LoadFeedbackUserPipe",
                                                                     type: "post",
                                                                     data: {
                                                                         amount: amount,
@@ -1371,7 +1457,22 @@
                                                                             $(".loading").fadeOut('fast', function () {
                                                                                 $(this).remove();
                                                                             });
-                                                                            var $data = $(data);
+                                                                            switch (index) {
+                                                                                case "0":
+                                                                                    list.closest('.pipe').querySelector('input[name="amount_all"]').value = data.slice(1, 3);
+                                                                                    break;
+                                                                                case "1":
+                                                                                    list.closest('.pipe').querySelector('input[name="amount_done"]').value = data.slice(1, 3);
+                                                                                    break;
+                                                                                case "2":
+                                                                                    list.closest('.pipe').querySelector('input[name="amount_onGoing"]').value = data.slice(1, 3);
+                                                                                    break;
+                                                                                default:
+                                                                                    list.closest('.pipe').querySelector('input[name="amount_decline"]').value = data.slice(1, 3);
+                                                                                    break;
+                                                                            }
+                                                                            ;
+                                                                            var $data = $(data.slice(4));
                                                                             $results.append($data);
                                                                             $data.show("slow");
                                                                             $results.removeData("loading");
@@ -1381,10 +1482,25 @@
                                                             }
                                                             ;
                                                             function loadResultsListStyle(index, list) {
-                                                                let amount = list.querySelectorAll('.list-showcase-item .pipe-item').length;
+                                                                let amount;
+                                                                switch (index) {
+                                                                    case "0":
+                                                                        amount = list.closest('.list-showcase').querySelector('input[name="amount_all"]').value;
+                                                                        break;
+                                                                    case "1":
+                                                                        amount = list.closest('.list-showcase').querySelector('input[name="amount_done"]').value;
+                                                                        break;
+                                                                    case "2":
+                                                                        amount = list.closest('.list-showcase').querySelector('input[name="amount_onGoing"]').value;
+                                                                        break;
+                                                                    default:
+                                                                        amount = list.closest('.list-showcase').querySelector('input[name="amount_decline"]').value;
+                                                                        break;
+
+                                                                }
                                                                 let search = document.querySelector('input[name="search"]').value;
                                                                 $.ajax({
-                                                                    url: "/SWP391_PROJECT/LoadFeedback",
+                                                                    url: "/SWP391_PROJECT/LoadFeedbackUserList",
                                                                     type: "post",
                                                                     data: {
                                                                         amount: amount,
@@ -1401,7 +1517,23 @@
                                                                             $(".loading").fadeOut('fast', function () {
                                                                                 $(this).remove();
                                                                             });
-                                                                            var $data = $(data);
+
+                                                                            switch (index) {
+                                                                                case "0":
+                                                                                    list.closest('.list-showcase').querySelector('input[name="amount_all"]').value = data.slice(1, 3);
+                                                                                    break;
+                                                                                case "1":
+                                                                                    list.closest('.list-showcase').querySelector('input[name="amount_done"]').value = data.slice(1, 3);
+                                                                                    break;
+                                                                                case "2":
+                                                                                    list.closest('.list-showcase').querySelector('input[name="amount_onGoing"]').value = data.slice(1, 3);
+                                                                                    break;
+                                                                                default:
+                                                                                    list.closest('.list-showcase').querySelector('input[name="amount_decline"]').value = data.slice(1, 3);
+                                                                                    break;
+                                                                            }
+                                                                            ;
+                                                                            var $data = $(data.slice(4));
                                                                             $results.append($data);
                                                                             $data.show("slow");
                                                                             $results.removeData("loading");
@@ -1410,10 +1542,6 @@
                                                                 });
                                                             }
                                                             ;
-
-                                                            $(function () {
-
-                                                            });
 
                                                             $(function () {
 
@@ -1453,6 +1581,29 @@
 
                                                                 $("#image").on("change", function (e) {
                                                                     imagesPreview2(this);
+                                                                });
+
+//                                                                Scroll and load more data
+                                                                Array.from($(".pipe .pipe-list")).forEach(item => {
+                                                                    item.addEventListener('scroll', (e) => {
+                                                                        var list = e.target.closest('.pipe .pipe-list');
+                                                                        if (!e.target.getAttribute("data-loading")) {
+                                                                            if (Math.ceil(list.offsetHeight + list.scrollTop) === list.scrollHeight) {
+                                                                                loadResultsPipeStyle(e.target.dataset.index, list);
+                                                                            }
+                                                                        }
+                                                                    });
+                                                                });
+
+                                                                Array.from($(".list-showcase-item .pipe-list")).forEach(item => {
+                                                                    item.addEventListener('scroll', (e) => {
+                                                                        var list = e.target.closest('.list-showcase-item .pipe-list');
+                                                                        if (!e.target.getAttribute("data-loading")) {
+                                                                            if (Math.ceil(list.offsetHeight + list.scrollTop) === list.scrollHeight) {
+                                                                                loadResultsListStyle(e.target.closest('.list-showcase-item .pipe-list').dataset.index, list);
+                                                                            }
+                                                                        }
+                                                                    });
                                                                 });
 
 //                                                                handleNotification();

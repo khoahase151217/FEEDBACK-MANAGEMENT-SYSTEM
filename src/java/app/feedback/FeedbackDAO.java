@@ -1044,7 +1044,7 @@ public class FeedbackDAO {
         }
         return list;
     }
-    
+
     public List<FeedbackDTO> getListFeedbackByStatusPendingAscForManagerFull() throws SQLException {
         List<FeedbackDTO> list = new ArrayList<>();
         Connection conn = null;
@@ -1074,7 +1074,7 @@ public class FeedbackDAO {
                     String fullname = rs.getString("fullname");
                     String statusName = rs.getString("statusName");
                     String TrashDate = rs.getString("TrashDate");
-                    list.add(new FeedbackDTO(feedbackId, userId, date, email, statusId, fullname, statusName,TrashDate));
+                    list.add(new FeedbackDTO(feedbackId, userId, date, email, statusId, fullname, statusName, TrashDate));
                 }
             }
 
@@ -2096,6 +2096,1285 @@ public class FeedbackDAO {
                         + " Order by t1.Date desc";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, userId);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    String date = rs.getString("Date");
+                    String statusId = rs.getString("statusID");
+                    String statusName = rs.getString("statusName");
+                    String deviceName = rs.getString("deviceName");
+                    String location = rs.getString("location");
+                    byte[] tmp = rs.getBytes("Image");
+                    if (tmp != null) {
+                        base64Image = Base64.getEncoder().encodeToString(tmp);
+                    } else {
+                        base64Image = "";
+                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<String> getListFeedbackForUserForCheckSize(String userId) throws SQLException {
+        List<String> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT t1.*"
+                        + "FROM tblFeedback t1 "
+                        + "JOIN tblFeedbackDetail t2 \n"
+                        + "ON t1.FeedbackID = t2.FeedbackID \n"
+                        + "WHERE t1.UserID = ? AND t2.StatusID = 'active'\n"
+                        + "Order by t1.Date desc";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, userId);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    list.add(feedbackId);
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+    public List<String> getListFeedbackDoneForUserForCheckSize(String userId) throws SQLException {
+        List<String> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT t1.*"
+                        + "FROM tblFeedback t1 "
+                        + "JOIN tblFeedbackDetail t2 \n"
+                        + "ON t1.FeedbackID = t2.FeedbackID \n"
+                        + "WHERE t1.UserID = ? AND t2.StatusID = 'active' and t1.statusID = 'done'\n"
+                        + "Order by t1.Date desc";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, userId);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    list.add(feedbackId);
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+    
+    public List<String> getListFeedbackDeclineForUserForCheckSize(String userId) throws SQLException {
+        List<String> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT t1.*"
+                        + "FROM tblFeedback t1 "
+                        + "JOIN tblFeedbackDetail t2 \n"
+                        + "ON t1.FeedbackID = t2.FeedbackID \n"
+                        + "WHERE t1.UserID = ? AND t2.StatusID = 'active' and t1.statusID = 'decline'\n"
+                        + "Order by t1.Date desc";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, userId);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    list.add(feedbackId);
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+    
+    public List<String> getListFeedbackOnGoingForUserForCheckSize(String userId) throws SQLException {
+        List<String> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT t1.*"
+                        + "FROM tblFeedback t1 "
+                        + "JOIN tblFeedbackDetail t2 \n"
+                        + "ON t1.FeedbackID = t2.FeedbackID \n"
+                        + "WHERE t1.UserID = ? AND t2.StatusID = 'active' and (t1.statusID = 'pending' or t1.statusID = 'onGoing')\n"
+                        + "Order by t1.Date desc";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, userId);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    list.add(feedbackId);
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<UserHistoryDTO> getListFeedbackForUserNext(String userId, int amount) throws SQLException {
+        List<UserHistoryDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String base64Image;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                        + " FROM tblFeedback t1 "
+                        + " JOIN tblFeedbackDetail t2 "
+                        + "  ON t1.FeedbackID = t2.FeedbackID "
+                        + " JOIN tblFacilities t3 "
+                        + "  ON t2.FacilityID = t3.FacilityID"
+                        + " JOIN tblUser t4 "
+                        + "  ON t1.UserID = t4.UserID "
+                        + " JOIN tblFeedbackStatus t5 "
+                        + "  ON t1.StatusID = t5.FeedbackStatusID"
+                        + " WHERE t1.UserID = ? AND t2.StatusID = 'active' "
+                        + " Order by t1.Date desc"
+                        + " OFFSET ? ROWS "
+                        + " FETCH NEXT 10 ROWS ONLY";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, userId);
+                ps.setInt(2, amount);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    String date = rs.getString("Date");
+                    String statusId = rs.getString("statusID");
+                    String statusName = rs.getString("statusName");
+                    String deviceName = rs.getString("deviceName");
+                    String location = rs.getString("location");
+                    byte[] tmp = rs.getBytes("Image");
+                    if (tmp != null) {
+                        base64Image = Base64.getEncoder().encodeToString(tmp);
+                    } else {
+                        base64Image = "";
+                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+    
+    public List<UserHistoryDTO> getListFeedbackForUserNext(String userId, int amount, int stopPoint) throws SQLException {
+        List<UserHistoryDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String base64Image;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                        + " FROM tblFeedback t1 "
+                        + " JOIN tblFeedbackDetail t2 "
+                        + "  ON t1.FeedbackID = t2.FeedbackID "
+                        + " JOIN tblFacilities t3 "
+                        + "  ON t2.FacilityID = t3.FacilityID"
+                        + " JOIN tblUser t4 "
+                        + "  ON t1.UserID = t4.UserID "
+                        + " JOIN tblFeedbackStatus t5 "
+                        + "  ON t1.StatusID = t5.FeedbackStatusID"
+                        + " WHERE t1.UserID = ? AND t2.StatusID = 'active' "
+                        + " Order by t1.Date desc"
+                        + " OFFSET ? ROWS "
+                        + " FETCH NEXT ? ROWS ONLY";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, userId);
+                ps.setInt(2, amount);
+                ps.setInt(3, stopPoint);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    String date = rs.getString("Date");
+                    String statusId = rs.getString("statusID");
+                    String statusName = rs.getString("statusName");
+                    String deviceName = rs.getString("deviceName");
+                    String location = rs.getString("location");
+                    byte[] tmp = rs.getBytes("Image");
+                    if (tmp != null) {
+                        base64Image = Base64.getEncoder().encodeToString(tmp);
+                    } else {
+                        base64Image = "";
+                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+    
+    public List<UserHistoryDTO> getListFeedbackForUserNextFull(String userId, int amount) throws SQLException {
+        List<UserHistoryDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String base64Image;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                        + " FROM tblFeedback t1 "
+                        + " JOIN tblFeedbackDetail t2 "
+                        + "  ON t1.FeedbackID = t2.FeedbackID "
+                        + " JOIN tblFacilities t3 "
+                        + "  ON t2.FacilityID = t3.FacilityID"
+                        + " JOIN tblUser t4 "
+                        + "  ON t1.UserID = t4.UserID "
+                        + " JOIN tblFeedbackStatus t5 "
+                        + "  ON t1.StatusID = t5.FeedbackStatusID"
+                        + " WHERE t1.UserID = ? AND t2.StatusID = 'active' "
+                        + " Order by t1.Date desc"
+                        + " OFFSET ? ROWS ";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, userId);
+                ps.setInt(2, amount);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    String date = rs.getString("Date");
+                    String statusId = rs.getString("statusID");
+                    String statusName = rs.getString("statusName");
+                    String deviceName = rs.getString("deviceName");
+                    String location = rs.getString("location");
+                    byte[] tmp = rs.getBytes("Image");
+                    if (tmp != null) {
+                        base64Image = Base64.getEncoder().encodeToString(tmp);
+                    } else {
+                        base64Image = "";
+                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+    
+    public List<UserHistoryDTO> getListFeedbackForUserNextForCheck(String userId, int amount) throws SQLException {
+        List<UserHistoryDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String base64Image;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                        + " FROM tblFeedback t1 "
+                        + " JOIN tblFeedbackDetail t2 "
+                        + "  ON t1.FeedbackID = t2.FeedbackID "
+                        + " JOIN tblFacilities t3 "
+                        + "  ON t2.FacilityID = t3.FacilityID"
+                        + " JOIN tblUser t4 "
+                        + "  ON t1.UserID = t4.UserID "
+                        + " JOIN tblFeedbackStatus t5 "
+                        + "  ON t1.StatusID = t5.FeedbackStatusID"
+                        + " WHERE t1.UserID = ? AND t2.StatusID = 'active' "
+                        + " Order by t1.Date desc"
+                        + " OFFSET ? ROWS "
+                        + " FETCH NEXT 4 ROWS ONLY";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, userId);
+                ps.setInt(2, amount);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    String date = rs.getString("Date");
+                    String statusId = rs.getString("statusID");
+                    String statusName = rs.getString("statusName");
+                    String deviceName = rs.getString("deviceName");
+                    String location = rs.getString("location");
+                    byte[] tmp = rs.getBytes("Image");
+                    if (tmp != null) {
+                        base64Image = Base64.getEncoder().encodeToString(tmp);
+                    } else {
+                        base64Image = "";
+                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<UserHistoryDTO> searchListFeedbackForUserNext(String userId, int amount, String search) throws SQLException {
+        List<UserHistoryDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String base64Image;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                        + " FROM tblFeedback t1 "
+                        + " JOIN tblFeedbackDetail t2 "
+                        + "  ON t1.FeedbackID = t2.FeedbackID "
+                        + " JOIN tblFacilities t3 "
+                        + "  ON t2.FacilityID = t3.FacilityID"
+                        + " JOIN tblUser t4 "
+                        + "  ON t1.UserID = t4.UserID "
+                        + " JOIN tblFeedbackStatus t5 "
+                        + "  ON t1.StatusID = t5.FeedbackStatusID"
+                        + " WHERE t1.UserID = ? AND t2.StatusID = 'active' and t3.Name like ? "
+                        + " Order by t1.Date desc"
+                        + " OFFSET ? ROWS "
+                        + " FETCH NEXT 10 ROWS ONLY";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, userId);
+                ps.setString(2, "%" + search + "%");
+                ps.setInt(3, amount);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    String date = rs.getString("Date");
+                    String statusId = rs.getString("statusID");
+                    String statusName = rs.getString("statusName");
+                    String deviceName = rs.getString("deviceName");
+                    String location = rs.getString("location");
+                    byte[] tmp = rs.getBytes("Image");
+                    if (tmp != null) {
+                        base64Image = Base64.getEncoder().encodeToString(tmp);
+                    } else {
+                        base64Image = "";
+                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+    
+    public List<UserHistoryDTO> searchListFeedbackForUserNext(String userId, int amount, String search, int stopPoint) throws SQLException {
+        List<UserHistoryDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String base64Image;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                        + " FROM tblFeedback t1 "
+                        + " JOIN tblFeedbackDetail t2 "
+                        + "  ON t1.FeedbackID = t2.FeedbackID "
+                        + " JOIN tblFacilities t3 "
+                        + "  ON t2.FacilityID = t3.FacilityID"
+                        + " JOIN tblUser t4 "
+                        + "  ON t1.UserID = t4.UserID "
+                        + " JOIN tblFeedbackStatus t5 "
+                        + "  ON t1.StatusID = t5.FeedbackStatusID"
+                        + " WHERE t1.UserID = ? AND t2.StatusID = 'active' and t3.Name like ? "
+                        + " Order by t1.Date desc"
+                        + " OFFSET ? ROWS "
+                        + " FETCH NEXT ? ROWS ONLY";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, userId);
+                ps.setString(2, "%" + search + "%");
+                ps.setInt(3, amount);
+                ps.setInt(4, stopPoint);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    String date = rs.getString("Date");
+                    String statusId = rs.getString("statusID");
+                    String statusName = rs.getString("statusName");
+                    String deviceName = rs.getString("deviceName");
+                    String location = rs.getString("location");
+                    byte[] tmp = rs.getBytes("Image");
+                    if (tmp != null) {
+                        base64Image = Base64.getEncoder().encodeToString(tmp);
+                    } else {
+                        base64Image = "";
+                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+    
+    public List<UserHistoryDTO> searchListFeedbackForUserNextForCheck(String userId, int amount, String search) throws SQLException {
+        List<UserHistoryDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String base64Image;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                        + " FROM tblFeedback t1 "
+                        + " JOIN tblFeedbackDetail t2 "
+                        + "  ON t1.FeedbackID = t2.FeedbackID "
+                        + " JOIN tblFacilities t3 "
+                        + "  ON t2.FacilityID = t3.FacilityID"
+                        + " JOIN tblUser t4 "
+                        + "  ON t1.UserID = t4.UserID "
+                        + " JOIN tblFeedbackStatus t5 "
+                        + "  ON t1.StatusID = t5.FeedbackStatusID"
+                        + " WHERE t1.UserID = ? AND t2.StatusID = 'active' and t3.Name like ? "
+                        + " Order by t1.Date desc"
+                        + " OFFSET ? ROWS "
+                        + " FETCH NEXT 4 ROWS ONLY";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, userId);
+                ps.setString(2, "%" + search + "%");
+                ps.setInt(3, amount);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    String date = rs.getString("Date");
+                    String statusId = rs.getString("statusID");
+                    String statusName = rs.getString("statusName");
+                    String deviceName = rs.getString("deviceName");
+                    String location = rs.getString("location");
+                    byte[] tmp = rs.getBytes("Image");
+                    if (tmp != null) {
+                        base64Image = Base64.getEncoder().encodeToString(tmp);
+                    } else {
+                        base64Image = "";
+                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<UserHistoryDTO> getListFeedbackDoneForUserNext(String userId, int amount) throws SQLException {
+        List<UserHistoryDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String base64Image;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                        + " FROM tblFeedback t1 "
+                        + " JOIN tblFeedbackDetail t2 "
+                        + "  ON t1.FeedbackID = t2.FeedbackID "
+                        + " JOIN tblFacilities t3 "
+                        + "  ON t2.FacilityID = t3.FacilityID"
+                        + " JOIN tblUser t4 "
+                        + "  ON t1.UserID = t4.UserID "
+                        + " JOIN tblFeedbackStatus t5 "
+                        + "  ON t1.StatusID = t5.FeedbackStatusID"
+                        + " WHERE t1.UserID = ? AND t2.StatusID = 'active' AND t1.statusID='done' "
+                        + " Order by t1.Date desc"
+                        + " OFFSET ? ROWS "
+                        + " FETCH NEXT 10 ROWS ONLY";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, userId);
+                ps.setInt(2, amount);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    String date = rs.getString("Date");
+                    String statusId = rs.getString("statusID");
+                    String statusName = rs.getString("statusName");
+                    String deviceName = rs.getString("deviceName");
+                    String location = rs.getString("location");
+                    byte[] tmp = rs.getBytes("Image");
+                    if (tmp != null) {
+                        base64Image = Base64.getEncoder().encodeToString(tmp);
+                    } else {
+                        base64Image = "";
+                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+    
+    public List<UserHistoryDTO> getListFeedbackDoneForUserNext(String userId, int amount,int stopPoint) throws SQLException {
+        List<UserHistoryDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String base64Image;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                        + " FROM tblFeedback t1 "
+                        + " JOIN tblFeedbackDetail t2 "
+                        + "  ON t1.FeedbackID = t2.FeedbackID "
+                        + " JOIN tblFacilities t3 "
+                        + "  ON t2.FacilityID = t3.FacilityID"
+                        + " JOIN tblUser t4 "
+                        + "  ON t1.UserID = t4.UserID "
+                        + " JOIN tblFeedbackStatus t5 "
+                        + "  ON t1.StatusID = t5.FeedbackStatusID"
+                        + " WHERE t1.UserID = ? AND t2.StatusID = 'active' AND t1.statusID='done' "
+                        + " Order by t1.Date desc"
+                        + " OFFSET ? ROWS "
+                        + " FETCH NEXT ? ROWS ONLY";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, userId);
+                ps.setInt(2, amount);
+                ps.setInt(3, stopPoint);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    String date = rs.getString("Date");
+                    String statusId = rs.getString("statusID");
+                    String statusName = rs.getString("statusName");
+                    String deviceName = rs.getString("deviceName");
+                    String location = rs.getString("location");
+                    byte[] tmp = rs.getBytes("Image");
+                    if (tmp != null) {
+                        base64Image = Base64.getEncoder().encodeToString(tmp);
+                    } else {
+                        base64Image = "";
+                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+    
+    public List<UserHistoryDTO> getListFeedbackDoneForUserNextFull(String userId, int amount) throws SQLException {
+        List<UserHistoryDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String base64Image;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                        + " FROM tblFeedback t1 "
+                        + " JOIN tblFeedbackDetail t2 "
+                        + "  ON t1.FeedbackID = t2.FeedbackID "
+                        + " JOIN tblFacilities t3 "
+                        + "  ON t2.FacilityID = t3.FacilityID"
+                        + " JOIN tblUser t4 "
+                        + "  ON t1.UserID = t4.UserID "
+                        + " JOIN tblFeedbackStatus t5 "
+                        + "  ON t1.StatusID = t5.FeedbackStatusID"
+                        + " WHERE t1.UserID = ? AND t2.StatusID = 'active' AND t1.statusID='done' "
+                        + " Order by t1.Date desc"
+                        + " OFFSET ? ROWS ";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, userId);
+                ps.setInt(2, amount);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    String date = rs.getString("Date");
+                    String statusId = rs.getString("statusID");
+                    String statusName = rs.getString("statusName");
+                    String deviceName = rs.getString("deviceName");
+                    String location = rs.getString("location");
+                    byte[] tmp = rs.getBytes("Image");
+                    if (tmp != null) {
+                        base64Image = Base64.getEncoder().encodeToString(tmp);
+                    } else {
+                        base64Image = "";
+                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+    
+    public List<UserHistoryDTO> getListFeedbackDoneForUserNextCheck(String userId, int amount) throws SQLException {
+        List<UserHistoryDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String base64Image;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                        + " FROM tblFeedback t1 "
+                        + " JOIN tblFeedbackDetail t2 "
+                        + "  ON t1.FeedbackID = t2.FeedbackID "
+                        + " JOIN tblFacilities t3 "
+                        + "  ON t2.FacilityID = t3.FacilityID"
+                        + " JOIN tblUser t4 "
+                        + "  ON t1.UserID = t4.UserID "
+                        + " JOIN tblFeedbackStatus t5 "
+                        + "  ON t1.StatusID = t5.FeedbackStatusID"
+                        + " WHERE t1.UserID = ? AND t2.StatusID = 'active' AND t1.statusID='done' "
+                        + " Order by t1.Date desc"
+                        + " OFFSET ? ROWS "
+                        + " FETCH NEXT 4 ROWS ONLY";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, userId);
+                ps.setInt(2, amount);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    String date = rs.getString("Date");
+                    String statusId = rs.getString("statusID");
+                    String statusName = rs.getString("statusName");
+                    String deviceName = rs.getString("deviceName");
+                    String location = rs.getString("location");
+                    byte[] tmp = rs.getBytes("Image");
+                    if (tmp != null) {
+                        base64Image = Base64.getEncoder().encodeToString(tmp);
+                    } else {
+                        base64Image = "";
+                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+    
+    
+
+    public List<UserHistoryDTO> getListFeedbackDeclineForUserNext(String userId, int amount) throws SQLException {
+        List<UserHistoryDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String base64Image;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                        + " FROM tblFeedback t1 "
+                        + " JOIN tblFeedbackDetail t2 "
+                        + "  ON t1.FeedbackID = t2.FeedbackID "
+                        + " JOIN tblFacilities t3 "
+                        + "  ON t2.FacilityID = t3.FacilityID"
+                        + " JOIN tblUser t4 "
+                        + "  ON t1.UserID = t4.UserID "
+                        + " JOIN tblFeedbackStatus t5 "
+                        + "  ON t1.StatusID = t5.FeedbackStatusID"
+                        + " WHERE t1.UserID = ? AND t2.StatusID = 'active' AND t1.statusID='decline' "
+                        + " Order by t1.Date desc"
+                        + " OFFSET ? ROWS "
+                        + " FETCH NEXT 10 ROWS ONLY";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, userId);
+                ps.setInt(2, amount);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    String date = rs.getString("Date");
+                    String statusId = rs.getString("statusID");
+                    String statusName = rs.getString("statusName");
+                    String deviceName = rs.getString("deviceName");
+                    String location = rs.getString("location");
+                    byte[] tmp = rs.getBytes("Image");
+                    if (tmp != null) {
+                        base64Image = Base64.getEncoder().encodeToString(tmp);
+                    } else {
+                        base64Image = "";
+                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+    
+    public List<UserHistoryDTO> getListFeedbackDeclineForUserNext(String userId, int amount, int stopPoint) throws SQLException {
+        List<UserHistoryDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String base64Image;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                        + " FROM tblFeedback t1 "
+                        + " JOIN tblFeedbackDetail t2 "
+                        + "  ON t1.FeedbackID = t2.FeedbackID "
+                        + " JOIN tblFacilities t3 "
+                        + "  ON t2.FacilityID = t3.FacilityID"
+                        + " JOIN tblUser t4 "
+                        + "  ON t1.UserID = t4.UserID "
+                        + " JOIN tblFeedbackStatus t5 "
+                        + "  ON t1.StatusID = t5.FeedbackStatusID"
+                        + " WHERE t1.UserID = ? AND t2.StatusID = 'active' AND t1.statusID='decline' "
+                        + " Order by t1.Date desc"
+                        + " OFFSET ? ROWS "
+                        + " FETCH NEXT ? ROWS ONLY";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, userId);
+                ps.setInt(2, amount);
+                ps.setInt(3, stopPoint);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    String date = rs.getString("Date");
+                    String statusId = rs.getString("statusID");
+                    String statusName = rs.getString("statusName");
+                    String deviceName = rs.getString("deviceName");
+                    String location = rs.getString("location");
+                    byte[] tmp = rs.getBytes("Image");
+                    if (tmp != null) {
+                        base64Image = Base64.getEncoder().encodeToString(tmp);
+                    } else {
+                        base64Image = "";
+                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+    
+    public List<UserHistoryDTO> getListFeedbackDeclineForUserNextFull(String userId, int amount) throws SQLException {
+        List<UserHistoryDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String base64Image;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                        + " FROM tblFeedback t1 "
+                        + " JOIN tblFeedbackDetail t2 "
+                        + "  ON t1.FeedbackID = t2.FeedbackID "
+                        + " JOIN tblFacilities t3 "
+                        + "  ON t2.FacilityID = t3.FacilityID"
+                        + " JOIN tblUser t4 "
+                        + "  ON t1.UserID = t4.UserID "
+                        + " JOIN tblFeedbackStatus t5 "
+                        + "  ON t1.StatusID = t5.FeedbackStatusID"
+                        + " WHERE t1.UserID = ? AND t2.StatusID = 'active' AND t1.statusID='decline' "
+                        + " Order by t1.Date desc"
+                        + " OFFSET ? ROWS ";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, userId);
+                ps.setInt(2, amount);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    String date = rs.getString("Date");
+                    String statusId = rs.getString("statusID");
+                    String statusName = rs.getString("statusName");
+                    String deviceName = rs.getString("deviceName");
+                    String location = rs.getString("location");
+                    byte[] tmp = rs.getBytes("Image");
+                    if (tmp != null) {
+                        base64Image = Base64.getEncoder().encodeToString(tmp);
+                    } else {
+                        base64Image = "";
+                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+    
+
+    public List<UserHistoryDTO> getListFeedbackOnGoingForUserNext(String userId, int amount) throws SQLException {
+        List<UserHistoryDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String base64Image;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                        + " FROM tblFeedback t1 "
+                        + " JOIN tblFeedbackDetail t2 "
+                        + "  ON t1.FeedbackID = t2.FeedbackID "
+                        + " JOIN tblFacilities t3 "
+                        + "  ON t2.FacilityID = t3.FacilityID"
+                        + " JOIN tblUser t4 "
+                        + "  ON t1.UserID = t4.UserID "
+                        + " JOIN tblFeedbackStatus t5 "
+                        + "  ON t1.StatusID = t5.FeedbackStatusID"
+                        + " WHERE t1.UserID = ? AND t2.StatusID = 'active' AND (t1.statusID='pending' or t1.statusID='onGoing') "
+                        + " Order by t1.Date desc"
+                        + " OFFSET ? ROWS "
+                        + " FETCH NEXT 10 ROWS ONLY";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, userId);
+                ps.setInt(2, amount);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    String date = rs.getString("Date");
+                    String statusId = rs.getString("statusID");
+                    String statusName = rs.getString("statusName");
+                    String deviceName = rs.getString("deviceName");
+                    String location = rs.getString("location");
+                    byte[] tmp = rs.getBytes("Image");
+                    if (tmp != null) {
+                        base64Image = Base64.getEncoder().encodeToString(tmp);
+                    } else {
+                        base64Image = "";
+                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+    
+    public List<UserHistoryDTO> getListFeedbackOnGoingForUserNext(String userId, int amount, int stopPoint) throws SQLException {
+        List<UserHistoryDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String base64Image;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                        + " FROM tblFeedback t1 "
+                        + " JOIN tblFeedbackDetail t2 "
+                        + "  ON t1.FeedbackID = t2.FeedbackID "
+                        + " JOIN tblFacilities t3 "
+                        + "  ON t2.FacilityID = t3.FacilityID"
+                        + " JOIN tblUser t4 "
+                        + "  ON t1.UserID = t4.UserID "
+                        + " JOIN tblFeedbackStatus t5 "
+                        + "  ON t1.StatusID = t5.FeedbackStatusID"
+                        + " WHERE t1.UserID = ? AND t2.StatusID = 'active' AND (t1.statusID='pending' or t1.statusID='onGoing') "
+                        + " Order by t1.Date desc"
+                        + " OFFSET ? ROWS "
+                        + " FETCH NEXT ? ROWS ONLY";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, userId);
+                ps.setInt(2, amount);
+                ps.setInt(3, stopPoint);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    String date = rs.getString("Date");
+                    String statusId = rs.getString("statusID");
+                    String statusName = rs.getString("statusName");
+                    String deviceName = rs.getString("deviceName");
+                    String location = rs.getString("location");
+                    byte[] tmp = rs.getBytes("Image");
+                    if (tmp != null) {
+                        base64Image = Base64.getEncoder().encodeToString(tmp);
+                    } else {
+                        base64Image = "";
+                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+    
+    public List<UserHistoryDTO> getListFeedbackOnGoingForUserNextFull(String userId, int amount) throws SQLException {
+        List<UserHistoryDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String base64Image;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                        + " FROM tblFeedback t1 "
+                        + " JOIN tblFeedbackDetail t2 "
+                        + "  ON t1.FeedbackID = t2.FeedbackID "
+                        + " JOIN tblFacilities t3 "
+                        + "  ON t2.FacilityID = t3.FacilityID"
+                        + " JOIN tblUser t4 "
+                        + "  ON t1.UserID = t4.UserID "
+                        + " JOIN tblFeedbackStatus t5 "
+                        + "  ON t1.StatusID = t5.FeedbackStatusID"
+                        + " WHERE t1.UserID = ? AND t2.StatusID = 'active' AND (t1.statusID='pending' or t1.statusID='onGoing') "
+                        + " Order by t1.Date desc"
+                        + " OFFSET ? ROWS ";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, userId);
+                ps.setInt(2, amount);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    String date = rs.getString("Date");
+                    String statusId = rs.getString("statusID");
+                    String statusName = rs.getString("statusName");
+                    String deviceName = rs.getString("deviceName");
+                    String location = rs.getString("location");
+                    byte[] tmp = rs.getBytes("Image");
+                    if (tmp != null) {
+                        base64Image = Base64.getEncoder().encodeToString(tmp);
+                    } else {
+                        base64Image = "";
+                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+    
+    public List<UserHistoryDTO> getListFeedbackOnGoingForUserNextCheck(String userId, int amount) throws SQLException {
+        List<UserHistoryDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String base64Image;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                        + " FROM tblFeedback t1 "
+                        + " JOIN tblFeedbackDetail t2 "
+                        + "  ON t1.FeedbackID = t2.FeedbackID "
+                        + " JOIN tblFacilities t3 "
+                        + "  ON t2.FacilityID = t3.FacilityID"
+                        + " JOIN tblUser t4 "
+                        + "  ON t1.UserID = t4.UserID "
+                        + " JOIN tblFeedbackStatus t5 "
+                        + "  ON t1.StatusID = t5.FeedbackStatusID"
+                        + " WHERE t1.UserID = ? AND t2.StatusID = 'active' AND (t1.statusID='pending' or t1.statusID='onGoing') "
+                        + " Order by t1.Date desc"
+                        + " OFFSET ? ROWS "
+                        + " FETCH NEXT 4 ROWS ONLY";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, userId);
+                ps.setInt(2, amount);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    String date = rs.getString("Date");
+                    String statusId = rs.getString("statusID");
+                    String statusName = rs.getString("statusName");
+                    String deviceName = rs.getString("deviceName");
+                    String location = rs.getString("location");
+                    byte[] tmp = rs.getBytes("Image");
+                    if (tmp != null) {
+                        base64Image = Base64.getEncoder().encodeToString(tmp);
+                    } else {
+                        base64Image = "";
+                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+    
+    public List<UserHistoryDTO> getListFeedbackDeclineForUserNextCheck(String userId, int amount) throws SQLException {
+        List<UserHistoryDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String base64Image;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                        + " FROM tblFeedback t1 "
+                        + " JOIN tblFeedbackDetail t2 "
+                        + "  ON t1.FeedbackID = t2.FeedbackID "
+                        + " JOIN tblFacilities t3 "
+                        + "  ON t2.FacilityID = t3.FacilityID"
+                        + " JOIN tblUser t4 "
+                        + "  ON t1.UserID = t4.UserID "
+                        + " JOIN tblFeedbackStatus t5 "
+                        + "  ON t1.StatusID = t5.FeedbackStatusID"
+                        + " WHERE t1.UserID = ? AND t2.StatusID = 'active' AND t1.statusID='decline' "
+                        + " Order by t1.Date desc"
+                        + " OFFSET ? ROWS "
+                        + " FETCH NEXT 4 ROWS ONLY";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, userId);
+                ps.setInt(2, amount);
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     String feedbackId = rs.getString("FeedbackID");
