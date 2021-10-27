@@ -260,7 +260,7 @@ public class ShowFeedbackStudentController extends HttpServlet {
                 session.setAttribute("HISTORY_DENY", listDecline);
                 session.setAttribute("HISTORY_ONGOING", listOngoing);
                 
-                // Front-end case [163 - 278] 
+                // Front-end case [263 - 279] 
                 if (listAll.size() < 10) {
                     List<UserHistoryDTO> listAllCheck = dao.getListFeedbackForUserNextFull(user.getUserID(), Integer.parseInt("0"));
                     request.setAttribute("COUNT_FLAG_ALL", listAllCheck.size());
