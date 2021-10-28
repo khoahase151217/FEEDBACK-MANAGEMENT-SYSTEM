@@ -2209,7 +2209,7 @@ public class UserDAO {
                         + "join tblFeedbackDetail b on a.UserID=b.UserID\n"
                         + "join tblBannedFeedbackDetail c on c.FeedbackDetailID=b.FeedbackDetailID\n"
                         + "join tblFeedback d on d.FeedbackID=b.FeedbackID\n"
-                        + "where d.Date like ? and d.Date like ?\n"
+                        + "where d.statusID = 'inactive' and d.Date like ? and d.Date like ?\n"
                         + "group by a.BinaryImage,a.Email,a.FullName,a.Image,a.Password,a.Rating,a.RoleID,a.StatusID,a.UserID\n"
                         + "Having Count(c.FeedbackDetailID) >= 3 \n"
                         + "order by Count desc";
@@ -2258,12 +2258,12 @@ public class UserDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT TOP 3 t1.*,t3.Name as FacilityName ,t4.Date as Date "
+                String sql = "SELECT t1.*,t3.Name as FacilityName ,t4.Date as Date "
                         + "  FROM tblFeedbackDetail t1 "
                         + "  JOIN tblBannedFeedbackDetail t2 on t1.FeedbackDetailID =t2.FeedbackDetailID "
                         + "  JOIN tblFacilities t3 on t1.FacilityID = t3.FacilityID "
                         + "  JOIN tblFeedback t4 on t1.FeedbackID = t4.FeedbackID "
-                        + "  GROUP BY t1.Description,t1.FacilityID,t1.FeedbackDetailID,t1.FeedbackID "
+                        + "  GROUP BY t1.Description,t1.FacilityID,t1.FeedbackDetailID,t1.FeedbackID,t1.AssignDate "
                         + "  ,t1.flag,t1.Image,t1.Location,t1.Quantity,t1.Reason,t1.StatusID,t1.UserID,"
                         + "  t3.Name,t3.Quantity,t4.Date "
                         + "  ORDER BY t4.Date desc ";

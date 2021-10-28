@@ -414,7 +414,7 @@
                                         </div>
                                         <div class="statistic-user-title">
                                             <label>Profile</label>
-                                            <div class="statistic-behavior hide" id="goodbadOption">
+                                            <div class="statistic-behavior" id="goodbadOption">
                                                 <ul class="user-behavior" id="behavior-box">
                                                     <li class="behavior-navigation good active" id="roleGoodList">
                                                         <a href="#" id="goodRole">Good Behavior</a>
@@ -428,8 +428,9 @@
                                         </div>
                                         <!--Student List-->
                                         <div class="student-list ${sessionScope.SHOW_USER_LIST}" id="student-list">
-                                            <c:forEach var="userprofile" items="${sessionScope.LIST_BAD_USER}" varStatus="counter">
-                                                <div class="statistic-user-list">
+                                            <div class="statistic-user-list">
+                                                <c:forEach var="userprofile" items="${sessionScope.LIST_BAD_USER}" varStatus="counter">
+
                                                     <c:choose>
                                                         <c:when test="${counter.count == 1 && userprofile.statusID eq 'active'}">
                                                             <c:set var="userid" scope="session" value="${userprofile.userID}"/>
@@ -595,7 +596,7 @@
                                                                 </div>
                                                             </div>
                                                         </c:when>
-                                                        <c:otherwise>
+                                                        <c:when test="${counter.count != 1 && userprofile.statusID eq 'inactive'}">
                                                             <c:set var="userid" scope="session" value="${userprofile.userID}"/>
                                                             <div class="statistic-user-wrapper statistic-student-wrapper" data-index="${counter.count}">
                                                                 <div class="statistic-user-profile">
@@ -652,17 +653,19 @@
                                                                     </a>
                                                                 </div>
                                                             </div>
-                                                        </c:otherwise>
+                                                        </c:when>
                                                     </c:choose>    
-                                                </div>
-                                            </c:forEach>  
+
+                                                </c:forEach>  
+                                            </div>
                                         </div>
                                         <!--Employee List-->
                                         <div class="employee-list ${sessionScope.SHOW_EMPLOYEE_LIST}" id="employee-list">
                                             <!--Good Employee list-->
                                             <div class="good-employee-show active" id="good-emp-list">
-                                                <c:forEach var="userprofile" items="${sessionScope.LIST_GOOD_EMP}" varStatus="counter">
-                                                    <div class="statistic-user-list">
+                                                <div class="statistic-user-list">
+                                                    <c:forEach var="userprofile" items="${sessionScope.LIST_GOOD_EMP}" varStatus="counter">
+
                                                         <c:choose>
                                                             <c:when test="${counter.count == 1}">
                                                                 <c:set var="userid" scope="session" value="${userprofile.userID}"/>
@@ -769,8 +772,9 @@
                                                                 </div>
                                                             </c:otherwise>
                                                         </c:choose>    
-                                                    </div>
-                                                </c:forEach>
+
+                                                    </c:forEach>
+                                                </div>
                                             </div>
                                             <!--Bad Employee List-->
                                             <div class="bad-employee-show" id="bad-emp-list">
@@ -852,7 +856,7 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="feedback-wrapper">
-                                                                            <c:forEach var="recentfeedback" items="${sessionScope.LIST_GOOD_RECENT_RESPONE_EMP}" varStatus="feedbackcount">
+                                                                            <c:forEach var="recentfeedback" items="${sessionScope.LIST_BAD_RECENT_RESPONE_EMP}" varStatus="feedbackcount">
                                                                                 <c:if test="${userprofile.userID == recentfeedback.userID}">
                                                                                     <div class="pipe-item">
                                                                                         <div class="pipe-item-heading">

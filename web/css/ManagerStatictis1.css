@@ -327,8 +327,8 @@
 .statistic-user-avatar{
     align-items: center;
     text-align: center;
-    width: 30%;
-    height: 30%;
+    width: 90px;
+    height: 90px;
     margin-left:auto;
     margin-right:auto;
     padding-top:20px;
@@ -438,6 +438,7 @@
     margin-left: auto;
     margin-right:auto;
     height:55px;
+    margin-top: 15px;
 }
 
 .unban-button{
@@ -465,21 +466,23 @@
     background-color: orange;
 }
 
-.statistic-user-wrapper{
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
-    display:none;
-    transform:scale(0.5);
-    transition: all 1s ease-in-out;
-}
-.statistic-user-wrapper.active{
-    display:block;
-    transform:scale(1);
-}
 .statistic-user-list{
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
+}
+.statistic-user-wrapper{
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    opacity: 0;
+    visibility: hidden;
+    transform:scale(0.5);
+    transition: all 0.25s ease-in-out;
+}
+.statistic-user-wrapper.active{
+    opacity: 1;
+    visibility: visible;
+    transform:scale(1);
 }
 
 .statistic-behavior .user-behavior{
@@ -555,12 +558,6 @@
     display: none;
 }
 
-.statistic-behavior.hide{
-    display: none;
-}
-.statistic-behavior{
-    display: block;
-}
 
 .icon-profile-back.profile-chevron-back,.icon-profile-forward.profile-chevron-forward{
     display: none;

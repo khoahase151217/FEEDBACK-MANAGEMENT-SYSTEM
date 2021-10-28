@@ -47,15 +47,15 @@ var badempList = document.getElementById("bad-emp-list");
 var goodbadOption = document.getElementById("goodbadOption");
 
 
-if (document.querySelectorAll(".statistic-user-wrapper.statistic-baduser-wrapper").length === 0) {
+if (document.querySelectorAll(".statistic-user-wrapper.statistic-student-wrapper").length === 1) {
     document.querySelector(".icon-profile-forward.profile-chevron-forward.baduser").style.display = "none";
     document.querySelector(".icon-profile-back.profile-chevron-back.baduser").style.display = "none";
 }
-if (document.querySelectorAll(".statistic-user-wrapper.statistic-bademp-wrapper").length === 0) {
+if (document.querySelectorAll(".statistic-user-wrapper.statistic-bademp-wrapper").length === 1) {
     document.querySelector(".icon-profile-forward.profile-chevron-forward.bademp").style.display = "none";
     document.querySelector(".icon-profile-back.profile-chevron-back.bademp").style.display = "none";
 }
-if (document.querySelectorAll(".statistic-user-wrapper.statistic-goodemp-wrapper").length === 0) {
+if (document.querySelectorAll(".statistic-user-wrapper.statistic-goodemp-wrapper").length === 1) {
     document.querySelector(".icon-profile-forward.profile-chevron-forward.goodemp").style.display = "none";
     document.querySelector(".icon-profile-back.profile-chevron-back.goodemp").style.display = "none";
 }
@@ -69,7 +69,7 @@ employeeTab.onclick = function () {
     employeeList.classList.add("active");
     goodempList.classList.add("active");
     badempList.classList.remove("active");
-    document.querySelector(".statistic-behavior").classList.remove("hide");
+    document.querySelector(".user-behavior").classList.add("active");
     document.querySelector(".behavior-navigation.good").classList.add("active");
     document.querySelector(".behavior-navigation.bad").classList.remove("active");
     document.querySelector(".icon-profile-back.profile-chevron-back.goodemp").classList.add("active");
@@ -87,7 +87,7 @@ studentTab.onclick = function () {
     employeeNavigation.classList.remove("active");
     employeeList.classList.remove("active");
     studentList.classList.add("active");
-    document.querySelector(".statistic-behavior").classList.add("hide");
+    document.querySelector(".user-behavior").classList.remove("active");
     document.querySelector(".icon-profile-back.profile-chevron-back.goodemp").classList.remove("active");
     document.querySelector(".icon-profile-forward.profile-chevron-forward.goodemp").classList.remove("active");
     document.querySelector(".icon-profile-back.profile-chevron-back.bademp").classList.remove("active");
@@ -179,7 +179,6 @@ document.querySelector(".icon-profile-forward.profile-chevron-forward.baduser").
             : document.querySelector(".statistic-user-wrapper.statistic-student-wrapper.active").dataset.index;
     Array.from(BadUserList).forEach((ele) => ele.classList.remove("active"));
     Array.from(BadUserList)[index].classList.add("active");
-    console.log(index);
 });
 
 document.querySelector(".icon-profile-back.profile-chevron-back.baduser").addEventListener("click", () => {

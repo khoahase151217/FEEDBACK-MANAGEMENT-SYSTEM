@@ -803,7 +803,8 @@ public class EmployeesDAO {
             if (conn != null) {
                 String sql = "SELECT TOP 3 t1.*,COUNT(t1.UserID) as count FROM tblUser t1\n"
                         + "JOIN tblResponseFeedback t2 on t1.UserID =t2.UserID \n"
-                        + "WHERE t1.UserID = t2.UserID AND t2.StatusID='done' AND t2.Date like ? AND t2.Date like ? \n"
+                        + "WHERE t1.UserID = t2.UserID AND t2.StatusID='done' AND t2.Date like ? AND t2.Date like ? AND t1.UserID not in \n"
+                        + "(select t6.UserID FROM tblDeclinedResponse t5 JOIN tblResponseFeedback t6 on t6.ResponseID=t5.ResponseID) \n"
                         + "GROUP BY t1.UserID,t1.BinaryImage,t1.Email,t1.FullName,t1.Image,t1.Password,t1.Rating,t1.RoleID,t1.StatusID \n"
                         + "ORDER BY COUNT(t1.UserID) DESC";
 
@@ -908,7 +909,7 @@ public class EmployeesDAO {
                         + "JOIN tblFeedbackDetail t2 on t1.FeedbackDetailID =t2.FeedbackDetailID\n"
                         + "JOIN tblDeclinedResponse t3 on t3.ResponseID =t1.ResponseID\n"
                         + "JOIN tblFacilities t4 on t2.FacilityID = t4.FacilityID\n"
-                        + "GROUP BY t1.Date,t1.Description,t1.FeedbackDetailID,t1.Image,t1.ResponseID,t1.StatusID,t1.UserID,t4.Name,t2.Quantity,t2.Location\n"
+                        + "GROUP BY t1.Date,t1.Description,t1.FeedbackDetailID,t1.Image,t1.ResponseID,t1.StatusID,t1.UserID,t1.realtime,t4.Name,t2.Quantity,t2.Location\n"
                         + "ORDER BY t1.Date desc";
                 ps = conn.prepareStatement(sql);
                 rs = ps.executeQuery();
@@ -954,7 +955,7 @@ public class EmployeesDAO {
                         + "JOIN tblFeedbackDetail t2 on t1.FeedbackDetailID =t2.FeedbackDetailID\n"
                         + "JOIN tblFacilities t3 on t2.FacilityID = t3.FacilityID\n"
                         + "WHERE t1.StatusID='done' "
-                        + "GROUP BY t1.Date,t1.Description,t1.FeedbackDetailID,t1.Image,t1.ResponseID,t1.StatusID,t1.UserID,t3.Name,t2.Quantity,t2.Location\n"
+                        + "GROUP BY t1.Date,t1.Description,t1.FeedbackDetailID,t1.Image,t1.ResponseID,t1.StatusID,t1.UserID,t1.realtime,t3.Name,t2.Quantity,t2.Location\n"
                         + "ORDER BY t1.Date desc";
                 ps = conn.prepareStatement(sql);
                 rs = ps.executeQuery();
