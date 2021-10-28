@@ -360,10 +360,10 @@
 .icon-profile-forward {
     font-size: 3.5rem;
     position: absolute;
-    top: 56.4%;
+    top: 56.8%;
     transform: translateY(-50%);
     z-index: 4;
-    height: 10%;
+    height: 3.7%;
     background-color: transparent;
     display: flex;
     transition: all 0.3s linear;
@@ -378,7 +378,7 @@
     border-radius: 15px;
 }
 .icon-profile-back {
-    right: 23.6%;
+    right: 23.8%;
     border-radius: 15px;
 }
 
@@ -485,13 +485,95 @@
 .statistic-behavior .user-behavior{
     list-style-type: none;
     overflow: hidden;
-    align-items: center;
-    text-align: center;
-    display:flex;
-    padding:0 90px;
+    float: right;
     font-size: 1.2rem;
     font-weight: 500;
-    white-space: nowrap;
+}
+
+.statistic-behavior .user-behavior hr{
+    border-top: 2.5px solid black;
+    border-radius: 8px;
+}
+
+.statistic-user-list .pipe-item-heading{
+    align-items: center;
+    display: flex;
+}
+
+.feedback-wrapper{
+    width: 100%;
+    height:210px;
+    overflow: hidden;
+}
+
+.good-employee-show{
+    display: none;
+}
+.good-employee-show.active{
+    display:block;
+}
+
+.bad-employee-show{
+    display: none;
+}
+.bad-employee-show.active{
+    display:block;
+}
+
+.employee-list{
+    display:none;
+}
+.employee-list.active{
+    display: block;
+}
+
+.student-list{
+    display:none;
+}
+
+.student-list.active{
+    display: block;
+}
+
+.behavior-navigation.good.active,.behavior-navigation.bad.active{
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+.behavior-navigation.bad,nbehavior-navigaion.good{
+    font-size:1.2rem;
+    font-weight:500;
+}
+
+.user-behavior{
+    display: none;
+}
+
+.user-behavior.active{
+    display: block;
+}
+.viewall{
+    display: none;
+}
+
+.statistic-behavior.hide{
+    display: none;
+}
+.statistic-behavior{
+    display: block;
+}
+
+.icon-profile-back.profile-chevron-back,.icon-profile-forward.profile-chevron-forward{
+    display: none;
+}
+
+.icon-profile-back.profile-chevron-back.goodemp.active,.icon-profile-forward.profile-chevron-forward.goodemp.active{
+    display: block;
+}
+.icon-profile-back.profile-chevron-back.bademp.active,.icon-profile-forward.profile-chevron-forward.bademp.active{
+    display: block;
+}
+.icon-profile-back.profile-chevron-back.baduser.active,.icon-profile-forward.profile-chevron-forward.baduser.active{
+    display: block;
 }
 
 

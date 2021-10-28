@@ -22,6 +22,7 @@ public class AUController extends HttpServlet {
 
     private static final String ERROR = "error.jsp";
     private static final String SUCCESS = "ShowUserController";
+    private static final String UNBAN = "StatisticBadUSERController";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,6 +44,7 @@ public class AUController extends HttpServlet {
             String userID = request.getParameter("userID");
             String statusID = request.getParameter("StatusID");
             String email = dao.getUserEmailByID(userID);
+            String flag = request.getParameter("flag");
             if (statusID.equalsIgnoreCase("active")) {
                 dao.UpdateUserStatusInactive(userID, statusID);
             } else {
@@ -52,7 +54,6 @@ public class AUController extends HttpServlet {
                     dao2.sendLastWarning(email);
                 }
                 dao.UpdateUserStatusActive(userID, statusID);
-
             }
 
             String listStyle = request.getParameter("style_flag");
@@ -77,7 +78,16 @@ public class AUController extends HttpServlet {
             } else {
                 request.setAttribute("STYLE_LIST_ALL", "active");
             }
-            url = SUCCESS;
+            if (flag != null) {
+                session.setAttribute("BEHAVIOR_NAVIGATION", "");
+                session.setAttribute("LIST_EMPLOYEE", "");
+                session.setAttribute("LIST_STUDENT", "active");
+                session.setAttribute("SHOW_USER_LIST", "active");
+                session.setAttribute("SHOW_EMPLOYEE_LIST", "");
+                url = UNBAN;
+            } else {
+                url = SUCCESS;
+            }
         } catch (Exception e) {
             log("Error at ShowStudentController" + e.toString());
         } finally {

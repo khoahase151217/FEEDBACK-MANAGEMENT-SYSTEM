@@ -1090,6 +1090,7 @@
                                                     }
                                                 %> 
                                             </div>
+
                                         </div>
                                         <!-- list done -->
                                         <div class="list-showcase-item ${requestScope.STYLE_LIST_DONE}">

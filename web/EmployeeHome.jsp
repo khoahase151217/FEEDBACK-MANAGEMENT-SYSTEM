@@ -34,7 +34,7 @@
         <!-- font awesome -->
         <script src="https://kit.fontawesome.com/97ce91ff3b.js" crossorigin="anonymous"></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/EmployeeHome1.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/EmployeeHome.css" />
     </head>
     <body>
         <div class="reponse-form ${requestScope.flag}">
@@ -1151,6 +1151,12 @@
                 $("#avatarImage").on("change", function (e) {
                     imagesPreview2(this);
                 });
+
+                setTimeout(() => {
+                    document.querySelector('.pipe-item.history-item.active').scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
+                    document.querySelector('.pipe-item.task-item.active').scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
+                }, 700);
+
             });
         </script>
     </body>

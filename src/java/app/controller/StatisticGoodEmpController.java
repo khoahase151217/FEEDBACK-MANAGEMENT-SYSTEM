@@ -37,7 +37,7 @@ public class StatisticGoodEmpController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
-       
+
         try {
             HttpSession session = request.getSession();
             SimpleDateFormat month_date = new SimpleDateFormat("MMM", Locale.ENGLISH);

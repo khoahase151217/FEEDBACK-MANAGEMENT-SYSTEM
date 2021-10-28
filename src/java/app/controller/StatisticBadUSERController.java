@@ -6,7 +6,9 @@
 package app.controller;
 
 import app.employees.EmployeesDAO;
+import app.feedback.FeedbackDetailDTO;
 import app.response.ResponseDTO;
+import app.users.UserDAO;
 import app.users.UserDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,7 +18,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,21 +25,28 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author ASUS
+ * @author HieuTran
  */
-@WebServlet(name = "StatisticBadEmpController", urlPatterns = {"/StatisticBadEmpController"})
-public class StatisticBadEmpController extends HttpServlet {
+public class StatisticBadUSERController extends HttpServlet {
 
     private static final String ERROR = "##";
-    private static final String SUCCESS = "StatisticBadUSERController";
+    private static final String SUCCESS = "ManagerStatictis.jsp";
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
         String url = ERROR;
-        String txt1 = "";
-        String txt2 = "";
-        String txt3 = "";
+
         try {
             HttpSession session = request.getSession();
             SimpleDateFormat month_date = new SimpleDateFormat("MMM", Locale.ENGLISH);
@@ -46,16 +54,20 @@ public class StatisticBadEmpController extends HttpServlet {
             Date date = new Date();
             String month = month_date.format(date);
             String year = year_date.format(date);
-            EmployeesDAO dao = new EmployeesDAO();
+            UserDAO dao = new UserDAO();
             List<UserDTO> list = new ArrayList<UserDTO>();
-            List<ResponseDTO> listRes = new ArrayList<ResponseDTO>();
-            list = dao.getListBadEMP(month, year);
-            listRes = dao.getListRecentDeclineRespone();
-            session.setAttribute("LIST_BAD_EMP", list);
-            session.setAttribute("LIST_BAD_RECENT_RESPONE_EMP", listRes);
+            list = dao.getListBadUser(month, year);
+            List<FeedbackDetailDTO> listFB = new ArrayList<FeedbackDetailDTO>();
+            listFB = dao.getListRecentDeclineResponeForUser();
+            session.setAttribute("LIST_BAD_RECENT_RESPONE_USER", listFB);
+            session.setAttribute("LIST_BAD_USER", list);
+            session.setAttribute("LIST_EMPLOYEE", "");
+            session.setAttribute("LIST_STUDENT", "active");
+            session.setAttribute("SHOW_USER_LIST", "active");
+            session.setAttribute("SHOW_EMPLOYEE_LIST", "");
             url = SUCCESS;
         } catch (Exception e) {
-            log("Error at StatisticBadEmpController" + e.toString());
+            log("Error at StatisticBadUSERController" + e.toString());
 
         } finally {
             request.getRequestDispatcher(url).forward(request, response);

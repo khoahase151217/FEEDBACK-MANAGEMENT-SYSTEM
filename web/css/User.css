@@ -333,10 +333,6 @@ ul {
     width: 17px;
 }
 
-.hero-main {
-    width: 100%;
-    height: calc(100vh - 327px);
-}
 .hero-content-item {
     height: 100%;
     background-color: transparent;
@@ -409,7 +405,7 @@ ul {
     height: 100%;
 }
 .hero .pipe-column {
-    max-height: 503px;
+    max-height: 530px;
     height: 100%;
     background-color: transparent;
 }
@@ -1287,7 +1283,7 @@ ul {
     color: #151111;
 }
 .footer-top {
-    padding: 15px 0;
+    padding: 16px 0;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 0 8rem;
@@ -1354,7 +1350,7 @@ ul {
     line-height: 1.875;
 }
 .footer-container {
-    padding: 15px 0;
+    padding: 15px 2rem;
 }
 .footer-bottom {
     background-color: #c9a46d;
@@ -1516,7 +1512,7 @@ ul {
     margin-top: 1rem;
 }
 .content-item-main-category-item.active.list .list-showcase .pipe-list {
-    max-height: 452px;
+    max-height: 480px;
 }
 .content-item-main-category-item.active.list .list-showcase .pipe-list .pipe-item {
     width: 100%;
@@ -1589,19 +1585,187 @@ ul {
 }
 
 @media screen and (max-width: 1600px) {
+
+    .header-logo .input-warp {
+        height: 40px;
+    }
+
+    .header-logo .input-warp img {
+        height: 50%;
+        width: 20px;
+    }
+
+    .header-logo .input-warp input {
+        height: 39px;
+    }
+
+    .hero-main {
+        height: calc(100vh - 306px);
+    }
+
+    .hero .content-item-main {
+        padding: 1rem 0 0;
+    }
+
     .hero .pipe-column {
-        max-height: 307px; 
+        max-height: 395px; 
     } 
 
     .hero .content-item-main-list {
         margin-top: 1rem;
     }
 
-    .content-item-main-category-item.list {
-        max-height: 465px;
-    }
+    /*    .content-item-main-category-item.list {
+            max-height: 465px;
+        }*/
     .content-item-main-category-item.active.list .list-showcase .pipe-list {
-        max-height: 256px;
+        max-height: 345px;
+    }
+
+    .footer-logo{
+        font-size: 2rem;
+    }
+
+    .footer-socials-item{
+        font-size: 2rem;
+    }
+
+    .footer-links-item {
+        font-size: 1.1rem;
+    }
+
+    .footer-address{
+        font-size: 11px;
+    }
+
+    .footer-desc{
+        font-size: 9px;
+    }
+
+    .footer-rocket {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media screen and (max-width: 1025px) {
+    .hero .content-item-main{
+        padding: 5.5rem 0;
+    }
+
+    .hero .content-item-navigation {
+        font-size: 3rem;
+    }
+
+    .hero .content-item-main-list {
+        margin-top: 3rem;
+    }
+
+    .hero .pipe {
+        grid-gap: 0 3rem;
+    }
+
+    .hero .pipe-column {
+        max-height: 910px;
+    }
+
+    .hero .pipe-item-image {
+        height: 11rem;
+    }
+
+    .hero .pipe-item-image img {
+        width: 13rem;
+    }
+
+    .img-more {
+        margin-top: 0;
+        height: 100%;
+
+    }
+    .img-more.active {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .hero .img-more img {
+        margin-top: 0;
+    }
+
+    .content-item-main-category-item.active.list .list-showcase {
+        margin-top: 2rem;
+    }
+
+    .content-item-main-category-item.active.list .list-showcase .pipe-list {
+        max-height: 850px;
+    }
+
+    .footer-top {
+        padding: 17px 0;
+    }
+}
+
+@media screen and (max-width: 769px) {
+
+    .hero .pipe-column {
+        max-height: 590px;
+    }
+
+    .content-item-main-category-item.active.list .list-showcase .pipe-list {
+        max-height: 540px;
+    }
+
+    .hero .content-item-main {
+        padding: 2.5rem 0 0;
+    }
+
+    .hero .pipe-item-title {
+        font-size: 1.4rem;
+    }
+
+    .hero .pipe-item-date {
+        font-size: 1.1rem;
+    }
+
+    .hero .pipe-item-image {
+        height: 7rem;
+    }
+
+    .hero .pipe-item-image img{
+        width: 10rem;
+    }
+
+    .pipe-bottom-item {
+        font-size: 1rem;
+    }
+
+    .hero .content-item-main-list {
+        margin-top: 2.5rem;
+    }
+
+    .hero-main .list-heading {
+        width: 75%;
+    }
+
+    .content-item-main-category-item.active.list .list-showcase .pipe-list .pipe-item .image-all-wrapper .pipe-item-image, 
+    .content-item-main-category-item.active.list .list-showcase .pipe-list .pipe-item-done .image-all-wrapper .pipe-item-image{
+        height: 12rem;
+    }
+
+    .footer-top {
+        padding: 4px 0;
+    }
+
+    .footer-socials-item {
+        font-size: 1.5rem;
+    }
+
+    .footer-address {
+        font-size: 10px;
+    }
+
+    .footer-rocket {
+        width: 35px;
+        height: 35px;
     }
 }
 

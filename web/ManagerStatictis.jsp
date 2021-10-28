@@ -34,7 +34,7 @@
         ></script>
 
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage.css" />
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ManagerStatictis.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ManagerStatictis1.css" />
     </head>
     <body>
         <div class="user-form ${requestScope.edit_flag}">
@@ -380,95 +380,60 @@
                                         rồi a hãy code css cho nó. Lưu ý: code css vào file ManagerStatictis.css nhé a (kh copy vào adminPage.css)
                                     -->
                                     <div class="statictis-users" style="background-color: #f0e2cc;">
-                                        <div class="icon-profile-back profile-chevron-back">
+                                        <div class="icon-profile-back profile-chevron-back baduser active">
                                             <ion-icon name="chevron-back-outline"></ion-icon>
                                         </div>
-                                        <div class="icon-profile-forward profile-chevron-forward">
+                                        <div class="icon-profile-forward profile-chevron-forward baduser active">
+                                            <ion-icon name="chevron-forward-outline"></ion-icon>
+                                        </div>
+                                        <div class="icon-profile-back profile-chevron-back bademp">
+                                            <ion-icon name="chevron-back-outline"></ion-icon>
+                                        </div>
+                                        <div class="icon-profile-forward profile-chevron-forward bademp">
+                                            <ion-icon name="chevron-forward-outline"></ion-icon>
+                                        </div>
+                                        <div class="icon-profile-back profile-chevron-back goodemp">
+                                            <ion-icon name="chevron-back-outline"></ion-icon>
+                                        </div>
+                                        <div class="icon-profile-forward profile-chevron-forward goodemp">
                                             <ion-icon name="chevron-forward-outline"></ion-icon>
                                         </div>
                                         <div class="statistic-user-header">
-                                            <label>Top 3 Users</label>
+                                            <label>Top 3 Members</label>
                                         </div>
                                         <div class="statistic-user-role">
                                             <ul class="user-role-navigation">
-                                                <li class="role-navigation" id="roleStudent">
+                                                <li class="role-navigation ${sessionScope.LIST_STUDENT}" id="roleStudent">
                                                     <a href="#" id="studentTab">Students</a>
                                                 </li>
-                                                <li class="role-navigation active" id="roleEmployee">
+                                                <li class="role-navigation ${sessionScope.LIST_EMPLOYEE}" id="roleEmployee">
                                                     <a href="#" id="employeeTab">Employees</a>
                                                 </li>
                                             </ul>
-                                            <span class="role-navigation-bar employee" id="tabnavigation"></span>
+                                            <span class="role-navigation-bar student" id="tabnavigation"></span>
                                         </div>
                                         <div class="statistic-user-title">
                                             <label>Profile</label>
-                                            <div class="statistic-behavior">
-                                                <ul class="user-behavior">
-                                                    <li class="behavior-navigation active" id="roleStudent">
-                                                        <a href="#" id="goodTab">Good Behavior</a>
+                                            <div class="statistic-behavior hide" id="goodbadOption">
+                                                <ul class="user-behavior" id="behavior-box">
+                                                    <li class="behavior-navigation good active" id="roleGoodList">
+                                                        <a href="#" id="goodRole">Good Behavior</a>
                                                     </li>
-                                                    <li class="behavior-navigation" id="roleEmployee">
-                                                        <a href="#" id="badTab">Bad Behavior</a>
+                                                    <li><hr></li>
+                                                    <li class="behavior-navigation bad " id="roleBadList">
+                                                        <a href="#" id="badRole">Bad Behavior</a>
                                                     </li>
                                                 </ul>
                                             </div>
                                         </div>
-                                        <c:forEach var="userprofile" items="${sessionScope.LIST_GOOD_EMP}" varStatus="counter">
-                                            <div class="statistic-user-list">
-                                                <c:choose>
-                                                    <c:when test="${counter.count == 1}">
-                                                        <c:set var="userid" scope="session" value="${userprofile.userID}"/>
-                                                        <div class="statistic-user-wrapper active" data-index="${counter.count}">
-                                                            <div class="statistic-user-profile">
-                                                                <div class="statistic-user-avatar">
-                                                                    <img
-                                                                        src="data:image/jpg/png;base64,${userprofile.image}"
-                                                                        alt=""
-                                                                        />
-                                                                </div>
-                                                                <h1 class="user-name">${userprofile.fullName}</h1>
-                                                                <h2>${userprofile.roleName}</h2>
-                                                                <hr/>
-                                                            </div>
-                                                            <div class="user-feedback-list">
-                                                                <div class="user-feedback-title">
-                                                                    <label>Recent Feedback</label>
-                                                                    <div class="viewall">
-                                                                        <input type="submit" value="View All " class="viewall-button"/>
-                                                                        <img src="img/doublearrow.png"/>
-                                                                    </div>
-                                                                </div>
-                                                                <c:forEach var="recentfeedback" items="${sessionScope.LIST_GOOD_RECENT_RESPONE_EMP}">
-                                                                    <div class="pipe-item">
-                                                                        <div class="pipe-item-heading">
-                                                                            <div class="pipe-item-title-wrapper">
-                                                                                <h3 class="pipe-item-title">
-                                                                                    Feedback ${recentfeedback.feedbackDetailID}
-                                                                                </h3>
-                                                                                <p class="pipe-item-desc">
-                                                                                    <strong>Name:</strong> ${recentfeedback.userName}
-                                                                                </p>
-                                                                            </div>
-                                                                            <div class="pipe-item-date">
-                                                                                ${recentfeedback.date}
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="pipe-item-bottom">
-                                                                            <p class="pipe-bottom-item">
-                                                                                <strong>Status:</strong>
-                                                                                Done
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-                                                                </c:forEach>
-                                                                <div class="unban-button">
-                                                                    <input type="submit" value="Unban"/>
-                                                                </div>
-                                                            </div>
-                                                        </c:when>
-                                                        <c:otherwise>
+                                        <!--Student List-->
+                                        <div class="student-list ${sessionScope.SHOW_USER_LIST}" id="student-list">
+                                            <c:forEach var="userprofile" items="${sessionScope.LIST_BAD_USER}" varStatus="counter">
+                                                <div class="statistic-user-list">
+                                                    <c:choose>
+                                                        <c:when test="${counter.count == 1 && userprofile.statusID eq 'active'}">
                                                             <c:set var="userid" scope="session" value="${userprofile.userID}"/>
-                                                            <div class="statistic-user-wrapper" data-index="${counter.count}">
+                                                            <div class="statistic-user-wrapper statistic-student-wrapper active" data-index="${counter.count}">
                                                                 <div class="statistic-user-profile">
                                                                     <div class="statistic-user-avatar">
                                                                         <img
@@ -477,7 +442,8 @@
                                                                             />
                                                                     </div>
                                                                     <h1 class="user-name">${userprofile.fullName}</h1>
-                                                                    <h2>${userprofile.roleName}</h2>
+                                                                    <h2>User</h2>
+                                                                    <h2 style="color:#73fa5d">${userprofile.statusID}</h2>
                                                                     <hr/>
                                                                 </div>
                                                                 <div class="user-feedback-list">
@@ -488,40 +454,437 @@
                                                                             <img src="img/doublearrow.png"/>
                                                                         </div>
                                                                     </div>
-                                                                    <c:forEach var="recentfeedback" items="${sessionScope.LIST_GOOD_RECENT_RESPONE_EMP}">
-                                                                        <c:if test="${userid eq recentfeedback.userID}">
-                                                                            <div class="pipe-item">
-                                                                                <div class="pipe-item-heading">
-                                                                                    <div class="pipe-item-title-wrapper">
-                                                                                        <h3 class="pipe-item-title">
-                                                                                            Feedback ${recentfeedback.feedbackDetailID}
-                                                                                        </h3>
-                                                                                        <p class="pipe-item-desc">
-                                                                                            <strong>Name:</strong> ${recentfeedback.userName}
+                                                                    <div class="feedback-wrapper">
+                                                                        <c:forEach var="recentfeedback" items="${sessionScope.LIST_BAD_RECENT_RESPONE_USER}" varStatus="feedbackcount">
+                                                                            <c:if test="${userprofile.userID == recentfeedback.userID}">
+                                                                                <div class="pipe-item">
+                                                                                    <div class="pipe-item-heading">
+                                                                                        <div class="pipe-item-title-wrapper">
+                                                                                            <h3 class="pipe-item-title">
+                                                                                                Feedback ${recentfeedback.feedbackDetailID}
+                                                                                            </h3>
+                                                                                            <p class="pipe-item-desc">
+                                                                                                <strong>Name:</strong> ${recentfeedback.deviceName}
+                                                                                            </p>
+                                                                                        </div>
+                                                                                        <div class="pipe-item-date">
+                                                                                            ${recentfeedback.date}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="pipe-item-bottom">
+                                                                                        <p class="pipe-bottom-item">
+                                                                                            <strong>Status:</strong>
+                                                                                            Decline
                                                                                         </p>
                                                                                     </div>
-                                                                                    <div class="pipe-item-date">
-                                                                                        ${recentfeedback.date}
+                                                                                </div>
+                                                                            </c:if>
+                                                                        </c:forEach>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </c:when>
+                                                        <c:when test="${counter.count != 1 && userprofile.statusID eq 'active'}">
+                                                            <c:set var="userid" scope="session" value="${userprofile.userID}"/>
+                                                            <div class="statistic-user-wrapper statistic-student-wrapper" data-index="${counter.count}">
+                                                                <div class="statistic-user-profile">
+                                                                    <div class="statistic-user-avatar">
+                                                                        <img
+                                                                            src="data:image/jpg/png;base64,${userprofile.image}"
+                                                                            alt=""
+                                                                            />
+                                                                    </div>
+                                                                    <h1 class="user-name">${userprofile.fullName}</h1>
+                                                                    <h2>User</h2>
+                                                                    <h2 style="color:#73fa5d">${userprofile.statusID}</h2>
+                                                                    <hr/>
+                                                                </div>
+                                                                <div class="user-feedback-list">
+                                                                    <div class="user-feedback-title">
+                                                                        <label>Recent Feedback</label>
+                                                                        <div class="viewall">
+                                                                            <input type="submit" value="View All " class="viewall-button"/>
+                                                                            <img src="img/doublearrow.png"/>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="feedback-wrapper">
+                                                                        <c:forEach var="recentfeedback" items="${sessionScope.LIST_BAD_RECENT_RESPONE_USER}" varStatus="feedbackcount">
+                                                                            <c:if test="${userprofile.userID == recentfeedback.userID}">
+                                                                                <div class="pipe-item">
+                                                                                    <div class="pipe-item-heading">
+                                                                                        <div class="pipe-item-title-wrapper">
+                                                                                            <h3 class="pipe-item-title">
+                                                                                                Feedback ${recentfeedback.feedbackDetailID}
+                                                                                            </h3>
+                                                                                            <p class="pipe-item-desc">
+                                                                                                <strong>Name:</strong> ${recentfeedback.deviceName}
+                                                                                            </p>
+                                                                                        </div>
+                                                                                        <div class="pipe-item-date">
+                                                                                            ${recentfeedback.date}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="pipe-item-bottom">
+                                                                                        <p class="pipe-bottom-item">
+                                                                                            <strong>Status:</strong>
+                                                                                            Decline
+                                                                                        </p>
                                                                                     </div>
                                                                                 </div>
-                                                                                <div class="pipe-item-bottom">
-                                                                                    <p class="pipe-bottom-item">
-                                                                                        <strong>Status:</strong>
-                                                                                        Done
-                                                                                    </p>
-                                                                                </div>
-                                                                            </div>
-                                                                        </c:if>
-                                                                    </c:forEach>
-                                                                    <div class="unban-button">
-                                                                        <input type="submit" value="Unban"/>
+                                                                            </c:if>
+                                                                        </c:forEach>
                                                                     </div>
+                                                                </div>
+                                                            </div>
+                                                        </c:when>
+                                                        <c:when test="${counter.count == 1 && userprofile.statusID eq 'inactive'}">
+                                                            <c:set var="userid" scope="session" value="${userprofile.userID}"/>
+                                                            <div class="statistic-user-wrapper statistic-student-wrapper active" data-index="${counter.count}">
+                                                                <div class="statistic-user-profile">
+                                                                    <div class="statistic-user-avatar">
+                                                                        <img
+                                                                            src="data:image/jpg/png;base64,${userprofile.image}"
+                                                                            alt=""
+                                                                            />
+                                                                    </div>
+                                                                    <h1 class="user-name">${userprofile.fullName}</h1>
+                                                                    <h2>User</h2>
+                                                                    <h2 style="color: #e71e1e">${userprofile.statusID}</h2>
+                                                                    <hr/>
+                                                                </div>
+                                                                <div class="user-feedback-list">
+                                                                    <div class="user-feedback-title">
+                                                                        <label>Recent Feedback</label>
+                                                                        <div class="viewall">
+                                                                            <input type="submit" value="View All " class="viewall-button"/>
+                                                                            <img src="img/doublearrow.png"/>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="feedback-wrapper">
+                                                                        <c:forEach var="recentfeedback" items="${sessionScope.LIST_BAD_RECENT_RESPONE_USER}" varStatus="feedbackcount">
+                                                                            <c:if test="${userprofile.userID == recentfeedback.userID}">
+                                                                                <div class="pipe-item">
+                                                                                    <div class="pipe-item-heading">
+                                                                                        <div class="pipe-item-title-wrapper">
+                                                                                            <h3 class="pipe-item-title">
+                                                                                                Feedback ${recentfeedback.feedbackDetailID}
+                                                                                            </h3>
+                                                                                            <p class="pipe-item-desc">
+                                                                                                <strong>Name:</strong> ${recentfeedback.deviceName}
+                                                                                            </p>
+                                                                                        </div>
+                                                                                        <div class="pipe-item-date">
+                                                                                            ${recentfeedback.date}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="pipe-item-bottom">
+                                                                                        <p class="pipe-bottom-item">
+                                                                                            <strong>Status:</strong>
+                                                                                            Decline
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </c:if>
+                                                                        </c:forEach>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="unban-button">
+                                                                    <a href="AUController?userID=${userprofile.userID}&StatusID=${userprofile.statusID}&flag=true">
+                                                                        <input type="submit" value="Unban"/>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <c:set var="userid" scope="session" value="${userprofile.userID}"/>
+                                                            <div class="statistic-user-wrapper statistic-student-wrapper" data-index="${counter.count}">
+                                                                <div class="statistic-user-profile">
+                                                                    <div class="statistic-user-avatar">
+                                                                        <img
+                                                                            src="data:image/jpg/png;base64,${userprofile.image}"
+                                                                            alt=""
+                                                                            />
+                                                                    </div>
+                                                                    <h1 class="user-name">${userprofile.fullName}</h1>
+                                                                    <h2>User</h2>
+                                                                    <h2 style="color: #e71e1e">${userprofile.statusID}</h2>
+                                                                    <hr/>
+                                                                </div>
+                                                                <div class="user-feedback-list">
+                                                                    <div class="user-feedback-title">
+                                                                        <label>Recent Feedback</label>
+                                                                        <div class="viewall">
+                                                                            <input type="submit" value="View All " class="viewall-button"/>
+                                                                            <img src="img/doublearrow.png"/>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="feedback-wrapper">
+                                                                        <c:forEach var="recentfeedback" items="${sessionScope.LIST_BAD_RECENT_RESPONE_USER}" varStatus="feedbackcount">
+                                                                            <c:if test="${userprofile.userID == recentfeedback.userID}">
+                                                                                <div class="pipe-item">
+                                                                                    <div class="pipe-item-heading">
+                                                                                        <div class="pipe-item-title-wrapper">
+                                                                                            <h3 class="pipe-item-title">
+                                                                                                Feedback ${recentfeedback.feedbackDetailID}
+                                                                                            </h3>
+                                                                                            <p class="pipe-item-desc">
+                                                                                                <strong>Name:</strong> ${recentfeedback.deviceName}
+                                                                                            </p>
+                                                                                        </div>
+                                                                                        <div class="pipe-item-date">
+                                                                                            ${recentfeedback.date}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="pipe-item-bottom">
+                                                                                        <p class="pipe-bottom-item">
+                                                                                            <strong>Status:</strong>
+                                                                                            Decline
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </c:if>
+                                                                        </c:forEach>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="unban-button">
+                                                                    <a href="AUController?userID=${userprofile.userID}&StatusID=${userprofile.statusID}&flag=true">
+                                                                        <input type="submit" value="Unban"/>
+                                                                    </a>
                                                                 </div>
                                                             </div>
                                                         </c:otherwise>
                                                     </c:choose>    
                                                 </div>
-                                            </c:forEach>
+                                            </c:forEach>  
+                                        </div>
+                                        <!--Employee List-->
+                                        <div class="employee-list ${sessionScope.SHOW_EMPLOYEE_LIST}" id="employee-list">
+                                            <!--Good Employee list-->
+                                            <div class="good-employee-show active" id="good-emp-list">
+                                                <c:forEach var="userprofile" items="${sessionScope.LIST_GOOD_EMP}" varStatus="counter">
+                                                    <div class="statistic-user-list">
+                                                        <c:choose>
+                                                            <c:when test="${counter.count == 1}">
+                                                                <c:set var="userid" scope="session" value="${userprofile.userID}"/>
+                                                                <div class="statistic-user-wrapper statistic-goodemp-wrapper active" data-index="${counter.count}">
+                                                                    <div class="statistic-user-profile">
+                                                                        <div class="statistic-user-avatar">
+                                                                            <img
+                                                                                src="data:image/jpg/png;base64,${userprofile.image}"
+                                                                                alt=""
+                                                                                />
+                                                                        </div>
+                                                                        <h1 class="user-name">${userprofile.fullName}</h1>
+                                                                        <h2>Employee</h2>
+                                                                        <hr/>
+                                                                    </div>
+                                                                    <div class="user-feedback-list">
+                                                                        <div class="user-feedback-title">
+                                                                            <label>Recent Feedback</label>
+                                                                            <div class="viewall">
+                                                                                <input type="submit" value="View All " class="viewall-button"/>
+                                                                                <img src="img/doublearrow.png"/>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="feedback-wrapper">
+                                                                            <c:forEach var="recentfeedback" items="${sessionScope.LIST_GOOD_RECENT_RESPONE_EMP}" varStatus="feedbackcount">
+                                                                                <c:if test="${userprofile.userID == recentfeedback.userID}">
+                                                                                    <div class="pipe-item">
+                                                                                        <div class="pipe-item-heading">
+                                                                                            <div class="pipe-item-title-wrapper">
+                                                                                                <h3 class="pipe-item-title">
+                                                                                                    Feedback ${recentfeedback.feedbackDetailID}
+                                                                                                </h3>
+                                                                                                <p class="pipe-item-desc">
+                                                                                                    <strong>Name:</strong> ${recentfeedback.deviceName}
+                                                                                                </p>
+                                                                                            </div>
+                                                                                            <div class="pipe-item-date">
+                                                                                                ${recentfeedback.date}
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="pipe-item-bottom">
+                                                                                            <p class="pipe-bottom-item">
+                                                                                                <strong>Status:</strong>
+                                                                                                Done
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </c:if>
+                                                                            </c:forEach>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <c:set var="userid" scope="session" value="${userprofile.userID}"/>
+                                                                <div class="statistic-user-wrapper statistic-goodemp-wrapper" data-index="${counter.count}">
+                                                                    <div class="statistic-user-profile">
+                                                                        <div class="statistic-user-avatar">
+                                                                            <img
+                                                                                src="data:image/jpg/png;base64,${userprofile.image}"
+                                                                                alt=""
+                                                                                />
+                                                                        </div>
+                                                                        <h1 class="user-name">${userprofile.fullName}</h1>
+                                                                        <h2>Employee</h2>
+                                                                        <hr/>
+                                                                    </div>
+                                                                    <div class="user-feedback-list">
+                                                                        <div class="user-feedback-title">
+                                                                            <label>Recent Feedback</label>
+                                                                            <div class="viewall">
+                                                                                <input type="submit" value="View All " class="viewall-button"/>
+                                                                                <img src="img/doublearrow.png"/>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="feedback-wrapper">
+                                                                            <c:forEach var="recentfeedback" items="${sessionScope.LIST_GOOD_RECENT_RESPONE_EMP}" varStatus="feedbackcount">
+                                                                                <c:if test="${userprofile.userID == recentfeedback.userID}">
+                                                                                    <div class="pipe-item">
+                                                                                        <div class="pipe-item-heading">
+                                                                                            <div class="pipe-item-title-wrapper">
+                                                                                                <h3 class="pipe-item-title">
+                                                                                                    Feedback ${recentfeedback.feedbackDetailID}
+                                                                                                </h3>
+                                                                                                <p class="pipe-item-desc">
+                                                                                                    <strong>Name:</strong> ${recentfeedback.deviceName}
+                                                                                                </p>
+                                                                                            </div>
+                                                                                            <div class="pipe-item-date">
+                                                                                                ${recentfeedback.date}
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="pipe-item-bottom">
+                                                                                            <p class="pipe-bottom-item">
+                                                                                                <strong>Status:</strong>
+                                                                                                Done
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </c:if>
+                                                                            </c:forEach>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </c:otherwise>
+                                                        </c:choose>    
+                                                    </div>
+                                                </c:forEach>
+                                            </div>
+                                            <!--Bad Employee List-->
+                                            <div class="bad-employee-show" id="bad-emp-list">
+                                                <c:forEach var="userprofile" items="${sessionScope.LIST_BAD_EMP}" varStatus="counter">
+                                                    <div class="statistic-user-list">
+                                                        <c:choose>
+                                                            <c:when test="${counter.count == 1}">
+                                                                <c:set var="userid" scope="session" value="${userprofile.userID}"/>
+                                                                <div class="statistic-user-wrapper statistic-bademp-wrapper active" data-index="${counter.count}">
+                                                                    <div class="statistic-user-profile">
+                                                                        <div class="statistic-user-avatar">
+                                                                            <img
+                                                                                src="data:image/jpg/png;base64,${userprofile.image}"
+                                                                                alt=""
+                                                                                />
+                                                                        </div>
+                                                                        <h1 class="user-name">${userprofile.fullName}</h1>
+                                                                        <h2>Employee</h2>
+                                                                        <hr/>
+                                                                    </div>
+                                                                    <div class="user-feedback-list">
+                                                                        <div class="user-feedback-title">
+                                                                            <label>Recent Feedback</label>
+                                                                            <div class="viewall">
+                                                                                <input type="submit" value="View All " class="viewall-button"/>
+                                                                                <img src="img/doublearrow.png"/>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="feedback-wrapper">
+                                                                            <c:forEach var="recentfeedback" items="${sessionScope.LIST_BAD_RECENT_RESPONE_EMP}" varStatus="feedbackcount">
+                                                                                <c:if test="${userprofile.userID == recentfeedback.userID}">
+                                                                                    <div class="pipe-item">
+                                                                                        <div class="pipe-item-heading">
+                                                                                            <div class="pipe-item-title-wrapper">
+                                                                                                <h3 class="pipe-item-title">
+                                                                                                    Feedback ${recentfeedback.feedbackDetailID}
+                                                                                                </h3>
+                                                                                                <p class="pipe-item-desc">
+                                                                                                    <strong>Name:</strong> ${recentfeedback.deviceName}
+                                                                                                </p>
+                                                                                            </div>
+                                                                                            <div class="pipe-item-date">
+                                                                                                ${recentfeedback.date}
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="pipe-item-bottom">
+                                                                                            <p class="pipe-bottom-item">
+                                                                                                <strong>Status:</strong>
+                                                                                                Decline
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </c:if>
+                                                                            </c:forEach>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <c:set var="userid" scope="session" value="${userprofile.userID}"/>
+                                                                <div class="statistic-user-wrapper statistic-bademp-wrapper" data-index="${counter.count}">
+                                                                    <div class="statistic-user-profile">
+                                                                        <div class="statistic-user-avatar">
+                                                                            <img
+                                                                                src="data:image/jpg/png;base64,${userprofile.image}"
+                                                                                alt=""
+                                                                                />
+                                                                        </div>
+                                                                        <h1 class="user-name">${userprofile.fullName}</h1>
+                                                                        <h2>Employee</h2>
+                                                                        <hr/>
+                                                                    </div>
+                                                                    <div class="user-feedback-list">
+                                                                        <div class="user-feedback-title">
+                                                                            <label>Recent Feedback</label>
+                                                                            <div class="viewall">
+                                                                                <input type="submit" value="View All " class="viewall-button"/>
+                                                                                <img src="img/doublearrow.png"/>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="feedback-wrapper">
+                                                                            <c:forEach var="recentfeedback" items="${sessionScope.LIST_GOOD_RECENT_RESPONE_EMP}" varStatus="feedbackcount">
+                                                                                <c:if test="${userprofile.userID == recentfeedback.userID}">
+                                                                                    <div class="pipe-item">
+                                                                                        <div class="pipe-item-heading">
+                                                                                            <div class="pipe-item-title-wrapper">
+                                                                                                <h3 class="pipe-item-title">
+                                                                                                    Feedback ${recentfeedback.feedbackDetailID}
+                                                                                                </h3>
+                                                                                                <p class="pipe-item-desc">
+                                                                                                    <strong>Name:</strong> ${recentfeedback.deviceName}
+                                                                                                </p>
+                                                                                            </div>
+                                                                                            <div class="pipe-item-date">
+                                                                                                ${recentfeedback.date}
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="pipe-item-bottom">
+                                                                                            <p class="pipe-bottom-item">
+                                                                                                <strong>Status:</strong>
+                                                                                                Decline
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </c:if>
+                                                                            </c:forEach>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </c:otherwise>
+                                                        </c:choose>    
+                                                    </div>
+                                                </c:forEach>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -542,7 +905,7 @@
                 </div>
             </section>
         </main>
-        <script src="${pageContext.request.contextPath}/js/ManagerStatictis1.js"></script>
+        <script src="${pageContext.request.contextPath}/js/ManagerStatictis.js"></script>
         <script
             type="text/javascript"
             src="https://www.gstatic.com/charts/loader.js"

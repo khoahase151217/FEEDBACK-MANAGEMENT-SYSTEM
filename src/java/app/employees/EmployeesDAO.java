@@ -903,7 +903,7 @@ public class EmployeesDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT TOP 3 t1.*,t4.Name as FacilityName ,t2.Quantity as quantity ,t2.Location as Location\n"
+                String sql = "SELECT t1.*,t4.Name as FacilityName ,t2.Quantity as quantity ,t2.Location as Location\n"
                         + "FROM tblResponseFeedback t1\n"
                         + "JOIN tblFeedbackDetail t2 on t1.FeedbackDetailID =t2.FeedbackDetailID\n"
                         + "JOIN tblDeclinedResponse t3 on t3.ResponseID =t1.ResponseID\n"
@@ -949,10 +949,11 @@ public class EmployeesDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT TOP 3 t1.*,t2.Quantity as quantity,t3.Name as FacilityName,t2.Location as Location\n"
+                String sql = "SELECT t1.*,t2.Quantity as quantity,t3.Name as FacilityName,t2.Location as Location\n"
                         + "FROM tblResponseFeedback t1\n"
                         + "JOIN tblFeedbackDetail t2 on t1.FeedbackDetailID =t2.FeedbackDetailID\n"
                         + "JOIN tblFacilities t3 on t2.FacilityID = t3.FacilityID\n"
+                        + "WHERE t1.StatusID='done' "
                         + "GROUP BY t1.Date,t1.Description,t1.FeedbackDetailID,t1.Image,t1.ResponseID,t1.StatusID,t1.UserID,t3.Name,t2.Quantity,t2.Location\n"
                         + "ORDER BY t1.Date desc";
                 ps = conn.prepareStatement(sql);
@@ -967,7 +968,6 @@ public class EmployeesDAO {
                     String location = rs.getString("Location");
                     String quantity = rs.getString("quantity");
                     list.add(new ResponseDTO(feedbackdetailID, userID, "", description, "", responeID, facilityName, location, "", quantity, date, ""));
-
                 }
             }
         } catch (Exception e) {
