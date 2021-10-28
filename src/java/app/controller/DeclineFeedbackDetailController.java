@@ -61,13 +61,13 @@ public class DeclineFeedbackDetailController extends HttpServlet {
                                 time = "Permently";
                                 break;
                         }
-                        dao.sendBanned2(detail, userEmail, userId, level+1, time);
+                        dao.sendBanned2(detail, userEmail, ReasonFeedback, level+1, time);
 
                     }
                 } else {
                     if (dao.countBanned(userId) == 3) {
                         // sendbanned2
-                        dao.sendBanned2(detail, userEmail, userId, 1, "5 minutes");
+                        dao.sendBanned2(detail, userEmail, ReasonFeedback, 1, "5 minutes");
 
                         dao.insertWarning(userId);
                         dao2.UpdateUserStatusInactive(userId, "inactive");

@@ -21,7 +21,7 @@ public class SearchStudentController extends HttpServlet {
 
     private static final String ERROR = "ManagerViewUser.jsp";
     private static final String SUCCESS = "ManagerViewUser.jsp";
-    private static final String FULL__NAME_REGEX = "^(?![\\s.]+$)[a-zA-Z\\s.]*$";
+    private static final String FULL__NAME_REGEX = "^[A-Za-z.-]+(\\s*[A-Za-z.-]+)*$";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

@@ -34,7 +34,7 @@
         ></script>
 
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage.css" />
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ManagerStatictis.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ManagerStatictis1.css" />
     </head>
     <body>
         <div class="user-form ${requestScope.edit_flag}">
@@ -437,10 +437,21 @@
                                                             <div class="statistic-user-wrapper statistic-student-wrapper active" data-index="${counter.count}">
                                                                 <div class="statistic-user-profile">
                                                                     <div class="statistic-user-avatar">
-                                                                        <img
-                                                                            src="data:image/jpg/png;base64,${userprofile.image}"
-                                                                            alt=""
-                                                                            />
+                                                                        <c:set var="avatar" value="${userprofile.image}"></c:set>
+                                                                        <c:choose>
+                                                                            <c:when test="${fn:startsWith(avatar, 'http')}">
+                                                                                <img
+                                                                                    src="${userprofile.image}"
+                                                                                    alt=""
+                                                                                    />
+                                                                            </c:when>
+                                                                            <c:otherwise>
+                                                                                <img
+                                                                                    src="data:image/jpg/png;base64,${userprofile.image}"
+                                                                                    alt=""
+                                                                                    />
+                                                                            </c:otherwise>
+                                                                        </c:choose>
                                                                     </div>
                                                                     <h1 class="user-name">${userprofile.fullName}</h1>
                                                                     <h2>User</h2>
@@ -490,10 +501,21 @@
                                                             <div class="statistic-user-wrapper statistic-student-wrapper" data-index="${counter.count}">
                                                                 <div class="statistic-user-profile">
                                                                     <div class="statistic-user-avatar">
-                                                                        <img
-                                                                            src="data:image/jpg/png;base64,${userprofile.image}"
-                                                                            alt=""
-                                                                            />
+                                                                         <c:set var="avatar" value="${userprofile.image}"></c:set>
+                                                                        <c:choose>
+                                                                            <c:when test="${fn:startsWith(avatar, 'http')}">
+                                                                                <img
+                                                                                    src="${userprofile.image}"
+                                                                                    alt=""
+                                                                                    />
+                                                                            </c:when>
+                                                                            <c:otherwise>
+                                                                                <img
+                                                                                    src="data:image/jpg/png;base64,${userprofile.image}"
+                                                                                    alt=""
+                                                                                    />
+                                                                            </c:otherwise>
+                                                                        </c:choose>
                                                                     </div>
                                                                     <h1 class="user-name">${userprofile.fullName}</h1>
                                                                     <h2>User</h2>
@@ -543,10 +565,21 @@
                                                             <div class="statistic-user-wrapper statistic-student-wrapper active" data-index="${counter.count}">
                                                                 <div class="statistic-user-profile">
                                                                     <div class="statistic-user-avatar">
-                                                                        <img
-                                                                            src="data:image/jpg/png;base64,${userprofile.image}"
-                                                                            alt=""
-                                                                            />
+                                                                        <c:set var="avatar" value="${userprofile.image}"></c:set>
+                                                                        <c:choose>
+                                                                            <c:when test="${fn:startsWith(avatar, 'http')}">
+                                                                                <img
+                                                                                    src="${userprofile.image}"
+                                                                                    alt=""
+                                                                                    />
+                                                                            </c:when>
+                                                                            <c:otherwise>
+                                                                                <img
+                                                                                    src="data:image/jpg/png;base64,${userprofile.image}"
+                                                                                    alt=""
+                                                                                    />
+                                                                            </c:otherwise>
+                                                                        </c:choose>
                                                                     </div>
                                                                     <h1 class="user-name">${userprofile.fullName}</h1>
                                                                     <h2>User</h2>
@@ -601,10 +634,21 @@
                                                             <div class="statistic-user-wrapper statistic-student-wrapper" data-index="${counter.count}">
                                                                 <div class="statistic-user-profile">
                                                                     <div class="statistic-user-avatar">
-                                                                        <img
-                                                                            src="data:image/jpg/png;base64,${userprofile.image}"
-                                                                            alt=""
-                                                                            />
+                                                                         <c:set var="avatar" value="${userprofile.image}"></c:set>
+                                                                        <c:choose>
+                                                                            <c:when test="${fn:startsWith(avatar, 'http')}">
+                                                                                <img
+                                                                                    src="${userprofile.image}"
+                                                                                    alt=""
+                                                                                    />
+                                                                            </c:when>
+                                                                            <c:otherwise>
+                                                                                <img
+                                                                                    src="data:image/jpg/png;base64,${userprofile.image}"
+                                                                                    alt=""
+                                                                                    />
+                                                                            </c:otherwise>
+                                                                        </c:choose>
                                                                     </div>
                                                                     <h1 class="user-name">${userprofile.fullName}</h1>
                                                                     <h2>User</h2>
@@ -670,10 +714,21 @@
                                                                 <div class="statistic-user-wrapper statistic-goodemp-wrapper active" data-index="${counter.count}">
                                                                     <div class="statistic-user-profile">
                                                                         <div class="statistic-user-avatar">
-                                                                            <img
-                                                                                src="data:image/jpg/png;base64,${userprofile.image}"
-                                                                                alt=""
-                                                                                />
+                                                                            <c:set var="avatar" value="${userprofile.image}"></c:set>
+                                                                        <c:choose>
+                                                                            <c:when test="${fn:startsWith(avatar, 'http')}">
+                                                                                <img
+                                                                                    src="${userprofile.image}"
+                                                                                    alt=""
+                                                                                    />
+                                                                            </c:when>
+                                                                            <c:otherwise>
+                                                                                <img
+                                                                                    src="data:image/jpg/png;base64,${userprofile.image}"
+                                                                                    alt=""
+                                                                                    />
+                                                                            </c:otherwise>
+                                                                        </c:choose>
                                                                         </div>
                                                                         <h1 class="user-name">${userprofile.fullName}</h1>
                                                                         <h2>Employee</h2>
@@ -722,10 +777,21 @@
                                                                 <div class="statistic-user-wrapper statistic-goodemp-wrapper" data-index="${counter.count}">
                                                                     <div class="statistic-user-profile">
                                                                         <div class="statistic-user-avatar">
-                                                                            <img
-                                                                                src="data:image/jpg/png;base64,${userprofile.image}"
-                                                                                alt=""
-                                                                                />
+                                                                            <c:set var="avatar" value="${userprofile.image}"></c:set>
+                                                                        <c:choose>
+                                                                            <c:when test="${fn:startsWith(avatar, 'http')}">
+                                                                                <img
+                                                                                    src="${userprofile.image}"
+                                                                                    alt=""
+                                                                                    />
+                                                                            </c:when>
+                                                                            <c:otherwise>
+                                                                                <img
+                                                                                    src="data:image/jpg/png;base64,${userprofile.image}"
+                                                                                    alt=""
+                                                                                    />
+                                                                            </c:otherwise>
+                                                                        </c:choose>
                                                                         </div>
                                                                         <h1 class="user-name">${userprofile.fullName}</h1>
                                                                         <h2>Employee</h2>
@@ -784,10 +850,21 @@
                                                                 <div class="statistic-user-wrapper statistic-bademp-wrapper active" data-index="${counter.count}">
                                                                     <div class="statistic-user-profile">
                                                                         <div class="statistic-user-avatar">
-                                                                            <img
-                                                                                src="data:image/jpg/png;base64,${userprofile.image}"
-                                                                                alt=""
-                                                                                />
+                                                                            <c:set var="avatar" value="${userprofile.image}"></c:set>
+                                                                        <c:choose>
+                                                                            <c:when test="${fn:startsWith(avatar, 'http')}">
+                                                                                <img
+                                                                                    src="${userprofile.image}"
+                                                                                    alt=""
+                                                                                    />
+                                                                            </c:when>
+                                                                            <c:otherwise>
+                                                                                <img
+                                                                                    src="data:image/jpg/png;base64,${userprofile.image}"
+                                                                                    alt=""
+                                                                                    />
+                                                                            </c:otherwise>
+                                                                        </c:choose>
                                                                         </div>
                                                                         <h1 class="user-name">${userprofile.fullName}</h1>
                                                                         <h2>Employee</h2>
@@ -836,10 +913,21 @@
                                                                 <div class="statistic-user-wrapper statistic-bademp-wrapper" data-index="${counter.count}">
                                                                     <div class="statistic-user-profile">
                                                                         <div class="statistic-user-avatar">
-                                                                            <img
-                                                                                src="data:image/jpg/png;base64,${userprofile.image}"
-                                                                                alt=""
-                                                                                />
+                                                                            <c:set var="avatar" value="${userprofile.image}"></c:set>
+                                                                        <c:choose>
+                                                                            <c:when test="${fn:startsWith(avatar, 'http')}">
+                                                                                <img
+                                                                                    src="${userprofile.image}"
+                                                                                    alt=""
+                                                                                    />
+                                                                            </c:when>
+                                                                            <c:otherwise>
+                                                                                <img
+                                                                                    src="data:image/jpg/png;base64,${userprofile.image}"
+                                                                                    alt=""
+                                                                                    />
+                                                                            </c:otherwise>
+                                                                        </c:choose>
                                                                         </div>
                                                                         <h1 class="user-name">${userprofile.fullName}</h1>
                                                                         <h2>Employee</h2>
