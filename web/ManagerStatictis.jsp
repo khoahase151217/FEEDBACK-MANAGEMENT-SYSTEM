@@ -655,7 +655,6 @@
                                                             </div>
                                                         </c:when>
                                                     </c:choose>    
-
                                                 </c:forEach>  
                                             </div>
                                         </div>
@@ -665,7 +664,6 @@
                                             <div class="good-employee-show active" id="good-emp-list">
                                                 <div class="statistic-user-list">
                                                     <c:forEach var="userprofile" items="${sessionScope.LIST_GOOD_EMP}" varStatus="counter">
-
                                                         <c:choose>
                                                             <c:when test="${counter.count == 1}">
                                                                 <c:set var="userid" scope="session" value="${userprofile.userID}"/>
@@ -778,8 +776,8 @@
                                             </div>
                                             <!--Bad Employee List-->
                                             <div class="bad-employee-show" id="bad-emp-list">
-                                                <c:forEach var="userprofile" items="${sessionScope.LIST_BAD_EMP}" varStatus="counter">
-                                                    <div class="statistic-user-list">
+                                                <div class="statistic-user-list">
+                                                    <c:forEach var="userprofile" items="${sessionScope.LIST_BAD_EMP}" varStatus="counter">
                                                         <c:choose>
                                                             <c:when test="${counter.count == 1}">
                                                                 <c:set var="userid" scope="session" value="${userprofile.userID}"/>
@@ -886,8 +884,8 @@
                                                                 </div>
                                                             </c:otherwise>
                                                         </c:choose>    
-                                                    </div>
-                                                </c:forEach>
+                                                    </c:forEach>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
