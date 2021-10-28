@@ -6,18 +6,17 @@
 
 
 import app.feedback.FeedbackDAO;
-import app.feedback.FeedbackDetailDTO;
 import app.response.ResponseDAO;
 import app.response.ResponseDTO;
 import app.users.UserDTO;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -48,7 +47,7 @@ public class AddResponseController extends HttpServlet {
             ResponseDAO dao = new ResponseDAO();
             FeedbackDAO dao2 = new FeedbackDAO();
             FileInputStream photo = null;
-            SimpleDateFormat sdf = new SimpleDateFormat("E, MMM dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("MMM dd YYYY", Locale.ENGLISH);
             String date = sdf.format(new Date());
             UserDTO user = (UserDTO) session.getAttribute("LOGIN_EMP");
             String feedbackDetailId = "";

@@ -35,8 +35,8 @@ public class UpdateFeedbackDoneController extends HttpServlet {
             String userEmail = dao.getUserEmailByFeedbackID(feedbackID);
             List<FeedbackDetailDTO> list = dao.getListFeedbackDetailForMail(feedbackID);
             if (dao.updateDone(feedbackID)) {
-//                if (dao.sendDone(list, userEmail)) {
-                    url = SUCCESS;
+                dao.sendDone(list, userEmail);
+                url = SUCCESS;
 //                } else {
 //                    url = ERROR;
 //                }
