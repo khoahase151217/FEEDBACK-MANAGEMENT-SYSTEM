@@ -401,7 +401,7 @@
                                                                                         <input type="hidden" name="history" value="${requestScope.HISTORY_ACTIVE}"/>
                                                                                         <button
                                                                                             type="submit"
-                                                                                            class="btn-submit-links"
+                                                                                            class="btn-submit-links trash"
                                                                                             >
                                                                                             <ion-icon name="trash"></ion-icon>
                                                                                         </button>
@@ -433,7 +433,7 @@
                                                                                         <input type="hidden" name="history" value="${requestScope.HISTORY_ACTIVE}"/>
                                                                                         <button
                                                                                             type="submit"
-                                                                                            class="btn-submit-links"
+                                                                                            class="btn-submit-links trash "
                                                                                             >
                                                                                             <ion-icon name="trash"></ion-icon>
                                                                                         </button>
@@ -465,7 +465,7 @@
                                                                                         <input type="hidden" name="history" value="${requestScope.HISTORY_ACTIVE}"/>
                                                                                         <button
                                                                                             type="submit"
-                                                                                            class="btn-submit-links"
+                                                                                            class="btn-submit-links trash"
                                                                                             >
                                                                                             <ion-icon name="trash"></ion-icon>
                                                                                         </button>
@@ -507,7 +507,7 @@
                                                                             >
                                                                             <button
                                                                                 type="submit"
-                                                                                class="btn-submit-links"
+                                                                                class="btn-submit-links "
                                                                                 >
                                                                                 <img src="img/forward-message.png"/>
                                                                             </button>

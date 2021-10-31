@@ -197,15 +197,15 @@ document.querySelector(".user-form .modal").addEventListener("click", (e) => {
 function handleReloadPage() {
     window.location.replace("/SWP391_PROJECT/ShowFeedbackForEmpController");
 }
-console.log(document.querySelector(".btn-submit-links"));
-Array.from(document.querySelectorAll(".btn-submit-links")).forEach(item=>{
+
+Array.from(document.querySelectorAll(".btn-submit-links.trash")).forEach(item=>{
     item.addEventListener("click",()=>{
     var trash = JSON.parse(localStorage.getItem("Trashobj"))||{
         id:0,
         flag:false
     };
     if(trash.flag===false){
-        trash.id++;
+    trash.id++;
     trash.flag=true;
     localStorage.setItem("Trashobj", JSON.stringify(trash));
     }
