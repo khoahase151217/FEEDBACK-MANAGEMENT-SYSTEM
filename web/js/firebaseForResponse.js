@@ -25,12 +25,12 @@
 if (document.querySelector(".feedback-form-message").classList.contains("open")){
 if (document.querySelector(".status-success").classList.contains("active")){
 $.ajax({
-url: "/SWP391_PROJECT/NotificationFromUser",
+url: "/SWP391_PROJECT/NotificationFromResponse",
         type: "post",
         dataType: "json",
         success: function (data) {
             console.log(data);
-        set(ref(database, "User-feedback/" + data.feedbackID), {
+        set(ref(database, "Employee-response/" + data.statusId), {
           Feedback_ID: data.feedbackID,
           Email: data.email,
           Date: data.date,
@@ -45,3 +45,6 @@ url: "/SWP391_PROJECT/NotificationFromUser",
       
 
       
+
+
+

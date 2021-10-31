@@ -31,6 +31,7 @@ const facilityCategoryContentItems = document.querySelectorAll(
         );
 
 window.addEventListener('load', () => {
+        localStorage.setItem("NotiCount", JSON.stringify(0));
     navigationScrollBar.style.left = document.querySelector('.navigation-item.active').offsetLeft + "px";
     navigationScrollBar.style.width = document.querySelector('.navigation-item.active').offsetWidth + "px";
     if (document.querySelector('.facility-item-main-item.active').dataset.index === '2') {

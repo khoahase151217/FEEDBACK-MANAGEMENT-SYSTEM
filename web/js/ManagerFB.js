@@ -108,5 +108,6 @@ function handleReloadPage(e) {
     var feedbackid = h3.split(" ");
     localStorage.setItem("feedbackID", JSON.stringify(feedbackid));
     localStorage.setItem('flag', true);  
+    localStorage.setItem("NotiCount", JSON.stringify(0));
     window.location.replace("/SWP391_PROJECT/ShowFeedBackController");
 }

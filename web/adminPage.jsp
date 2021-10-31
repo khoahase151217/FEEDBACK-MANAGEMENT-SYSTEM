@@ -1533,8 +1533,8 @@
 //                                                ;
 
                                                 $(function () {
-                                                    handleNotification();
-                                                    setInterval(handleNotification, 10000);
+//                                                    handleNotification();
+//                                                    setInterval(handleNotification, 10000);
 
                                                     var imagesPreview2 = function (input, placeToInsertImagePreview) {
                                                         if (input.files) {

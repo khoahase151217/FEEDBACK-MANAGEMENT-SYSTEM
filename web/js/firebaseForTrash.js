@@ -22,26 +22,34 @@
 
       //Get Database
       const database = getDatabase();
-if (document.querySelector(".feedback-form-message").classList.contains("open")){
-if (document.querySelector(".status-success").classList.contains("active")){
+var trash = JSON.parse(localStorage.getItem("Trashobj"))||{
+    id:0,
+    flag:false
+}
+console.log(trash);
+if (trash.flag===true){
+    
+    var id = trash.id;
 $.ajax({
-url: "/SWP391_PROJECT/NotificationFromUser",
+url: "/SWP391_PROJECT/NotificationFromTrash",
         type: "post",
         dataType: "json",
         success: function (data) {
             console.log(data);
-        set(ref(database, "User-feedback/" + data.feedbackID), {
+        set(ref(database, "Employee-trash/" + id), {
           Feedback_ID: data.feedbackID,
-          Email: data.email,
           Date: data.date,
-          Name: data.fullName,
           Check: "true"
         });
         }
 });
+trash.flag=false;
+localStorage.setItem("Trashobj", JSON.stringify(trash));
 }
-}
+
 
       
 
       
+
+

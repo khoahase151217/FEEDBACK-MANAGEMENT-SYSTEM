@@ -21,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ADMIN
  */
-@WebServlet(name = "Test", urlPatterns = {"/Test"})
-public class Test extends HttpServlet {
+@WebServlet(name = "NotificationFromUser", urlPatterns = {"/NotificationFromUser"})
+public class NotificationFromUser extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

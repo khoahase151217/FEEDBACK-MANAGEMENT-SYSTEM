@@ -27,31 +27,46 @@
      
       //adminPage.jsp
       window.onload = function () {
-        const dbRef = ref(database, "/User-feedback");
+                          
+        const userRef = ref(database, "/User-feedback");
+        const responseRef = ref(database, "/Employee-response");
+        const trashRef = ref(database, "/Employee-trash");
         onChildAdded(query(ref(database, "/User-feedback"), limitToLast(1)), (data) => {
           onValue(
-            dbRef,
+            userRef,
             (snapshot) => {
               snapshot.forEach((childSnapshot) => {
-                  console.log(childSnapshot.id);
                 const childCheck = childSnapshot.val().Check;
                 if (childCheck === "true") {
-                  alert(
-                    "ID:" +
-                      " " +
-                      childSnapshot.val().Feedback_ID +
-                      " " +
-                      "Email:" +
-                      " " +
-                      childSnapshot.val().Email +
-                      " " +
-                      "Date:" +
-                      " " +
-                      childSnapshot.val().Date +
-                      "Name:" +
-                      " " +
-                      childSnapshot.val().Name
-                  );
+                                var count = JSON.parse(localStorage.getItem("NotiCount"))||0;
+                                count++;
+                                localStorage.setItem("NotiCount", JSON.stringify(count));
+                    var html = "<div class=\"notification-item\" onclick=\"handleReloadPage(event)\">\n"
+                        + "                                                <div class=\"pipe-item-heading\">\n"
+                        + "                                                    <div class=\"pipe-item-title-wrapper\">\n"
+                        + "                                                        <h3 class=\"pipe-item-title\">Feedback " + childSnapshot.val().Feedback_ID + "</h3>\n"
+                        + "                                                        <p class=\"pipe-item-desc\">\n"
+                        + "                                                            <strong>Name:</strong> " + childSnapshot.val().Name + "\n"
+                        + "                                                        </p>\n"
+                        + "                                                    </div>\n"
+                        + "                                                    <div class=\"pipe-item-date\">" + childSnapshot.val().Date + "</div>\n"
+                        + "                                                </div>\n"
+                        + "                                                <div class=\"pipe-item-bottom\">\n"
+                        + "                                                    <p class=\"pipe-bottom-item\">\n"
+                        + "                                                        <strong>Send by</strong>\n"
+                        + "                                                        " + childSnapshot.val().Email + "\n"
+                        + "                                                    </p>\n"
+                        + "                                                </div>\n"
+                        + "                                            </div>";
+                    
+                    document.querySelector(".pending-user-list").insertAdjacentHTML("beforeend",html);
+                    if (count !== 0) {
+                                                                     document.querySelector('.showcase-item-dropdown-actual-notification').classList.add('active');
+                                                                    document.querySelector('.showcase-item-dropdown-actual-notification').innerHTML=count;
+                                                                     document.querySelector('.showcase-item-dropdown-select').classList.add('active');
+                                                                     document.querySelector('.showcase-item-dropdown-sub-title').innerHTML="You have " + count + " new feedback";
+                                                                }
+
                   update(ref(database, "User-feedback/" + childSnapshot.val().Feedback_ID), {
                     Feedback_ID: childSnapshot.val().Feedback_ID,
           Email: childSnapshot.val().Email,
@@ -67,5 +82,111 @@
             }
           );
         });
+        onChildAdded(query(ref(database, "/Employee-response"), limitToLast(1)), (data) => {
+          onValue(
+            responseRef,
+            (snapshot) => {
+              snapshot.forEach((childSnapshot) => {
+
+                const childCheck = childSnapshot.val().Check;
+                if (childCheck === "true") {
+                                var count = JSON.parse(localStorage.getItem("NotiCount"));
+                                count++;
+                                localStorage.setItem("NotiCount", JSON.stringify(count));
+                    var html = "<div class=\"notification-item\" onclick=\"handleReloadPage(event)\">\n"
+                        + "                                                <div class=\"pipe-item-heading\">\n"
+                        + "                                                    <div class=\"pipe-item-title-wrapper\">\n"
+                        + "                                                        <h3 class=\"pipe-item-title\">Feedback " +  childSnapshot.val().Feedback_ID + "</h3>\n"
+                        + "                                                        <p class=\"pipe-item-desc\">\n"
+                        + "                                                            <strong>Send by:</strong> " + childSnapshot.val().Email+ "\n"
+                        + "                                                        </p>\n"
+                        + "                                                    </div>\n"
+                        + "                                                    <div class=\"pipe-item-date\">" + childSnapshot.val().Date + "</div>\n"
+                        + "                                                </div>\n"
+                        + "                                                <div class=\"pipe-item-bottom\">\n"
+                        + "                                                    <p class=\"pipe-bottom-item\">\n"
+                        + "                                                        <strong>Response by</strong>\n"
+                        + "                                                        " + childSnapshot.val().Name+ "\n"
+                        + "                                                    </p>\n"
+                        + "                                                </div>\n"
+                        + "                                            </div>";
+                    document.querySelector(".response-list").insertAdjacentHTML("beforeend",html);
+                    if (count !== 0) {
+                                                                     document.querySelector('.showcase-item-dropdown-actual-notification').classList.add('active');
+                                                                    document.querySelector('.showcase-item-dropdown-actual-notification').innerHTML=count;
+                                                                     document.querySelector('.showcase-item-dropdown-select').classList.add('active');
+                                                                     document.querySelector('.showcase-item-dropdown-sub-title').innerHTML="You have " + count + " new feedback";
+                                                                }
+
+                  update(ref(database, "Employee-response/" + childSnapshot.key), {
+                    Feedback_ID: childSnapshot.val().Feedback_ID,
+          Email: childSnapshot.val().Email,
+          Date: childSnapshot.val().Date,
+          Name: childSnapshot.val().Name,
+          Check: "false"
+                  });
+                }
+              });
+            },
+            {
+              onlyOnce: true,
+            }
+          );
+        });
+        onChildAdded(query(ref(database, "/Employee-trash"), limitToLast(1)), (data) => {
+          onValue(
+            trashRef,
+            (snapshot) => {
+              snapshot.forEach((childSnapshot) => {
+                const childCheck = childSnapshot.val().Check;
+                console.log(childCheck);
+                if (childCheck === "true") {
+                                var count = JSON.parse(localStorage.getItem("NotiCount"));
+                                var trash = JSON.parse(localStorage.getItem("Trashobj"));
+                                count++;
+                                localStorage.setItem("NotiCount", JSON.stringify(count));
+                    var html = "<div class=\"notification-item\" onclick=\"handleReloadPage(event)\">\n"
+                        + "                                                <div class=\"pipe-item-heading\">\n"
+                        + "                                                    <div class=\"pipe-item-title-wrapper\">\n"
+                        + "                                                        <h3 class=\"pipe-item-title\">Feedback " + childSnapshot.val().Feedback_ID + "</h3>\n"
+                        + "                                                        <p class=\"pipe-item-desc\">\n"
+                        + "                                                        </p>\n"
+                        + "                                                    </div>\n"
+                        + "                                                    <div class=\"pipe-item-date\">" + childSnapshot.val().Date + "</div>\n"
+                        + "                                                </div>\n"
+                        + "                                                <div class=\"pipe-item-bottom\">\n"
+                        + "                                                    <p class=\"pipe-bottom-item\">\n"
+                        + "                                                        <strong style=\"color:#fd0100\">Denied because of misInformation</strong>\n"
+                        + "                                                    </p>\n"
+                        + "                                                </div>\n"
+                        + "                                            </div>";
+                    
+                    document.querySelector(".pending-trash-list").insertAdjacentHTML("beforeend",html);
+                    if (count !== 0) {
+                                                                     document.querySelector('.showcase-item-dropdown-actual-notification').classList.add('active');
+                                                                    document.querySelector('.showcase-item-dropdown-actual-notification').innerHTML=count;
+                                                                     document.querySelector('.showcase-item-dropdown-select').classList.add('active');
+                                                                     document.querySelector('.showcase-item-dropdown-sub-title').innerHTML="You have " + count + " new feedback";
+                                                                }
+
+                  update(ref(database, "Employee-trash/" + trash.id), {
+                    Feedback_ID: childSnapshot.val().Feedback_ID,
+          Date: childSnapshot.val().Date,
+          Check: "false"
+                  });
+                }
+              });
+            },
+            {
+              onlyOnce: true,
+            }
+          );
+        });
+        
+        
+        
+      
+        
+        
       };
 

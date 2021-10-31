@@ -26,7 +26,15 @@ public class ResponseDTO {
     private boolean checkDone;
     private String declineReason;
     private String feedbackID;
+    private String email;
     public ResponseDTO() {
+    }
+
+    public ResponseDTO(String responseID, String userName, String date, String email) {
+        this.responseID = responseID;
+        this.userName = userName;
+        this.date = date;
+        this.email = email;
     }
 
     public ResponseDTO(String feedbackDetailID, String userID, String image, String des, String statusID, String responseID, String deviceName, String location, String userName, String quantity, String date, String declineReason) {
@@ -110,12 +118,7 @@ public class ResponseDTO {
 
  
 
-    public ResponseDTO(String feedbackDetailID, String userID, String des, String statusID) {
-        this.feedbackDetailID = feedbackDetailID;
-        this.userID = userID;
-        this.des = des;
-        this.statusID = statusID;
-    }
+  
 
  
 

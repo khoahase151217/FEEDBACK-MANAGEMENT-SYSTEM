@@ -84,7 +84,7 @@
         <div class="feedback-form-message ${requestScope.SEND_FEEDBACK_FLAG}">
             <div class="modal feedback-form-message-modal">
                 <div class="feedback-form-message-main">
-                    <div class="form-message-item ${requestScope.SEND_SUCCESS}">
+                    <div class="form-message-item status-success ${requestScope.SEND_SUCCESS}">
                         <div class="item-image-wrap">
                             <img src="./img/success.png" alt="" />
                         </div>
@@ -1081,7 +1081,9 @@
                 </div>
             </section>
         </main>
-        <script src="${pageContext.request.contextPath}/js/EmployeeHome1.js"></script>
+        <script src="${pageContext.request.contextPath}/js/EmployeeHome.js"></script>
+        <script type="module" src="${pageContext.request.contextPath}/js/firebaseForResponse.js"></script>
+        <script type="module" src="${pageContext.request.contextPath}/js/firebaseForTrash.js"></script>
         <!-- Query -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 

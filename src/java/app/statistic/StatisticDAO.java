@@ -272,6 +272,119 @@ public class StatisticDAO {
         }
         return feedback;
     }
+    public FeedbackDTO getRecentTrash() throws SQLException {
+        FeedbackDTO feedback = new FeedbackDTO();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = 
+                        "select top 1 * ,t2.FullName,t2.Email\n"
+                        + "from tblFeedback t1\n"
+                        + "JOIN tblUser t2 on t1.UserID = t2.UserID\n"
+                        + "where t1.statusID='pending' and t1.TrashDate IS NOT NULL \n"
+                        + "order by t1.TrashDate desc ";
+                stm = conn.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    String userId = rs.getString("UserID");
+                    String fullName = rs.getString("FullName");
+                    String email = rs.getString("Email");
+                    String date = rs.getString("Date");
+                    String statusId = rs.getString("statusID");
+                    feedback=new FeedbackDTO(feedbackId, userId, date, email, statusId, fullName);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return feedback;
+    }
+    public String getFeedbackIDOfRecentResponse() throws SQLException {
+        String id ="";
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = 
+                        " select top 1 * ,t2.FeedbackID as feedbackId\n"
+                        + "from tblResponseFeedback t1\n"
+                        + "JOIN tblFeedbackDetail t2 on t2.FeedbackDetailID = t1.FeedbackDetailID\n"
+                        + "where t1.StatusID='done' \n"
+                        + "order by t1.ResponseID desc ";
+                stm = conn.prepareStatement(sql);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    id = rs.getString("feedbackId");
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return id;
+    }
+    public String getRecentResponseID() throws SQLException {
+        String id ="";
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = 
+                        " select top 1 * \n"
+                        + "from tblResponseFeedback t1\n"
+                        + "where t1.StatusID='done' \n"
+                        + "order by t1.ResponseID desc ";
+                stm = conn.prepareStatement(sql);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    id = rs.getString("ResponseID");
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return id;
+    }
 
     public List<FeedbackDTO> getListFeedbackForNotificationTrash(int check) throws SQLException {
         List<FeedbackDTO> list = new ArrayList<>();
@@ -612,7 +725,7 @@ public class StatisticDAO {
         return count;
     }
 
-    public FeedbackDTO getFeedbackByID(String feedbackID) throws SQLException, IOException {
+    public FeedbackDTO getFeedbackByID(String feedbackID,String responseId) throws SQLException, IOException {
         FeedbackDTO feedback = new FeedbackDTO();
         Connection conn = null;
         PreparedStatement ps = null;
@@ -620,21 +733,27 @@ public class StatisticDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.* , t2.Email, t2.FullName "
+                String sql = "SELECT t1.* , t2.Email, t5.FullName as fullName "
                         + " FROM tblFeedback t1  "
                         + " JOIN tblUser t2 "
                         + "  ON t1.UserID = t2.UserID "
+                        + " JOIN tblFeedbackDetail t3 "
+                        + "  ON t3.FeedbackID = t1.FeedbackID "
+                        + " JOIN tblResponseFeedback t4 "
+                        + "  ON t4.FeedbackDetailID = t3.FeedbackDetailID "
+                        + " JOIN tblUser t5 "
+                        + "  ON t5.UserID = t4.UserID "
                         + " WHERE t1.FeedbackID=? ";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, feedbackID);
                 rs = ps.executeQuery();
                 if (rs.next()) {
                     String userId = rs.getString("UserID");
-                    String fullName = rs.getString("FullName");
+                    String fullName = rs.getString("fullName");
                     String email = rs.getString("Email");
                     String date = rs.getString("Date");
                     String statusId = rs.getString("statusID");
-                    feedback = new FeedbackDTO(feedbackID, userId, date, email, statusId, fullName);
+                    feedback = new FeedbackDTO(feedbackID, userId, date, email, responseId, fullName);
                 }
             }
 
