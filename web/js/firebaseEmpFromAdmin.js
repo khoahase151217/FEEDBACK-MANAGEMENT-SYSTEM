@@ -31,20 +31,21 @@
       //adminPage.jsp
       
       window.onload = function () {
-        var userid=document.getElementById("LOGIN_USER_ID").value               
-        const userRef = ref(database, "/Admin-done");
-console.log(userid);
-        onChildAdded(query(ref(database, "/Admin-done"), limitToLast(1)), (data) => {
+        var userid=document.getElementById("LOGIN_EMP").value      
+        console.log(userid);
+        const userRef = ref(database, "/Emp_Assign");
+
+        onChildAdded(query(ref(database, "/Emp_Assign"), limitToLast(1)), (data) => {
           onValue(
             userRef,
             (snapshot) => {
               snapshot.forEach((childSnapshot) => {
                   if(childSnapshot.val().User_ID === userid){
-                                var count = JSON.parse(localStorage.getItem("UserCount"))||0;
+                                var count = JSON.parse(localStorage.getItem("EmpCount"))||0;
                                 count++;
-                                localStorage.setItem("UserCount", JSON.stringify(count));
-                                var done = JSON.parse(localStorage.getItem("Doneobj"));
-                    var html = "<div class=\"notification-item\" onclick=\"handleReloadUserPage(event)\">\n"
+                                localStorage.setItem("EmpCount", JSON.stringify(count));
+                                var emp = JSON.parse(localStorage.getItem("Empobj"));
+                    var html = "<div class=\"notification-item\" onclick=\"handleReloadPage(event)\">\n"
                         + "                                                <div class=\"pipe-item-heading\">\n"
                         + "                                                    <div class=\"pipe-item-title-wrapper\">\n"
                         + "                                                        <h3 class=\"pipe-item-title\">Feedback " + childSnapshot.val().Feedback_ID + "</h3>\n"
@@ -70,12 +71,12 @@ console.log(userid);
                                                                      document.querySelector('.showcase-item-dropdown-sub-title').innerHTML="You have " + count + " new feedback";
                                                                 }
                                                             
-                  remove(ref(database, "Admin-done/" + done.id), {
+                  remove(ref(database, "Emp_Assign/" + childSnapshot.key), {
                     Feedback_ID: childSnapshot.val().Feedback_ID,
           Email: childSnapshot.val().Email,
           Date: childSnapshot.val().Date,
           Name: childSnapshot.val().Name,
-          User_ID:childSnapshot.val().User_ID
+          User_ID: childSnapshot.val().User_ID
                   });
                   }
               });

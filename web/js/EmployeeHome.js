@@ -9,6 +9,8 @@ const taskItems = document.querySelectorAll(".task-item");
 const historyItems = document.querySelectorAll(".history-item");
 
 window.addEventListener('load', () => {
+        localStorage.setItem("EmpCount", JSON.stringify(0));
+
     navigationScrollBar.style.left = document.querySelector('.navigation-item.active').offsetLeft + "px";
     navigationScrollBar.style.width = document.querySelector('.navigation-item.active').offsetWidth + "px";
     if(Array.from(taskItems).length === 0) {
@@ -194,7 +196,8 @@ document.querySelector(".user-form .modal").addEventListener("click", (e) => {
         return;
     e.target.closest(".user-form").classList.remove("open");
 });
-function handleReloadPage() {
+function handleReloadPage(e) {
+    localStorage.setItem("EmpCount", JSON.stringify(0));
     window.location.replace("/SWP391_PROJECT/ShowFeedbackForEmpController");
 }
 

@@ -172,7 +172,7 @@
                                                                      document.querySelector('.showcase-item-dropdown-sub-title').innerHTML="You have " + count + " new feedback";
                                                                 }
 
-                  remove(ref(database, "Employee-trash/" + trash.id), {
+                  remove(ref(database, "Employee-trash/" + childSnapshot.key), {
                     Feedback_ID: childSnapshot.val().Feedback_ID,
           Date: childSnapshot.val().Date,
     

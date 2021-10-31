@@ -20,35 +20,44 @@
 
       //Get Database
       const database = getDatabase();
-      
-      var empID =document.querySelector('option[id="employee_ID"]').value;
-      var emp = JSON.parse(localStorage.getItem("Empobj"))||{
+      Array.from(document.querySelectorAll(".assign-form")).forEach(item=>{
+          item.addEventListener("submit", (e)=>{
+          e.preventDefault();
+          console.log("123");
+          var empID = e.target.querySelector('option:checked').value;
+          var emp = JSON.parse(localStorage.getItem("Empobj"))||{
     id:0,
     flag:false
         }
-        if (emp.flag===true){
-    
+//        if (emp.flag===true){
+              e.target.submit()
+
         var id = emp.id;
+        
 $.ajax({
+           
+
 url: "/SWP391_PROJECT/NotificationFromEMP",
-        data: {userid:  empID},
-        type: "post",
+type: "POST",
+                   data: {userid:  empID},
         dataType: "json",
-        success: function (data) {
-            console.log(data);
+        success: function (result) {
         set(ref(database, "Emp_Assign/" + id), {
-          Feedback_ID: data.feedbackID,
-          Email: data.email,
-          Date: data.date,
-          Name: data.fullName,
+          Feedback_ID: result.feedbackID,
+          Email: result.email,
+          Date: result.date,
+          Name: result.fullName,
           User_ID : empID
         });
         }
 });
 emp.flag=false;
 localStorage.setItem("Empobj", JSON.stringify(emp));
-}
+//}
+      })
+      })
 
+     
 
 
 

@@ -286,7 +286,7 @@ public class StatisticDAO {
                         + "JOIN tblUser t2 on t1.UserID = t2.UserID\n"
                         + "JOIN tblFeedbackDetail t3 on t1.feedbackID = t3.feedbackID\n"
                         + "where t1.statusID='onGoing' and t3.userID = ?  \n"
-                        + "order by t1.FeedbackID desc ";
+                        + "order by t3.AssignDate desc ";
                 stm = conn.prepareStatement(sql);
                 stm.setString(1, userID);
                 rs = stm.executeQuery();
@@ -872,7 +872,6 @@ public class StatisticDAO {
                         + "JOIN tblUser t2 \n"
                         + "ON t1.UserID = t2.UserID \n"
                         + " JOIN tblFeedbackDetail t3 on t1.feedbackID =t3.feedbackID\n"
-                        + " JOIN tblResponseFeedback t4 on t4.feedbackdetailID= t3.feedbackdetailID\n"
                         + "JOIN tblUser t5\n"
                         + "ON t5.UserID = t3.UserID\n"
                         + "WHERE t1.FeedbackID=?";

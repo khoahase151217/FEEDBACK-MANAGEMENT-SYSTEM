@@ -80,7 +80,7 @@
                                                     <p>Employee Name:</p>
                                                     <p class="employee-name-edit">${feedbackDetail.employeeName}</p>
                                                 </div>
-                                                <form action="AssignController">
+                                                <form class="assign-form" action="AssignController">
                                                     <div class="assign-wrapper">
                                                         <select name="employee" id="" class="form-select" required>
                                                             <option value="" selected hidden>Choose employee name</option>
@@ -171,7 +171,7 @@
                                                     <p>Employee Name:</p>
                                                     <p class="employee-name-edit">${feedbackDetail.employeeName}</p>
                                                 </div>
-                                                <form action="AssignController">
+                                                <form class="assign-form" action="AssignController">
                                                     <div class="assign-wrapper">
                                                         <select name="employee" id="" class="form-select" required>
                                                             <option value="" selected hidden>Choose employee name</option>
@@ -1314,13 +1314,14 @@
                 </div>
             </section>
         </main>
+                                                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
         <script src="${pageContext.request.contextPath}/js/adminPage1.js"></script>
         <script src="${pageContext.request.contextPath}/js/ManagerFB.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseAdminfromUser.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseForAdminDone.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseForEMP.js"></script>
         <!-- Query -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
                                                 function handleNotification() {
                                                     const count = document.querySelector('input[name="pending_count"]').value;

@@ -1081,11 +1081,13 @@
                 </div>
             </section>
         </main>
+                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
         <script src="${pageContext.request.contextPath}/js/EmployeeHome.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseForResponse.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseForTrash.js"></script>
+        <script type="module" src="${pageContext.request.contextPath}/js/firebaseEmpFromAdmin.js"></script>
         <!-- Query -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
         <script>
             const user = document.querySelector('#LOGIN_EMP').value;
@@ -1111,8 +1113,8 @@
                     }
                 });
             }
-            handleNotification();
-            setInterval(handleNotification, 10000);
+//            handleNotification();
+//            setInterval(handleNotification, 10000);
             $(function () {
                 var imagesPreview = function (input, placeToInsertImagePreview) {
                     if (input.files) {
