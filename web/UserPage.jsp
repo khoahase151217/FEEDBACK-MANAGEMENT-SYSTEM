@@ -59,7 +59,7 @@
             <div class="modal feedback-form-modal">
                 <div class="feedback-form-main">
                     <div class="container-main">
-                        <form action="SendFeedbackController" class="root" method="post" enctype="multipart/form-data">
+                        <form id="root" action="SendFeedbackController" class="root" method="post" enctype="multipart/form-data">
                             <div class="input-check">
                                 <input type="hidden" name="check" value="1"/>
                             </div>
@@ -526,11 +526,11 @@
         <div class="feedback-form-message ${requestScope.SEND_FEEDBACK_FLAG}">
             <div class="modal feedback-form-message-modal">
                 <div class="feedback-form-message-main">
-                    <div class="form-message-item ${requestScope.SEND_SUCCESS}">
+                    <div class="form-message-item status-success ${requestScope.SEND_SUCCESS}">
                         <div class="item-image-wrap">
                             <img src="./img/success.png" alt="" />
                         </div>
-                        <h1 class="status">Thank You</h1>
+                        <h1 class="status ">Thank You</h1>
                         <p class="desc">
                             We're received your submission, and we'll be in touch soon!
                         </p>
@@ -544,7 +544,7 @@
                         <p class="desc">
                             Something went wrong. Let's give this another try.
                         </p>
-                        <a href="#" class="btn btn--decline link">Try agian</a>
+                        <a href="#" class="btn btn--decline link">Try again</a>
                     </div>
                 </div>
             </div>
@@ -1374,10 +1374,12 @@
                 </div>
             </div>
         </footer>
-
+                                               <!-- Query -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/User.js"></script>
-        <!-- Query -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script type="module" src="${pageContext.request.contextPath}/js/firebaseForUser.js"></script>
+     
+        
         <script>
                                                             function handleNotification() {
                                                                 const count = document.querySelector('input[name="LIST_DONE_COUNT"]').value;
