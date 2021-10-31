@@ -509,7 +509,7 @@
                                                                                 type="submit"
                                                                                 class="btn-submit-links"
                                                                                 >
-                                                                                <i class="fas fa-reply"></i>
+                                                                                <img src="img/forward-message.png"/>
                                                                             </button>
                                                                         </form>
                                                                     </div>
@@ -609,7 +609,7 @@
                                                                                 type="submit"
                                                                                 class="btn-submit-links"
                                                                                 >
-                                                                                <i class="fas fa-reply"></i>
+                                                                                <img src="img/forward-message.png"/>
                                                                             </button>
                                                                         </form>
                                                                     </div>
@@ -709,7 +709,7 @@
                                                                                 type="submit"
                                                                                 class="btn-submit-links"
                                                                                 >
-                                                                                <i class="fas fa-reply"></i>
+                                                                                <img src="img/forward-message.png"/>
                                                                             </button>
                                                                         </form>
                                                                     </div>

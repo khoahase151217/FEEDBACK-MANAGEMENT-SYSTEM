@@ -41,19 +41,6 @@
             <div class="modal feedbackDetail-modal">
                 <div class="feedbackDetail-main">
                     <div class="detail-main">
-                        <div class="detail-header">
-                            <div class="all-wrapper">
-                                <c:forEach var="feedbackDetail" items="${sessionScope.LIST_DETAIL}">
-                                    <c:if test="${feedbackDetail.image ne ''}">
-                                        <img
-                                            src="data:image/jpg/png;base64,${feedbackDetail.image}"
-                                            alt=""
-                                            />
-                                    </c:if>
-                                </c:forEach>
-
-                            </div>
-                        </div>
                         <div class="feedback"> 
                             <div class="feedback-header">
                                 <p>Feedback ID</p>
@@ -79,6 +66,14 @@
                                                 <p>Room ${feedbackDetail.location}</p>
                                                 <p>Quantity: ${feedbackDetail.quanity}</p>
                                                 <p>Reason: ${feedbackDetail.reason}</p>
+                                            </div>
+                                            <div class="all-wrapper">
+                                                <c:if test="${feedbackDetail.image ne ''}">
+                                                    <img
+                                                        src="data:image/jpg/png;base64,${feedbackDetail.image}"
+                                                        alt=""
+                                                        />
+                                                </c:if>
                                             </div>
                                             <div class="employee-name">
                                                 <div class="employee-name-heading">
@@ -162,6 +157,14 @@
                                                 <p>Room ${feedbackDetail.location}</p>
                                                 <p>Quantity: ${feedbackDetail.quanity}</p>
                                                 <p>Reason: ${feedbackDetail.reason}</p>
+                                            </div>
+                                            <div class="all-wrapper">
+                                                <c:if test="${feedbackDetail.image ne ''}">
+                                                    <img
+                                                        src="data:image/jpg/png;base64,${feedbackDetail.image}"
+                                                        alt=""
+                                                        />
+                                                </c:if>
                                             </div>
                                             <div class="employee-name">
                                                 <div class="employee-name-heading">

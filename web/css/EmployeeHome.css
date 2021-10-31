@@ -525,14 +525,25 @@ img {
     outline: 0;
     background-color: transparent;
     cursor: pointer;
+    align-items: center;
+    box-sizing: border-box;
+    width: 40px;
+    height:40px;
+    padding:5px;
+    border-radius: 7px;
+    transition: background-color 0.2s;
 }
 
-.showcase .feedback-detail-header .btn-submit-links i {
-    transition: color .2s;
+.showcase .feedback-detail-header .btn-submit-links:hover {
+    background-color: #e4c597;
 }
 
-.showcase .feedback-detail-header .btn-submit-links i:hover {
-    color: #E4C597;
+.showcase .feedback-detail-header .btn-submit-links img {
+    width:30px;
+    height:30px;
+    color:black;
+    filter: invert(100%);
+    transition: filter 0.2s;
 }
 
 .showcase .feedback-detail-showcase {
@@ -1252,7 +1263,7 @@ img {
     .showcase .feedback-detail-textarea textarea {
         font-size: 1.5rem;
     }
-    
+
     .response-manager textarea {
         height: 70px;
         font-size: 1.5rem;
@@ -1372,7 +1383,7 @@ img {
         width: 130px;
         height: 100px;
     }
-    
+
     .showcase .pipe-item-title {
         font-size: 2rem;
     }
