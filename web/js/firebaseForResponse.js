@@ -34,7 +34,6 @@ url: "/SWP391_PROJECT/NotificationFromResponse",
           Email: data.email,
           Date: data.date,
           Name: data.fullName,
-          Check: "true"
         });
         }
 });

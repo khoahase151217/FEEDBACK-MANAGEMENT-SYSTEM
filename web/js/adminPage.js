@@ -203,3 +203,19 @@ document.querySelector(".user-form .modal").addEventListener("click", (e) => {
 });
 
 
+Array.from(document.querySelectorAll(".btn--done")).forEach(item=>{
+    item.addEventListener("click",()=>{
+    var done = JSON.parse(localStorage.getItem("Doneobj"))||{
+        id:0,
+        flag:false
+    };
+    if(done.flag===false){
+    done.id++;
+    done.flag=true;
+    localStorage.setItem("Doneobj", JSON.stringify(done));
+    }
+    
+})
+})
+
+

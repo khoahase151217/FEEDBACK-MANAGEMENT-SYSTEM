@@ -20,24 +20,31 @@
 
       //Get Database
       const database = getDatabase();
-if (document.querySelector(".feedback-form-message").classList.contains("open")){
-if (document.querySelector(".status-success").classList.contains("active")){
+
+var done = JSON.parse(localStorage.getItem("Doneobj"))||{
+    id:0,
+    flag:false
+}
+if (done.flag===true){
+    
+    var id = done.id;
 $.ajax({
-url: "/SWP391_PROJECT/NotificationFromUser",
+url: "/SWP391_PROJECT/NotificationFromAdminDone",
         type: "post",
         dataType: "json",
         success: function (data) {
-            console.log(data);
-        set(ref(database, "User-feedback/" + data.feedbackID), {
-          Feedback_ID: data.feedbackID,
+        set(ref(database, "Admin-done/" + id), {
+           Feedback_ID: data.feedbackID,
           Email: data.email,
           Date: data.date,
           Name: data.fullName,
         });
         }
 });
+done.flag=false;
+localStorage.setItem("Doneobj", JSON.stringify(done));
 }
-}
+
 
       
 

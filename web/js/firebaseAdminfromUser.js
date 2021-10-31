@@ -39,8 +39,8 @@
             userRef,
             (snapshot) => {
               snapshot.forEach((childSnapshot) => {
-                const childCheck = childSnapshot.val().Check;
-                if (childCheck === "true") {
+               
+             
                                 var count = JSON.parse(localStorage.getItem("NotiCount"))||0;
                                 count++;
                                 localStorage.setItem("NotiCount", JSON.stringify(count));
@@ -70,14 +70,14 @@
                                                                      document.querySelector('.showcase-item-dropdown-sub-title').innerHTML="You have " + count + " new feedback";
                                                                 }
 
-                  update(ref(database, "User-feedback/" + childSnapshot.val().Feedback_ID), {
+                  remove(ref(database, "User-feedback/" + childSnapshot.val().Feedback_ID), {
                     Feedback_ID: childSnapshot.val().Feedback_ID,
           Email: childSnapshot.val().Email,
           Date: childSnapshot.val().Date,
           Name: childSnapshot.val().Name,
-          Check: "false"
+    
                   });
-                }
+                
               });
             },
             {
@@ -91,8 +91,8 @@
             (snapshot) => {
               snapshot.forEach((childSnapshot) => {
 
-                const childCheck = childSnapshot.val().Check;
-                if (childCheck === "true") {
+               
+               
                                 var count = JSON.parse(localStorage.getItem("NotiCount"));
                                 count++;
                                 localStorage.setItem("NotiCount", JSON.stringify(count));
@@ -121,14 +121,14 @@
                                                                      document.querySelector('.showcase-item-dropdown-sub-title').innerHTML="You have " + count + " new feedback";
                                                                 }
 
-                  update(ref(database, "Employee-response/" + childSnapshot.key), {
+                  remove(ref(database, "Employee-response/" + childSnapshot.key), {
                     Feedback_ID: childSnapshot.val().Feedback_ID,
           Email: childSnapshot.val().Email,
           Date: childSnapshot.val().Date,
           Name: childSnapshot.val().Name,
-          Check: "false"
+          
                   });
-                }
+                
               });
             },
             {
@@ -141,9 +141,9 @@
             trashRef,
             (snapshot) => {
               snapshot.forEach((childSnapshot) => {
-                const childCheck = childSnapshot.val().Check;
-                console.log(childCheck);
-                if (childCheck === "true") {
+                
+                
+                
                                 var count = JSON.parse(localStorage.getItem("NotiCount"));
                                 var trash = JSON.parse(localStorage.getItem("Trashobj"));
                                 count++;
@@ -172,12 +172,12 @@
                                                                      document.querySelector('.showcase-item-dropdown-sub-title').innerHTML="You have " + count + " new feedback";
                                                                 }
 
-                  update(ref(database, "Employee-trash/" + trash.id), {
+                  remove(ref(database, "Employee-trash/" + trash.id), {
                     Feedback_ID: childSnapshot.val().Feedback_ID,
           Date: childSnapshot.val().Date,
-          Check: "false"
+    
                   });
-                }
+                
               });
             },
             {

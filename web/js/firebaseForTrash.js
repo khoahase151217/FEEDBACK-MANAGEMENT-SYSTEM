@@ -36,7 +36,6 @@ url: "/SWP391_PROJECT/NotificationFromTrash",
         set(ref(database, "Employee-trash/" + id), {
           Feedback_ID: data.feedbackID,
           Date: data.date,
-          Check: "true"
         });
         }
 });

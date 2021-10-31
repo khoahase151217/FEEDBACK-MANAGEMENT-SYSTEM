@@ -1317,6 +1317,7 @@
         <script src="${pageContext.request.contextPath}/js/adminPage.js"></script>
         <script src="${pageContext.request.contextPath}/js/ManagerFB.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseAdminfromUser.js"></script>
+        <script type="module" src="${pageContext.request.contextPath}/js/firebaseForAdminDone.js"></script>
         <!-- Query -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>

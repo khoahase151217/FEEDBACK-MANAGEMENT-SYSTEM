@@ -272,6 +272,48 @@ public class StatisticDAO {
         }
         return feedback;
     }
+    public FeedbackDTO getRecentFeedbackDone() throws SQLException {
+        FeedbackDTO feedback = new FeedbackDTO();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = 
+                        "select top 1 * ,t2.FullName,t2.Email\n"
+                        + "from tblFeedback t1\n"
+                        + "JOIN tblUser t2 on t1.UserID = t2.UserID\n"
+                        + "where t1.statusID='done'  \n"
+                        + "order by t1.FeedbackID desc ";
+                stm = conn.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String feedbackId = rs.getString("FeedbackID");
+                    String userId = rs.getString("UserID");
+                    String fullName = rs.getString("FullName");
+                    String email = rs.getString("Email");
+                    String date = rs.getString("Date");
+                    String statusId = rs.getString("statusID");
+                    feedback=new FeedbackDTO(feedbackId, userId, date, email, statusId, fullName);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return feedback;
+    }
     public FeedbackDTO getRecentTrash() throws SQLException {
         FeedbackDTO feedback = new FeedbackDTO();
         Connection conn = null;

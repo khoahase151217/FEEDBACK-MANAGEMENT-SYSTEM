@@ -13,6 +13,9 @@ document.querySelector('[name="search"]').addEventListener("blur", () => {
             .closest(".input-warp")
             .classList.remove("active");
 });
+window.addEventListener('load',()=>{
+    localStorage.setItem("UserCount", JSON.stringify(0));
+});
 
 // Pop-up form feedback
 const feedbackModal = document.querySelector(".feedback-form");
@@ -330,5 +333,7 @@ function handleReloadUserPage(e) {
     var feedbackid = h3.split(" ");
     localStorage.setItem("feedbackDoneID", JSON.stringify(feedbackid));
     localStorage.setItem('flag', true);
+    localStorage.setItem("UserCount", JSON.stringify(0));
+
     window.location.replace("/SWP391_PROJECT/ShowFacilityStudentController");
 }

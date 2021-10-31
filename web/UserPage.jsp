@@ -1378,6 +1378,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/User.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseForUser.js"></script>
+        <script type="module" src="${pageContext.request.contextPath}/js/firebaseUserfromAdmin.js"></script>
      
         
         <script>
@@ -1404,8 +1405,8 @@
                                                                     }
                                                                 });
                                                             }
-                                                            handleNotification();
-                                                            setInterval(handleNotification, 10000);
+                                                            //handleNotification();
+                                                            //setInterval(handleNotification, 10000);
                                                             var imagesPreview = function (input, placeToInsertImagePreview) {
                                                                 if (input.files) {
                                                                     var filesAmount = input.files.length;
