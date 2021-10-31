@@ -37,7 +37,8 @@ public class NotificationFromEMP extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
          try {
             StatisticDAO dao = new StatisticDAO();
-            FeedbackDTO fb = dao.getRecentFeedback();
+            String userID = request.getParameter("userid");
+            FeedbackDTO fb = dao.getRecentFeedbackEmp(userID);
             Gson gson = new Gson();
             PrintWriter out = response.getWriter();
             out.println(gson.toJson(fb));

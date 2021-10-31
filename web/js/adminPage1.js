@@ -218,4 +218,20 @@ Array.from(document.querySelectorAll(".btn--done")).forEach(item=>{
 })
 })
 
+Array.from(document.querySelectorAll(".icon-block")).forEach(item=>{
+    item.addEventListener("click",()=>{
+    var emp = JSON.parse(localStorage.getItem("Empobj"))||{
+        id:0,
+        flag:false
+    };
+    if(emp.flag===false){
+    emp.id++;
+    emp.flag=true;
+    localStorage.setItem("Empobj", JSON.stringify(emp));
+    }
+    
+})
+})
+
+
 

@@ -20,24 +20,37 @@
 
       //Get Database
       const database = getDatabase();
-if (document.querySelector(".feedback-form-message").classList.contains("open")){
-if (document.querySelector(".status-success").classList.contains("active")){
+      
+      var empID =document.querySelector('option[id="employee_ID"]').value;
+      var emp = JSON.parse(localStorage.getItem("Empobj"))||{
+    id:0,
+    flag:false
+        }
+        if (emp.flag===true){
+    
+        var id = emp.id;
 $.ajax({
-url: "/SWP391_PROJECT/NotificationFromUser",
+url: "/SWP391_PROJECT/NotificationFromEMP",
+        data: {userid:  empID},
         type: "post",
         dataType: "json",
         success: function (data) {
             console.log(data);
-        set(ref(database, "User-feedback/" + data.feedbackID), {
+        set(ref(database, "Emp_Assign/" + id), {
           Feedback_ID: data.feedbackID,
           Email: data.email,
           Date: data.date,
           Name: data.fullName,
+          User_ID : empID
         });
         }
 });
+emp.flag=false;
+localStorage.setItem("Empobj", JSON.stringify(emp));
 }
-}
+
+
+
 
       
 
