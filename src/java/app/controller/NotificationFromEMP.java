@@ -7,7 +7,6 @@ package app.controller;
 
 import app.feedback.FeedbackDTO;
 import app.statistic.StatisticDAO;
-import app.users.UserDTO;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,14 +15,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author ASUS
  */
-@WebServlet(name = "NotificationFromAdminDone", urlPatterns = {"/NotificationFromAdminDone"})
-public class NotificationFromAdminDone extends HttpServlet {
+@WebServlet(name = "NotificationFromEMP", urlPatterns = {"/NotificationFromEMP"})
+public class NotificationFromEMP extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,11 +35,9 @@ public class NotificationFromAdminDone extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-      try {
+         try {
             StatisticDAO dao = new StatisticDAO();
-            HttpSession session = request.getSession();
-            UserDTO user = (UserDTO)session.getAttribute("LOGIN_USER");
-            FeedbackDTO fb = dao.getRecentFeedbackDone();
+            FeedbackDTO fb = dao.getRecentFeedback();
             Gson gson = new Gson();
             PrintWriter out = response.getWriter();
             out.println(gson.toJson(fb));

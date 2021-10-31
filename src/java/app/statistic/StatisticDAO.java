@@ -284,7 +284,7 @@ public class StatisticDAO {
                         "select top 1 * ,t2.FullName,t2.Email\n"
                         + "from tblFeedback t1\n"
                         + "JOIN tblUser t2 on t1.UserID = t2.UserID\n"
-                        + "where t1.statusID='done'  \n"
+                        + "where t1.statusID='done' \n"
                         + "order by t1.FeedbackID desc ";
                 stm = conn.prepareStatement(sql);
                 rs = stm.executeQuery();

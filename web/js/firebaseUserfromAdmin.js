@@ -29,8 +29,9 @@
       //UserPage.jsp
      
       //adminPage.jsp
+      
       window.onload = function () {
-                          
+        var userid=document.getElementById("LOGIN_USER_ID")   ;             
         const userRef = ref(database, "/Admin-done");
 
         onChildAdded(query(ref(database, "/Admin-done"), limitToLast(1)), (data) => {
@@ -38,6 +39,7 @@
             userRef,
             (snapshot) => {
               snapshot.forEach((childSnapshot) => {
+                  if(childSnapshot.val().User_ID === userid){
                                 var count = JSON.parse(localStorage.getItem("UserCount"))||0;
                                 count++;
                                 localStorage.setItem("UserCount", JSON.stringify(count));
@@ -67,16 +69,18 @@
                                                                      document.querySelector('.showcase-item-dropdown-select').classList.add('active');
                                                                      document.querySelector('.showcase-item-dropdown-sub-title').innerHTML="You have " + count + " new feedback";
                                                                 }
-
+                                                            
                   remove(ref(database, "Admin-done/" + done.id), {
                     Feedback_ID: childSnapshot.val().Feedback_ID,
           Email: childSnapshot.val().Email,
           Date: childSnapshot.val().Date,
           Name: childSnapshot.val().Name,
                   });
-                
+                  }
               });
+              
             },
+            
             {
               onlyOnce: true,
             }

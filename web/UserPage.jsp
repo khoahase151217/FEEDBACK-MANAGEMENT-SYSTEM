@@ -1328,7 +1328,7 @@
                         </ul>
                     </div>
                     <div class="footer-column">
-                        <h3 class="footer-title second-font">usefull Link</h3>
+                        <h3 class="footer-title second-font">useful Link</h3>
                         <ul class="footer-links">
                             <li class="footer-links-item"><a href="#">About Us</a></li>
                             <li class="footer-links-item"><a href="#">Contact Us</a></li>
@@ -1373,6 +1373,8 @@
                     </p>
                 </div>
             </div>
+
+                            <input id="LOGIN_USER_ID" type="hidden" name="COUNT_RESPONSE" value="${sessionScope.LOGIN_USER.userID}"/>
         </footer>
                                                <!-- Query -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
