@@ -31,8 +31,34 @@
       //adminPage.jsp
      window.onload = function () {
          
-                                                         console.log("123");
-     
+         //set new emp assign to firebase
+         console.log("777");
+         var emp = JSON.parse(localStorage.getItem("Empobj"));
+if(emp.emp_id != ""){
+     var tmp = emp.emp_id;
+    $.ajax({
+                url: "/SWP391_PROJECT/NotificationFromEMP",
+                type: "POST",
+                data: {userid: emp.emp_id},
+                dataType: "json",
+                success: function (result) {
+                    set(ref(database, "Emp_Assign/" + emp.id), {
+                        Feedback_ID: result.feedbackID,
+                        Email: result.email,
+                        Date: result.date,
+                        Name: result.fullName,
+                        User_ID: tmp
+                    });
+                }
+            });
+            
+            
+   emp.emp_id = "";
+   localStorage.setItem("Empobj", JSON.stringify(emp));
+   
+}
+         
+     // view notification for admin
         const userRef = ref(database, "/User-feedback");
         const responseRef = ref(database, "/Employee-response");
         const trashRef = ref(database, "/Employee-trash");
@@ -189,4 +215,4 @@
           );
         });
         
-     }
+     };
