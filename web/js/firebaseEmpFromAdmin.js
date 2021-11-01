@@ -34,13 +34,14 @@
         var userid=document.getElementById("LOGIN_EMP").value      
         console.log(userid);
         const userRef = ref(database, "/Emp_Assign");
-
-        onChildAdded(query(ref(database, "/Emp_Assign"), limitToLast(1)), (data) => {
+        onChildAdded(query(ref(database, "/Emp_Assign"),limitToLast(1)), (data) => {
           onValue(
             userRef,
             (snapshot) => {
               snapshot.forEach((childSnapshot) => {
+
                   if(childSnapshot.val().User_ID === userid){
+                      console.log(childSnapshot);
                                 var count = JSON.parse(localStorage.getItem("EmpCount"))||0;
                                 count++;
                                 localStorage.setItem("EmpCount", JSON.stringify(count));
@@ -78,6 +79,7 @@
           Name: childSnapshot.val().Name,
           User_ID: childSnapshot.val().User_ID
                   });
+               
                   }
               });
               

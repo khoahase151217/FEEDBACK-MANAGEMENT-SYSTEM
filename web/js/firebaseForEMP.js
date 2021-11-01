@@ -27,32 +27,47 @@ Array.from(document.querySelectorAll(".assign-form")).forEach(item => {
         var empID = e.target.querySelector('option:checked').value;
         var emp = JSON.parse(localStorage.getItem("Empobj")) || {
             id: 0,
-            flag: false,
+            emp_id:""
         };
-        if (emp.flag === true) {
-            var id = emp.id;
-            $.ajax({
+            emp.emp_id = empID;
+            localStorage.setItem("Empobj", JSON.stringify(emp));
+        
+        e.target.submit();
+
+    })
+})
+
+window.onload=function(){
+    var emp = JSON.parse(localStorage.getItem("Empobj"));
+if(emp.emp_id != ""){
+     var tmp = emp.emp_id;
+    $.ajax({
                 url: "/SWP391_PROJECT/NotificationFromEMP",
                 type: "POST",
-                data: {userid: empID},
+                data: {userid: emp.emp_id},
                 dataType: "json",
                 success: function (result) {
-                    set(ref(database, "Emp_Assign/" + id), {
+                    set(ref(database, "Emp_Assign/" + emp.id), {
                         Feedback_ID: result.feedbackID,
                         Email: result.email,
                         Date: result.date,
                         Name: result.fullName,
-                        User_ID: empID
+                        User_ID: tmp
                     });
                 }
             });
-            emp.flag = false;
-            localStorage.setItem("Empobj", JSON.stringify(emp));
-        }
-//        e.target.submit();
+            
+            
+   emp.emp_id = "";
+   localStorage.setItem("Empobj", JSON.stringify(emp));
+   
+}
+}
 
-    })
-})
+
+
+
+
 
 
 

@@ -34,7 +34,7 @@
         var userid=document.getElementById("LOGIN_USER_ID").value               
         const userRef = ref(database, "/Admin-done");
 console.log(userid);
-        onChildAdded(query(ref(database, "/Admin-done"), limitToLast(1)), (data) => {
+        onChildAdded(query(ref(database, "/Admin-done"),limitToLast(1)), (data) => {
           onValue(
             userRef,
             (snapshot) => {
@@ -77,6 +77,9 @@ console.log(userid);
           Name: childSnapshot.val().Name,
           User_ID:childSnapshot.val().User_ID
                   });
+                  
+                    
+                   
                   }
               });
               

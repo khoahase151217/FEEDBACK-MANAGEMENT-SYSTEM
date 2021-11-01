@@ -222,11 +222,10 @@ Array.from(document.querySelectorAll(".icon-block")).forEach(item=>{
     item.addEventListener("click",()=>{
     var emp = JSON.parse(localStorage.getItem("Empobj"))||{
         id:0,
-        flag:false
+        emp_id:""
     };
-    if(emp.flag===false){
+    if(emp.emp_id===""){
     emp.id++;
-    emp.flag=true;
     localStorage.setItem("Empobj", JSON.stringify(emp));
     }
     
