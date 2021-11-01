@@ -29,16 +29,18 @@
       //UserPage.jsp
      
       //adminPage.jsp
-      window.onload = function () {
-                          
+     window.onload = function () {
+         
+                                                         console.log("123");
+     
         const userRef = ref(database, "/User-feedback");
         const responseRef = ref(database, "/Employee-response");
         const trashRef = ref(database, "/Employee-trash");
-        onChildAdded(query(ref(database, "/User-feedback"),limitToLast(1)), (data) => {
+
+        onChildAdded(query(ref(database, "/User-feedback"), limitToLast(1)), (data) => {
           onValue(
             userRef,
             (snapshot) => {
-                console.log(123);
               snapshot.forEach((childSnapshot) => {
                
              
@@ -78,7 +80,7 @@
           Name: childSnapshot.val().Name,
     
                   });
-              
+                
               });
             },
             {
@@ -86,7 +88,7 @@
             }
           );
         });
-          onChildAdded(query(ref(database, "/Employee-response"),limitToLast(1)),(data) => {
+        onChildAdded(query(ref(database, "/Employee-response"), limitToLast(1)), (data) => {
           onValue(
             responseRef,
             (snapshot) => {
@@ -136,9 +138,8 @@
               onlyOnce: true,
             }
           );
-          });
-                    onChildAdded(query(ref(database, "/Employee-trash"),limitToLast(1)), (data) => {
-
+        });
+        onChildAdded(query(ref(database, "/Employee-trash"), limitToLast(1)), (data) => {
           onValue(
             trashRef,
             (snapshot) => {
@@ -179,19 +180,13 @@
           Date: childSnapshot.val().Date,
     
                   });
-                  
+                
               });
             },
             {
               onlyOnce: true,
             }
           );
-                    });
+        });
         
-        
-        
-      
-        
-        
-      };
-
+     }

@@ -1583,12 +1583,12 @@
                                                         });
                                                     });
 
-                                                    setTimeout(() => {
-                                                        $(".pipe-comment-item.active")[0].scrollIntoView({
-                                                            behavior: "smooth",
-                                                            block: "center"
-                                                        });
-                                                    }, 700);
+//                                                    setTimeout(() => {
+//                                                        $(".pipe-comment-item.active")[0].scrollIntoView({
+//                                                            behavior: "smooth",
+//                                                            block: "center"
+//                                                        });
+//                                                    }, 700);
 
 //                                                    Javascript of load data when scroll of comment in adminPage.jsp
 //                                                    document.querySelector(".comment-list-feedback .pipe-list").addEventListener('scroll', function (e) {
@@ -1620,24 +1620,24 @@
                                                                 }, 700);
                                                             }
                                                         }
-//        for (let i = 0; i < Array.from(loopComment).length; i++) {
-//            if ((Array.from(loopComment)[i].innerHTML).includes(id)) {
-//                $('.navigation-item').each(function(index, item) {
-//                        if (parseInt($(item).data('index')) === 0) {
-//                                $(item).removeClass('active');
-//                            } else {
-//                                $(item).addClass('active');
-//                            }
-//                        }); 
-//                $('.content-item-main .content-item-main-list .content-item-main-item').each(function(index, item) {
-//                        if (parseInt($(item).data('index')) === 1) {
-//                                $(item).removeClass('active');
-//                            } else {
-//                                $(item).addClass('active');
-//                            }
-//                        }); 
-//                    }
-//                }
+////        for (let i = 0; i < Array.from(loopComment).length; i++) {
+////            if ((Array.from(loopComment)[i].innerHTML).includes(id)) {
+////                $('.navigation-item').each(function(index, item) {
+////                        if (parseInt($(item).data('index')) === 0) {
+////                                $(item).removeClass('active');
+////                            } else {
+////                                $(item).addClass('active');
+////                            }
+////                        }); 
+////                $('.content-item-main .content-item-main-list .content-item-main-item').each(function(index, item) {
+////                        if (parseInt($(item).data('index')) === 1) {
+////                                $(item).removeClass('active');
+////                            } else {
+////                                $(item).addClass('active');
+////                            }
+////                        }); 
+////                    }
+////                }
                                                         for (let i = 0; i < Array.from(loopActive).length; i++) {
                                                             if ((loopActive[i].href).includes(id) && (loopActive[i].href).includes("response_id")) {
                                                                 loopActive[i].click();
