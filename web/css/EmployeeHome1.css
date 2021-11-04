@@ -1040,7 +1040,7 @@ img {
         height: 200px;
     }
     .showcase .pipe-column {
-        max-height: 455px;
+        max-height: 520px;
     }
 }
 .responsearea{
@@ -1247,6 +1247,11 @@ img {
 }
 
 @media screen and (max-width: 1600px) {
+    
+    .showcase-content-item {
+        padding: 17px 40px;
+    }
+    
     .showcase .feedback-detail-input > div:not(:last-child) {
         margin-bottom: 1.25rem;
     }
@@ -1257,7 +1262,8 @@ img {
 
     .input-label {
         font-size: 1.2rem;
-        left: 3px;
+        left: 8px;
+        padding: 0 5px;
     }
 
     .showcase .feedback-detail-textarea textarea {
@@ -1265,12 +1271,20 @@ img {
     }
 
     .response-manager textarea {
-        height: 70px;
+        height: 50px;
         font-size: 1.5rem;
     }
 }
 
 @media screen and (max-width: 1025px) {
+    
+    .showcase {
+        padding: 20px;
+    }
+    
+    .showcase-main {
+        height: calc(100vh - 4rem);
+    }
 
     .content-item-main .content-item-main-list {
         padding: 0;
@@ -1281,6 +1295,10 @@ img {
         display: flex;
         justify-content: space-between;
         flex-flow: column-reverse;
+    }
+
+    .showcase .feedback-detail-textarea textarea {
+        padding: 5px 13px;
     }
 
 
@@ -1301,41 +1319,17 @@ img {
         font-size: 2.25rem;
     }   
 
-    /*
-    .showcase .feedback-detail-input .input-wrapper input {
-        font-size: 1rem;
-    }
-    
-    .showcase .feedback-detail-input .input-wrapper input[name=quantity] {
-        width: 40%;
-    }
-    
-    .showcase .feedback-detail-textarea textarea {
-        height: 125px;
-    }
-    
-    .input-label {
-        font-size: 0.85rem;
-    }
-    
-    .showcase .pipe {
-        padding: 2rem 0 0;
-        justify-content: flex-start;
-        gap: 2rem 0;
-    }
-    
-    .showcase .feedback-detail-header {
-        font-size: 1.5rem;
-    }
-    
-    .showcase .feedback-detail-image-wrapper img {
-        width: 130px;
-        height: 100px;
-    }*/
-
 }
 
 @media screen and (max-width: 769px) {
+
+    .showcase-content-item {
+        padding: 20px 40px 10px;
+    }
+        
+    .content-item-main {
+        height: calc(100% - 153px);
+    }
 
     .content-item-main .content-item-main-list {
         padding: 0;
@@ -1348,9 +1342,18 @@ img {
         flex-flow: column-reverse;
     }
 
+    .showcase .feedback-detail {
+        padding: 10px 20px;
+    }
+
+    .showcase .feedback-detail-showcase {
+        margin-top: 1rem;
+    }
 
     .showcase .feedback-detail {
         margin-left: 0;
+        max-height: 358px;
+
     }
 
     .showcase .feedback-detail-input .input-wrapper input {
@@ -1361,8 +1364,15 @@ img {
         width: 40%;
     }
 
+    .response-manager textarea {
+        font-size: 1.25rem;
+        padding: 3px 13px;
+    }
+
     .showcase .feedback-detail-textarea textarea {
         height: 125px;
+        padding: 3px 13px;
+        font-size: 1.25rem;
     }
 
     .input-label {
@@ -1371,7 +1381,6 @@ img {
 
     .showcase .pipe {
         padding: 2rem 0 0;
-        justify-content: flex-start;
         gap: 2rem 0;
     }
 
@@ -1397,4 +1406,15 @@ img {
         font-size: 2rem;
     }
 
+    .showcase .pipe-column {
+        max-height: revert;
+    }
+    
+    .showcase .pipe-column.pipe-columm-list {
+        max-height: 400px;
+    }
+
+    .showcase .feedback-detail-input .input-wrapper input {
+        padding: 10px 13px;
+    }
 }

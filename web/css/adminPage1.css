@@ -74,7 +74,7 @@ img {
 }
 
 .content-item-main {
-    height: calc(100% - 145px);
+    height: calc(100% - 126px);
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -412,7 +412,7 @@ img {
 .showcase-content-item {
     grid-column: 1/2;
     grid-row: 1/2;
-    padding: 20px 30px 0;
+    padding: 20px 30px;
     background-color: #e7dfd2;
     display: none;
 }
@@ -528,7 +528,7 @@ img {
     height: 100%;
 }
 .showcase .pipe-column {
-    max-height: 595px;
+    max-height: 634px;
     height: 100%;
     background-color: transparent;
 }
@@ -668,16 +668,16 @@ img {
 }
 .showcase .list-showcase-item .pipe-list {
     height: 100%;
-    max-height: 534px;
+    max-height: 572px;
     overflow: auto;
 }
 
 @media screen and (max-width: 1600px) {
     .showcase .pipe-column {
-        max-height: 455px;
+        max-height: 442px;
     }
     .showcase .list-showcase .pipe-list {
-        max-height: 400px;
+        max-height: 387px;
     }
 }
 .user-heading-header {
@@ -790,7 +790,7 @@ img {
 }
 
 .user-list {
-    height: 660px;
+    height: 695px;
     width: 100%;
     display: flex;
     align-items: stretch;
@@ -836,11 +836,17 @@ img {
 }
 .user-list .user-item-showcase {
     text-align: center;
+    width: 100%;
 }
 .user-list .user-item-name {
     font-size: 1.8rem;
     font-weight: 600;
     text-transform: capitalize;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    margin: 0 auto;
 }
 
 .user-list .user-item-role {
@@ -974,8 +980,8 @@ img {
 .facility-content-main .pipe-item-heading {
     width: 100%;
     max-height: 150px;
+    height: 100%;
     overflow: hidden;
-    background-color: red;
     border-radius: inherit;
 }
 .facility-content-main .pipe-item-heading img {
@@ -1076,7 +1082,8 @@ img {
     display: block;
 }
 .facility-list .facility-list-showcase .list {
-    height: 646px;
+    max-height: 680px;
+    height: 100%;
     overflow: auto;
     display: flex;
     flex-wrap: wrap;
@@ -1548,13 +1555,18 @@ img {
 }
 
 .feedback-detail-header .feedback-detail-header-form-wrapper button:hover {
-    background: #d43a3ae5;
+    background: #ef2929e5;
 }
 
 .feedback-detail-header .feedback-detail-header-form-wrapper ion-icon {
     font-size: 3rem;
     color: #151111;
     transform: translateY(1px);
+    transition: color 0.2s;
+}
+
+.feedback-detail-header .feedback-detail-header-form-wrapper button:hover ion-icon {
+    color: #fff;
 }
 
 .feedback-detail-showcase {
@@ -1564,8 +1576,10 @@ img {
     height: calc(100% - 60px);
 }
 .feedback-detail-input .input-wrapper {
-    margin-bottom: 3rem;
     position: relative;
+}
+.feedback-detail-input .input-wrapper:not(:last-child) {
+    margin-bottom: 2rem;
 }
 .feedback-detail-input .input-wrapper input {
     width: 90%;
@@ -1574,7 +1588,7 @@ img {
     color: #151111;
     border: 1px solid #a7a7a7;
     outline: none;
-    font-size: 2rem;
+    font-size: 1.5rem;
     cursor: default;
 }
 .feedback-detail-input .input-wrapper input[name=quantity] {
@@ -1766,13 +1780,201 @@ img {
     }
 
     .facility-list .facility-list-showcase .list {
-        max-height: 465px;
+        max-height: 489px;
     }
 
     .facility-content-main .pipe-column {
         max-height: 520px;
+    } 
+    .feedback-detail {
+        margin-right: 20px;
+    }
+    
+
+}
+
+@media screen and (max-width: 1025px) { 
+    
+    .showcase {
+        padding: 20px;
+    }
+    
+    .showcase-main {
+        height: calc(100vh - 4rem);
+    }
+    
+    .showcase .pipe {
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 0 3rem;
+    }
+    .showcase .pipe-column {
+        max-height: 530px;
+    }
+    
+    .content-item-main {
+        height: calc(100% - 140px);
+    }
+
+    .comments-wrapper {
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: space-between;
+    }
+
+    .feedback-detail {
+        margin: 0 auto;
+        width: 90%;
+    }
+
+    .showcase .list-heading {
+        width: 80%;
+    }
+
+    .showcase .list-showcase .pipe-list {
+        max-height: 103rem;
+    }
+    
+    .facility-content-main {
+        height: calc(100% - 72px);
+    }
+    
+    .facility-list .facility-list-showcase {
+        height: calc(100% - 40px);
+    }
+    
+    .facility-list .facility-list-showcase-item {
+        height: calc(100% - 20px);
+    }
+    
+    .facility-list-heading {width: 70%}
+    
+    .facility-list .facility-list-showcase .list {
+        max-height: 113rem;
+    }
+    
+    .facility-list .facility-list-showcase .list .pipe-item {
+        width: calc(calc(100% / 3) - 20px);
+    }
+    
+}
+@media screen and (max-width: 769px) { 
+    .content-item-main {
+        height: calc(100% - 107px);
+    }
+    .showcase-desc {
+        margin-bottom: 1.5rem;
+    }
+    .showcase-content-list {
+        display: revert;
+    }
+    .showcase .pipe {
+        grid-gap: 0.5rem 3rem;
+    }
+    .showcase-content-item {
+        height: 100%;
+    }
+    .showcase .pipe-heading {
+        margin-bottom: 5px;
+    }
+    .showcase .pipe-list {
+        height: calc(100% - 10px);
+    }
+
+    .feedback-detail {
+        width: 85%;
+    }
+
+    .content-item-main .content-item-main-list {
+        padding: 0;
+        margin-top: 2.5rem;
+    }
+    .showcase .pipe-column {
+        max-height: 35.5rem;
+    }
+    .comments-wrapper .pipe-column {
+        max-height: 34rem;
+    }
+
+    .showcase .list-showcase .pipe-list {
+        max-height:71rem;
+    }
+    .showcase .list-heading {
+        width: 100%;
+    }
+
+    .comment-list-feedback .pipe-column {
+        max-height: 42rem;
+    }
+
+    .feedback-detail-showcase {
+        margin-top: 1rem;
+    }
+
+    .feedback-detail {
+        padding: 10px 15px;
+    }
+
+    .feedback-detail-header {
+        font-size: 1.2rem;
+    }
+
+    .feedback-detail-input .input-wrapper input[name=quantity] {
+        width: 40%;
+    }
+
+    .feedback-detail-header .feedback-detail-header-form-wrapper ion-icon {
+        font-size: 2.5rem;
+    }
+
+    .showcase .feedback-detail-textarea textarea {
+        height: 125px;
+
+    }
+
+    .feedback-detail-textarea textarea {
+        padding: 5px 16px;
+        font-size: 1rem;
+    }
+
+    .feedback-detail-showcase {
+        height: revert;
+    }
+
+    .feedback-detail label {
+        font-size: 0.85rem;
+    }
+    .feedback-detail-input .input-wrapper:not(:last-child) {
+        margin-bottom: 1.5rem;
+    }
+    .feedback-detail-input .input-wrapper input {
+        font-size: 1rem;
+        width: 85%;
+    }
+
+    .feedback-detail-image-wrapper {
+        height: revert;
+    }
+
+    .feedback-detail-image-wrapper img {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .facility-list-heading {width: 100%}
+
+    .facility-list .facility-list-showcase .list .pipe-item {
+        width: calc(50% - 15px);
+    }
+    
+    .showcase-form input {
+        width: 225px;
+    }
+    
+    .facility-list .facility-list-showcase .list {
+        max-height: 78.5rem;
     }
 }
+
 
 .modal-decline-box{
     position: fixed;

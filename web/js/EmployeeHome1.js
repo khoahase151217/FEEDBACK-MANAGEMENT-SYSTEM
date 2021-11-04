@@ -9,16 +9,21 @@ const taskItems = document.querySelectorAll(".task-item");
 const historyItems = document.querySelectorAll(".history-item");
 
 window.addEventListener('load', () => {
-        localStorage.setItem("EmpCount", JSON.stringify(0));
+    localStorage.setItem("EmpCount", JSON.stringify(0));
 
     navigationScrollBar.style.left = document.querySelector('.navigation-item.active').offsetLeft + "px";
     navigationScrollBar.style.width = document.querySelector('.navigation-item.active').offsetWidth + "px";
-    if(Array.from(taskItems).length === 0) {
+    if (Array.from(taskItems).length === 0) {
         document.querySelector(".task-detail-wrapper").style.display = 'none';
     }
-    if(Array.from(historyItems).length === 0) {
+    if (Array.from(historyItems).length === 0) {
         document.querySelector(".history-detail-wrapper").style.display = 'none';
     }
+
+    setTimeout(() => {
+        document.querySelector('.pipe-item.history-item.active').scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
+        document.querySelector('.pipe-item.task-item.active').scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
+    }, 700);
 });
 // Javascript for Feedback Page
 //Array.from(items).forEach((item) => {
@@ -201,17 +206,17 @@ function handleReloadPage(e) {
     window.location.replace("/SWP391_PROJECT/ShowFeedbackForEmpController");
 }
 
-Array.from(document.querySelectorAll(".btn-submit-links.trash")).forEach(item=>{
-    item.addEventListener("click",()=>{
-    var trash = JSON.parse(localStorage.getItem("Trashobj"))||{
-        id:0,
-        flag:false
-    };
-    if(trash.flag===false){
-    trash.id++;
-    trash.flag=true;
-    localStorage.setItem("Trashobj", JSON.stringify(trash));
-    }
-    
-})
+Array.from(document.querySelectorAll(".btn-submit-links.trash")).forEach(item => {
+    item.addEventListener("click", () => {
+        var trash = JSON.parse(localStorage.getItem("Trashobj")) || {
+            id: 0,
+            flag: false
+        };
+        if (trash.flag === false) {
+            trash.id++;
+            trash.flag = true;
+            localStorage.setItem("Trashobj", JSON.stringify(trash));
+        }
+
+    })
 })

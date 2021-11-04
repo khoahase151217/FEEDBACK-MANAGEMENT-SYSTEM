@@ -249,3 +249,25 @@
     border-radius: 7px;
     object-fit: cover;
 }
+
+@media screen and (max-width: 769px) {
+    .detail-main {
+        width: 70rem;
+    }
+    
+    .feedback .feedback-header p:first-child {
+        transform: translateX(50%);
+    }
+    
+    .feedback .feedback-header p:nth-child(2) {
+        transform: translateX(-29%);
+    }
+    
+    .feedback .feedback-header p:nth-child(3) {
+        transform: translateX(-130%);
+    }
+    
+    .feedback .feedback-header p:last-child {
+        transform: translateX(-80%);
+    }
+}

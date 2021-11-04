@@ -827,7 +827,7 @@ public class UserDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT TOP 10 t1.*,t2.Name as statusName,t3.Name as RoleName"
+                String sql = "SELECT TOP 15 t1.*,t2.Name as statusName,t3.Name as RoleName"
                         + " FROM tblUser t1 "
                         + " JOIN tblUserStatus t2 "
                         + " ON t1.StatusID=t2.StatusID "
@@ -879,7 +879,7 @@ public class UserDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT TOP 10 t1.*,t2.Name as statusName,t3.Name as RoleName"
+                String sql = "SELECT TOP 15 t1.*,t2.Name as statusName,t3.Name as RoleName"
                         + " FROM tblUser t1 "
                         + " JOIN tblUserStatus t2 "
                         + " ON t1.StatusID=t2.StatusID "
@@ -998,7 +998,7 @@ public class UserDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT TOP 10 t1.*,t2.Name as statusName,t3.Name as RoleName"
+                String sql = "SELECT TOP 15 t1.*,t2.Name as statusName,t3.Name as RoleName"
                         + " FROM tblUser t1 "
                         + " JOIN tblUserStatus t2 "
                         + " ON t1.StatusID=t2.StatusID "
@@ -1051,7 +1051,7 @@ public class UserDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*,t2.Name as statusName,t3.Name as RoleName"
+                String sql = "SELECT TOP 15 t1.*,t2.Name as statusName,t3.Name as RoleName"
                         + " FROM tblUser t1 "
                         + " JOIN tblUserStatus t2 "
                         + " ON t1.StatusID=t2.StatusID "
@@ -1161,7 +1161,7 @@ public class UserDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT TOP 10 t1.*,t2.Name as statusName,t3.Name as RoleName"
+                String sql = "SELECT TOP 15 t1.*,t2.Name as statusName,t3.Name as RoleName"
                         + " FROM tblUser t1 "
                         + " JOIN tblUserStatus t2 "
                         + " ON t1.StatusID=t2.StatusID "
@@ -1214,7 +1214,7 @@ public class UserDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*,t2.Name as statusName,t3.Name as RoleName"
+                String sql = "SELECT TOP 15 t1.*,t2.Name as statusName,t3.Name as RoleName"
                         + " FROM tblUser t1 "
                         + " JOIN tblUserStatus t2 "
                         + " ON t1.StatusID=t2.StatusID "
@@ -1324,7 +1324,7 @@ public class UserDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT TOP 10 t1.*,t2.Name as statusName,t3.Name as RoleName"
+                String sql = "SELECT TOP 15 t1.*,t2.Name as statusName,t3.Name as RoleName"
                         + " FROM tblUser t1 "
                         + " JOIN tblUserStatus t2 "
                         + " ON t1.StatusID=t2.StatusID "
@@ -1377,7 +1377,7 @@ public class UserDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*,t2.Name as statusName,t3.Name as RoleName"
+                String sql = "SELECT TOP 15 t1.*,t2.Name as statusName,t3.Name as RoleName"
                         + " FROM tblUser t1 "
                         + " JOIN tblUserStatus t2 "
                         + " ON t1.StatusID=t2.StatusID "
@@ -1487,7 +1487,7 @@ public class UserDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT TOP 10 t1.*,t2.Name as statusName,t3.Name as RoleName"
+                String sql = "SELECT TOP 15 t1.*,t2.Name as statusName,t3.Name as RoleName"
                         + " FROM tblUser t1 "
                         + " JOIN tblUserStatus t2 "
                         + " ON t1.StatusID=t2.StatusID "
@@ -1540,7 +1540,7 @@ public class UserDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*,t2.Name as statusName,t3.Name as RoleName"
+                String sql = "SELECT TOP 15 t1.*,t2.Name as statusName,t3.Name as RoleName"
                         + " FROM tblUser t1 "
                         + " JOIN tblUserStatus t2 "
                         + " ON t1.StatusID=t2.StatusID "

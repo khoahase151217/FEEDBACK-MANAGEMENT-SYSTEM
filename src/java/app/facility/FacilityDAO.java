@@ -367,7 +367,7 @@ public class FacilityDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT TOP 10 t1.*, t2.Name as statusName "
+                String sql = "SELECT TOP 15 t1.*, t2.Name as statusName "
                         + " FROM tblFacilities t1 "
                         + " JOIN tblFacilityStatus t2 "
                         + " ON t1.StatusID = t2.StatusID "
@@ -410,7 +410,7 @@ public class FacilityDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*, t2.Name as statusName "
+                String sql = "SELECT TOP 15 t1.*, t2.Name as statusName "
                         + " FROM tblFacilities t1 "
                         + " JOIN tblFacilityStatus t2 "
                         + " ON t1.StatusID = t2.StatusID "
@@ -499,7 +499,7 @@ public class FacilityDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*, t2.Name as statusName "
+                String sql = "SELECT TOP 15 t1.*, t2.Name as statusName "
                         + " FROM tblFacilities t1 "
                         + " JOIN tblFacilityStatus t2 "
                         + " ON t1.StatusID = t2.StatusID "
@@ -543,7 +543,7 @@ public class FacilityDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*, t2.Name as statusName "
+                String sql = "SELECT TOP 15 t1.*, t2.Name as statusName "
                         + " FROM tblFacilities t1 "
                         + " JOIN tblFacilityStatus t2 "
                         + " ON t1.StatusID = t2.StatusID "
@@ -675,7 +675,7 @@ public class FacilityDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT TOP 10 t1.*, t2.Name as statusName "
+                String sql = "SELECT TOP 15 t1.*, t2.Name as statusName "
                         + " FROM tblFacilities t1 "
                         + " JOIN tblFacilityStatus t2 "
                         + " ON t1.StatusID = t2.StatusID "
@@ -719,7 +719,7 @@ public class FacilityDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*, t2.Name as statusName "
+                String sql = "SELECT TOP 15 t1.*, t2.Name as statusName "
                         + " FROM tblFacilities t1 "
                         + " JOIN tblFacilityStatus t2 "
                         + " ON t1.StatusID = t2.StatusID "
@@ -810,7 +810,7 @@ public class FacilityDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT TOP 10 t1.*, t2.Name as statusName "
+                String sql = "SELECT TOP 15 t1.*, t2.Name as statusName "
                         + " FROM tblFacilities t1 "
                         + " JOIN tblFacilityStatus t2 "
                         + " ON t1.StatusID = t2.StatusID "
@@ -854,7 +854,7 @@ public class FacilityDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*, t2.Name as statusName "
+                String sql = "SELECT TOP 15 t1.*, t2.Name as statusName "
                         + " FROM tblFacilities t1 "
                         + " JOIN tblFacilityStatus t2 "
                         + " ON t1.StatusID = t2.StatusID "
@@ -945,7 +945,7 @@ public class FacilityDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT TOP 10 t1.*, t2.Name as statusName "
+                String sql = "SELECT TOP 15 t1.*, t2.Name as statusName "
                         + " FROM tblFacilities t1 "
                         + " JOIN tblFacilityStatus t2 "
                         + " ON t1.StatusID = t2.StatusID "
@@ -989,7 +989,7 @@ public class FacilityDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*, t2.Name as statusName "
+                String sql = "SELECT TOP 15 t1.*, t2.Name as statusName "
                         + " FROM tblFacilities t1 "
                         + " JOIN tblFacilityStatus t2 "
                         + " ON t1.StatusID = t2.StatusID "
@@ -1080,7 +1080,7 @@ public class FacilityDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT TOP 10 t1.*, t2.Name as statusName "
+                String sql = "SELECT TOP 15 t1.*, t2.Name as statusName "
                         + " FROM tblFacilities t1 "
                         + " JOIN tblFacilityStatus t2 "
                         + " ON t1.StatusID = t2.StatusID "
@@ -1124,7 +1124,7 @@ public class FacilityDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*, t2.Name as statusName "
+                String sql = "SELECT TOP 15 t1.*, t2.Name as statusName "
                         + " FROM tblFacilities t1 "
                         + " JOIN tblFacilityStatus t2 "
                         + " ON t1.StatusID = t2.StatusID "

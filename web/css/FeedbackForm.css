@@ -303,3 +303,26 @@
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
 }
+
+@media screen and (max-width: 1025px) {
+    .container-main {
+        width: 97rem;
+    }
+    
+    .select-description {
+        width: 56rem;
+    }
+}
+
+@media screen and (max-width: 769px) {
+    .container-main {
+        width: 72rem;
+    }
+    .list-feedback {
+        width: 30rem;
+    }
+    
+    .select-description {
+        width: 36rem;
+    }
+}

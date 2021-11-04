@@ -31,7 +31,7 @@
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
         ></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage1.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ManagerViewUser.css" />
     </head>
     <body>
@@ -595,7 +595,7 @@
                 </div>
             </section>
         </main>
-        <script src="${pageContext.request.contextPath}/js/adminPage.js"></script>
+        <script src="${pageContext.request.contextPath}/js/adminPage1.js"></script>
         <script src="${pageContext.request.contextPath}/js/ManagerUser1.js"></script>
         <!-- Query -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

@@ -13,7 +13,7 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Manager Page</title>
+        <title>Employee Page</title>
 
         <!-- Popins Font -->
         <link
@@ -34,7 +34,7 @@
         <!-- font awesome -->
         <script src="https://kit.fontawesome.com/97ce91ff3b.js" crossorigin="anonymous"></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/EmployeeHome.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/EmployeeHome1.css" />
     </head>
     <body>
         <div class="reponse-form ${requestScope.flag}">
@@ -372,7 +372,7 @@
                                             "
                                             >
                                             <div class="pipe">
-                                                <div class="pipe-column">
+                                                <div class="pipe-column pipe-columm-list">
                                                     <div class="pipe-list">
                                                         <c:if test="${empty sessionScope.LIST_FEEDBACK}">
                                                             <p class="pipe-item-date">No result can be found ...</p>
@@ -801,7 +801,7 @@
                                         <!-- History -->
                                         <div class="content-item-main-item ${requestScope.LIST_STYLE_HISTORY}">
                                             <div class="pipe">
-                                                <div class="pipe-column">
+                                                <div class="pipe-column pipe-columm-list">
                                                     <div class="pipe-list">
                                                         <c:if test="${empty sessionScope.LIST_HISTORY}">
                                                             <p class="pipe-item-date">No result can be found ...</p>
@@ -1083,7 +1083,7 @@
         </main>
                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-        <script src="${pageContext.request.contextPath}/js/EmployeeHome.js"></script>
+        <script src="${pageContext.request.contextPath}/js/EmployeeHome1.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseForResponse.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseForTrash.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseEmpFromAdmin.js"></script>
@@ -1155,12 +1155,6 @@
                 $("#avatarImage").on("change", function (e) {
                     imagesPreview2(this);
                 });
-
-                setTimeout(() => {
-                    document.querySelector('.pipe-item.history-item.active').scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
-                    document.querySelector('.pipe-item.task-item.active').scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
-                }, 700);
-
             });
         </script>
     </body>

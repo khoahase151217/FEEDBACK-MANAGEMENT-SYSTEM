@@ -128,8 +128,50 @@
     display: block;
 }
 
+
 @media screen and (max-width: 1600px) {
     .user-list {
         max-height: 510px;
+        gap: 20px 30px;
+    }
+
+    .user-list .user-item {
+        width: calc(25% - 22.5px);
+    }
+}
+
+@media screen and (max-width: 1025px) {
+
+    .content-item-main {
+        height: calc(100% - 102px);
+    }
+
+    .showcase-user-category {
+        width: 80%;
+    }
+
+    .user-list {
+        max-height: 115rem;
+        height: 100%;
+        gap: 20px 30px;
+    }
+
+    .user-list .user-item {
+        width: calc(calc(100% / 3) - 20px);
+    }
+}
+
+@media screen and (max-width: 769px) {
+
+    .showcase-user-category {
+        width: 100%;
+    }
+
+    .user-list {
+        max-height: 80rem;
+    }
+
+    .user-list .user-item {
+        width: calc(50% - 15px);
     }
 }

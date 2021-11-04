@@ -32,8 +32,8 @@
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
         ></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage.css" />
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPageDetailModal.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage1.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPageDetailModal1.css" />
     </head>
     <body>
         <!-- if you want to open modal, you add class for div[class = 'feedbackDetail'] value: 'open' -->
@@ -807,7 +807,7 @@
                                                     <div class="list-showcase-item ${requestScope.STYLE_LIST_ALL}">
                                                         <div class="pipe-list" data-index="0">
                                                             <c:if test="${empty sessionScope.FEEDBACK_LIST_ALL}">
-                                                                <p class="showcase-desc">
+                                                                <p class="pipe-item-date">
                                                                     No result can be found ...
                                                                 </p>
                                                             </c:if>
@@ -842,7 +842,7 @@
                                                     <div class="list-showcase-item ${requestScope.STYLE_LIST_PENDING}">
                                                         <div class="pipe-list" data-index="1">
                                                             <c:if test="${empty sessionScope.FEEDBACK_LIST_PENDING}">
-                                                                <p class="showcase-desc">
+                                                                <p class="pipe-item-date">
                                                                     No result can be found ...
                                                                 </p>
                                                             </c:if>
@@ -877,7 +877,7 @@
                                                     <div class="list-showcase-item ${requestScope.STYLE_LIST_ONGOING}">
                                                         <div class="pipe-list" data-index="2">
                                                             <c:if test="${empty sessionScope.FEEDBACK_LIST_FIXING}">
-                                                                <p class="showcase-desc">
+                                                                <p class="pipe-item-date">
                                                                     No result can be found ...
                                                                 </p>
                                                             </c:if>
@@ -912,7 +912,7 @@
                                                     <div class="list-showcase-item ${requestScope.STYLE_LIST_DECLINE}">
                                                         <div class="pipe-list" data-index="3">
                                                             <c:if test="${empty sessionScope.FEEDBACK_LIST_DENY}">
-                                                                <p class="showcase-desc">
+                                                                <p class="pipe-item-date">
                                                                     No result can be found ...
                                                                 </p>
                                                             </c:if>
@@ -947,7 +947,7 @@
                                                     <div class="list-showcase-item ${requestScope.STYLE_LIST_DONE}">
                                                         <div class="pipe-list" data-index="4">
                                                             <c:if test="${empty sessionScope.FEEDBACK_LIST_DONE}">
-                                                                <p class="showcase-desc">
+                                                                <p class="pipe-item-date">
                                                                     No result can be found ...
                                                                 </p>
                                                             </c:if>
@@ -1287,6 +1287,7 @@
                                                                                     src="data:image/jpg/png;base64,${reponseDetail.image}"
                                                                                     alt=""
                                                                                     />
+
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -1314,7 +1315,7 @@
                 </div>
             </section>
         </main>
-                                                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
         <script src="${pageContext.request.contextPath}/js/adminPage1.js"></script>
         <script src="${pageContext.request.contextPath}/js/ManagerFB.js"></script>
@@ -1583,12 +1584,12 @@
                                                         });
                                                     });
 
-//                                                    setTimeout(() => {
-//                                                        $(".pipe-comment-item.active")[0].scrollIntoView({
-//                                                            behavior: "smooth",
-//                                                            block: "center"
-//                                                        });
-//                                                    }, 700);
+                                                    setTimeout(() => {
+                                                        $(".pipe-comment-item.active")[0].scrollIntoView({
+                                                            behavior: "smooth",
+                                                            block: "center"
+                                                        });
+                                                    }, 700);
 
 //                                                    Javascript of load data when scroll of comment in adminPage.jsp
 //                                                    document.querySelector(".comment-list-feedback .pipe-list").addEventListener('scroll', function (e) {

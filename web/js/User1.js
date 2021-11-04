@@ -249,10 +249,10 @@ Array.from(categoryList).forEach((category) => {
         let mainHref = tmp.split("&");
         if (category.dataset.index === '0') {
             document.querySelector("header .dropdown-list a:first-child").removeAttribute("href");
-            document.querySelector("header .dropdown-list a:first-child").setAttribute("href", mainHref[0] + "&style_pipe=active");
+            document.querySelector("header .dropdown-list a:first-child").setAttribute("href", mainHref[0] + "&style_pipe=active&user=user");
         } else {
             document.querySelector("header .dropdown-list a:first-child").removeAttribute("href");
-            document.querySelector("header .dropdown-list a:first-child").setAttribute("href", mainHref[0] + "&style_list=active");
+            document.querySelector("header .dropdown-list a:first-child").setAttribute("href", mainHref[0] + "&style_list=active&user=user");
         }
     });
 });
