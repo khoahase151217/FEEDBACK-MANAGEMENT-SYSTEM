@@ -159,7 +159,7 @@
                     <div class="showcase-main">
                         <div class="showcase-header">
                             <div class="showcase-logo">
-                                <a href="#">
+                                <a href="FacilityStatisticController">
                                     <img
                                         src="https://cdn.discordapp.com/attachments/770804043794350100/888843339439407104/toolkit.png"
                                         alt=""
@@ -990,6 +990,7 @@
                 </div>
             </section>
         </main>
+                        <script src="${pageContext.request.contextPath}/js/adminPage1.js"></script>
         <script src="${pageContext.request.contextPath}/js/ManagerStatictis.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseAdminfromUser.js"></script>
         <script
