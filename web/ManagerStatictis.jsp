@@ -991,6 +991,7 @@
             </section>
         </main>
         <script src="${pageContext.request.contextPath}/js/ManagerStatictis.js"></script>
+        <script type="module" src="${pageContext.request.contextPath}/js/firebaseAdminfromUser.js"></script>
         <script
             type="text/javascript"
             src="https://www.gstatic.com/charts/loader.js"
@@ -1146,8 +1147,8 @@
                 }
             });
             $(function () {
-                handleNotification();
-                setInterval(handleNotification, 10000);
+//                handleNotification();
+//                setInterval(handleNotification, 10000);
 
                 $.ajax({
                     url: "/SWP391_PROJECT/FeedbackStatisticByYear",

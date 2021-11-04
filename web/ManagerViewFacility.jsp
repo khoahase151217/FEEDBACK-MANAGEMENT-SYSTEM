@@ -35,6 +35,7 @@
 
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage1.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ManagerViewFacility1.css" />
+        
     </head>
     <body>
 
@@ -522,6 +523,7 @@
 
         <script src="${pageContext.request.contextPath}/js/adminPage.js"></script>
         <script src="${pageContext.request.contextPath}/js/ManagerFacility1.js"></script>
+        <script type="module" src="${pageContext.request.contextPath}/js/firebaseAdminfromUser.js"></script>
         <!-- Query -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
@@ -677,8 +679,8 @@
             ;
 
             $(function () {
-                handleNotification();
-                setInterval(handleNotification, 10000);
+//                handleNotification();
+//                setInterval(handleNotification, 10000);
 
                 Array.from($(".list")).forEach(item => {
                     item.addEventListener('scroll', (e) => {

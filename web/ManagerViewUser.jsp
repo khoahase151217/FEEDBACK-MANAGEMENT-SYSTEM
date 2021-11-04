@@ -597,6 +597,7 @@
         </main>
         <script src="${pageContext.request.contextPath}/js/adminPage1.js"></script>
         <script src="${pageContext.request.contextPath}/js/ManagerUser1.js"></script>
+        <script type="module" src="${pageContext.request.contextPath}/js/firebaseAdminfromUser.js"></script>
         <!-- Query -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
@@ -720,8 +721,8 @@
                     }
                 });
             }
-            handleNotification();
-            setInterval(handleNotification, 10000);
+//            handleNotification();
+//            setInterval(handleNotification, 10000);
 
             function loadResults(index, list) {
                 let amount = list.querySelectorAll('.user-item').length;
