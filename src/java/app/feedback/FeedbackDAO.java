@@ -278,7 +278,7 @@ public class FeedbackDAO {
             }
             body.append("</table> </td> </tr>"
                     + " <!-- End --> "
-                    + "<tr> <td style=\" color: #151111; font-weight: 500; font-size: 14px; padding: 10px 0; font-family: 'Poppins', sans-serif; \" > On behalf of the customer experience team. I'm here for you as an expert on fit. please feel free to reach out <a href=\"http://localhost:8084/SWP391_PROJECT/\" style=\" color: #151111; font-weight: 800; text-decoration: none; font-family: 'Poppins', sans-serif; \" >Traversy</a > if you ever have any questions, curiosities or feedback down the track </td> </tr> </table> </td> </tr> <!-- Footer --> <tr> <td bgcolor=\"#e6bb7a\" style=\"padding: 30px 30px 30px 30px\"> <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"font-family: 'Poppins', sans-serif\" > <tr> <td width=\"75%\" style=\"font-size: 12px\"> Copyright &copy; 2021 Traversy<br /> Designed by <a href=\"#\" style=\" color: #615d58; text-decoration: none; font-weight: 600; \" >MinhDuc</a > All Rights Reserved. </td> <td align=\"right\"> <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"> <tr> <td> <a href=\"http://localhost:8084/SWP391_PROJECT/GetUserIdForRatingController?UserID=" + userID + "&feedbackID="+feedbackID+"\" style=\"color: #151111; font-size: 2.5rem\" > <img\n"
+                    + "<tr> <td style=\" color: #151111; font-weight: 500; font-size: 14px; padding: 10px 0; font-family: 'Poppins', sans-serif; \" > On behalf of the customer experience team. I'm here for you as an expert on fit. please feel free to reach out <a href=\"http://localhost:8084/SWP391_PROJECT/\" style=\" color: #151111; font-weight: 800; text-decoration: none; font-family: 'Poppins', sans-serif; \" >Traversy</a > if you ever have any questions, curiosities or feedback down the track </td> </tr> </table> </td> </tr> <!-- Footer --> <tr> <td bgcolor=\"#e6bb7a\" style=\"padding: 30px 30px 30px 30px\"> <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"font-family: 'Poppins', sans-serif\" > <tr> <td width=\"75%\" style=\"font-size: 12px\"> Copyright &copy; 2021 Traversy<br /> Designed by <a href=\"#\" style=\" color: #615d58; text-decoration: none; font-weight: 600; \" >MinhDuc</a > All Rights Reserved. </td> <td align=\"right\"> <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"> <tr> <td> <a href=\"http://localhost:8084/SWP391_PROJECT/GetUserIdForRatingController?UserID=" + userID + "&feedbackID=" + feedbackID + "\" style=\"color: #151111; font-size: 2.5rem\" > <img\n"
                     + "                          src=\"https://toppng.com/uploads/preview/facebook-logo-black-facebook-logo-png-black-115636506480t2wll0es7.png\"\n"
                     + "                          width=\"25\"\n"
                     + "                          height=\"25\"\n"
@@ -374,7 +374,7 @@ public class FeedbackDAO {
                     String reason = rs.getString("Reason");
                     String facilityName = rs.getString("FacilityName");
                     String des = rs.getString("Description");
-                    String userID=rs.getString("UserID");
+                    String userID = rs.getString("UserID");
                     list.add(new FeedbackDetailDTO("", "", userID, feedbackID, quantity, reason, location, "", false, facilityName, date, des));
                 }
             }
@@ -4104,5 +4104,39 @@ public class FeedbackDAO {
             }
         }
         return check;
+    }
+
+    public String getComment(String feedbackID) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        String comment = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT t1.comment FROM tblFeedback t1 "
+                        + " WHERE t1.FeedbackID=? ";
+                stm = conn.prepareCall(sql);
+                stm.setString(1, feedbackID);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    comment = rs.getString("comment");
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return comment;
     }
 }

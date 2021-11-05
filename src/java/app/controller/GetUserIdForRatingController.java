@@ -5,6 +5,7 @@
  */
 package app.controller;
 
+import app.feedback.FeedbackDAO;
 import app.users.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,6 +23,7 @@ public class GetUserIdForRatingController extends HttpServlet {
 
     private static final String ERROR = "error.jsp";
     private static final String SUCCESS = "RatingForm.jsp";
+    private static final String ALREADY = "ThankYou.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,9 +43,15 @@ public class GetUserIdForRatingController extends HttpServlet {
             HttpSession session = request.getSession();
             String userID = request.getParameter("UserID");
             String feedbackID = request.getParameter("feedbackID");
-            session.setAttribute("UserID", userID);
-            session.setAttribute("feedbackID", feedbackID);
-            url = SUCCESS;
+            FeedbackDAO dao = new FeedbackDAO();
+            String comment = dao.getComment(feedbackID);
+            if (comment != null) {
+                url = ALREADY;
+            } else {
+                session.setAttribute("UserID", userID);
+                session.setAttribute("feedbackID", feedbackID);
+                url = SUCCESS;
+            }
         } catch (Exception e) {
             log("Error at  Controller:" + e.toString());
         } finally {
