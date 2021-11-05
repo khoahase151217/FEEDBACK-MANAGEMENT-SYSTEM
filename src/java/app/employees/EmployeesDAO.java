@@ -434,7 +434,7 @@ public class EmployeesDAO {
                         + " JOIN tblUser t3    ON t1.UserID = t3.UserID "
                         + " JOIN tblFeedbackStatus t4 ON t1.statusID = t4.FeedbackStatusID "
                         + " WHERE t2.UserID = ? AND t2.flag= 'false' "
-                        + " group by t1.Date ,t1.FeedbackID,t1.statusID, t1.UserID, t3.Email, t3.FullName, t4.Name,t1.TrashDate  "
+                        + " group by t1.Date ,t1.FeedbackID,t1.statusID, t1.UserID, t3.Email, t3.FullName, t4.Name,t1.TrashDate,t1.comment  "
                         + " ORDER BY t1.DATE";
                 stm = conn.prepareCall(sql);
                 stm.setString(1, userID);
@@ -479,7 +479,7 @@ public class EmployeesDAO {
                         + " JOIN tblUser t3    ON t1.UserID = t3.UserID "
                         + " JOIN tblFeedbackStatus t4 ON t1.statusID = t4.FeedbackStatusID "
                         + " WHERE t5.UserID = ?   "
-                        + " group by t1.Date ,t1.FeedbackID,t1.statusID, t1.UserID, t3.Email, t3.FullName, t4.Name,t1.TrashDate  "
+                        + " group by t1.Date ,t1.FeedbackID,t1.statusID, t1.UserID, t3.Email, t3.FullName, t4.Name,t1.TrashDate,t1.comment  "
                         + " ORDER BY t1.DATE";
                 stm = conn.prepareCall(sql);
                 stm.setString(1, userID);
@@ -523,7 +523,7 @@ public class EmployeesDAO {
                         + " JOIN tblUser t3 ON t1.UserID = t3.UserID "
                         + " JOIN tblFeedbackStatus t4 ON t1.statusID = t4.FeedbackStatusID "
                         + " WHERE t2.flag = 'true' AND t1.statusID not in ('decline', 'done') "
-                        + " group by t1.Date ,t1.FeedbackID,t1.statusID, t1.UserID, t3.Email, t3.FullName, t4.Name,t1.TrashDate  "
+                        + " group by t1.Date ,t1.FeedbackID,t1.statusID, t1.UserID, t3.Email, t3.FullName, t4.Name,t1.TrashDate,t1.comment  "
                         + " ORDER BY t1.DATE ";
                 stm = conn.prepareCall(sql);
                 rs = stm.executeQuery();
@@ -567,7 +567,7 @@ public class EmployeesDAO {
                         + " JOIN tblUser t3 ON t1.UserID = t3.UserID "
                         + " JOIN tblFeedbackStatus t4 ON t1.statusID = t4.FeedbackStatusID "
                         + " WHERE t2.flag = 'true' AND t1.statusID not in ('decline', 'done') "
-                        + " group by t1.Date ,t1.FeedbackID,t1.statusID, t1.UserID, t3.Email, t3.FullName, t4.Name "
+                        + " group by t1.Date ,t1.FeedbackID,t1.statusID, t1.UserID, t3.Email, t3.FullName, t4.Name,t1.comment  "
                         + " ORDER BY t1.DATE "
                         + " OFFSET ? ROWS "
                         + " FETCH NEXT 10 ROWS ONLY";

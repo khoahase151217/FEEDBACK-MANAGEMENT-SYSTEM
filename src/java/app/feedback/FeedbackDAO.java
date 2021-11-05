@@ -250,6 +250,8 @@ public class FeedbackDAO {
                     + "<tr> "
                     + "<td style=\"padding: 10px 0\"> "
                     + "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\" border-radius: 10px; padding: 0 0 0 50px; font-size: 12px; font-family: 'Poppins', sans-serif; \" > ");
+            String userID = "";
+            String feedbackID = "";
             for (FeedbackDetailDTO detail : list) {
                 String deviceName = detail.getDeviceName();
                 String quantity = detail.getQuanity();
@@ -257,6 +259,8 @@ public class FeedbackDAO {
                 String date = detail.getDate();
                 String reason = detail.getReason();
                 String des = detail.getDescription();
+                userID = detail.getUserID();
+                feedbackID = detail.getFeedbackID();
                 body.append("<tr> <td> "
                         + "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" bgcolor=\"#EBEBEB\" style=\" padding: 10px; font-size: 12px; border-radius: 6px; font-family: 'Poppins', sans-serif; \" > "
                         + "<tr> <td> <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"font-family: 'Poppins', sans-serif\" > <tr> "
@@ -274,7 +278,7 @@ public class FeedbackDAO {
             }
             body.append("</table> </td> </tr>"
                     + " <!-- End --> "
-                    + "<tr> <td style=\" color: #151111; font-weight: 500; font-size: 14px; padding: 10px 0; font-family: 'Poppins', sans-serif; \" > On behalf of the customer experience team. I'm here for you as an expert on fit. please feel free to reach out <a href=\"http://localhost:8084/SWP391_PROJECT/\" style=\" color: #151111; font-weight: 800; text-decoration: none; font-family: 'Poppins', sans-serif; \" >Traversy</a > if you ever have any questions, curiosities or feedback down the track </td> </tr> </table> </td> </tr> <!-- Footer --> <tr> <td bgcolor=\"#e6bb7a\" style=\"padding: 30px 30px 30px 30px\"> <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"font-family: 'Poppins', sans-serif\" > <tr> <td width=\"75%\" style=\"font-size: 12px\"> Copyright &copy; 2021 Traversy<br /> Designed by <a href=\"#\" style=\" color: #615d58; text-decoration: none; font-weight: 600; \" >MinhDuc</a > All Rights Reserved. </td> <td align=\"right\"> <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"> <tr> <td> <a href=\"https://www.facebook.com/\" style=\"color: #151111; font-size: 2.5rem\" > <img\n"
+                    + "<tr> <td style=\" color: #151111; font-weight: 500; font-size: 14px; padding: 10px 0; font-family: 'Poppins', sans-serif; \" > On behalf of the customer experience team. I'm here for you as an expert on fit. please feel free to reach out <a href=\"http://localhost:8084/SWP391_PROJECT/\" style=\" color: #151111; font-weight: 800; text-decoration: none; font-family: 'Poppins', sans-serif; \" >Traversy</a > if you ever have any questions, curiosities or feedback down the track </td> </tr> </table> </td> </tr> <!-- Footer --> <tr> <td bgcolor=\"#e6bb7a\" style=\"padding: 30px 30px 30px 30px\"> <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"font-family: 'Poppins', sans-serif\" > <tr> <td width=\"75%\" style=\"font-size: 12px\"> Copyright &copy; 2021 Traversy<br /> Designed by <a href=\"#\" style=\" color: #615d58; text-decoration: none; font-weight: 600; \" >MinhDuc</a > All Rights Reserved. </td> <td align=\"right\"> <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"> <tr> <td> <a href=\"http://localhost:8084/SWP391_PROJECT/GetUserIdForRatingController?UserID=" + userID + "&feedbackID="+feedbackID+"\" style=\"color: #151111; font-size: 2.5rem\" > <img\n"
                     + "                          src=\"https://toppng.com/uploads/preview/facebook-logo-black-facebook-logo-png-black-115636506480t2wll0es7.png\"\n"
                     + "                          width=\"25\"\n"
                     + "                          height=\"25\"\n"
@@ -370,7 +374,8 @@ public class FeedbackDAO {
                     String reason = rs.getString("Reason");
                     String facilityName = rs.getString("FacilityName");
                     String des = rs.getString("Description");
-                    list.add(new FeedbackDetailDTO("", "", "", "", quantity, reason, location, "", false, facilityName, date, des));
+                    String userID=rs.getString("UserID");
+                    list.add(new FeedbackDetailDTO("", "", userID, feedbackID, quantity, reason, location, "", false, facilityName, date, des));
                 }
             }
 
@@ -577,7 +582,7 @@ public class FeedbackDAO {
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t3.Name like N'" + "%" + search + "%" + "' "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name"
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name,t1.comment "
                         + " order by t1.Date desc ";
                 ps = conn.prepareStatement(sql);
 //                ps.setString(1, '%' + search + '%');
@@ -629,7 +634,7 @@ public class FeedbackDAO {
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t3.Name like N'" + "%" + search + "%" + "' "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name"
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name,t1.comment "
                         + " order by t1.Date desc "
                         + " OFFSET ? ROWS "
                         + " FETCH NEXT 10 ROWS ONLY";
@@ -679,7 +684,7 @@ public class FeedbackDAO {
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t1.statusID='done' "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name"
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name,t1.comment "
                         + " order by t1.Date desc ";
                 ps = conn.prepareStatement(sql);
                 rs = ps.executeQuery();
@@ -726,7 +731,7 @@ public class FeedbackDAO {
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t1.statusID='done' "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name,t1.TrashDate "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name,t1.TrashDate,t1.comment "
                         + " order by t1.FeedbackID desc ";
                 ps = conn.prepareStatement(sql);
                 rs = ps.executeQuery();
@@ -773,7 +778,7 @@ public class FeedbackDAO {
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t1.statusID='done' "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name"
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name,t1.comment "
                         + " order by t1.Date asc "
                         + " OFFSET ? ROWS "
                         + " FETCH NEXT 10 ROWS ONLY";
@@ -823,7 +828,7 @@ public class FeedbackDAO {
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t1.statusID='onGoing' "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name"
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name,t1.comment"
                         + " order by t1.Date desc ";
                 ps = conn.prepareStatement(sql);
                 rs = ps.executeQuery();
@@ -870,7 +875,7 @@ public class FeedbackDAO {
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t1.statusID='onGoing' "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name,t1.TrashDate "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name,t1.TrashDate,t1.comment "
                         + " order by t1.FeedbackID desc ";
                 ps = conn.prepareStatement(sql);
                 rs = ps.executeQuery();
@@ -917,7 +922,7 @@ public class FeedbackDAO {
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t1.statusID='onGoing' "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name"
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name,t1.comment "
                         + " order by t1.Date asc "
                         + " OFFSET ? ROWS "
                         + " FETCH NEXT 10 ROWS ONLY";
@@ -967,7 +972,7 @@ public class FeedbackDAO {
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t1.statusID='pending' "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name,t1.comment "
                         + " order by t1.Date desc ";
                 ps = conn.prepareStatement(sql);
                 rs = ps.executeQuery();
@@ -1014,7 +1019,7 @@ public class FeedbackDAO {
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t1.statusID='pending'  "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name,t1.TrashDate  "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name,t1.TrashDate,t1.comment  "
                         + " order by t1.FeedbackID desc ";
                 ps = conn.prepareStatement(sql);
                 rs = ps.executeQuery();
@@ -1061,7 +1066,7 @@ public class FeedbackDAO {
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t1.statusID='pending'  "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name,t1.TrashDate  "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name,t1.TrashDate,t1.comment  "
                         + " order by t1.FeedbackID desc ";
                 ps = conn.prepareStatement(sql);
                 rs = ps.executeQuery();
@@ -1109,7 +1114,7 @@ public class FeedbackDAO {
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t1.statusID='pending'  "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name,t1.comment "
                         + " order by t1.Date asc "
                         + " OFFSET ? ROWS "
                         + " FETCH NEXT 10 ROWS ONLY";
@@ -1158,7 +1163,7 @@ public class FeedbackDAO {
                         + " ON t1.StatusID=t2.FeedbackStatusID "
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name,t1.comment "
                         + " order by t1.Date desc ";
                 ps = conn.prepareStatement(sql);
                 rs = ps.executeQuery();
@@ -1204,7 +1209,7 @@ public class FeedbackDAO {
                         + " ON t1.StatusID=t2.FeedbackStatusID "
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name,t1.TrashDate  "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name,t1.TrashDate,t1.comment"
                         + " order by t1.FeedbackID desc ";
                 ps = conn.prepareStatement(sql);
                 rs = ps.executeQuery();
@@ -1250,7 +1255,7 @@ public class FeedbackDAO {
                         + " ON t1.StatusID=t2.FeedbackStatusID "
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name,t1.comment "
                         + " order by t1.Date asc "
                         + " OFFSET ? ROWS "
                         + " FETCH NEXT 10 ROWS ONLY";
@@ -1566,7 +1571,7 @@ public class FeedbackDAO {
                         + "FROM tblFeedback t1 "
                         + " JOIN tblUser t4 "
                         + "  ON t1.UserID = t4.UserID "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email"
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t1.comment "
                         + " order by t1.Date asc";
 
                 st = conn.prepareStatement(sql);
@@ -1609,7 +1614,7 @@ public class FeedbackDAO {
                         + " FROM tblFeedback t1 "
                         + " JOIN tblUser t4 "
                         + "  ON t1.UserID = t4.UserID "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t1.comment "
                         + " order by t1.Date desc";
                 st = conn.prepareStatement(sql);
                 rs = st.executeQuery();
@@ -1686,7 +1691,7 @@ public class FeedbackDAO {
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t1.statusID='decline' "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name,t1.TrashDate  "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name,t1.TrashDate,t1.comment  "
                         + " order by t1.FeedbackID desc ";
                 ps = conn.prepareStatement(sql);
                 rs = ps.executeQuery();
@@ -1733,7 +1738,7 @@ public class FeedbackDAO {
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t1.statusID='decline' "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name,t1.comment "
                         + " order by t1.Date asc "
                         + " OFFSET ? ROWS "
                         + " FETCH NEXT 10 ROWS ONLY";
@@ -1783,7 +1788,7 @@ public class FeedbackDAO {
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t1.statusID='decline' "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name,t1.comment "
                         + " order by t1.Date desc ";
                 ps = conn.prepareStatement(sql);
                 rs = ps.executeQuery();
@@ -1829,7 +1834,7 @@ public class FeedbackDAO {
                         + " JOIN tblFacilities t5 "
                         + "  ON t5.FacilityID = t2.FacilityID "
                         + " WHERE t2.UserID = ? AND t5.Name like ? AND t2.flag= 'false' AND t1.statusID != 'decline' "
-                        + " group by t1.Date ,t1.FeedbackID,t1.statusID, t1.UserID, t3.Email, t3.FullName, t4.Name "
+                        + " group by t1.Date ,t1.FeedbackID,t1.statusID, t1.UserID, t3.Email, t3.FullName, t4.Name,t1.comment "
                         + " ORDER BY t1.DATE";
                 stm = conn.prepareCall(sql);
                 stm.setString(1, userID);
@@ -1876,7 +1881,7 @@ public class FeedbackDAO {
                         + " JOIN tblFacilities t5 "
                         + "  ON t5.FacilityID = t2.FacilityID "
                         + " WHERE t2.UserID = ? AND t5.Name like ? AND t2.flag= 'true' AND t1.statusID in ('decline','done','onGoing') "
-                        + " group by t1.Date ,t1.FeedbackID,t1.statusID, t1.UserID, t3.Email, t3.FullName, t4.Name "
+                        + " group by t1.Date ,t1.FeedbackID,t1.statusID, t1.UserID, t3.Email, t3.FullName, t4.Name,t1.comment "
                         + " ORDER BY t1.DATE";
                 stm = conn.prepareCall(sql);
                 stm.setString(1, userID);
@@ -4072,5 +4077,32 @@ public class FeedbackDAO {
             }
         }
         return date;
+    }
+
+    public boolean Comment(String comment, String feedbackId) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " UPDATE tblFeedback "
+                        + " SET comment = ? "
+                        + " WHERE FeedbackID=? ";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, comment);
+                ps.setString(2, feedbackId);
+                check = ps.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
     }
 }

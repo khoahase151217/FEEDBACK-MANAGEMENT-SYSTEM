@@ -2300,4 +2300,65 @@ public class UserDAO {
         return list;
     }
 
+    //Rating 
+    public int getRating(String userID) throws SQLException {
+        int result = 0;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " SELECT Rating FROM tblUser \n"
+                        + "WHERE userID = ? ";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, userID);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    result = rs.getInt("rating");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return result;
+    }
+
+    public boolean UpdateRating(String userID, int rating) throws ClassNotFoundException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        boolean check = false;
+        try {
+
+            con = DBUtils.getConnection();
+            if (con != null) {
+                String sql = "UPDATE tblUser "
+                        + " set Rating = ? "
+                        + " WHERE userID = ?";
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, rating);
+                stm.setString(2, userID);
+                check = stm.executeUpdate() > 0;
+            }
+        } finally {
+
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
+    }
 }

@@ -152,6 +152,14 @@
         <servlet-name>StatisticBadUSERController</servlet-name>
         <servlet-class>app.controller.StatisticBadUSERController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RatingController</servlet-name>
+        <servlet-class>app.controller.RatingController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetUserIdForRatingController</servlet-name>
+        <servlet-class>app.controller.GetUserIdForRatingController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -315,6 +323,14 @@
     <servlet-mapping>
         <servlet-name>StatisticBadUSERController</servlet-name>
         <url-pattern>/StatisticBadUSERController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RatingController</servlet-name>
+        <url-pattern>/RatingController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetUserIdForRatingController</servlet-name>
+        <url-pattern>/GetUserIdForRatingController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
