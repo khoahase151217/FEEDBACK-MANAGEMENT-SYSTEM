@@ -29,23 +29,23 @@
                 </div>
                 <div class="rating-icon">
                     <label>
-                        <input type="radio" name="stars" value="2" class="input-check"/>
+                        <input type="radio" name="stars" value="-1" class="input-check"/>
                         <span class="icon">😡</span>
                     </label>
                     <label>
-                        <input type="radio" name="stars" value="4" class="input-check"/>
+                        <input type="radio" name="stars" value="0" class="input-check"/>
                         <span class="icon">😕</span>
                     </label>
                     <label>
-                        <input type="radio" name="stars" value="6" class="input-check"/>
+                        <input type="radio" name="stars" value="1" class="input-check"/>
                         <span class="icon">😐</span>
                     </label>
                     <label>
-                        <input type="radio" name="stars" value="8" class="input-check"/>
+                        <input type="radio" name="stars" value="2" class="input-check"/>
                         <span class="icon">😊</span>
                     </label>
                     <label>
-                        <input type="radio" name="stars" value="10" class="input-check"/>
+                        <input type="radio" name="stars" value="3" class="input-check"/>
                         <span class="icon">😆</span>
                     </label>
                     <div class="comment">
