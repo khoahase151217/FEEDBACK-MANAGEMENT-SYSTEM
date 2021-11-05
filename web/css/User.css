@@ -1584,6 +1584,16 @@ ul {
     margin: 0.25rem 0.25rem 0;
 }
 
+@media screen and (min-width: 1920px) and (min-height: 1080px) {
+    .hero .pipe-column {
+        max-height: 630px;
+    }
+    
+    .content-item-main-category-item.active.list .list-showcase .pipe-list {
+        max-height: 570px;
+    }
+}
+
 @media screen and (max-width: 1600px) {
 
     .header-logo .input-warp {

@@ -63,7 +63,7 @@ img {
     max-width: 1920px;
     width: 100%;
     padding: 0 15px;
-    margin: 0 auto;
+    margin: auto;
 }
 
 .modal {
@@ -233,6 +233,8 @@ img {
 
 .showcase {
     padding: 40px 50px;
+    height: 100vh;
+    display: flex;
 }
 .showcase-main {
     height: 89vh;
@@ -1244,6 +1246,12 @@ img {
     display: flex;
     flex-direction: column;
     gap: 40px 0;
+}
+
+@media screen and (min-width: 1920px) and (min-height: 1080px) {
+    .showcase-main {
+        height: 81vh;
+    }
 }
 
 @media screen and (max-width: 1600px) {

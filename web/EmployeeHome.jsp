@@ -34,7 +34,7 @@
         <!-- font awesome -->
         <script src="https://kit.fontawesome.com/97ce91ff3b.js" crossorigin="anonymous"></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/EmployeeHome1.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/EmployeeHome.css" />
     </head>
     <body>
         <div class="reponse-form ${requestScope.flag}">
