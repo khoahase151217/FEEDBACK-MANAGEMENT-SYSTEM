@@ -285,7 +285,7 @@ public class StatisticDAO {
                         + "from tblFeedback t1\n"
                         + "JOIN tblUser t2 on t1.UserID = t2.UserID\n"
                         + "JOIN tblFeedbackDetail t3 on t1.feedbackID = t3.feedbackID\n"
-                        + "where t1.statusID='onGoing' and t3.userID = ?  \n"
+                        + "where t3.userID = ?  \n"
                         + "order by t3.AssignDate desc ";
                 stm = conn.prepareStatement(sql);
                 stm.setString(1, userID);

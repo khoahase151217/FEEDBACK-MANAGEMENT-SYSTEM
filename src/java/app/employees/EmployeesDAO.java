@@ -435,7 +435,7 @@ public class EmployeesDAO {
                         + " JOIN tblFeedbackStatus t4 ON t1.statusID = t4.FeedbackStatusID "
                         + " WHERE t2.UserID = ? AND t2.flag= 'false' "
                         + " group by t1.Date ,t1.FeedbackID,t1.statusID, t1.UserID, t3.Email, t3.FullName, t4.Name,t1.TrashDate,t1.comment  "
-                        + " ORDER BY t1.DATE";
+                        + " ORDER BY t1.feedbackID desc";
                 stm = conn.prepareCall(sql);
                 stm.setString(1, userID);
                 rs = stm.executeQuery();
@@ -480,7 +480,7 @@ public class EmployeesDAO {
                         + " JOIN tblFeedbackStatus t4 ON t1.statusID = t4.FeedbackStatusID "
                         + " WHERE t5.UserID = ?   "
                         + " group by t1.Date ,t1.FeedbackID,t1.statusID, t1.UserID, t3.Email, t3.FullName, t4.Name,t1.TrashDate,t1.comment  "
-                        + " ORDER BY t1.DATE";
+                        + " ORDER BY t1.feedbackID desc";
                 stm = conn.prepareCall(sql);
                 stm.setString(1, userID);
                 rs = stm.executeQuery();

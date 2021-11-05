@@ -1086,35 +1086,10 @@
         <script src="${pageContext.request.contextPath}/js/EmployeeHome1.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseForResponse.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseForTrash.js"></script>
-        <script type="module" src="${pageContext.request.contextPath}/js/firebaseEmpFromAdmin.js"></script>
+        <script type="module" src="${pageContext.request.contextPath}/js/firebaseEmpFromAdmin1.js"></script>
         <!-- Query -->
 
         <script>
-            const user = document.querySelector('#LOGIN_EMP').value;
-            function handleNotification() {
-                const count = document.querySelector('#COUNT_DETAIL_NOTIFICATION').value;
-                $.ajax({
-                    type: "POST",
-                    url: "/SWP391_PROJECT/NotificationEmployeeController",
-                    data: {notification: count, userId: user},
-                    success: function (result) {
-                        if (result !== '') {
-                            var lenght = result.slice(0, 1);
-                            $('.showcase-item-dropdown-actual-notification').addClass('active');
-                            $('.showcase-item-dropdown-actual-notification').html(lenght);
-                            $('.showcase-item-dropdown-select').addClass('active');
-                            $('.showcase-item-dropdown-sub-title').html("You have " + lenght + " new feedback");
-                        } else {
-                            $('.showcase-item-dropdown-sub-title').html($('.showcase-item-dropdown-sub-title.sub-title-no').text());
-                            $('.showcase-item-dropdown-actual-notification').removeClass('active');
-                            $('.showcase-item-dropdown-select').removeClass('active');
-                        }
-                        $('.showcase-item-dropdown-list .pipe-list').html(result.slice(1));
-                    }
-                });
-            }
-//            handleNotification();
-//            setInterval(handleNotification, 10000);
             $(function () {
                 var imagesPreview = function (input, placeToInsertImagePreview) {
                     if (input.files) {

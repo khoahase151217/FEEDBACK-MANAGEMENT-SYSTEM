@@ -24,6 +24,8 @@ window.addEventListener('load', () => {
         document.querySelector('.pipe-item.history-item.active').scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
         document.querySelector('.pipe-item.task-item.active').scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
     }, 700);
+    
+    
 });
 // Javascript for Feedback Page
 //Array.from(items).forEach((item) => {
