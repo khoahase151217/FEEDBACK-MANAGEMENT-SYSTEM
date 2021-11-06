@@ -803,9 +803,9 @@ public class EmployeesDAO {
             if (conn != null) {
                 String sql = "SELECT TOP 3 t1.*,COUNT(t1.UserID) as count FROM tblUser t1\n"
                         + "JOIN tblResponseFeedback t2 on t1.UserID =t2.UserID \n"
-                        + "WHERE t1.UserID = t2.UserID AND t2.StatusID='done' AND t2.Date like ? AND t2.Date like ? AND t1.UserID not in \n"
+                        + "WHERE t1.UserID = t2.UserID AND t2.StatusID='done' AND t2.Date like ? AND t2.Date like ? AND t1.Rating >=20 AND t1.UserID not in \n"
                         + "(select t6.UserID FROM tblDeclinedResponse t5 JOIN tblResponseFeedback t6 on t6.ResponseID=t5.ResponseID) \n"
-                        + "GROUP BY t1.UserID,t1.BinaryImage,t1.Email,t1.FullName,t1.Image,t1.Password,t1.Rating,t1.RoleID,t1.StatusID \n"
+                        + "GROUP BY t1.UserID,t1.BinaryImage,t1.Email,t1.FullName,t1.Image,t1.Password,t1.Rating,t1.RoleID,t1.StatusID,t1.Rating \n"
                         + "ORDER BY COUNT(t1.UserID) DESC";
 
                 ps = conn.prepareStatement(sql);
@@ -896,6 +896,109 @@ public class EmployeesDAO {
         return list;
     }
 
+    public List<UserDTO> getListBadEMPOtherRating(int check, String month, String year) throws SQLException {
+        List<UserDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "declare @check int;\n"
+                        + "set @check = ?;\n"
+                        + "SELECT TOP (@check) t1.* ,COUNT(t1.UserID) as count\n"
+                        + "FROM tblUser t1\n"
+                        + "JOIN tblResponseFeedback t2 on t1.UserID =t2.UserID\n"
+                        + "JOIN tblDeclinedResponse t3 on t2.ResponseID = t3.ResponseID\n"
+                        + "WHERE t1.UserID = t2.UserID AND t3.ResponseID = t2.ResponseID  AND  t2.Date like ? AND  t2.Date like ?\n"
+                        + "GROUP BY t1.UserID,t1.BinaryImage,t1.Email,t1.FullName,t1.Image,t1.Password,t1.Rating,t1.RoleID,t1.StatusID";
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, check);
+                ps.setString(2, "%" + month + "%");
+                ps.setString(3, "%" + year + "%");
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String userID = rs.getString("UserID");
+                    String name = rs.getString("FullName");
+                    String email = rs.getString("Email");
+                    String RoleID = rs.getString("RoleID");
+                    String StatusID = rs.getString("StatusID");
+                    String Image = rs.getString("Image");
+                    int count = rs.getInt("count");
+                    byte[] tmp = rs.getBytes("BinaryImage");
+                    if (tmp != null) {
+                        String base64Image = Base64.getEncoder().encodeToString(tmp);
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, "", "", count)));
+                    } else {
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, "", "", count)));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<UserDTO> getListBadEMPBaseOnRating(String month, String year) throws SQLException {
+        List<UserDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT TOP 3 t1.*\n"
+                        + "FROM tblUser t1\n"
+                        + "JOIN tblResponseFeedback t2 on t1.UserID =t2.UserID\n"
+                        + "WHERE t1.Rating<=-20 AND  t2.Date like ? AND  t2.Date like ? \n"
+                        + "GROUP BY t1.UserID,t1.BinaryImage,t1.Email,t1.FullName,t1.Image,t1.Password,t1.Rating,t1.RoleID,t1.StatusID,t1.Rating";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, "%" + month + "%");
+                ps.setString(2, "%" + year + "%");
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String userID = rs.getString("UserID");
+                    String name = rs.getString("FullName");
+                    String email = rs.getString("Email");
+                    String RoleID = rs.getString("RoleID");
+                    String StatusID = rs.getString("StatusID");
+                    String Image = rs.getString("Image");
+                    byte[] tmp = rs.getBytes("BinaryImage");
+                    if (tmp != null) {
+                        String base64Image = Base64.getEncoder().encodeToString(tmp);
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, "", "", 0)));
+                    } else {
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, "", "", 0)));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
     public List<ResponseDTO> getListRecentDeclineRespone() throws SQLException {
         List<ResponseDTO> list = new ArrayList<>();
         Connection conn = null;
@@ -909,6 +1012,97 @@ public class EmployeesDAO {
                         + "JOIN tblFeedbackDetail t2 on t1.FeedbackDetailID =t2.FeedbackDetailID\n"
                         + "JOIN tblDeclinedResponse t3 on t3.ResponseID =t1.ResponseID\n"
                         + "JOIN tblFacilities t4 on t2.FacilityID = t4.FacilityID\n"
+                        + "GROUP BY t1.Date,t1.Description,t1.FeedbackDetailID,t1.Image,t1.ResponseID,t1.StatusID,t1.UserID,t1.realtime,t4.Name,t2.Quantity,t2.Location\n"
+                        + "ORDER BY t1.Date desc";
+                ps = conn.prepareStatement(sql);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String responeID = rs.getString("ResponseID");
+                    String feedbackdetailID = rs.getString("FeedbackDetailID");
+                    String description = rs.getString("Description");
+                    String date = rs.getString("Date");
+                    String facilityName = rs.getString("FacilityName");
+                    String userID = rs.getString("UserID");
+                    String location = rs.getString("Location");
+                    String quantity = rs.getString("quantity");
+                    list.add(new ResponseDTO(feedbackdetailID, userID, "", description, "", responeID, facilityName, location, "", quantity, date, ""));
+
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+    public List<ResponseDTO> getListAllRecentRespone() throws SQLException {
+        List<ResponseDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT t1.*,t4.Name as FacilityName ,t2.Quantity as quantity ,t2.Location as Location\n"
+                        + "FROM tblResponseFeedback t1\n"
+                        + "JOIN tblFeedbackDetail t2 on t1.FeedbackDetailID =t2.FeedbackDetailID\n"
+                        + "JOIN tblFacilities t4 on t2.FacilityID = t4.FacilityID\n"
+                        + "GROUP BY t1.Date,t1.Description,t1.FeedbackDetailID,t1.Image,t1.ResponseID,t1.StatusID,t1.UserID,t1.realtime,t4.Name,t2.Quantity,t2.Location\n"
+                        + "ORDER BY t1.Date desc";
+                ps = conn.prepareStatement(sql);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String responeID = rs.getString("ResponseID");
+                    String feedbackdetailID = rs.getString("FeedbackDetailID");
+                    String description = rs.getString("Description");
+                    String date = rs.getString("Date");
+                    String facilityName = rs.getString("FacilityName");
+                    String userID = rs.getString("UserID");
+                    String location = rs.getString("Location");
+                    String quantity = rs.getString("quantity");
+                    list.add(new ResponseDTO(feedbackdetailID, userID, "", description, "", responeID, facilityName, location, "", quantity, date, ""));
+
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+
+    public List<ResponseDTO> getListRecentNotDeclineResponeRating() throws SQLException {
+        List<ResponseDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " SELECT t1.*,t4.Name as FacilityName ,t2.Quantity as quantity ,t2.Location as Location\n"
+                        + "FROM tblResponseFeedback t1\n"
+                        + "JOIN tblFeedbackDetail t2 on t1.FeedbackDetailID =t2.FeedbackDetailID\n"
+                        + "JOIN tblFacilities t4 on t2.FacilityID = t4.FacilityID\n"
+                        + "WHERE t1.ResponseID NOT IN (Select t6.ResponseID from tblDeclinedResponse t6)\n"
                         + "GROUP BY t1.Date,t1.Description,t1.FeedbackDetailID,t1.Image,t1.ResponseID,t1.StatusID,t1.UserID,t1.realtime,t4.Name,t2.Quantity,t2.Location\n"
                         + "ORDER BY t1.Date desc";
                 ps = conn.prepareStatement(sql);
