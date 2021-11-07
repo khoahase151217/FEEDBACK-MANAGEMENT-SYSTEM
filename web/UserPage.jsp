@@ -1311,7 +1311,7 @@
             <div class="container">
                 <div class="footer-top">
                     <div class="footer-column">
-                        <h1 class="footer-logo">Traversy</h1>
+                        <h1 class="footer-logo">Neveslos</h1>
                         <ul class="footer-socials">
                             <a href="#" class="footer-socials-item">
                                 <ion-icon name="logo-facebook"></ion-icon>
@@ -1368,7 +1368,7 @@
                 </div>
                 <div class="container footer-container">
                     <p class="footer-desc">
-                        Copyright © 2021 Traversy, Designed by <a href="#">MinhDuc</a> All
+                        Copyright © 2021 Neveslos, Designed by <a href="#">MinhDuc</a> All
                         Rights Reserved.
                     </p>
                 </div>

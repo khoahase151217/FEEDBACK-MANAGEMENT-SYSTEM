@@ -27,7 +27,7 @@
                                     src="https://cdn.discordapp.com/attachments/770804043794350100/888843339439407104/toolkit.png"
                                     alt="Logo"
                                     />
-                                <h4>Traversy</h4>
+                                <h4>Neveslos</h4>
                             </div>
 
                             <div class="text-wrap">
@@ -91,7 +91,7 @@
                         <form action="MainController" class="sign-up-form" method = "POST">
                             <div class="logo">
                                 <img src="https://printgo.vn/uploads/file-logo/1/x512x512.ed307e1f3d9bb4741ffa3f1641a78911.ai.1.png.pagespeed.ic.z15Dl9fqQf.webp" alt="FPT" />
-                                <h4>Traversy</h4>
+                                <h4>Neveslos</h4>
                             </div>
 
                             <div class="text-wrap">
