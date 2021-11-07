@@ -7,7 +7,7 @@ package app.controller;
 
 import app.feedback.FeedbackDAO;
 import app.feedback.FeedbackDTO;
-import app.users.Comparator;
+import app.feedback.Comparator;
 import app.users.UserDTO;
 import app.users.UserHistoryDTO;
 import java.io.IOException;

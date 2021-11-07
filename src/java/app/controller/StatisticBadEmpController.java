@@ -36,23 +36,54 @@ public class StatisticBadEmpController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
-        String txt1 = "";
-        String txt2 = "";
-        String txt3 = "";
+
         try {
             HttpSession session = request.getSession();
             SimpleDateFormat month_date = new SimpleDateFormat("MMM", Locale.ENGLISH);
             SimpleDateFormat year_date = new SimpleDateFormat("YYYY", Locale.ENGLISH);
             Date date = new Date();
+            int listCheck = 0;
+            int finalCount = 0;
             String month = month_date.format(date);
             String year = year_date.format(date);
             EmployeesDAO dao = new EmployeesDAO();
             List<UserDTO> list = new ArrayList<UserDTO>();
+            List<UserDTO> listRating = new ArrayList<UserDTO>();
             List<ResponseDTO> listRes = new ArrayList<ResponseDTO>();
-            list = dao.getListBadEMP(month, year);
-            listRes = dao.getListRecentDeclineRespone();
-            session.setAttribute("LIST_BAD_EMP", list);
-            session.setAttribute("LIST_BAD_RECENT_RESPONE_EMP", listRes);
+
+            //Check list base rating >=-20
+            listRating = dao.getListBadEMPBaseOnRating(month, year);
+            listCheck = listRating.size();
+            if (listCheck == 3) {
+                //Get all list feedback not in declinefeedback
+                listRes = dao.getListRecentNotDeclineResponeRating();
+                session.setAttribute("LIST_BAD_RECENT_RESPONE_EMP", listRes);
+                session.setAttribute("LIST_BAD_EMP", listRating);
+                url = SUCCESS;
+                return;
+            } else if (listCheck > 3) {
+                
+                finalCount = 3 - listCheck;
+                //Get other list by top finalcount
+                list = dao.getListBadEMPOtherRating(finalCount, month, year);
+                List<UserDTO> finalList = new ArrayList<UserDTO>(list);
+                //List with all emp
+                finalList.addAll(listRating);
+                
+                
+                listRes = dao.getListAllRecentRespone();
+                
+                //Final list rating
+                session.setAttribute("LIST_BAD_EMP", finalList);
+                session.setAttribute("LIST_BAD_RECENT_RESPONE_EMP", listRes);
+
+            } else if (listCheck == 0) {
+                list = dao.getListBadEMP(month, year);
+                listRes = dao.getListRecentDeclineRespone();
+                session.setAttribute("LIST_BAD_EMP", list);
+                session.setAttribute("LIST_BAD_RECENT_RESPONE_EMP", listRes);
+            }
+
             url = SUCCESS;
         } catch (Exception e) {
             log("Error at StatisticBadEmpController" + e.toString());
