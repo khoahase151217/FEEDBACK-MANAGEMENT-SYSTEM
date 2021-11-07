@@ -38,7 +38,9 @@
         
     </head>
     <body>
-
+        <c:if test="${sessionScope.LOGIN_ADMIN == null}">
+            <c:redirect url="login.jsp"/>
+        </c:if>
         <div class="user-form ${requestScope.edit_flag}">
             <div class="modal">
                 <div class="user-form-main">

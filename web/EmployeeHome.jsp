@@ -37,6 +37,9 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/EmployeeHome.css" />
     </head>
     <body>
+        <c:if test="${sessionScope.LOGIN_EMP == null}">
+            <c:redirect url="login.jsp"/>
+        </c:if>
         <div class="reponse-form ${requestScope.flag}">
             <div class="modal">
                 <div class="reponse-form-main">

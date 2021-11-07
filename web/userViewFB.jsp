@@ -27,6 +27,9 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/UserViewFeedback.css" />
     </head>
     <body>
+        <c:if test="${sessionScope.LOGIN_USER == null}">
+            <c:redirect url="login.jsp"/>
+        </c:if>
         <header class="header">
             <div class="container">
                 <div class="header-main">

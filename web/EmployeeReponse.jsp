@@ -30,6 +30,9 @@
         <link rel="stylesheet" href="css/style.css" />
     </head>
     <body>
+        <c:if test="${sessionScope.LOGIN_EMP == null}">
+            <c:redirect url="login.jsp"/>
+        </c:if>
         <header class="header">
             <div class="container">
                 <div class="header-main">

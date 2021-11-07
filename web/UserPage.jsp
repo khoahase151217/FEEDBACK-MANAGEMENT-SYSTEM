@@ -53,6 +53,9 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/FeedbackForm.css" />
     </head>
     <body>
+        <c:if test="${sessionScope.LOGIN_USER == null}">
+            <c:redirect url="login.jsp"/>
+        </c:if>
         <!-- Pop-up create feedback -->
         <!-- If you return a message of form you have to add class value 'open' to div[class='feedback-form'], if you dont return a message from controller you dont have to do this-->
         <div class="feedback-form ${requestScope.SEND_FEEDBACK_FLAG}">

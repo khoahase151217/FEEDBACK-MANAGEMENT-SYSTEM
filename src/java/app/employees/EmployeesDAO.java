@@ -805,7 +805,7 @@ public class EmployeesDAO {
                         + "JOIN tblResponseFeedback t2 on t1.UserID =t2.UserID \n"
                         + "WHERE t1.UserID = t2.UserID AND t2.StatusID='done' AND t2.Date like ? AND t2.Date like ? AND t1.Rating >=20 AND t1.UserID not in \n"
                         + "(select t6.UserID FROM tblDeclinedResponse t5 JOIN tblResponseFeedback t6 on t6.ResponseID=t5.ResponseID) \n"
-                        + "GROUP BY t1.UserID,t1.BinaryImage,t1.Email,t1.FullName,t1.Image,t1.Password,t1.Rating,t1.RoleID,t1.StatusID,t1.Rating \n"
+                        + "GROUP BY t1.UserID,t1.BinaryImage,t1.Email,t1.FullName,t1.Image,t1.Password,t1.Rating,t1.RoleID,t1.StatusID \n"
                         + "ORDER BY COUNT(t1.UserID) DESC";
 
                 ps = conn.prepareStatement(sql);
@@ -910,7 +910,7 @@ public class EmployeesDAO {
                         + "FROM tblUser t1\n"
                         + "JOIN tblResponseFeedback t2 on t1.UserID =t2.UserID\n"
                         + "JOIN tblDeclinedResponse t3 on t2.ResponseID = t3.ResponseID\n"
-                        + "WHERE t1.UserID = t2.UserID AND t3.ResponseID = t2.ResponseID  AND  t2.Date like ? AND  t2.Date like ?\n"
+                        + "WHERE t1.UserID = t2.UserID AND t3.ResponseID = t2.ResponseID  AND  t2.Date like ? AND  t2.Date like ? AND t1.rating>-20 \n"
                         + "GROUP BY t1.UserID,t1.BinaryImage,t1.Email,t1.FullName,t1.Image,t1.Password,t1.Rating,t1.RoleID,t1.StatusID";
                 ps = conn.prepareStatement(sql);
                 ps.setInt(1, check);
@@ -926,11 +926,12 @@ public class EmployeesDAO {
                     String Image = rs.getString("Image");
                     int count = rs.getInt("count");
                     byte[] tmp = rs.getBytes("BinaryImage");
+                    int rating=rs.getInt("Rating");
                     if (tmp != null) {
                         String base64Image = Base64.getEncoder().encodeToString(tmp);
-                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, "", "", count)));
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, "", "", count,rating)));
                     } else {
-                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, "", "", count)));
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, "", "", count,rating)));
                     }
                 }
             }
@@ -975,11 +976,12 @@ public class EmployeesDAO {
                     String StatusID = rs.getString("StatusID");
                     String Image = rs.getString("Image");
                     byte[] tmp = rs.getBytes("BinaryImage");
+                    int rating=rs.getInt("Rating");
                     if (tmp != null) {
                         String base64Image = Base64.getEncoder().encodeToString(tmp);
-                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, "", "", 0)));
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, "", "", 0, rating)));
                     } else {
-                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, "", "", 0)));
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, "", "", 0,rating)));
                     }
                 }
             }
@@ -1025,7 +1027,8 @@ public class EmployeesDAO {
                     String userID = rs.getString("UserID");
                     String location = rs.getString("Location");
                     String quantity = rs.getString("quantity");
-                    list.add(new ResponseDTO(feedbackdetailID, userID, "", description, "", responeID, facilityName, location, "", quantity, date, ""));
+                    String statusID=rs.getString("StatusID");
+                    list.add(new ResponseDTO(feedbackdetailID, userID, "", description, statusID, responeID, facilityName, location, "", quantity, date, ""));
 
                 }
             }
@@ -1069,7 +1072,8 @@ public class EmployeesDAO {
                     String userID = rs.getString("UserID");
                     String location = rs.getString("Location");
                     String quantity = rs.getString("quantity");
-                    list.add(new ResponseDTO(feedbackdetailID, userID, "", description, "", responeID, facilityName, location, "", quantity, date, ""));
+                    String statusID=rs.getString("StatusID");
+                    list.add(new ResponseDTO(feedbackdetailID, userID, "", description, statusID, responeID, facilityName, location, "", quantity, date, ""));
 
                 }
             }
@@ -1116,7 +1120,8 @@ public class EmployeesDAO {
                     String userID = rs.getString("UserID");
                     String location = rs.getString("Location");
                     String quantity = rs.getString("quantity");
-                    list.add(new ResponseDTO(feedbackdetailID, userID, "", description, "", responeID, facilityName, location, "", quantity, date, ""));
+                    String statusID = rs.getString("StatusID");
+                    list.add(new ResponseDTO(feedbackdetailID, userID, "", description, statusID, responeID, facilityName, location, "", quantity, date, ""));
 
                 }
             }
@@ -1162,7 +1167,8 @@ public class EmployeesDAO {
                     String facilityName = rs.getString("FacilityName");
                     String location = rs.getString("Location");
                     String quantity = rs.getString("quantity");
-                    list.add(new ResponseDTO(feedbackdetailID, userID, "", description, "", responeID, facilityName, location, "", quantity, date, ""));
+                    String statusID = rs.getString("StatusID");
+                    list.add(new ResponseDTO(feedbackdetailID, userID, "", description, statusID, responeID, facilityName, location, "", quantity, date, ""));
                 }
             }
         } catch (Exception e) {

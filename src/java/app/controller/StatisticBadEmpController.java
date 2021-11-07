@@ -61,7 +61,7 @@ public class StatisticBadEmpController extends HttpServlet {
                 session.setAttribute("LIST_BAD_EMP", listRating);
                 url = SUCCESS;
                 return;
-            } else if (listCheck > 3) {
+            } else if (listCheck < 3) {
                 
                 finalCount = 3 - listCheck;
                 //Get other list by top finalcount
@@ -69,10 +69,7 @@ public class StatisticBadEmpController extends HttpServlet {
                 List<UserDTO> finalList = new ArrayList<UserDTO>(list);
                 //List with all emp
                 finalList.addAll(listRating);
-                
-                
                 listRes = dao.getListAllRecentRespone();
-                
                 //Final list rating
                 session.setAttribute("LIST_BAD_EMP", finalList);
                 session.setAttribute("LIST_BAD_RECENT_RESPONE_EMP", listRes);

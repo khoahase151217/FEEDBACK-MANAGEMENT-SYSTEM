@@ -36,6 +36,9 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPageDetailModal1.css" />
     </head>
     <body>
+        <c:if test="${sessionScope.LOGIN_ADMIN == null}">
+            <c:redirect url="login.jsp"/>
+        </c:if>
         <!-- if you want to open modal, you add class for div[class = 'feedbackDetail'] value: 'open' -->
         <div class="feedbackDetail ${requestScope.flag}">
             <div class="modal feedbackDetail-modal">

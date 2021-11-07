@@ -35,7 +35,9 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ManagerViewUser.css" />
     </head>
     <body>
-
+        <c:if test="${sessionScope.LOGIN_ADMIN == null}">
+            <c:redirect url="login.jsp"/>
+        </c:if>
         <!-- if you want to open modal, you add class for div[class = 'user-form'] value: 'open' -->
         <div class="user-form ${requestScope.edit_flag}">
             <div class="modal">

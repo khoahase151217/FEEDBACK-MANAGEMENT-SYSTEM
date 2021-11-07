@@ -21,6 +21,7 @@ public class UserDTO {
     private String roleName;
     private String statusName;
     private int count;
+    private int rating;
 
     public UserDTO() {
     }
@@ -57,6 +58,20 @@ public class UserDTO {
         this.roleName = roleName;
         this.statusName = statusName;
         this.count = count;
+    }
+
+    public UserDTO(String userID, String fullName, String password, String email, String roleID, String statusID, String image, String roleName, String statusName, int count, int rating) {
+        this.userID = userID;
+        this.fullName = fullName;
+        this.password = password;
+        this.email = email;
+        this.roleID = roleID;
+        this.statusID = statusID;
+        this.image = image;
+        this.roleName = roleName;
+        this.statusName = statusName;
+        this.count = count;
+        this.rating = rating;
     }
 
     
@@ -167,6 +182,14 @@ public class UserDTO {
     public void setCount(int count) {
         this.count = count;
     }
-    
 
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+    
+    
 }
