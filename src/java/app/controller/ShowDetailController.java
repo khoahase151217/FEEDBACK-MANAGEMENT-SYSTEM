@@ -9,6 +9,7 @@ import app.employees.EmployeesDAO;
 import app.feedback.FeedbackDAO;
 import app.feedback.FeedbackDetailDTO;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -52,13 +53,20 @@ public class ShowDetailController extends HttpServlet {
             String statusName = request.getParameter("statusName");
             String flag = request.getParameter("flag");
             //add thêm field cateID
-            List<FeedbackDetailDTO> list = dao.getListFeedbackDetail(feedbackID);
+            List<FeedbackDetailDTO> list = new ArrayList<>();
+            if (statusID.equalsIgnoreCase("decline")) {
+                list = dao.getListDeclineFeedbackDetail(feedbackID);
+            } else {
+                list = dao.getListFeedbackDetail(feedbackID);
+
+            }
+
             if (!list.isEmpty()) {
                 for (FeedbackDetailDTO detail : list) {
-                if(dao2.countDeclineResponse2(detail.getFeedbackDetailID())!=0){
-                    detail.setCheck(true);
-                }        
-            }
+                    if (dao2.countDeclineResponse2(detail.getFeedbackDetailID()) != 0) {
+                        detail.setCheck(true);
+                    }
+                }
                 session.setAttribute("LIST_DETAIL", list);
                 if (statusID.equalsIgnoreCase("pending")) {
                     request.setAttribute("CLASS_NAME", "pending");

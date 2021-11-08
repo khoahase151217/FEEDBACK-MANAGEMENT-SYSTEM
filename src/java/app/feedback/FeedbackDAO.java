@@ -1360,6 +1360,77 @@ public class FeedbackDAO {
         }
         return list;
     }
+    public List<FeedbackDetailDTO> getListDeclineFeedbackDetail(String feedbackID) throws SQLException, IOException {
+        List<FeedbackDetailDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        InputStream inputStream = null;
+        ByteArrayOutputStream outputStream = null;
+        Blob blob = null;
+        String base64Image;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT t1.*, t2.Date as Date, t3.Name as FacilityName ,t3.CategoryID as categoryID "
+                        + " FROM tblFeedbackDetail t1 "
+                        + " JOIN tblFeedback t2 "
+                        + "  ON t1.FeedbackID = t2.FeedbackID "
+                        + " JOIN tblFacilities t3 "
+                        + "  ON t1.FacilityID = t3.FacilityID "
+                        + " JOIN tblUser t5 ON t1.UserID = t5.UserID "
+                        + " WHERE t1.FeedbackID = ? AND t5.RoleID in ('AD','US') ";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, feedbackID);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String feedbackDetailId = rs.getString("FeedbackDetailID");
+                    String facilityID = rs.getString("FacilityID");
+                    String userId = rs.getString("UserID");
+                    String quantity = rs.getString("Quantity");
+                    String reason = rs.getString("Reason");
+                    String location = rs.getString("Location");
+                    String des = rs.getString("Description");
+                    String categoryID = rs.getString("categoryID");
+                    byte[] tmp = rs.getBytes("Image");
+                    if (tmp != null) {
+                        base64Image = Base64.getEncoder().encodeToString(tmp);
+                    } else {
+                        base64Image = "";
+                    }
+                    boolean flag = rs.getBoolean("flag");
+                    String date = rs.getString("date");
+                    String facilityName = rs.getString("FacilityName");
+                    list.add(new FeedbackDetailDTO(feedbackDetailId, facilityID, userId, feedbackID, quantity, reason, location, base64Image, flag, facilityName, date, "", "", des, categoryID));
+
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+            if (inputStream != null) {
+                inputStream.reset();
+                inputStream.close();
+            }
+            if (outputStream != null) {
+                outputStream.reset();
+                outputStream.close();
+            }
+            if (blob != null) {
+                blob.free();
+            }
+        }
+        return list;
+    }
 
     public List<FeedbackDetailDTO> getListFeedbackDetailShowEmployee(String feedbackID) throws SQLException {
         List<FeedbackDetailDTO> list = new ArrayList<>();
@@ -1973,7 +2044,7 @@ public class FeedbackDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 String sql = " UPDATE tblFeedback "
-                        + " SET statusID='inactive' "
+                        + " SET statusID='decline' "
                         + " WHERE FeedbackID=? ";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, feedbackId);
