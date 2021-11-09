@@ -42,7 +42,7 @@ public class ShowFacilityStudentController extends HttpServlet {
             HttpSession session = request.getSession();
             FacilityDAO facilitiesDao = new FacilityDAO();
 
-            List<FacilityDTO> listAllfacilities = facilitiesDao.getAllListFacilityAsc();
+            List<FacilityDTO> listAllfacilities = facilitiesDao.getAllListFacilityAscForStudent();
             session.setAttribute("FACILTIES_LIST_ALL", listAllfacilities);
             
             url = SUCCESS;

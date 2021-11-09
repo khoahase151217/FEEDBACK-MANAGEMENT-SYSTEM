@@ -358,6 +358,49 @@ public class FacilityDAO {
         }
         return list;
     }
+    
+    public List<FacilityDTO> getAllListFacilityAscForStudent() throws SQLException {
+        List<FacilityDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT t1.*, t2.Name as statusName "
+                        + " FROM tblFacilities t1 "
+                        + " JOIN tblFacilityStatus t2 "
+                        + " ON t1.StatusID = t2.StatusID "
+                        + " Order by t1.Name asc";
+                ps = conn.prepareStatement(sql);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String facilityId = rs.getString("FacilityID");
+                    String name = rs.getString("Name");
+                    int quantity = rs.getInt("Quantity");
+                    String date = rs.getString("MaintenanceDate");
+                    String statusId = rs.getString("StatusID");
+                    String categoryId = rs.getString("CategoryID");
+                    String statusName = rs.getString("statusName");
+                    String image = rs.getString("Image");
+                    list.add(new FacilityDTO(facilityId, name, quantity, date, statusId, categoryId, statusName, image));
+                }
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
 
     public List<FacilityDTO> getAllListFacilityAsc() throws SQLException {
         List<FacilityDTO> list = new ArrayList<>();

@@ -2132,7 +2132,7 @@ public class FeedbackDAO {
                         + " JOIN tblFeedbackStatus t5 "
                         + "  ON t1.StatusID = t5.FeedbackStatusID"
                         + " WHERE t1.UserID = ? AND t2.StatusID = 'active' AND t1.statusID != 'inactive' "
-                        + " Order by t1.Date desc";
+                        + " Order by t1.FeedbackID desc";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, userId);
                 rs = ps.executeQuery();
@@ -2188,7 +2188,7 @@ public class FeedbackDAO {
                         + " JOIN tblFeedbackStatus t5 "
                         + "  ON t1.StatusID = t5.FeedbackStatusID"
                         + " WHERE t1.UserID = ? AND t2.StatusID = 'active' AND t1.statusID != 'inactive' "
-                        + " Order by t1.Date desc";
+                        + " Order by t1.FeedbackID desc";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, userId);
                 rs = ps.executeQuery();
@@ -2244,7 +2244,7 @@ public class FeedbackDAO {
                         + " JOIN tblFeedbackStatus t5 "
                         + "  ON t1.StatusID = t5.FeedbackStatusID"
                         + " WHERE t1.UserID = ? AND t2.StatusID = 'active' AND t1.statusID = 'done' "
-                        + " Order by t1.Date desc";
+                        + " Order by t1.FeedbackID desc";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, userId);
                 rs = ps.executeQuery();
@@ -2300,7 +2300,7 @@ public class FeedbackDAO {
                         + " JOIN tblFeedbackStatus t5 "
                         + "  ON t1.StatusID = t5.FeedbackStatusID"
                         + " WHERE t1.UserID = ? AND t2.StatusID = 'active' AND t1.statusID IN ('pending','onGoing') "
-                        + " Order by t1.Date desc";
+                        + " Order by t1.FeedbackID desc";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, userId);
                 rs = ps.executeQuery();
@@ -2356,7 +2356,7 @@ public class FeedbackDAO {
                         + " JOIN tblFeedbackStatus t5 "
                         + "  ON t1.StatusID = t5.FeedbackStatusID"
                         + " WHERE t1.UserID = ? AND t2.StatusID = 'active' AND t1.statusID = 'decline' "
-                        + " Order by t1.Date desc";
+                        + " Order by t1.FeedbackID desc";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, userId);
                 rs = ps.executeQuery();
@@ -2405,7 +2405,7 @@ public class FeedbackDAO {
                         + "JOIN tblFeedbackDetail t2 \n"
                         + "ON t1.FeedbackID = t2.FeedbackID \n"
                         + "WHERE t1.UserID = ? AND t2.StatusID = 'active'\n"
-                        + "Order by t1.Date desc";
+                        + "Order by t1.FeedbackID desc";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, userId);
                 rs = ps.executeQuery();
@@ -2443,7 +2443,7 @@ public class FeedbackDAO {
                         + "JOIN tblFeedbackDetail t2 \n"
                         + "ON t1.FeedbackID = t2.FeedbackID \n"
                         + "WHERE t1.UserID = ? AND t2.StatusID = 'active' and t1.statusID = 'done'\n"
-                        + "Order by t1.Date desc";
+                        + "Order by t1.FeedbackID desc";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, userId);
                 rs = ps.executeQuery();
@@ -2481,7 +2481,7 @@ public class FeedbackDAO {
                         + "JOIN tblFeedbackDetail t2 \n"
                         + "ON t1.FeedbackID = t2.FeedbackID \n"
                         + "WHERE t1.UserID = ? AND t2.StatusID = 'active' and t1.statusID = 'decline'\n"
-                        + "Order by t1.Date desc";
+                        + "Order by t1.FeedbackID desc";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, userId);
                 rs = ps.executeQuery();
@@ -2519,7 +2519,7 @@ public class FeedbackDAO {
                         + "JOIN tblFeedbackDetail t2 \n"
                         + "ON t1.FeedbackID = t2.FeedbackID \n"
                         + "WHERE t1.UserID = ? AND t2.StatusID = 'active' and (t1.statusID = 'pending' or t1.statusID = 'onGoing')\n"
-                        + "Order by t1.Date desc";
+                        + "Order by t1.FeedbackID desc";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, userId);
                 rs = ps.executeQuery();
@@ -2564,7 +2564,7 @@ public class FeedbackDAO {
                         + " JOIN tblFeedbackStatus t5 "
                         + "  ON t1.StatusID = t5.FeedbackStatusID"
                         + " WHERE t1.UserID = ? AND t2.StatusID = 'active' "
-                        + " Order by t1.Date desc"
+                        + " Order by t1.FeedbackID desc"
                         + " OFFSET ? ROWS "
                         + " FETCH NEXT 10 ROWS ONLY";
                 ps = conn.prepareStatement(sql);
@@ -2623,7 +2623,7 @@ public class FeedbackDAO {
                         + " JOIN tblFeedbackStatus t5 "
                         + "  ON t1.StatusID = t5.FeedbackStatusID"
                         + " WHERE t1.UserID = ? AND t2.StatusID = 'active' "
-                        + " Order by t1.Date desc"
+                        + " Order by t1.FeedbackID desc"
                         + " OFFSET ? ROWS ";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, userId);
@@ -2681,7 +2681,7 @@ public class FeedbackDAO {
                         + " JOIN tblFeedbackStatus t5 "
                         + "  ON t1.StatusID = t5.FeedbackStatusID"
                         + " WHERE t1.UserID = ? AND t2.StatusID = 'active' "
-                        + " Order by t1.Date desc"
+                        + " Order by t1.FeedbackID desc"
                         + " OFFSET ? ROWS "
                         + " FETCH NEXT ? ROWS ONLY";
                 ps = conn.prepareStatement(sql);
@@ -2741,7 +2741,7 @@ public class FeedbackDAO {
                         + " JOIN tblFeedbackStatus t5 "
                         + "  ON t1.StatusID = t5.FeedbackStatusID"
                         + " WHERE t1.UserID = ? AND t2.StatusID = 'active' "
-                        + " Order by t1.Date desc"
+                        + " Order by t1.FeedbackID desc"
                         + " OFFSET ? ROWS ";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, userId);
@@ -2799,7 +2799,7 @@ public class FeedbackDAO {
                         + " JOIN tblFeedbackStatus t5 "
                         + "  ON t1.StatusID = t5.FeedbackStatusID"
                         + " WHERE t1.UserID = ? AND t2.StatusID = 'active' "
-                        + " Order by t1.Date desc"
+                        + " Order by t1.FeedbackID desc"
                         + " OFFSET ? ROWS "
                         + " FETCH NEXT 4 ROWS ONLY";
                 ps = conn.prepareStatement(sql);
@@ -2858,7 +2858,7 @@ public class FeedbackDAO {
                         + " JOIN tblFeedbackStatus t5 "
                         + "  ON t1.StatusID = t5.FeedbackStatusID"
                         + " WHERE t1.UserID = ? AND t2.StatusID = 'active' and t3.Name like ? "
-                        + " Order by t1.Date desc"
+                        + " Order by t1.FeedbackID desc"
                         + " OFFSET ? ROWS "
                         + " FETCH NEXT 10 ROWS ONLY";
                 ps = conn.prepareStatement(sql);
@@ -2918,7 +2918,7 @@ public class FeedbackDAO {
                         + " JOIN tblFeedbackStatus t5 "
                         + "  ON t1.StatusID = t5.FeedbackStatusID"
                         + " WHERE t1.UserID = ? AND t2.StatusID = 'active' "
-                        + " Order by t1.Date desc"
+                        + " Order by t1.FeedbackID desc"
                         + " OFFSET ? ROWS "
                         + " FETCH NEXT ? ROWS ONLY";
                 ps = conn.prepareStatement(sql);
@@ -2978,7 +2978,7 @@ public class FeedbackDAO {
                         + " JOIN tblFeedbackStatus t5 "
                         + "  ON t1.StatusID = t5.FeedbackStatusID"
                         + " WHERE t1.UserID = ? AND t2.StatusID = 'active' and t3.Name like ? "
-                        + " Order by t1.Date desc"
+                        + " Order by t1.FeedbackID desc"
                         + " OFFSET ? ROWS "
                         + " FETCH NEXT 4 ROWS ONLY";
                 ps = conn.prepareStatement(sql);
@@ -3038,7 +3038,7 @@ public class FeedbackDAO {
                         + " JOIN tblFeedbackStatus t5 "
                         + "  ON t1.StatusID = t5.FeedbackStatusID"
                         + " WHERE t1.UserID = ? AND t2.StatusID = 'active' AND t1.statusID='done' "
-                        + " Order by t1.Date desc"
+                        + " Order by t1.FeedbackID desc"
                         + " OFFSET ? ROWS "
                         + " FETCH NEXT 10 ROWS ONLY";
                 ps = conn.prepareStatement(sql);
@@ -3097,7 +3097,7 @@ public class FeedbackDAO {
                         + " JOIN tblFeedbackStatus t5 "
                         + "  ON t1.StatusID = t5.FeedbackStatusID"
                         + " WHERE t1.UserID = ? AND t2.StatusID = 'active' AND t1.statusID='done' "
-                        + " Order by t1.Date desc"
+                        + " Order by t1.FeedbackID desc"
                         + " OFFSET ? ROWS "
                         + " FETCH NEXT ? ROWS ONLY";
                 ps = conn.prepareStatement(sql);
@@ -3157,7 +3157,7 @@ public class FeedbackDAO {
                         + " JOIN tblFeedbackStatus t5 "
                         + "  ON t1.StatusID = t5.FeedbackStatusID"
                         + " WHERE t1.UserID = ? AND t2.StatusID = 'active' AND t1.statusID='done' "
-                        + " Order by t1.Date desc"
+                        + " Order by t1.FeedbackID desc"
                         + " OFFSET ? ROWS ";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, userId);
@@ -3215,7 +3215,7 @@ public class FeedbackDAO {
                         + " JOIN tblFeedbackStatus t5 "
                         + "  ON t1.StatusID = t5.FeedbackStatusID"
                         + " WHERE t1.UserID = ? AND t2.StatusID = 'active' AND t1.statusID='done' "
-                        + " Order by t1.Date desc"
+                        + " Order by t1.FeedbackID desc"
                         + " OFFSET ? ROWS "
                         + " FETCH NEXT 4 ROWS ONLY";
                 ps = conn.prepareStatement(sql);
@@ -3274,7 +3274,7 @@ public class FeedbackDAO {
                         + " JOIN tblFeedbackStatus t5 "
                         + "  ON t1.StatusID = t5.FeedbackStatusID"
                         + " WHERE t1.UserID = ? AND t2.StatusID = 'active' AND t1.statusID='decline' "
-                        + " Order by t1.Date desc"
+                        + " Order by t1.FeedbackID desc"
                         + " OFFSET ? ROWS "
                         + " FETCH NEXT 10 ROWS ONLY";
                 ps = conn.prepareStatement(sql);
@@ -3333,7 +3333,7 @@ public class FeedbackDAO {
                         + " JOIN tblFeedbackStatus t5 "
                         + "  ON t1.StatusID = t5.FeedbackStatusID"
                         + " WHERE t1.UserID = ? AND t2.StatusID = 'active' AND t1.statusID='decline' "
-                        + " Order by t1.Date desc"
+                        + " Order by t1.FeedbackID desc"
                         + " OFFSET ? ROWS "
                         + " FETCH NEXT ? ROWS ONLY";
                 ps = conn.prepareStatement(sql);
@@ -3393,7 +3393,7 @@ public class FeedbackDAO {
                         + " JOIN tblFeedbackStatus t5 "
                         + "  ON t1.StatusID = t5.FeedbackStatusID"
                         + " WHERE t1.UserID = ? AND t2.StatusID = 'active' AND t1.statusID='decline' "
-                        + " Order by t1.Date desc"
+                        + " Order by t1.FeedbackID desc"
                         + " OFFSET ? ROWS ";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, userId);
@@ -3451,7 +3451,7 @@ public class FeedbackDAO {
                         + " JOIN tblFeedbackStatus t5 "
                         + "  ON t1.StatusID = t5.FeedbackStatusID"
                         + " WHERE t1.UserID = ? AND t2.StatusID = 'active' AND (t1.statusID='pending' or t1.statusID='onGoing') "
-                        + " Order by t1.Date desc"
+                        + " Order by t1.FeedbackID desc"
                         + " OFFSET ? ROWS "
                         + " FETCH NEXT 10 ROWS ONLY";
                 ps = conn.prepareStatement(sql);
@@ -3510,7 +3510,7 @@ public class FeedbackDAO {
                         + " JOIN tblFeedbackStatus t5 "
                         + "  ON t1.StatusID = t5.FeedbackStatusID"
                         + " WHERE t1.UserID = ? AND t2.StatusID = 'active' AND (t1.statusID='pending' or t1.statusID='onGoing') "
-                        + " Order by t1.Date desc"
+                        + " Order by t1.FeedbackID desc"
                         + " OFFSET ? ROWS "
                         + " FETCH NEXT ? ROWS ONLY";
                 ps = conn.prepareStatement(sql);
@@ -3570,7 +3570,7 @@ public class FeedbackDAO {
                         + " JOIN tblFeedbackStatus t5 "
                         + "  ON t1.StatusID = t5.FeedbackStatusID"
                         + " WHERE t1.UserID = ? AND t2.StatusID = 'active' AND (t1.statusID='pending' or t1.statusID='onGoing') "
-                        + " Order by t1.Date desc"
+                        + " Order by t1.FeedbackID desc"
                         + " OFFSET ? ROWS ";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, userId);
@@ -3628,7 +3628,7 @@ public class FeedbackDAO {
                         + " JOIN tblFeedbackStatus t5 "
                         + "  ON t1.StatusID = t5.FeedbackStatusID"
                         + " WHERE t1.UserID = ? AND t2.StatusID = 'active' AND (t1.statusID='pending' or t1.statusID='onGoing') "
-                        + " Order by t1.Date desc"
+                        + " Order by t1.FeedbackID desc"
                         + " OFFSET ? ROWS "
                         + " FETCH NEXT 4 ROWS ONLY";
                 ps = conn.prepareStatement(sql);
@@ -3687,7 +3687,7 @@ public class FeedbackDAO {
                         + " JOIN tblFeedbackStatus t5 "
                         + "  ON t1.StatusID = t5.FeedbackStatusID"
                         + " WHERE t1.UserID = ? AND t2.StatusID = 'active' AND t1.statusID='decline' "
-                        + " Order by t1.Date desc"
+                        + " Order by t1.FeedbackID desc"
                         + " OFFSET ? ROWS "
                         + " FETCH NEXT 4 ROWS ONLY";
                 ps = conn.prepareStatement(sql);
@@ -3747,7 +3747,7 @@ public class FeedbackDAO {
                         + " JOIN tblFeedbackStatus t5 "
                         + "  ON t1.StatusID = t5.FeedbackStatusID"
                         + " WHERE t1.UserID = ? AND t2.StatusID = 'active' AND t3.Name like N'" + "%" + search + "%" + "'  "
-                        + " Order by t1.Date";
+                        + " Order by t1.FeedbackID desc";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, userID);
                 rs = ps.executeQuery();

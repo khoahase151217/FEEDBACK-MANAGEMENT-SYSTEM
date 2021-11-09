@@ -78,7 +78,7 @@ public class EmployeesDAO {
             if (conn != null) {
                 String sql = "SELECT FullName,UserID,RoleID "
                         + " FROM tblUser "
-                        + " WHERE NOT RoleID = 'AD' AND statusID= 'active' AND NOT ROLEID ='US' AND ROLEID ='OT' ";
+                        + " WHERE NOT RoleID = 'AD' AND statusID= 'active' AND NOT ROLEID ='US' AND ROLEID ='OT' order by fullname asc";
                 stm = conn.prepareCall(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
@@ -115,7 +115,7 @@ public class EmployeesDAO {
             if (conn != null) {
                 String sql = "SELECT FullName,UserID,RoleID "
                         + " FROM tblUser "
-                        + " WHERE NOT RoleID = 'AD' AND statusID= 'active' AND NOT ROLEID ='US'AND ROLEID ='TD' ";
+                        + " WHERE NOT RoleID = 'AD' AND statusID= 'active' AND NOT ROLEID ='US'AND ROLEID ='TD' order by fullname asc";
                 stm = conn.prepareCall(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
@@ -152,7 +152,7 @@ public class EmployeesDAO {
             if (conn != null) {
                 String sql = "SELECT FullName,UserID,RoleID "
                         + " FROM tblUser "
-                        + " WHERE NOT RoleID = 'AD' AND statusID= 'active' AND NOT ROLEID ='US' AND ROLEID ='TN' ";
+                        + " WHERE NOT RoleID = 'AD' AND statusID= 'active' AND NOT ROLEID ='US' AND ROLEID ='TN' order by fullname asc";
                 stm = conn.prepareCall(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
@@ -189,7 +189,7 @@ public class EmployeesDAO {
             if (conn != null) {
                 String sql = "SELECT FullName,UserID,RoleID "
                         + " FROM tblUser "
-                        + " WHERE NOT RoleID = 'AD' AND statusID= 'active' AND NOT ROLEID ='US' AND ROLEID ='EN' ";
+                        + " WHERE NOT RoleID = 'AD' AND statusID= 'active' AND NOT ROLEID ='US' AND ROLEID ='EN' order by fullname asc";
                 stm = conn.prepareCall(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {

@@ -1442,6 +1442,9 @@ img {
     justify-content: space-between;
     align-items: center;
 }
+.pipe-comment-item .pipe-item-bottom .pipe-bottom-item{
+    margin-top: auto;
+}
 .pipe-comment-item .pipe-item-bottom-form-wrapper {
     display: flex;
     align-items: center;
