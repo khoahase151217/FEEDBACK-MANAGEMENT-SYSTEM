@@ -31,7 +31,6 @@ const facilityCategoryContentItems = document.querySelectorAll(
         );
 
 window.addEventListener('load', () => {
-    console.log("456");
     
     //scrolltoview new FB
      const flag = localStorage.getItem('flag');

@@ -282,6 +282,10 @@
     font-weight: 600;
     border: none;
     cursor: pointer;
+    transition: background 0.25s linear;
+}
+.send-btn .send:hover {
+    background-color: #0c4ca3;
 }
 .img-feedback {
     margin-left: 2rem;
@@ -308,7 +312,7 @@
     .container-main {
         width: 97rem;
     }
-    
+
     .select-description {
         width: 56rem;
     }
@@ -321,7 +325,7 @@
     .list-feedback {
         width: 30rem;
     }
-    
+
     .select-description {
         width: 36rem;
     }

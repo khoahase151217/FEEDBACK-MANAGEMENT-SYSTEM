@@ -1949,7 +1949,7 @@ public class UserDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT TOP 10 t1.* , t2.Name as StatusName,t3.Name as roleName "
+                String sql = "SELECT TOP 15 t1.* , t2.Name as StatusName,t3.Name as roleName "
                         + " FROM tblUser t1 "
                         + " JOIN tblUserStatus t2 on t1.StatusID = t2.StatusID "
                         + " JOIN tblRole t3 on t1.RoleID=t3.RoleID "

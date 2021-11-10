@@ -50,7 +50,7 @@
             />
 
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/User.css" />
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/FeedbackForm.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/FeedbackForm1.css" />
     </head>
     <body>
         <c:if test="${sessionScope.LOGIN_USER == null}">
@@ -607,7 +607,7 @@
                                 </c:choose>
                             </div>
                             <div class="dropdown-list">
-                                <a href="ShowUserFormController?search=${requestScope.SEARCH}&style_pipe=${requestScope.STYLE_PIPE}&style_list=${requestScope.STYLE_LIST}&user=user" class="dropdown-item">
+                                <a href="ShowUserFormController?search=${requestScope.SEARCH}&style_pipe=${requestScope.STYLE_PIPE}&style_list=${requestScope.STYLE_LIST}&user=user&amount_done=${requestScope.COUNT_FLAG_DONE}&amount_onGoing=${requestScope.COUNT_FLAG_ONGOING}&amount_decline=${requestScope.COUNT_FLAG_DECLINE}&amount_all=${requestScope.COUNT_FLAG_ALL}" class="dropdown-item">
                                     <ion-icon name="create-outline"></ion-icon>
                                     Edit Profile
                                 </a>
@@ -701,9 +701,10 @@
                                                 <%
                                                     List<UserHistoryDTO> listDone = (List<UserHistoryDTO>) session.getAttribute("HISTORY_DONE");
                                                     if (listDone != null) {
-
+                                                        // feedback.getImageFirebase()
                                                         for (UserHistoryDTO feedback : listDone) {
                                                 %> 
+                                                
                                                 <div class="pipe-item">
                                                     <div class="pipe-item-heading">
                                                         <div class="pipe-item-title-wrapper">
@@ -715,12 +716,12 @@
 
                                                     <div class="image-all-wrapper">
                                                         <%
+                                                            // feedback.getImageList() có 
                                                             int count = 1;
                                                             for (String img : feedback.getImageList()) {
                                                                 if (!img.equals("")) {
                                                                     if (count == 1 || count == 2) {
                                                         %>
-
                                                         <div class="pipe-item-image">
                                                             <img
                                                                 src="data:image/jpg/png;base64,<%=img%>"

@@ -83,6 +83,7 @@ public class SearchUserFeedbackController extends HttpServlet {
                 session.setAttribute("HISTORY_ALL", list);
                 request.setAttribute("STYLE_LIST_ALL", "active");
                 request.setAttribute("STYLE_LIST", "active");
+                request.setAttribute("SEARCH", search);
             } else {
                 if (!list.isEmpty()) {
                     List<String> deviceName = new ArrayList<String>();

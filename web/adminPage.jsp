@@ -32,7 +32,7 @@
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
         ></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage1.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPageDetailModal1.css" />
     </head>
     <body>
@@ -133,7 +133,7 @@
                                                     </div>
                                                 </form>
                                             </div>
-                                            <a href="ShowFormDeclineController?feedbackDetailID=${feedbackDetail.feedbackDetailID}&feedbackID=${param.feedbackID}&statusID=${param.statusID}&statusName=${param.statusName}&email=${param.email}&date=${param.date}&style_flag=${requestScope.style_flag}&style_list_category=${requestScope.style_list_category}" class="detail-links" onclick="return confirm('Do you really want to inactivate ?')">
+                                            <a href="ShowFormDeclineController?feedbackDetailID=${feedbackDetail.feedbackDetailID}&feedbackID=${param.feedbackID}&statusID=${param.statusID}&statusName=${param.statusName}&email=${param.email}&date=${param.date}&style_flag=${requestScope.style_flag}&style_list_category=${requestScope.style_list_category}" class="detail-links">
                                                 <ion-icon name="ban"></ion-icon>
                                             </a>
                                         </div>
@@ -224,7 +224,7 @@
                                                     </div>
                                                 </form>
                                             </div>
-                                            <a href="ShowFormDeclineController?feedbackDetailID=${feedbackDetail.feedbackDetailID}&feedbackID=${param.feedbackID}&statusID=${param.statusID}&statusName=${param.statusName}&email=${param.email}&date=${param.date}&style_flag=${requestScope.style_flag}&style_list_category=${requestScope.style_list_category}" class="detail-links" onclick="return confirm('Do you really want to inactivate ?')">
+                                            <a href="ShowFormDeclineController?feedbackDetailID=${feedbackDetail.feedbackDetailID}&feedbackID=${param.feedbackID}&statusID=${param.statusID}&statusName=${param.statusName}&email=${param.email}&date=${param.date}&style_flag=${requestScope.style_flag}&style_list_category=${requestScope.style_list_category}" class="detail-links">
                                                 <ion-icon name="ban"></ion-icon>
                                             </a>
                                         </div>
@@ -370,7 +370,7 @@
         <div class="reponse-form ${requestScope.ban_flag}">
             <div class="modal">
                 <div class="reponse-form-main">
-                    <h2 class="reponse-form-heading">Reason ban feedback detail ${requestScope.FEEDBACK_DETAIL_ID}</h2>
+                    <h2 class="reponse-form-heading">Reason ban feedback detail</h2>
                     <form action="DeclineFeedbackDetailController" class="reponse-form-actual-form" method="post">
                         <input type="hidden" name="feedbackDetailID" value="${requestScope.FEEDBACK_DETAIL_ID}" />
                         <input type="hidden" name="feedbackID" value="${requestScope.FEEDBACK_ID}" />
@@ -1320,7 +1320,7 @@
         </main>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-        <script src="${pageContext.request.contextPath}/js/adminPage1.js"></script>
+        <script src="${pageContext.request.contextPath}/js/adminPage.js"></script>
         <script src="${pageContext.request.contextPath}/js/ManagerFB.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseAdminfromUser.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseForAdminDone.js"></script>

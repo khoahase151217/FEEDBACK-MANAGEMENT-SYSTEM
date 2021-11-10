@@ -571,7 +571,7 @@ public class FeedbackDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 // lấy list detail bằng facilityName, join 2 bảng bằng facilityID
-                String sql = "SELECT TOP 10 t1.*, t4.Email as email, t4.FullName as fullname, t2.Name as statusName "
+                String sql = "SELECT TOP 15 t1.*, t4.Email as email, t4.FullName as fullname, t2.Name as statusName "
                         + " FROM tblFeedback t1 "
                         + " JOIN tblFeedbackStatus t2 "
                         + " ON t1.StatusID=t2.FeedbackStatusID "
@@ -583,7 +583,7 @@ public class FeedbackDAO {
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t3.Name like N'" + "%" + search + "%" + "' "
                         + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name,t1.comment "
-                        + " order by t1.Date desc ";
+                        + " order by t1.FeedbackID desc ";
                 ps = conn.prepareStatement(sql);
 //                ps.setString(1, '%' + search + '%');
                 rs = ps.executeQuery();
@@ -635,7 +635,7 @@ public class FeedbackDAO {
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t3.Name like N'" + "%" + search + "%" + "' "
                         + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name,t1.comment "
-                        + " order by t1.Date desc "
+                        + " order by t1.FeedbackID desc "
                         + " OFFSET ? ROWS "
                         + " FETCH NEXT 10 ROWS ONLY";
                 ps = conn.prepareStatement(sql);
@@ -724,7 +724,7 @@ public class FeedbackDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 // lấy list detail bằng facilityName, join 2 bảng bằng facilityID
-                String sql = "SELECT TOP 10 t1.*, t4.Email as email, t4.FullName as fullname, t2.Name as statusName "
+                String sql = "SELECT TOP 15 t1.*, t4.Email as email, t4.FullName as fullname, t2.Name as statusName "
                         + " FROM tblFeedback t1 "
                         + " JOIN tblFeedbackStatus t2 "
                         + " ON t1.StatusID=t2.FeedbackStatusID "
@@ -779,7 +779,7 @@ public class FeedbackDAO {
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t1.statusID='done' "
                         + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name,t1.comment "
-                        + " order by t1.Date asc "
+                        + " order by t1.FeedbackID desc "
                         + " OFFSET ? ROWS "
                         + " FETCH NEXT 10 ROWS ONLY";
                 ps = conn.prepareStatement(sql);
@@ -868,7 +868,7 @@ public class FeedbackDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 // lấy list detail bằng facilityName, join 2 bảng bằng facilityID
-                String sql = "SELECT TOP 10 t1.*, t4.Email as email, t4.FullName as fullname, t2.Name as statusName "
+                String sql = "SELECT TOP 15 t1.*, t4.Email as email, t4.FullName as fullname, t2.Name as statusName "
                         + " FROM tblFeedback t1 "
                         + " JOIN tblFeedbackStatus t2 "
                         + " ON t1.StatusID=t2.FeedbackStatusID "
@@ -923,7 +923,7 @@ public class FeedbackDAO {
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t1.statusID='onGoing' "
                         + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name,t1.comment "
-                        + " order by t1.Date asc "
+                        + " order by t1.FeedbackID desc "
                         + " OFFSET ? ROWS "
                         + " FETCH NEXT 10 ROWS ONLY";
                 ps = conn.prepareStatement(sql);
@@ -1012,7 +1012,7 @@ public class FeedbackDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 // lấy list detail bằng facilityName, join 2 bảng bằng facilityID
-                String sql = "SELECT TOP 10 t1.*, t4.Email as email, t4.FullName as fullname, t2.Name as statusName "
+                String sql = "SELECT TOP 15 t1.*, t4.Email as email, t4.FullName as fullname, t2.Name as statusName "
                         + " FROM tblFeedback t1 "
                         + " JOIN tblFeedbackStatus t2 "
                         + " ON t1.StatusID=t2.FeedbackStatusID "
@@ -1115,7 +1115,7 @@ public class FeedbackDAO {
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t1.statusID='pending'  "
                         + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name,t1.comment "
-                        + " order by t1.Date asc "
+                        + " order by t1.FeedbackID desc "
                         + " OFFSET ? ROWS "
                         + " FETCH NEXT 10 ROWS ONLY";
                 ps = conn.prepareStatement(sql);
@@ -1203,7 +1203,7 @@ public class FeedbackDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 // lấy list detail bằng facilityName, join 2 bảng bằng facilityID
-                String sql = "SELECT TOP 10 t1.*, t4.Email as email, t4.FullName as fullname, t2.Name as statusName "
+                String sql = "SELECT TOP 15 t1.*, t4.Email as email, t4.FullName as fullname, t2.Name as statusName "
                         + " FROM tblFeedback t1 "
                         + " JOIN tblFeedbackStatus t2 "
                         + " ON t1.StatusID=t2.FeedbackStatusID "
@@ -1256,7 +1256,7 @@ public class FeedbackDAO {
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
                         + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name,t1.comment "
-                        + " order by t1.Date asc "
+                        + " order by t1.FeedbackID desc "
                         + " OFFSET ? ROWS "
                         + " FETCH NEXT 10 ROWS ONLY";
                 ps = conn.prepareStatement(sql);
@@ -1755,7 +1755,7 @@ public class FeedbackDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 // lấy list detail bằng facilityName, join 2 bảng bằng facilityID
-                String sql = "SELECT TOP 10 t1.*, t4.Email as email, t4.FullName as fullname, t2.Name as statusName "
+                String sql = "SELECT TOP 15 t1.*, t4.Email as email, t4.FullName as fullname, t2.Name as statusName "
                         + " FROM tblFeedback t1 "
                         + " JOIN tblFeedbackStatus t2 "
                         + " ON t1.StatusID=t2.FeedbackStatusID "
@@ -1810,7 +1810,7 @@ public class FeedbackDAO {
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t1.statusID='decline' "
                         + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name,t1.comment "
-                        + " order by t1.Date asc "
+                        + " order by t1.FeedbackID desc "
                         + " OFFSET ? ROWS "
                         + " FETCH NEXT 10 ROWS ONLY";
                 ps = conn.prepareStatement(sql);

@@ -1179,16 +1179,16 @@ img {
 }
 
 .showcase-item-dropdown-list .pipe-item-title {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
 }
 .showcase-item-dropdown-list .pipe-item-desc {
-    font-size: 0.85rem;
+    font-size: 1rem;
 }
 .showcase-item-dropdown-list .pipe-item-date {
     font-size: 0.85rem;
 }
 .showcase-item-dropdown-list .pipe-bottom-item {
-    font-size: 0.85rem;
+    font-size: 1rem;
 }
 
 .showcase-item-dropdown-list .notification-item {
