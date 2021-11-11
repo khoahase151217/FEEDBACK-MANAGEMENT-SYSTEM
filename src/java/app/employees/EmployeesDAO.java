@@ -394,19 +394,20 @@ public class EmployeesDAO {
                 while (rs.next()) {
                     String quantity = rs.getString("quantity");
                     String location = rs.getString("location");
-                    byte[] tmp = rs.getBytes("Image");
-                    if (tmp != null) {
-                        base64Image = Base64.getEncoder().encodeToString(tmp);
-                    } else {
-                        base64Image = "";
-                    }
+                    String image = rs.getString("ImageFirebase");
+//                    byte[] tmp = rs.getBytes("Image");
+//                    if (tmp != null) {
+//                        base64Image = Base64.getEncoder().encodeToString(tmp);
+//                    } else {
+//                        base64Image = "";
+//                    }
                     String date = rs.getString("Date");
                     String facilityName = rs.getString("FacilityName");
                     String statusID = rs.getString("StatusID");
                     String des = rs.getString("Description");
                     String detailId = rs.getString("FeedbackDetailID");
                     String responseId = rs.getString("ResponseID");
-                    dto.add(new ResponseDTO(detailId, userID, base64Image, des, statusID, responseId, facilityName, location, "", quantity, date, ""));
+                    dto.add(new ResponseDTO(detailId, userID, image, des, statusID, responseId, facilityName, location, "", quantity, date, ""));
                 }
             }
 
