@@ -141,7 +141,7 @@ public class LoadFeedbackForUserControllerPipeStyle extends HttpServlet {
 //                                    + "                                                            </div>\n"
 //                                    + "                                                        </div>";
 //                        }
-                        html += "<div class=\"pipe-item\">\n"
+                        html = "<div class=\"pipe-item\">\n"
                                 + "                                                    <div class=\"pipe-item-heading\">\n"
                                 + "                                                        <div class=\"pipe-item-title-wrapper\">\n"
                                 + "                                                            <h3 class=\"pipe-item-title\">Feedback " + UserHistory.getFeedbackId() + "</h3>\n"
