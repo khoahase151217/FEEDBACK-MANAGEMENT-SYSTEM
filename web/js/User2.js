@@ -13,7 +13,7 @@ document.querySelector('[name="search"]').addEventListener("blur", () => {
             .closest(".input-warp")
             .classList.remove("active");
 });
-window.addEventListener('load',()=>{
+window.addEventListener('load', () => {
     localStorage.setItem("UserCount", JSON.stringify(0));
 });
 
@@ -100,7 +100,7 @@ function handleRemoveTab(e) {
         let currentTab = Array.from(tabList)[e.target.dataset.index];
         // Reset input, select to default value
         currentTab.querySelector(".img-feedback").innerHTML = "";
-        currentTab.querySelector(".input-file-name").value = "";
+//        currentTab.querySelector(".input-file-name").value = "";
         Array.from(currentTab.querySelectorAll("[name]")).forEach((element) => {
             element.value = "";
         });
@@ -134,6 +134,8 @@ function handleRemoveTab(e) {
 // clear value(image) user input if they click the icon again
 function handleShowImage(e) {
     Array.from(inputImageWrapper)[e.target.dataset.index - 1].innerHTML = "";
+    e.target.closest('.reponse-form-drag-area').classList.remove("active");
+    e.target.closest('.reponse-form-drag-area').querySelector('header').textContent = "Drag & Drop to Upload File";
 }
 
 /**
@@ -337,3 +339,20 @@ function handleReloadUserPage(e) {
 
     window.location.replace("/SWP391_PROJECT/ShowFacilityStudentController");
 }
+
+// Drag or upload files
+const dropArea = document.querySelectorAll(".reponse-form-drag-area");
+Array.from(dropArea).forEach(ele => {
+    let dragText = ele.querySelector("header");
+    ele.addEventListener("dragover", (event) => {
+        event.preventDefault();
+        ele.classList.add("active");
+        dragText.textContent = "Release to Upload File";
+    });
+
+    ele.addEventListener("dragleave", () => {
+        ele.classList.remove("active");
+        dragText.textContent = "Drag & Drop to Upload File";
+    });
+});
+

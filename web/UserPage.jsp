@@ -49,8 +49,11 @@
             referrerpolicy="no-referrer"
             />
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/User.css" />
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/FeedbackForm1.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/User1.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/FeedbackForm3.css" />
+
+        <script type="module" src="${pageContext.request.contextPath}/js/firebaseStorageForUser2.js"></script>
+
     </head>
     <body>
         <c:if test="${sessionScope.LOGIN_USER == null}">
@@ -151,24 +154,44 @@
                                                     ></textarea>
                                             </fieldset>
                                             <!-- End Description -->
-                                            <div class="input-file-wrap">
-                                                <label>
-                                                    <ion-icon
-                                                        name="image-outline"
-                                                        class="input-file-select"
-                                                        onclick="handleShowImage(event)"
-                                                        data-index="1"
-                                                        ></ion-icon>
-                                                    <input
-                                                        type="file"
-                                                        name="image-1"
-                                                        id="gallery-photo-add-1"
-                                                        style="display: none"
-                                                        />
-                                                </label>
-                                                <input type="text" class="input-file-name" readonly />
+                                            <!--                                            <div class="input-file-wrap">
+                                                                                            <label>
+                                                                                                <ion-icon
+                                                                                                    name="image-outline"
+                                                                                                    class="input-file-select"
+                                                                                                    onclick="handleShowImage(event)"
+                                                                                                    data-index="1"
+                                                                                                    ></ion-icon>
+                                                                                                <input
+                                                                                                    type="file"
+                                                                                                    name="image-1"
+                                                                                                    id="gallery-photo-add-1"
+                                                                                                    style="display: none"
+                                                                                                    multiple
+                                                                                                    />
+                                                                                            </label>
+                                                                                            <input type="text" class="input-file-name" readonly />
+                                                                                        </div>-->
+                                            <div class="reponse-form-drag-area-wrapper">
+                                                <div class="reponse-form-drag-area" data-index="1">
+                                                    <div class="icon">
+                                                        <i class="fas fa-cloud-upload-alt"></i>
+                                                    </div>
+                                                    <header>Drag & Drop to Upload File</header>
+                                                    <span>OR</span>
+                                                    <label>
+                                                        <p onclick="handleShowImage(event)" data-index="1">Browse File</p>
+                                                        <input
+                                                            type="file"
+                                                            name="image-1"
+                                                            id="gallery-photo-add-1"
+                                                            style="display: none"
+                                                            multiple
+                                                            />
+                                                    </label>
+                                                </div>
+                                                <div class="img-feedback tab-img-1"></div>
                                             </div>
-                                            <div class="img-feedback tab-img-1"></div>
                                         </div>
                                     </div>
                                     <div class="list-items-wrapper">
@@ -225,24 +248,44 @@
                                                     ></textarea>
                                             </fieldset>
                                             <!-- End Description -->
-                                            <div class="input-file-wrap">
-                                                <label>
-                                                    <ion-icon
-                                                        name="image-outline"
-                                                        class="input-file-select"
-                                                        onclick="handleShowImage(event)"
-                                                        data-index="2"
-                                                        ></ion-icon>
-                                                    <input
-                                                        type="file"
-                                                        name="image-2"
-                                                        id="gallery-photo-add-2"
-                                                        style="display: none"
-                                                        />
-                                                </label>
-                                                <input type="text" class="input-file-name" readonly />
+                                            <!--                                            <div class="input-file-wrap">
+                                                                                            <label>
+                                                                                                <ion-icon
+                                                                                                    name="image-outline"
+                                                                                                    class="input-file-select"
+                                                                                                    onclick="handleShowImage(event)"
+                                                                                                    data-index="2"
+                                                                                                    ></ion-icon>
+                                                                                                <input
+                                                                                                    type="file"
+                                                                                                    name="image-2"
+                                                                                                    id="gallery-photo-add-2"
+                                                                                                    style="display: none"
+                                                                                                    multiple
+                                                                                                    />
+                                                                                            </label>
+                                                                                            <input type="text" class="input-file-name" readonly />
+                                                                                        </div>-->
+                                            <div class="reponse-form-drag-area-wrapper">
+                                                <div class="reponse-form-drag-area" data-index="2">
+                                                    <div class="icon">
+                                                        <i class="fas fa-cloud-upload-alt"></i>
+                                                    </div>
+                                                    <header>Drag & Drop to Upload File</header>
+                                                    <span>OR</span>
+                                                    <label>
+                                                        <p onclick="handleShowImage(event)" data-index="2">Browse File</p>
+                                                        <input
+                                                            type="file"
+                                                            name="image-2"
+                                                            id="gallery-photo-add-2"
+                                                            style="display: none"
+                                                            multiple
+                                                            />
+                                                    </label>
+                                                </div>
+                                                <div class="img-feedback tab-img-2"></div>
                                             </div>
-                                            <div class="img-feedback tab-img-2"></div>
                                         </div>
                                     </div>
                                     <div class="list-items-wrapper">
@@ -299,24 +342,44 @@
                                                     ></textarea>
                                             </fieldset>
                                             <!-- End Description -->
-                                            <div class="input-file-wrap">
-                                                <label>
-                                                    <ion-icon
-                                                        name="image-outline"
-                                                        class="input-file-select"
-                                                        onclick="handleShowImage(event)"
-                                                        data-index="3"
-                                                        ></ion-icon>
-                                                    <input
-                                                        type="file"
-                                                        name="image-3"
-                                                        id="gallery-photo-add-3"
-                                                        style="display: none"
-                                                        />
-                                                </label>
-                                                <input type="text" class="input-file-name" readonly />
+                                            <!--                                            <div class="input-file-wrap">
+                                                                                            <label>
+                                                                                                <ion-icon
+                                                                                                    name="image-outline"
+                                                                                                    class="input-file-select"
+                                                                                                    onclick="handleShowImage(event)"
+                                                                                                    data-index="3"
+                                                                                                    ></ion-icon>
+                                                                                                <input
+                                                                                                    type="file"
+                                                                                                    name="image-3"
+                                                                                                    id="gallery-photo-add-3"
+                                                                                                    style="display: none"
+                                                                                                    multiple
+                                                                                                    />
+                                                                                            </label>
+                                                                                            <input type="text" class="input-file-name" readonly />
+                                                                                        </div>-->
+                                            <div class="reponse-form-drag-area-wrapper">
+                                                <div class="reponse-form-drag-area" data-index="3">
+                                                    <div class="icon">
+                                                        <i class="fas fa-cloud-upload-alt"></i>
+                                                    </div>
+                                                    <header>Drag & Drop to Upload File</header>
+                                                    <span>OR</span>
+                                                    <label>
+                                                        <p onclick="handleShowImage(event)" data-index="3">Browse File</p>
+                                                        <input
+                                                            type="file"
+                                                            name="image-3"
+                                                            id="gallery-photo-add-3"
+                                                            style="display: none"
+                                                            multiple
+                                                            />
+                                                    </label>
+                                                </div>
+                                                <div class="img-feedback tab-img-3"></div>
                                             </div>
-                                            <div class="img-feedback tab-img-3"></div>
                                         </div>
                                     </div>
                                     <div class="list-items-wrapper">
@@ -373,24 +436,44 @@
                                                     ></textarea>
                                             </fieldset>
                                             <!-- End Description -->
-                                            <div class="input-file-wrap">
-                                                <label>
-                                                    <ion-icon
-                                                        name="image-outline"
-                                                        class="input-file-select"
-                                                        onclick="handleShowImage(event)"
-                                                        data-index="4"
-                                                        ></ion-icon>
-                                                    <input
-                                                        type="file"
-                                                        name="image-4"
-                                                        id="gallery-photo-add-4"
-                                                        style="display: none"
-                                                        />
-                                                </label>
-                                                <input type="text" class="input-file-name" readonly />
+                                            <!--                                            <div class="input-file-wrap">
+                                                                                            <label>
+                                                                                                <ion-icon
+                                                                                                    name="image-outline"
+                                                                                                    class="input-file-select"
+                                                                                                    onclick="handleShowImage(event)"
+                                                                                                    data-index="4"
+                                                                                                    ></ion-icon>
+                                                                                                <input
+                                                                                                    type="file"
+                                                                                                    name="image-4"
+                                                                                                    id="gallery-photo-add-4"
+                                                                                                    style="display: none"
+                                                                                                    multiple
+                                                                                                    />
+                                                                                            </label>
+                                                                                            <input type="text" class="input-file-name" readonly />
+                                                                                        </div>-->
+                                            <div class="reponse-form-drag-area-wrapper">
+                                                <div class="reponse-form-drag-area" data-index="4">
+                                                    <div class="icon">
+                                                        <i class="fas fa-cloud-upload-alt"></i>
+                                                    </div>
+                                                    <header>Drag & Drop to Upload File</header>
+                                                    <span>OR</span>
+                                                    <label>
+                                                        <p onclick="handleShowImage(event)" data-index="4">Browse File</p>
+                                                        <input
+                                                            type="file"
+                                                            name="image-4"
+                                                            id="gallery-photo-add-4"
+                                                            style="display: none"
+                                                            multiple
+                                                            />
+                                                    </label>
+                                                </div>
+                                                <div class="img-feedback tab-img-4"></div>
                                             </div>
-                                            <div class="img-feedback tab-img-4"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -704,7 +787,7 @@
                                                         // feedback.getImageFirebase()
                                                         for (UserHistoryDTO feedback : listDone) {
                                                 %> 
-                                                
+
                                                 <div class="pipe-item">
                                                     <div class="pipe-item-heading">
                                                         <div class="pipe-item-title-wrapper">
@@ -713,68 +796,23 @@
                                                         <div class="pipe-item-date"><%=feedback.getDate()%></div>
                                                     </div>
 
+                                                    <div class="image-all-wrapper pipe_image-all-wrapper" data-id="<%=feedback.getFeedbackId()%>">
 
-                                                    <div class="image-all-wrapper">
-                                                        <%
-                                                            // feedback.getImageList() có 
-                                                            int count = 1;
-                                                            for (String img : feedback.getImageList()) {
-                                                                if (!img.equals("")) {
-                                                                    if (count == 1 || count == 2) {
-                                                        %>
-                                                        <div class="pipe-item-image">
-                                                            <img
-                                                                src="data:image/jpg/png;base64,<%=img%>"
-                                                                alt=""
-                                                                />
-                                                        </div>
-
-
-                                                        <%                                                        } else if (feedback.getImageList().size() == 3) {
-                                                        %>
-                                                        <div class="more-wrapper">
-                                                            <div class="img-more active">
-                                                                <img
-                                                                    src="https://icons-for-free.com/iconfiles/png/512/exposure+plus+1+48px-131985226685054051.png"
-                                                                    alt=""
-                                                                    />
-                                                            </div>
-                                                        </div>
-                                                        <div class="img-more">
-                                                            <img
-                                                                src="https://www.shareicon.net/data/128x128/2015/09/12/100167_plus_512x512.png"
-                                                                alt=""
-                                                                />
-                                                        </div>
-
-                                                        <%
-                                                            break;
-                                                        } else {
-                                                        %>
-                                                        <div class="more-wrapper">
-                                                            <div class="img-more">
-                                                                <img
-                                                                    src="https://icons-for-free.com/iconfiles/png/512/exposure+plus+1+48px-131985226685054051.png"
-                                                                    alt=""
-                                                                    />
-                                                            </div>
-                                                            <div class="img-more active">
-                                                                <img
-                                                                    src="https://www.shareicon.net/data/128x128/2015/09/12/100167_plus_512x512.png"
-                                                                    alt=""
-                                                                    />
-                                                            </div>
-                                                        </div>
-                                                        <%
-                                                                        break;
-                                                                    }
-                                                                    count++;
-                                                                }
-                                                            }
-                                                        %>  
                                                     </div>
 
-
+                                                    <script type="module">
+                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser2.js';
+                                                        Array.from(document.querySelectorAll('.pipe_image-all-wrapper')).forEach(async (ele) => {
+                                                        if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
+                                                        //  getImageString
+                                                        let imageString = '1632495909914.jpg;1632495816317.jpg;1632496006478.jpg;1632571757122.jpg;1632486574805.png';
+                                                        if(imageString) {
+                                                        await handleLoadImageForUserFromFirebase(imageString, ele);
+                                                        }
+                                                        return;
+                                                        };
+                                                        });
+                                                    </script>
 
                                                     <div class="pipe-item-bottom">
                                                         <p class="pipe-bottom-item"><%=feedback.getDeviceName()%></p>
@@ -817,66 +855,21 @@
                                                     </div>
 
 
-                                                    <div class="image-all-wrapper">
-                                                        <%
-                                                            int count = 1;
-                                                            for (String img : feedback.getImageList()) {
-                                                                if (!img.equals("")) {
-                                                                    if (count == 1 || count == 2) {
-
-                                                        %>  
-                                                        <div class="pipe-item-image">
-                                                            <img
-                                                                src="data:image/jpg/png;base64,<%=img%>"
-                                                                alt=""
-                                                                />
-                                                        </div>
-
-
-
-                                                        <%                                                        } else if (feedback.getImageList().size() == 3) {
-                                                        %>
-                                                        <div class="more-wrapper">
-                                                            <div class="img-more active">
-                                                                <img
-                                                                    src="https://icons-for-free.com/iconfiles/png/512/exposure+plus+1+48px-131985226685054051.png"
-                                                                    alt=""
-                                                                    />
-                                                            </div>
-                                                        </div>
-                                                        <div class="img-more">
-                                                            <img
-                                                                src="https://www.shareicon.net/data/128x128/2015/09/12/100167_plus_512x512.png"
-                                                                alt=""
-                                                                />
-                                                        </div>
-
-                                                        <%
-                                                            break;
-                                                        } else {
-                                                        %>
-                                                        <div class="more-wrapper">
-                                                            <div class="img-more">
-                                                                <img
-                                                                    src="https://icons-for-free.com/iconfiles/png/512/exposure+plus+1+48px-131985226685054051.png"
-                                                                    alt=""
-                                                                    />
-                                                            </div>
-                                                            <div class="img-more active">
-                                                                <img
-                                                                    src="https://www.shareicon.net/data/128x128/2015/09/12/100167_plus_512x512.png"
-                                                                    alt=""
-                                                                    />
-                                                            </div>
-                                                        </div>
-                                                        <%
-                                                                        break;
-                                                                    }
-                                                                    count++;
-                                                                }
-                                                            }
-                                                        %>  
+                                                    <div class="image-all-wrapper pipe_image-all-wrapper" data-id="<%=feedback.getFeedbackId()%>">
                                                     </div>
+                                                    <script type="module">
+                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser2.js';
+                                                        Array.from(document.querySelectorAll('.pipe_image-all-wrapper')).forEach(async (ele) => {
+                                                        if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
+                                                        //  getImageString
+                                                        let imageString = '';
+                                                        if(imageString) {
+                                                        await handleLoadImageForUserFromFirebase(imageString, ele);
+                                                        }
+                                                        return;
+                                                        };
+                                                        });
+                                                    </script>
 
 
 
@@ -920,66 +913,20 @@
                                                     </div>
 
 
-                                                    <div class="image-all-wrapper">
-                                                        <%
-                                                            int count = 1;
-                                                            for (String img : feedback.getImageList()) {
-                                                                if (!img.equals("")) {
-                                                                    if (count == 1 || count == 2) {
-
-                                                        %>  
-                                                        <div class="pipe-item-image">
-                                                            <img
-                                                                src="data:image/jpg/png;base64,<%=img%>"
-                                                                alt=""
-                                                                />
-                                                        </div>
-
-
-
-                                                        <%                                                        } else if (feedback.getImageList().size() == 3) {
-                                                        %>
-                                                        <div class="more-wrapper">
-                                                            <div class="img-more active">
-                                                                <img
-                                                                    src="https://icons-for-free.com/iconfiles/png/512/exposure+plus+1+48px-131985226685054051.png"
-                                                                    alt=""
-                                                                    />
-                                                            </div>
-                                                        </div>
-                                                        <div class="img-more">
-                                                            <img
-                                                                src="https://www.shareicon.net/data/128x128/2015/09/12/100167_plus_512x512.png"
-                                                                alt=""
-                                                                />
-                                                        </div>
-
-                                                        <%
-                                                            break;
-                                                        } else {
-                                                        %>
-                                                        <div class="more-wrapper">
-                                                            <div class="img-more">
-                                                                <img
-                                                                    src="https://icons-for-free.com/iconfiles/png/512/exposure+plus+1+48px-131985226685054051.png"
-                                                                    alt=""
-                                                                    />
-                                                            </div>
-                                                            <div class="img-more active">
-                                                                <img
-                                                                    src="https://www.shareicon.net/data/128x128/2015/09/12/100167_plus_512x512.png"
-                                                                    alt=""
-                                                                    />
-                                                            </div>
-                                                        </div>
-                                                        <%
-                                                                        break;
-                                                                    }
-                                                                    count++;
-                                                                }
-                                                            }
-                                                        %>  
-                                                    </div>
+                                                    <div class="image-all-wrapper pipe_image-all-wrapper" data-id="<%=feedback.getFeedbackId()%>"></div>
+                                                    <script type="module">
+                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser2.js';
+                                                        Array.from(document.querySelectorAll('.pipe_image-all-wrapper')).forEach(async (ele) => {
+                                                        if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
+                                                        //  getImageString
+                                                        let imageString = '1632495909914.jpg;1632495816317.jpg;1632496006478.jpg;1632571757122.jpg;1632486574805.png';
+                                                        if(imageString) {
+                                                        await handleLoadImageForUserFromFirebase(imageString, ele);
+                                                        }
+                                                        return;
+                                                        };
+                                                        });
+                                                    </script>
 
 
 
@@ -1061,27 +1008,22 @@
                                                     </div>
 
 
-                                                    <div class="image-all-wrapper">
-                                                        <%
-                                                            int count = 1;
-                                                            for (String img : feedback.getImageList()) {
-                                                                if (!img.equals("")) {
-
-                                                        %>
-
-                                                        <div class="pipe-item-image">
-                                                            <img
-                                                                src="data:image/jpg/png;base64,<%=img%>"
-                                                                alt=""
-                                                                />
-                                                        </div>
-
-                                                        <%
-                                                                }
-                                                            }
-                                                        %>
-
+                                                    <div class="image-all-wrapper list_image-all-wrapper" data-id="<%=feedback.getFeedbackId()%>">
                                                     </div>
+
+                                                    <script type="module">
+                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser2.js';
+                                                        Array.from(document.querySelectorAll('.list_image-all-wrapper')).forEach(async (ele) => {
+                                                        if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
+                                                        //  getImageString
+                                                        let imageString = '1632495909914.jpg;1632495816317.jpg;1632496006478.jpg;1632571757122.jpg;1632486574805.png';
+                                                        if(imageString) {
+                                                        await handleLoadImageForUserFromFirebase(imageString, ele);
+                                                        }
+                                                        return;
+                                                        };
+                                                        });
+                                                    </script>
 
                                                     <div class="pipe-item-bottom">
                                                         <p class="pipe-bottom-item"><%=feedback.getDeviceName()%></p>
@@ -1116,27 +1058,22 @@
                                                     </div>
 
 
-                                                    <div class="image-all-wrapper">
-                                                        <%
-                                                            int count = 1;
-                                                            for (String img : feedback.getImageList()) {
-                                                                if (!img.equals("")) {
-
-                                                        %>
-
-                                                        <div class="pipe-item-image">
-                                                            <img
-                                                                src="data:image/jpg/png;base64,<%=img%>"
-                                                                alt=""
-                                                                />
-                                                        </div>
-
-                                                        <%
-                                                                }
-                                                            }
-                                                        %>
-
+                                                    <div class="image-all-wrapper list_image-all-wrapper" data-id="<%=feedback.getFeedbackId()%>">
                                                     </div>
+
+                                                    <script type="module">
+                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser2.js';
+                                                        Array.from(document.querySelectorAll('.list_image-all-wrapper')).forEach(async (ele) => {
+                                                        if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
+                                                        //  getImageString
+                                                        let imageString = '';
+                                                        if(imageString) {
+                                                        await handleLoadImageForUserFromFirebase(imageString, ele);
+                                                        }
+                                                        return;
+                                                        };
+                                                        });
+                                                    </script>
 
                                                     <div class="pipe-item-bottom">
                                                         <p class="pipe-bottom-item"><%=feedback.getDeviceName()%></p>
@@ -1169,27 +1106,23 @@
                                                     </div>
 
 
-                                                    <div class="image-all-wrapper">
-                                                        <%
-                                                            int count = 1;
-                                                            for (String img : feedback.getImageList()) {
-                                                                if (!img.equals("")) {
-
-                                                        %>  
-                                                        <div class="pipe-item-image">
-                                                            <img
-                                                                src="data:image/jpg/png;base64,<%=img%>"
-                                                                alt=""
-                                                                />
-                                                        </div>
-
-                                                        <%
-                                                                }
-                                                            }
-                                                        %>
+                                                    <div class="image-all-wrapper list_image-all-wrapper" data-id="<%=feedback.getFeedbackId()%>">
                                                     </div>
 
+                                                    <script type="module">
+                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser2.js';
 
+                                                        Array.from(document.querySelectorAll('.list_image-all-wrapper')).forEach(async (ele) => {
+                                                        if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
+                                                        //  getImageString
+                                                        let imageString = '';
+                                                        if(imageString) {
+                                                        await handleLoadImageForUserFromFirebase(imageString, ele);
+                                                        }
+                                                        return;
+                                                        };
+                                                        });
+                                                    </script>
 
                                                     <div class="pipe-item-bottom">
                                                         <p class="pipe-bottom-item"><%=feedback.getDeviceName()%></p>
@@ -1221,24 +1154,23 @@
                                                     </div>
 
 
-                                                    <div class="image-all-wrapper">
-                                                        <%
-                                                            int count = 1;
-                                                            for (String img : feedback.getImageList()) {
-                                                                if (!img.equals("")) {
-                                                        %>  
-                                                        <div class="pipe-item-image">
-                                                            <img
-                                                                src="data:image/jpg/png;base64,<%=img%>"
-                                                                alt=""
-                                                                />
-                                                        </div>
-
-                                                        <%
-                                                                }
-                                                            }
-                                                        %>
+                                                    <div class="image-all-wrapper list_image-all-wrapper" data-id="<%=feedback.getFeedbackId()%>">
                                                     </div>
+
+                                                    <script type="module">
+                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser2.js';
+
+                                                        Array.from(document.querySelectorAll('.list_image-all-wrapper')).forEach(async (ele) => {
+                                                        if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
+                                                        //  getImageString
+                                                        let imageString = '';
+                                                        if(imageString) {
+                                                        await handleLoadImageForUserFromFirebase(imageString, ele);
+                                                        }
+                                                        return;
+                                                        };
+                                                        });
+                                                    </script>
 
 
 
@@ -1378,75 +1310,43 @@
                 </div>
             </div>
 
-                            <input id="LOGIN_USER_ID" type="hidden" name="COUNT_RESPONSE" value="${sessionScope.LOGIN_USER.userID}"/>
+            <input id="LOGIN_USER_ID" type="hidden" name="COUNT_RESPONSE" value="${sessionScope.LOGIN_USER.userID}"/>
         </footer>
-                                               <!-- Query -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/User1.js"></script>
-        <script type="module" src="${pageContext.request.contextPath}/js/firebaseForUser.js"></script>
-        <script type="module" src="${pageContext.request.contextPath}/js/firebaseUserfromAdmin.js"></script>
-     
-        
-        <script>
-                                                            function handleNotification() {
-                                                                const count = document.querySelector('input[name="LIST_DONE_COUNT"]').value;
-                                                                $.ajax({
-                                                                    type: "POST",
-                                                                    url: "/SWP391_PROJECT/NotificationUserController",
-                                                                    data: {notification: count},
-                                                                    success: function (result) {
-                                                                        if (result !== '') {
-                                                                            var lenght = result.slice(0, 1);
-                                                                            $('.showcase-item-dropdown-actual-notification').addClass('active');
-                                                                            $('.showcase-item-dropdown-actual-notification').html(lenght);
-                                                                            $('.showcase-item-dropdown-select').addClass('active');
-                                                                            $('.showcase-item-dropdown-sub-title').html("You have " + lenght + " new feedback");
-                                                                        } else {
-                                                                            $('.showcase-item-dropdown-sub-title').html($('.showcase-item-dropdown-sub-title.sub-title-no').text());
-                                                                            $('.showcase-item-dropdown-actual-notification').removeClass('active');
-                                                                            $('.showcase-item-dropdown-select').removeClass('active');
-                                                                        }
-                                                                        $('.showcase-item-dropdown-list .pipe-list').html(result.slice(1));
 
-                                                                    }
-                                                                });
-                                                            }
-                                                            //handleNotification();
-                                                            //setInterval(handleNotification, 10000);
+        <!-- Query -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/User2.js"></script>
+        <script type="module" src="${pageContext.request.contextPath}/js/firebaseForUser1.js"></script>
+        <script type="module" src="${pageContext.request.contextPath}/js/firebaseUserfromAdmin.js"></script>
+
+
+        <script>
                                                             var imagesPreview = function (input, placeToInsertImagePreview) {
                                                                 if (input.files) {
                                                                     var filesAmount = input.files.length;
-
                                                                     for (i = 0; i < filesAmount; i++) {
                                                                         var reader = new FileReader();
-
                                                                         reader.onload = function (event) {
                                                                             $($.parseHTML("<img>"))
                                                                                     .attr("src", event.target.result)
                                                                                     .appendTo(placeToInsertImagePreview);
                                                                         };
-
                                                                         reader.readAsDataURL(input.files[i]);
                                                                     }
                                                                 }
                                                             };
-
                                                             var imagesPreview2 = function (input) {
                                                                 if (input.files) {
                                                                     var filesAmount = input.files.length;
-
                                                                     for (i = 0; i < filesAmount; i++) {
                                                                         var reader = new FileReader();
-
                                                                         reader.onload = function (event) {
                                                                             $(".avatar").attr("src", event.target.result);
                                                                         };
-
                                                                         reader.readAsDataURL(input.files[i]);
                                                                     }
                                                                 }
                                                             };
-
                                                             function loadResultsPipeStyle(index, list) {
                                                                 let amount;
                                                                 switch (index) {
@@ -1462,7 +1362,6 @@
                                                                     default:
                                                                         amount = list.closest('.pipe').querySelector('input[name="amount_decline"]').value;
                                                                         break;
-
                                                                 }
                                                                 ;
                                                                 let search = document.querySelector('input[name="search"]').value;
@@ -1480,7 +1379,6 @@
                                                                     success: function (data) {
                                                                         setTimeout(() => {
                                                                             var $results = $(list);
-
                                                                             $(".loading").fadeOut('fast', function () {
                                                                                 $(this).remove();
                                                                             });
@@ -1523,7 +1421,6 @@
                                                                     default:
                                                                         amount = list.closest('.list-showcase').querySelector('input[name="amount_decline"]').value;
                                                                         break;
-
                                                                 }
                                                                 let search = document.querySelector('input[name="search"]').value;
                                                                 let FEEDBACKID_FROM_SEARCH = document.querySelector('input[name="FEEDBACKID_FROM_SEARCH"]').value;
@@ -1542,7 +1439,6 @@
                                                                     success: function (data) {
                                                                         setTimeout(() => {
                                                                             var $results = $(list);
-
                                                                             $(".loading").fadeOut('fast', function () {
                                                                                 $(this).remove();
                                                                             });
@@ -1574,16 +1470,26 @@
                                                                 });
                                                             }
                                                             ;
-
                                                             $(function () {
 
+                                                                Array.from($(".reponse-form-drag-area")).forEach(ele => {
+                                                                    ele.addEventListener("drop", function (event) {
+                                                                        event.preventDefault();
+                                                                        let id = "#gallery-photo-add-" + ele.dataset.index;
+                                                                        $(id).prop("files", event.dataTransfer.files);
+                                                                        $(id).trigger("change");
+                                                                    });
+                                                                })
+
+                                                                $("#Image").on("custom", function (event, param1, param2) {
+                                                                    alert(param1 + "\n" + param2);
+                                                                });
                                                                 $(document).on("change", ":file", function () {
                                                                     var input = $(this),
                                                                             numFiles = input.get(0).files ? input.get(0).files.length : 1,
                                                                             label = input.val().replace(/\\/g, "/").replace(/.*\//, "");
                                                                     input.trigger("fileselect", [numFiles, label]);
                                                                 });
-
                                                                 $(document).ready(function () {
                                                                     $(":file").on("fileselect", function (event, numFiles, label) {
                                                                         var input = $(this).parents(".input-file-wrap").find(":text"),
@@ -1593,28 +1499,29 @@
                                                                         }
                                                                     });
                                                                 });
-
-
                                                                 $("#gallery-photo-add-1").on("change", function (e) {
                                                                     imagesPreview(this, "div.tab-img-1");
+                                                                    e.target.closest('.reponse-form-drag-area').querySelector('header').innerHTML = `Click <strong>Browse File</strong> to remove all image`;
+                                                                    e.target.closest('.reponse-form-drag-area').querySelector('span').style.margin = '5px 0';
                                                                 });
                                                                 $("#gallery-photo-add-2").on("change", function (e) {
-                                                                    console.log(e.target);
                                                                     imagesPreview(this, "div.tab-img-2");
+                                                                    e.target.closest('.reponse-form-drag-area').querySelector('header').innerHTML = `Click <strong>Browse File</strong> to remove all image`;
+                                                                    e.target.closest('.reponse-form-drag-area').querySelector('span').style.margin = '5px 0';
                                                                 });
                                                                 $("#gallery-photo-add-3").on("change", function (e) {
-                                                                    console.log(e.target);
+                                                                    e.target.closest('.reponse-form-drag-area').querySelector('header').innerHTML = `Click <strong>Browse File</strong> to remove all image`;
+                                                                    e.target.closest('.reponse-form-drag-area').querySelector('span').style.margin = '5px 0';
                                                                     imagesPreview(this, "div.tab-img-3");
                                                                 });
                                                                 $("#gallery-photo-add-4").on("change", function (e) {
-                                                                    console.log(e.target);
+                                                                    e.target.closest('.reponse-form-drag-area').querySelector('header').innerHTML = `Click <strong>Browse File</strong> to remove all image`;
+                                                                    e.target.closest('.reponse-form-drag-area').querySelector('span').style.margin = '5px 0';
                                                                     imagesPreview(this, "div.tab-img-4");
                                                                 });
-
                                                                 $("#image").on("change", function (e) {
                                                                     imagesPreview2(this);
                                                                 });
-
 //                                                                Scroll and load more data
                                                                 Array.from($(".pipe .pipe-list")).forEach(item => {
                                                                     item.addEventListener('scroll', (e) => {
@@ -1626,7 +1533,6 @@
                                                                         }
                                                                     });
                                                                 });
-
                                                                 Array.from($(".list-showcase-item .pipe-list")).forEach(item => {
                                                                     item.addEventListener('scroll', (e) => {
                                                                         var list = e.target.closest('.list-showcase-item .pipe-list');
@@ -1637,8 +1543,6 @@
                                                                         }
                                                                     });
                                                                 });
-
-
                                                             });
                                                             window.onload = function () {
                                                                 const flag = localStorage.getItem('flag');
@@ -1660,7 +1564,6 @@
                                                                         }
                                                                     }
                                                                     localStorage.removeItem('flag');
-
                                                                 }
                                                             }
         </script>
