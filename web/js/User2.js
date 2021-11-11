@@ -323,7 +323,6 @@ Array.from(listFBCategory).forEach((item) => {
 
         // Show page tương ứng
         var index = e.target.dataset.index;
-        console.log(index);
         Array.from(FbListItems).forEach((item) => {
             item.classList.remove("active");
         });

@@ -176,7 +176,6 @@ document.querySelector(".reponse-form").addEventListener("click", (e) => {
 
 const formMessage = document.querySelector(".feedback-form-message");
 formMessage.addEventListener("click", (e) => {
-    console.log(e.target);
     if (!e.target.classList.contains("feedback-form-message-modal"))
         return;
     formMessage.classList.remove("open");

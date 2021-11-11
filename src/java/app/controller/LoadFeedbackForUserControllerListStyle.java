@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -61,6 +62,10 @@ public class LoadFeedbackForUserControllerListStyle extends HttpServlet {
                         int position = 0;
                         int count = 0;
                         for (int i = 0; i < list.size(); i++) {
+                            if (i + 1 == list.size()) {
+                                position = list.size();
+                                break;
+                            }
                             if (list.get(i).getFeedbackId().equals(feeedbackID) && !list.get(i + 1).getFeedbackId().equals(feeedbackID)) {
                                 position = i + 1;
                                 break;
@@ -78,76 +83,83 @@ public class LoadFeedbackForUserControllerListStyle extends HttpServlet {
                         String date;
                         String statusId;
                         String statusName;
-                        for (int i = 0; i < listAll.size() + 1; i++) {
-                            if (i == 0) {
-                                deviceNameArray = listAll.get(i).getDeviceName();
-                                deviceName.add(listAll.get(i).getDeviceName());
-                                locationArray = listAll.get(i).getLocation();
-                                imageArray = listAll.get(i).getImageFirebase();
-//                                imageList.add(listAll.get(i).getImage());
-
-                            } else {
-                                //optimize code at final sprint
-                                if (i == listAll.size()) {
-                                    feedbackId = listAll.get(i - 1).getFeedbackId();
-                                    date = listAll.get(i - 1).getDate();
-                                    statusId = listAll.get(i - 1).getStatusId();
-                                    statusName = listAll.get(i - 1).getStatusName();
-                                    for (String device : deviceName) {
-                                        if (device.toUpperCase().contains(search.toUpperCase())) {
-                                            newlistAll.add(new UserHistoryDTO(feedbackId, date, "", deviceNameArray, locationArray, statusName, statusId, imageArray));
-                                        }
-                                    }
-
-                                    break;
-                                }
-                                if (!listAll.get(i).getFeedbackId().equals(listAll.get(i - 1).getFeedbackId())) {
-                                    feedbackId = listAll.get(i - 1).getFeedbackId();
-                                    date = listAll.get(i - 1).getDate();
-                                    statusId = listAll.get(i - 1).getStatusId();
-                                    statusName = listAll.get(i - 1).getStatusName();
-                                    for (String device : deviceName) {
-                                        if (device.toUpperCase().contains(search.toUpperCase())) {
-                                            newlistAll.add(new UserHistoryDTO(feedbackId, date, "", deviceNameArray, locationArray, statusName, statusId, imageArray));
-                                        }
-                                    }
-                                    deviceNameArray = "";
-                                    locationArray = "";
-                                    imageArray = "";
-                                    deviceName = new ArrayList<String>();
-                                    imageList = new ArrayList<String>();
-                                    deviceName.add(listAll.get(i).getDeviceName());
+                        if (listAll.size() != 0) {
+                            for (int i = 0; i < listAll.size() + 1; i++) {
+                                if (i == 0) {
                                     deviceNameArray = listAll.get(i).getDeviceName();
+                                    deviceName.add(listAll.get(i).getDeviceName());
                                     locationArray = listAll.get(i).getLocation();
                                     imageArray = listAll.get(i).getImageFirebase();
-//                                    imageList.add(listAll.get(i).getImage());
+//                                imageList.add(listAll.get(i).getImage());
 
                                 } else {
-                                    deviceName.add(listAll.get(i).getDeviceName());
-                                    deviceNameArray = deviceNameArray.concat(", ");
-                                    deviceNameArray = deviceNameArray.concat(listAll.get(i).getDeviceName());
-                                    locationArray = locationArray.concat(", ");
-                                    locationArray = locationArray.concat(listAll.get(i).getLocation());
-                                    imageArray = imageArray.concat(";");
-                                    imageArray = imageArray.concat(listAll.get(i).getImageFirebase());
+                                    //optimize code at final sprint
+                                    if (i == listAll.size()) {
+                                        feedbackId = listAll.get(i - 1).getFeedbackId();
+                                        date = listAll.get(i - 1).getDate();
+                                        statusId = listAll.get(i - 1).getStatusId();
+                                        statusName = listAll.get(i - 1).getStatusName();
+                                        for (String device : deviceName) {
+                                            if (device.toUpperCase().contains(search.toUpperCase())) {
+                                                newlistAll.add(new UserHistoryDTO(feedbackId, date, "", deviceNameArray, locationArray, statusName, statusId, imageArray));
+                                            }
+                                        }
+
+                                        break;
+                                    }
+                                    if (!listAll.get(i).getFeedbackId().equals(listAll.get(i - 1).getFeedbackId())) {
+                                        feedbackId = listAll.get(i - 1).getFeedbackId();
+                                        date = listAll.get(i - 1).getDate();
+                                        statusId = listAll.get(i - 1).getStatusId();
+                                        statusName = listAll.get(i - 1).getStatusName();
+                                        for (String device : deviceName) {
+                                            if (device.toUpperCase().contains(search.toUpperCase())) {
+                                                newlistAll.add(new UserHistoryDTO(feedbackId, date, "", deviceNameArray, locationArray, statusName, statusId, imageArray));
+                                            }
+                                        }
+                                        deviceNameArray = "";
+                                        locationArray = "";
+                                        imageArray = "";
+                                        deviceName = new ArrayList<String>();
+                                        imageList = new ArrayList<String>();
+                                        deviceName.add(listAll.get(i).getDeviceName());
+                                        deviceNameArray = listAll.get(i).getDeviceName();
+                                        locationArray = listAll.get(i).getLocation();
+                                        imageArray = listAll.get(i).getImageFirebase();
 //                                    imageList.add(listAll.get(i).getImage());
+
+                                    } else {
+                                        deviceName.add(listAll.get(i).getDeviceName());
+                                        deviceNameArray = deviceNameArray.concat(", ");
+                                        deviceNameArray = deviceNameArray.concat(listAll.get(i).getDeviceName());
+                                        locationArray = locationArray.concat(", ");
+                                        locationArray = locationArray.concat(listAll.get(i).getLocation());
+                                        imageArray = imageArray.concat(";");
+                                        imageArray = imageArray.concat(listAll.get(i).getImageFirebase());
+//                                    imageList.add(listAll.get(i).getImage());
+                                    }
                                 }
                             }
-                        }
-                        boolean all_flag = true;
-                        Set<UserHistoryDTO> historySet = new TreeSet<UserHistoryDTO>(new Comparator());
-                        for (UserHistoryDTO history : newlistAll) {
-                            if (all_flag) {
-                                if (historySet.size() == 10) {
-                                    all_flag = false;
-                                } else {
-                                    historySet.add(history);
+                            boolean all_flag = true;
+                            Set<UserHistoryDTO> historySet = new TreeSet<UserHistoryDTO>();
+                            for (UserHistoryDTO history : newlistAll) {
+                                if (all_flag) {
+                                    if (historySet.size() == 10) {
+                                        all_flag = false;
+                                    } else {
+                                        historySet.add(history);
+                                    }
                                 }
                             }
-                        }
-                        List<UserHistoryDTO> withoutDuplicates = new ArrayList<UserHistoryDTO>(historySet);
-                        String newAmount = withoutDuplicates.get(withoutDuplicates.size() - 1).getFeedbackId();
-                        for (UserHistoryDTO UserHistory : withoutDuplicates) {
+                            List<UserHistoryDTO> withoutDuplicates = new ArrayList<UserHistoryDTO>(historySet);
+                            Collections.reverse(withoutDuplicates);
+                            String newAmount = "";
+                            if (withoutDuplicates.size() != 0) {
+                                newAmount = withoutDuplicates.get(withoutDuplicates.size() - 1).getFeedbackId();
+                            } else {
+                                newAmount = feeedbackID;
+                            }
+                            for (UserHistoryDTO UserHistory : withoutDuplicates) {
 //                            String imageHtml = "";
 //                            for (String image : UserHistory.getImageList()) {
 //                                if (!image.equals("")) {
@@ -159,27 +171,32 @@ public class LoadFeedbackForUserControllerListStyle extends HttpServlet {
 //                                            + "         </div>";
 //                                }
 //                            }
-                            html = "<div class=\"pipe-item\">\n"
-                                    + "                                                    <div class=\"pipe-item-heading\">\n"
-                                    + "                                                        <div class=\"pipe-item-title-wrapper\">\n"
-                                    + "                                                            <h3 class=\"pipe-item-title\">Feedback " + UserHistory.getFeedbackId() + "</h3>\n"
-                                    + "                                                        </div>\n"
-                                    + "                                                        <div class=\"pipe-item-date\">" + UserHistory.getDate() + "</div>\n"
-                                    + "                                                    </div>\n"
-                                    + "                                                    <div class=\"image-all-wrapper List_All\" data-id=\"" + UserHistory.getFeedbackId() + "\">"
-                                    + "                                                    </div> "
-                                    + "                                                    <div class=\"pipe-item-bottom\">\n"
-                                    + "                                                        <p class=\"pipe-bottom-item\">" + UserHistory.getDeviceName() + "</p>\n"
-                                    + "                                                        <p class=\"pipe-bottom-item\">Room: " + UserHistory.getLocation() + "</p>\n"
-                                    + "                                                    </div>\n"
-                                    + "                                                </div>\n";
-                            FeedbackLoaderDTO feedbackLoader = new FeedbackLoaderDTO(Integer.parseInt(newAmount), UserHistory.getFeedbackId(), html, UserHistory.getImageFirebase());
-                            listFBLoader.add(feedbackLoader);
+                                html = "<div class=\"pipe-item\">\n"
+                                        + "                                                    <div class=\"pipe-item-heading\">\n"
+                                        + "                                                        <div class=\"pipe-item-title-wrapper\">\n"
+                                        + "                                                            <h3 class=\"pipe-item-title\">Feedback " + UserHistory.getFeedbackId() + "</h3>\n"
+                                        + "                                                        </div>\n"
+                                        + "                                                        <div class=\"pipe-item-date\">" + UserHistory.getDate() + "</div>\n"
+                                        + "                                                    </div>\n"
+                                        + "                                                    <div class=\"image-all-wrapper List_All\" data-id=\"" + UserHistory.getFeedbackId() + "\">"
+                                        + "                                                    </div> "
+                                        + "                                                    <div class=\"pipe-item-bottom\">\n"
+                                        + "                                                        <p class=\"pipe-bottom-item\">" + UserHistory.getDeviceName() + "</p>\n"
+                                        + "                                                        <p class=\"pipe-bottom-item\">Room: " + UserHistory.getLocation() + "</p>\n"
+                                        + "                                                    </div>\n"
+                                        + "                                                </div>\n";
+                                FeedbackLoaderDTO feedbackLoader = new FeedbackLoaderDTO(Integer.parseInt(newAmount), UserHistory.getFeedbackId(), html, UserHistory.getImageFirebase());
+                                listFBLoader.add(feedbackLoader);
 
+                            }
+                        } else {
+                            String newAmount = list.get(list.size() - 1).getFeedbackId();
+                            FeedbackLoaderDTO feedbackLoader = new FeedbackLoaderDTO(Integer.parseInt(newAmount), "", "", "");
+                            listFBLoader.add(feedbackLoader);
                         }
-//                        out.println("'" + newAmount + "'" + html);
                         out.println(gson.toJson(listFBLoader));
 
+//                        out.println("'" + newAmount + "'" + html);
                     } else {
                         List<UserHistoryDTO> listAll = dao.getListFeedbackForUserNext(user.getUserID(), Integer.parseInt(amount));
                         List<UserHistoryDTO> listAllCheck = dao.getListFeedbackForUserNextForCheck(user.getUserID(), Integer.parseInt(amount) + 10);
@@ -351,24 +368,24 @@ public class LoadFeedbackForUserControllerListStyle extends HttpServlet {
 //                                + "                                                    </div>\n"
 //                                + "                                                </div>\n";
                         html = "<div class=\"pipe-item\">\n"
-                                    + "                                                    <div class=\"pipe-item-heading\">\n"
-                                    + "                                                        <div class=\"pipe-item-title-wrapper\">\n"
-                                    + "                                                            <h3 class=\"pipe-item-title\">Feedback " + UserHistory.getFeedbackId() + "</h3>\n"
-                                    + "                                                        </div>\n"
-                                    + "                                                        <div class=\"pipe-item-date\">" + UserHistory.getDate() + "</div>\n"
-                                    + "                                                    </div>\n"
-                                    + "                                                    <div class=\"image-all-wrapper list_image-all-wrapper\" data-id=\"" + UserHistory.getFeedbackId() + "\">"
-                                    + "                                                    </div> "
-                                    + "                                                    <div class=\"pipe-item-bottom\">\n"
-                                    + "                                                        <p class=\"pipe-bottom-item\">" + UserHistory.getDeviceName() + "</p>\n"
-                                    + "                                                        <p class=\"pipe-bottom-item\">Room: " + UserHistory.getLocation() + "</p>\n"
-                                    + "                                                    </div>\n"
-                                    + "                                                </div>\n";
-                            FeedbackLoaderDTO feedbackLoader = new FeedbackLoaderDTO(newAmount, UserHistory.getFeedbackId(), html, UserHistory.getImageFirebase());
-                            listFBLoader.add(feedbackLoader);
-                        }
+                                + "                                                    <div class=\"pipe-item-heading\">\n"
+                                + "                                                        <div class=\"pipe-item-title-wrapper\">\n"
+                                + "                                                            <h3 class=\"pipe-item-title\">Feedback " + UserHistory.getFeedbackId() + "</h3>\n"
+                                + "                                                        </div>\n"
+                                + "                                                        <div class=\"pipe-item-date\">" + UserHistory.getDate() + "</div>\n"
+                                + "                                                    </div>\n"
+                                + "                                                    <div class=\"image-all-wrapper list_image-all-wrapper\" data-id=\"" + UserHistory.getFeedbackId() + "\">"
+                                + "                                                    </div> "
+                                + "                                                    <div class=\"pipe-item-bottom\">\n"
+                                + "                                                        <p class=\"pipe-bottom-item\">" + UserHistory.getDeviceName() + "</p>\n"
+                                + "                                                        <p class=\"pipe-bottom-item\">Room: " + UserHistory.getLocation() + "</p>\n"
+                                + "                                                    </div>\n"
+                                + "                                                </div>\n";
+                        FeedbackLoaderDTO feedbackLoader = new FeedbackLoaderDTO(newAmount, UserHistory.getFeedbackId(), html, UserHistory.getImageFirebase());
+                        listFBLoader.add(feedbackLoader);
+                    }
 //                        out.println("'" + newAmount + "'" + html);
-                        out.println(gson.toJson(listFBLoader));
+                    out.println(gson.toJson(listFBLoader));
                     break;
                 case "2":
                     List<UserHistoryDTO> listOnGoing = dao.getListFeedbackOnGoingForUserNext(user.getUserID(), Integer.parseInt(amount));
@@ -441,24 +458,24 @@ public class LoadFeedbackForUserControllerListStyle extends HttpServlet {
 //                                + "                                                    </div>\n"
 //                                + "                                                </div>\n";
                         html = "<div class=\"pipe-item\">\n"
-                                    + "                                                    <div class=\"pipe-item-heading\">\n"
-                                    + "                                                        <div class=\"pipe-item-title-wrapper\">\n"
-                                    + "                                                            <h3 class=\"pipe-item-title\">Feedback " + UserHistory.getFeedbackId() + "</h3>\n"
-                                    + "                                                        </div>\n"
-                                    + "                                                        <div class=\"pipe-item-date\">" + UserHistory.getDate() + "</div>\n"
-                                    + "                                                    </div>\n"
-                                    + "                                                    <div class=\"image-all-wrapper list_image-all-wrapper\" data-id=\"" + UserHistory.getFeedbackId() + "\">"
-                                    + "                                                    </div> "
-                                    + "                                                    <div class=\"pipe-item-bottom\">\n"
-                                    + "                                                        <p class=\"pipe-bottom-item\">" + UserHistory.getDeviceName() + "</p>\n"
-                                    + "                                                        <p class=\"pipe-bottom-item\">Room: " + UserHistory.getLocation() + "</p>\n"
-                                    + "                                                    </div>\n"
-                                    + "                                                </div>\n";
-                            FeedbackLoaderDTO feedbackLoader = new FeedbackLoaderDTO(newAmount, UserHistory.getFeedbackId(), html, UserHistory.getImageFirebase());
-                            listFBLoader.add(feedbackLoader);
-                        }
+                                + "                                                    <div class=\"pipe-item-heading\">\n"
+                                + "                                                        <div class=\"pipe-item-title-wrapper\">\n"
+                                + "                                                            <h3 class=\"pipe-item-title\">Feedback " + UserHistory.getFeedbackId() + "</h3>\n"
+                                + "                                                        </div>\n"
+                                + "                                                        <div class=\"pipe-item-date\">" + UserHistory.getDate() + "</div>\n"
+                                + "                                                    </div>\n"
+                                + "                                                    <div class=\"image-all-wrapper list_image-all-wrapper\" data-id=\"" + UserHistory.getFeedbackId() + "\">"
+                                + "                                                    </div> "
+                                + "                                                    <div class=\"pipe-item-bottom\">\n"
+                                + "                                                        <p class=\"pipe-bottom-item\">" + UserHistory.getDeviceName() + "</p>\n"
+                                + "                                                        <p class=\"pipe-bottom-item\">Room: " + UserHistory.getLocation() + "</p>\n"
+                                + "                                                    </div>\n"
+                                + "                                                </div>\n";
+                        FeedbackLoaderDTO feedbackLoader = new FeedbackLoaderDTO(newAmount, UserHistory.getFeedbackId(), html, UserHistory.getImageFirebase());
+                        listFBLoader.add(feedbackLoader);
+                    }
 //                        out.println("'" + newAmount + "'" + html);
-                        out.println(gson.toJson(listFBLoader));
+                    out.println(gson.toJson(listFBLoader));
                     break;
 
                 default:
@@ -532,28 +549,29 @@ public class LoadFeedbackForUserControllerListStyle extends HttpServlet {
 //                                + "                                                        <p class=\"pipe-bottom-item\">Room: " + UserHistory.getLocation() + "</p>\n"
 //                                + "                                                    </div>\n"
 //                                + "                                                </div>\n";
-                         html = "<div class=\"pipe-item\">\n"
-                                    + "                                                    <div class=\"pipe-item-heading\">\n"
-                                    + "                                                        <div class=\"pipe-item-title-wrapper\">\n"
-                                    + "                                                            <h3 class=\"pipe-item-title\">Feedback " + UserHistory.getFeedbackId() + "</h3>\n"
-                                    + "                                                        </div>\n"
-                                    + "                                                        <div class=\"pipe-item-date\">" + UserHistory.getDate() + "</div>\n"
-                                    + "                                                    </div>\n"
-                                    + "                                                    <div class=\"image-all-wrapper list_image-all-wrapper\" data-id=\"" + UserHistory.getFeedbackId() + "\">"
-                                    + "                                                    </div> "
-                                    + "                                                    <div class=\"pipe-item-bottom\">\n"
-                                    + "                                                        <p class=\"pipe-bottom-item\">" + UserHistory.getDeviceName() + "</p>\n"
-                                    + "                                                        <p class=\"pipe-bottom-item\">Room: " + UserHistory.getLocation() + "</p>\n"
-                                    + "                                                    </div>\n"
-                                    + "                                                </div>\n";
-                            FeedbackLoaderDTO feedbackLoader = new FeedbackLoaderDTO(newAmount, UserHistory.getFeedbackId(), html, UserHistory.getImageFirebase());
-                            listFBLoader.add(feedbackLoader);
-                        }
+                        html = "<div class=\"pipe-item\">\n"
+                                + "                                                    <div class=\"pipe-item-heading\">\n"
+                                + "                                                        <div class=\"pipe-item-title-wrapper\">\n"
+                                + "                                                            <h3 class=\"pipe-item-title\">Feedback " + UserHistory.getFeedbackId() + "</h3>\n"
+                                + "                                                        </div>\n"
+                                + "                                                        <div class=\"pipe-item-date\">" + UserHistory.getDate() + "</div>\n"
+                                + "                                                    </div>\n"
+                                + "                                                    <div class=\"image-all-wrapper list_image-all-wrapper\" data-id=\"" + UserHistory.getFeedbackId() + "\">"
+                                + "                                                    </div> "
+                                + "                                                    <div class=\"pipe-item-bottom\">\n"
+                                + "                                                        <p class=\"pipe-bottom-item\">" + UserHistory.getDeviceName() + "</p>\n"
+                                + "                                                        <p class=\"pipe-bottom-item\">Room: " + UserHistory.getLocation() + "</p>\n"
+                                + "                                                    </div>\n"
+                                + "                                                </div>\n";
+                        FeedbackLoaderDTO feedbackLoader = new FeedbackLoaderDTO(newAmount, UserHistory.getFeedbackId(), html, UserHistory.getImageFirebase());
+                        listFBLoader.add(feedbackLoader);
+                    }
 //                        out.println("'" + newAmount + "'" + html);
-                        out.println(gson.toJson(listFBLoader));
+                    out.println(gson.toJson(listFBLoader));
                     break;
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

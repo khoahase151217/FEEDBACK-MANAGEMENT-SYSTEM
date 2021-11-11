@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -77,7 +78,7 @@ public class SearchUserFeedbackController extends HttpServlet {
                 request.setAttribute("COUNT_FLAG_ALL", amount_all);
             }
             FeedbackDAO dao = new FeedbackDAO();
-            List<UserHistoryDTO> list = dao.getListFeedbackForUser(userID);
+            List<UserHistoryDTO> list = dao.getListFeedbackSearchForUser(userID);
             if (!search.matches(FULL__NAME_REGEX)) {
                 list = new ArrayList<>();
                 session.setAttribute("HISTORY_ALL", list);
@@ -154,7 +155,7 @@ public class SearchUserFeedbackController extends HttpServlet {
                             }
                         }
                     }
-                    Set<UserHistoryDTO> historySet = new TreeSet<UserHistoryDTO>(new Comparator());
+                    Set<UserHistoryDTO> historySet = new TreeSet<UserHistoryDTO>();
                     for (UserHistoryDTO history : listAll) {
                         if (all_flag) {
                             if (historySet.size() == 10) {
@@ -165,6 +166,7 @@ public class SearchUserFeedbackController extends HttpServlet {
                         }
                     }
                     List<UserHistoryDTO> withoutDuplicates = new ArrayList<UserHistoryDTO>(historySet);
+                    Collections.reverse(withoutDuplicates);
                     if (!withoutDuplicates.isEmpty()) {
                         request.setAttribute("FEEDBACKID_FROM_SEARCH", withoutDuplicates.get(withoutDuplicates.size() - 1).getFeedbackId());
                     }

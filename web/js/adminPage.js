@@ -41,7 +41,6 @@ window.addEventListener('load', () => {
                                                         var loopActive = document.getElementsByTagName("a");
 
                                                         for (let i = 0; i < Array.from(loop).length; i++) {
-                                                            console.log(Array.from(loop)[i].innerHTML);
                                                             if ((Array.from(loop)[i].innerHTML).includes(id)) {
                                                                 setTimeout(function () {
                                                                     (loop[i]).scrollIntoView({
@@ -228,7 +227,6 @@ Array.from(detailItems).forEach((item) => {
 });
 
 document.querySelector(".user-form .modal").addEventListener("click", (e) => {
-    console.log(e.target);
     if (!e.target.classList.contains("modal"))
         return;
     e.target.closest(".user-form").classList.remove("open");

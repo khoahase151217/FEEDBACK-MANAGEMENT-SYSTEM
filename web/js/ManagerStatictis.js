@@ -194,7 +194,6 @@ document.querySelector(".icon-profile-back.profile-chevron-back.baduser").addEve
                     );
     document.querySelector(".statistic-user-wrapper.statistic-student-wrapper.active").classList.remove("active");
     Array.from(BadUserList)[index - 2].classList.add("active");
-    console.log(index);
 });
 
 

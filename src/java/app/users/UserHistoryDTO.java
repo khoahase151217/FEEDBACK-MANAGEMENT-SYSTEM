@@ -5,6 +5,7 @@
  */
 package app.users;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
  *
  * @author ADMIN
  */
-public class UserHistoryDTO {
+public class UserHistoryDTO implements Comparable<UserHistoryDTO> {
 
     private String feedbackId;
     private String date;
@@ -59,7 +60,6 @@ public class UserHistoryDTO {
         this.statusId = statusId;
         this.imageFirebase = imageFirebase;
     }
-
 
     public String getImageFirebase() {
         return imageFirebase;
@@ -135,6 +135,13 @@ public class UserHistoryDTO {
 
     public void setStatusName(String statusName) {
         this.statusName = statusName;
+    }
+
+    @Override
+    public int compareTo(UserHistoryDTO o) {
+        BigDecimal b1 = new BigDecimal(Integer.parseInt(this.feedbackId));
+        BigDecimal b2 = new BigDecimal(Integer.parseInt(o.feedbackId));
+        return b1.compareTo(b2);
     }
 
 }

@@ -1267,7 +1267,6 @@
                         url: "/SWP391_PROJECT/DonutStatisticController",
                         dataType: "JSON",
                         success: function (data) {
-                            console.log(data);
                             google.charts.load("current", {packages: ["corechart"]});
                             google.charts.setOnLoadCallback(() => {
                                 drawChart2(data);

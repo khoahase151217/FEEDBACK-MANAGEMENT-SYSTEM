@@ -44,7 +44,7 @@
             <div class="modal">
                 <div class="reponse-form-main">
                     <h2 class="reponse-form-heading">Feedback Detail ${requestScope.COUNT}</h2>
-                    <form action="AddResponseController" class="reponse-form-actual-form" enctype="multipart/form-data" method="post">
+                    <form action="AddResponseController" class="reponse-form-actual-form" enctype="multipart/form-data" method="post" id="response_form">
                         <input type="hidden" name="feedbackDetailID" value="${requestScope.FEEDBACK_DETAIL_ID}" />
                         <div class="reponse-form-textarea-wrapper">
                             <textarea
@@ -67,9 +67,10 @@
                                     <p>Browse File</p>
                                     <input
                                         type="file"
-                                        name="image"
+                                        name="image_2"
                                         id="image"
                                         style="display: none"
+                                        multiple
                                         />
                                 </label>
                             </div>
@@ -584,14 +585,21 @@
                                                                                 >
                                                                                 <label class="input-label">Description</label>
                                                                             </div>
-                                                                            <div class="feedback-detail-image-wrapper">
+                                                                            <div class="feedback-detail-image-wrapper task-detail-image-wrapper">
                                                                                 <c:if test="${feedbackDetail.image ne ''}">
-                                                                                    // feedbackDetail.imageFirebase
-                                                                                    <img
-                                                                                        src="data:image/jpg/png;base64,${feedbackDetail.image}"
-                                                                                        alt=""
-                                                                                        />
+                                                                                    <!--                                                                                    <img
+                                                                                                                                                                            src="data:image/jpg/png;base64,${feedbackDetail.image}"
+                                                                                                                                                                            alt=""
+                                                                                                                                                                            />-->
                                                                                 </c:if>
+                                                                                <script type="module">
+                                                                                    import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser.js';
+                                                                                    //  getImageString
+                                                                                    let imageString = '${feedbackDetail.imageFirebase}';
+                                                                                    if(imageString) {
+                                                                                    handleLoadImageForUserFromFirebase(imageString, document.querySelector('.task-detail-image-wrapper'));
+                                                                                    }
+                                                                                </script>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -685,13 +693,21 @@
                                                                                 >
                                                                                 <label class="input-label">Description</label>
                                                                             </div>
-                                                                            <div class="feedback-detail-image-wrapper">
+                                                                            <div class="feedback-detail-image-wrapper task-detail-image-wrapper">
                                                                                 <c:if test="${feedbackDetail.image ne ''}">
-                                                                                    <img
-                                                                                        src="data:image/jpg/png;base64,${feedbackDetail.image}"
-                                                                                        alt=""
-                                                                                        />
+                                                                                    <!--                                                                                    <img
+                                                                                                                                                                            src="data:image/jpg/png;base64,${feedbackDetail.image}"
+                                                                                                                                                                            alt=""
+                                                                                                                                                                            />-->
                                                                                 </c:if>
+                                                                                <script type="module">
+                                                                                    import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser.js';
+                                                                                    //  getImageString
+                                                                                    let imageString = '${feedbackDetail.imageFirebase}';
+                                                                                    if(imageString) {
+                                                                                    handleLoadImageForUserFromFirebase(imageString, document.querySelector('.task-detail-image-wrapper'));
+                                                                                    }
+                                                                                </script>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -785,13 +801,21 @@
                                                                                 >
                                                                                 <label class="input-label">Description</label>
                                                                             </div>
-                                                                            <div class="feedback-detail-image-wrapper">
+                                                                            <div class="feedback-detail-image-wrapper task-detail-image-wrapper">
                                                                                 <c:if test="${feedbackDetail.image ne ''}">
-                                                                                    <img
-                                                                                        src="data:image/jpg/png;base64,${feedbackDetail.image}"
-                                                                                        alt=""
-                                                                                        />
+                                                                                    <!--                                                                                    <img
+                                                                                                                                                                            src="data:image/jpg/png;base64,${feedbackDetail.image}"
+                                                                                                                                                                            alt=""
+                                                                                                                                                                            />-->
                                                                                 </c:if>
+                                                                                <script type="module">
+                                                                                    import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser.js';
+                                                                                    //  getImageString
+                                                                                    let imageString = '${feedbackDetail.imageFirebase}';
+                                                                                    if(imageString) {
+                                                                                    handleLoadImageForUserFromFirebase(imageString, document.querySelector('.task-detail-image-wrapper'));
+                                                                                    }
+                                                                                </script>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -964,13 +988,21 @@
                                                                                 >${response.des}</textarea>
                                                                             <label class="input-label">Description</label>
                                                                         </div>
-                                                                        <div class="feedback-detail-image-wrapper">
+                                                                        <div class="feedback-detail-image-wrapper history-detail-image-wrapper">
                                                                             <c:if test="${response.image ne ''}">
-                                                                                <img
-                                                                                    src="data:image/jpg/png;base64,${response.image}"
-                                                                                    alt=""
-                                                                                    />
+                                                                                <!--                                                                                <img
+                                                                                                                                                                    src="data:image/jpg/png;base64,${response.image}"
+                                                                                                                                                                    alt=""
+                                                                                                                                                                    />-->
                                                                             </c:if>
+                                                                            <script type="module">
+                                                                                import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser.js';
+                                                                                //  getImageString
+                                                                                let imageString = '${response.image}';
+                                                                                if(imageString) {
+                                                                                handleLoadImageForUserFromFirebase(imageString, document.querySelector('.history-detail-image-wrapper'));
+                                                                                }
+                                                                            </script>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1050,14 +1082,21 @@
                                                                             <label class="input-label">Description</label>
                                                                         </div>
 
-                                                                        <div class="feedback-detail-image-wrapper">
+                                                                        <div class="feedback-detail-image-wrapper history-detail-image-wrapper">
                                                                             <c:if test="${response.image ne ''}">
-                                                                                // feedbackDetail.image
-                                                                                <img
-                                                                                    src="data:image/jpg/png;base64,${response.image}"
-                                                                                    alt=""
-                                                                                    />
+                                                                                <!--                                                                                <img
+                                                                                                                                                                    src="data:image/jpg/png;base64,${response.image}"
+                                                                                                                                                                    alt=""
+                                                                                                                                                                    />-->
                                                                             </c:if>
+                                                                            <script type="module">
+                                                                                import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser.js';
+                                                                                //  getImageString
+                                                                                let imageString = '${response.image}';
+                                                                                if(imageString) {
+                                                                                handleLoadImageForUserFromFirebase(imageString, document.querySelector('.history-detail-image-wrapper'));
+                                                                                }
+                                                                            </script>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1086,56 +1125,57 @@
                 </div>
             </section>
         </main>
-                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
         <script src="${pageContext.request.contextPath}/js/EmployeeHome1.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseForResponse.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseForTrash.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseEmpFromAdmin1.js"></script>
+        <script type="module" src="${pageContext.request.contextPath}/js/firebaseStorageForEmployee.js"></script>
         <!-- Query -->
 
         <script>
-            $(function () {
-                var imagesPreview = function (input, placeToInsertImagePreview) {
-                    if (input.files) {
-                        var filesAmount = input.files.length;
-                        for (i = 0; i < filesAmount; i++) {
-                            var reader = new FileReader();
-                            reader.onload = function (event) {
-                                $($.parseHTML("<img>"))
-                                        .attr("src", event.target.result)
-                                        .appendTo(placeToInsertImagePreview);
-                            };
-                            reader.readAsDataURL(input.files[i]);
-                        }
-                    }
+$(function () {
+    var imagesPreview = function (input, placeToInsertImagePreview) {
+        if (input.files) {
+            var filesAmount = input.files.length;
+            for (i = 0; i < filesAmount; i++) {
+                var reader = new FileReader();
+                reader.onload = function (event) {
+                    $($.parseHTML("<img>"))
+                            .attr("src", event.target.result)
+                            .appendTo(placeToInsertImagePreview);
                 };
-                var imagesPreview2 = function (input) {
-                    if (input.files) {
-                        var filesAmount = input.files.length;
-                        for (i = 0; i < filesAmount; i++) {
-                            var reader = new FileReader();
-                            reader.onload = function (event) {
+                reader.readAsDataURL(input.files[i]);
+            }
+        }
+    };
+    var imagesPreview2 = function (input) {
+        if (input.files) {
+            var filesAmount = input.files.length;
+            for (i = 0; i < filesAmount; i++) {
+                var reader = new FileReader();
+                reader.onload = function (event) {
 
-                                $(".avatar").attr("src", event.target.result);
-                            };
-                            reader.readAsDataURL(input.files[i]);
-                        }
-                    }
+                    $(".avatar").attr("src", event.target.result);
                 };
-                $(".reponse-form-drag-area").on("drop", function (event) {
-                    event.preventDefault();
-                    $("#image").prop("files", event.originalEvent.dataTransfer.files);
-                    $("#image").trigger("change");
-                });
-                $("#image").on("change", function (e) {
-                    $(".reponse-form-image-show").empty();
-                    imagesPreview(this, "div.reponse-form-image-show");
-                });
-                $("#avatarImage").on("change", function (e) {
-                    imagesPreview2(this);
-                });
-            });
+                reader.readAsDataURL(input.files[i]);
+            }
+        }
+    };
+    $(".reponse-form-drag-area").on("drop", function (event) {
+        event.preventDefault();
+        $("#image").prop("files", event.originalEvent.dataTransfer.files);
+        $("#image").trigger("change");
+    });
+    $("#image").on("change", function (e) {
+        $(".reponse-form-image-show").empty();
+        imagesPreview(this, "div.reponse-form-image-show");
+    });
+    $("#avatarImage").on("change", function (e) {
+        imagesPreview2(this);
+    });
+});
         </script>
     </body>
 </html>

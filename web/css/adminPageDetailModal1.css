@@ -215,10 +215,11 @@
 .detail-items .description {
     display: flex;
     margin: 1rem;
+    max-width: 62%;
 }
 .detail-items .description .content {
     height: 3.5rem;
-    width: 55rem;
+    flex: 1;
     margin-left: 0.6rem;
     font-size: small;
     line-height: 1.4;
@@ -243,6 +244,8 @@
     width:195px;
     right:7.7%;
     top:45%;
+    overflow: auto;
+    gap: 0 1.5rem;
 }
 
 .detail-wrapper .all-wrapper img{
@@ -254,19 +257,19 @@
     .detail-main {
         width: 70rem;
     }
-    
+
     .feedback .feedback-header p:first-child {
         transform: translateX(50%);
     }
-    
+
     .feedback .feedback-header p:nth-child(2) {
         transform: translateX(-29%);
     }
-    
+
     .feedback .feedback-header p:nth-child(3) {
         transform: translateX(-130%);
     }
-    
+
     .feedback .feedback-header p:last-child {
         transform: translateX(-80%);
     }

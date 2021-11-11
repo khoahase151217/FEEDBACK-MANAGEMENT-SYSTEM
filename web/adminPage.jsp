@@ -70,14 +70,19 @@
                                                 <p>Quantity: ${feedbackDetail.quanity}</p>
                                                 <p>Reason: ${feedbackDetail.reason}</p>
                                             </div>
-                                            <div class="all-wrapper">
-                                                // feedbackDetail.imageFirebase
-                                                <c:if test="${feedbackDetail.image ne ''}">
-                                                    <img
-                                                        src="data:image/jpg/png;base64,${feedbackDetail.image}"
-                                                        alt=""
-                                                        />
-                                                </c:if>
+                                            <div class="all-wrapper" data-id="${feedbackDetail.feedbackDetailID}">
+                                                <!-- feedbackDetail.imageFirebase -->
+                                                <script type="module">
+                                                    import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser.js';
+                                                    //  getImageString
+                                                    let imageString = '${feedbackDetail.imageFirebase}';
+                                                    Array.from(document.querySelector('.all-wrapper')).forEach(ele => {
+
+                                                    if(ele.dataset.id === '${feedbackDetail.feedbackDetailID}' && imageString) {
+                                                    handleLoadImageForUserFromFirebase(imageString, ele);
+                                                    }
+                                                    });
+                                                </script>
                                             </div>
                                             <div class="employee-name">
                                                 <div class="employee-name-heading">
@@ -162,13 +167,26 @@
                                                 <p>Quantity: ${feedbackDetail.quanity}</p>
                                                 <p>Reason: ${feedbackDetail.reason}</p>
                                             </div>
-                                            <div class="all-wrapper">
+                                            <div class="all-wrapper" data-id="${feedbackDetail.feedbackDetailID}">
+
                                                 <c:if test="${feedbackDetail.image ne ''}">
-                                                    <img
-                                                        src="data:image/jpg/png;base64,${feedbackDetail.image}"
-                                                        alt=""
-                                                        />
+                                                    <!--                                                    <img
+                                                                                                            src="data:image/jpg/png;base64,${feedbackDetail.image}"
+                                                                                                            alt=""
+                                                                                                            />-->
                                                 </c:if>
+
+                                                <!-- feedbackDetail.imageFirebase -->
+                                                <script type="module">
+                                                    import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser.js';
+                                                    //  getImageString
+                                                    let imageString = '${feedbackDetail.imageFirebase}';
+                                                    Array.from(document.querySelectorAll('.all-wrapper')).forEach(ele => {
+                                                    if(ele.dataset.id === '${feedbackDetail.feedbackDetailID}' && imageString) {
+                                                    handleLoadImageForUserFromFirebase(imageString, ele);
+                                                    }
+                                                    });
+                                                </script>
                                             </div>
                                             <div class="employee-name">
                                                 <div class="employee-name-heading">
@@ -1193,11 +1211,19 @@
                                                                                 <label class="input-label">Description</label>
                                                                             </div>
                                                                             <div class="feedback-detail-image-wrapper">
-                                                                                // reponseDetail.image
-                                                                                <img
-                                                                                    src="data:image/jpg/png;base64,${reponseDetail.image}"
-                                                                                    alt=""
-                                                                                    />
+                                                                                <!--reponseDetail.image-->
+                                                                                <!--                                                                                <img
+                                                                                                                                                                    src="data:image/jpg/png;base64,${reponseDetail.image}"
+                                                                                                                                                                    alt=""
+                                                                                                                                                                    />-->
+                                                                                <script type="module">
+                                                                                    import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser.js';
+                                                                                    //  getImageString
+                                                                                    let imageString = '${reponseDetail.image}';
+                                                                                    if(imageString) {
+                                                                                    handleLoadImageForUserFromFirebase(imageString, document.querySelector('.feedback-detail-image-wrapper'));
+                                                                                    }
+                                                                                </script>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -1329,188 +1355,188 @@
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseForEMP.js"></script>
         <!-- Query -->
         <script>
-                                                function handleNotification() {
-                                                    const count = document.querySelector('input[name="pending_count"]').value;
-                                                    const countTrash = document.querySelector('input[name="pending_count_trash"]').value;
-                                                    $.ajax({
-                                                        type: "POST",
-                                                        url: "/SWP391_PROJECT/NotificationController",
-                                                        data: {notification: count},
-                                                        success: function (result) {
-                                                            var trash = JSON.parse(localStorage.getItem("trashFeedback"));
-                                                            var response = JSON.parse(localStorage.getItem("responseFeedback"));
-                                                            if (!trash || !response) {
-                                                                var finalCount = 0;
-                                                            } else {
-                                                                finalCount = trash.finalCount + response.finalCount;
-                                                            }
-                                                            var pendingUserFeedback = {
-                                                                finalCount: finalCount,
-                                                                name: "Pending user"
-                                                            };
-                                                            if (result !== '') {
-                                                                var lenght = result.slice(0, 1);
-                                                                pendingUserFeedback.finalCount = parseInt(lenght);
-                                                                finalCount += parseInt(lenght);
+            function handleNotification() {
+                const count = document.querySelector('input[name="pending_count"]').value;
+                const countTrash = document.querySelector('input[name="pending_count_trash"]').value;
+                $.ajax({
+                    type: "POST",
+                    url: "/SWP391_PROJECT/NotificationController",
+                    data: {notification: count},
+                    success: function (result) {
+                        var trash = JSON.parse(localStorage.getItem("trashFeedback"));
+                        var response = JSON.parse(localStorage.getItem("responseFeedback"));
+                        if (!trash || !response) {
+                            var finalCount = 0;
+                        } else {
+                            finalCount = trash.finalCount + response.finalCount;
+                        }
+                        var pendingUserFeedback = {
+                            finalCount: finalCount,
+                            name: "Pending user"
+                        };
+                        if (result !== '') {
+                            var lenght = result.slice(0, 1);
+                            pendingUserFeedback.finalCount = parseInt(lenght);
+                            finalCount += parseInt(lenght);
 //                                                                var lenght = Array.from(document.querySelectorAll('.showcase-item-dropdown-list .notification-item')).length;
-                                                                if (finalCount !== 0) {
-                                                                    $('.showcase-item-dropdown-actual-notification').addClass('active');
-                                                                    $('.showcase-item-dropdown-actual-notification').html(finalCount);
-                                                                    $('.showcase-item-dropdown-select').addClass('active');
-                                                                    $('.showcase-item-dropdown-sub-title').html("You have " + finalCount + " new feedback");
-                                                                }
+                            if (finalCount !== 0) {
+                                $('.showcase-item-dropdown-actual-notification').addClass('active');
+                                $('.showcase-item-dropdown-actual-notification').html(finalCount);
+                                $('.showcase-item-dropdown-select').addClass('active');
+                                $('.showcase-item-dropdown-sub-title').html("You have " + finalCount + " new feedback");
+                            }
 
-                                                            } else {
-                                                                $('.showcase-item-dropdown-sub-title').html($('.showcase-item-dropdown-sub-title.sub-title-no').text());
-                                                                $('.showcase-item-dropdown-actual-notification').removeClass('active');
-                                                                $('.showcase-item-dropdown-select').removeClass('active');
-                                                                pendingUserFeedback.finalCount = 0;
-                                                            }
-                                                            $('.showcase-item-dropdown-list .pipe-list .pending-user-list').html(result.slice(1));
-                                                            localStorage.setItem("pendingUserFeedback", JSON.stringify(pendingUserFeedback));
+                        } else {
+                            $('.showcase-item-dropdown-sub-title').html($('.showcase-item-dropdown-sub-title.sub-title-no').text());
+                            $('.showcase-item-dropdown-actual-notification').removeClass('active');
+                            $('.showcase-item-dropdown-select').removeClass('active');
+                            pendingUserFeedback.finalCount = 0;
+                        }
+                        $('.showcase-item-dropdown-list .pipe-list .pending-user-list').html(result.slice(1));
+                        localStorage.setItem("pendingUserFeedback", JSON.stringify(pendingUserFeedback));
 
-                                                        }
-                                                    });
+                    }
+                });
 
-                                                    $.ajax({
-                                                        type: "POST",
-                                                        url: "/SWP391_PROJECT/NotificationTrashController",
-                                                        data: {notification: countTrash},
-                                                        success: function (result) {
-                                                            var pendingUser = JSON.parse(localStorage.getItem("pendingUserFeedback"));
-                                                            var response = JSON.parse(localStorage.getItem("responseFeedback"));
-                                                            if (!pendingUser || !response) {
-                                                                var finalCount = 0;
-                                                            } else {
-                                                                finalCount = pendingUser.finalCount + response.finalCount;
-                                                            }
-                                                            var trashFeedback = {
-                                                                finalCount: finalCount,
-                                                                name: "trash feedback"
-                                                            };
-                                                            if (result !== '') {
-                                                                var lenght = result.slice(0, 1);
-                                                                trashFeedback.finalCount = parseInt(lenght);
-                                                                finalCount += parseInt(lenght);
-                                                                if (finalCount !== 0) {
-                                                                    $('.showcase-item-dropdown-actual-notification').addClass('active');
-                                                                    $('.showcase-item-dropdown-actual-notification').html(finalCount);
-                                                                    $('.showcase-item-dropdown-select').addClass('active');
-                                                                    $('.showcase-item-dropdown-sub-title').html("You have " + finalCount + " new feedback");
-                                                                }
-                                                            } else {
-                                                                $('.showcase-item-dropdown-sub-title').html($('.showcase-item-dropdown-sub-title.sub-title-no').text());
-                                                                $('.showcase-item-dropdown-actual-notification').removeClass('active');
-                                                                $('.showcase-item-dropdown-select').removeClass('active');
-                                                                trashFeedback.finalCount = 0;
-                                                            }
+                $.ajax({
+                    type: "POST",
+                    url: "/SWP391_PROJECT/NotificationTrashController",
+                    data: {notification: countTrash},
+                    success: function (result) {
+                        var pendingUser = JSON.parse(localStorage.getItem("pendingUserFeedback"));
+                        var response = JSON.parse(localStorage.getItem("responseFeedback"));
+                        if (!pendingUser || !response) {
+                            var finalCount = 0;
+                        } else {
+                            finalCount = pendingUser.finalCount + response.finalCount;
+                        }
+                        var trashFeedback = {
+                            finalCount: finalCount,
+                            name: "trash feedback"
+                        };
+                        if (result !== '') {
+                            var lenght = result.slice(0, 1);
+                            trashFeedback.finalCount = parseInt(lenght);
+                            finalCount += parseInt(lenght);
+                            if (finalCount !== 0) {
+                                $('.showcase-item-dropdown-actual-notification').addClass('active');
+                                $('.showcase-item-dropdown-actual-notification').html(finalCount);
+                                $('.showcase-item-dropdown-select').addClass('active');
+                                $('.showcase-item-dropdown-sub-title').html("You have " + finalCount + " new feedback");
+                            }
+                        } else {
+                            $('.showcase-item-dropdown-sub-title').html($('.showcase-item-dropdown-sub-title.sub-title-no').text());
+                            $('.showcase-item-dropdown-actual-notification').removeClass('active');
+                            $('.showcase-item-dropdown-select').removeClass('active');
+                            trashFeedback.finalCount = 0;
+                        }
 
-                                                            localStorage.setItem("trashFeedback", JSON.stringify(trashFeedback));
-                                                            $('.showcase-item-dropdown-list .pipe-list .pending-trash-list').html(result.slice(1));
+                        localStorage.setItem("trashFeedback", JSON.stringify(trashFeedback));
+                        $('.showcase-item-dropdown-list .pipe-list .pending-trash-list').html(result.slice(1));
 
-                                                        }
-                                                    });
+                    }
+                });
 
-                                                    const countRes = document.querySelector('#COUNT_RESPONSE').value;
-                                                    $.ajax({
-                                                        type: "POST",
-                                                        url: "/SWP391_PROJECT/NotificationResponseController",
-                                                        data: {notification: countRes},
-                                                        success: function (result) {
-                                                            var pendingUser = JSON.parse(localStorage.getItem("pendingUserFeedback"));
-                                                            var trash = JSON.parse(localStorage.getItem("trashFeedback"));
-                                                            if (!pendingUser && !trash) {
-                                                                var finalCount = 0;
-                                                            } else {
-                                                                finalCount = pendingUser.finalCount + trash.finalCount;
-                                                            }
-                                                            var responseFeedback = {
-                                                                finalCount: finalCount,
-                                                                name: "response feedback"
-                                                            };
-                                                            if (result !== '') {
-                                                                var lenght = result.slice(0, 1);
-                                                                responseFeedback.finalCount = parseInt(lenght);
-                                                                finalCount += parseInt(lenght);
-                                                                if (finalCount !== 0) {
-                                                                    $('.showcase-item-dropdown-actual-notification').addClass('active');
-                                                                    $('.showcase-item-dropdown-actual-notification').html(finalCount);
-                                                                    $('.showcase-item-dropdown-select').addClass('active');
-                                                                    $('.showcase-item-dropdown-sub-title').html("You have " + finalCount + " new feedback");
-                                                                }
-                                                            } else {
-                                                                $('.showcase-item-dropdown-sub-title').html($('.showcase-item-dropdown-sub-title.sub-title-no').text());
-                                                                $('.showcase-item-dropdown-actual-notification').removeClass('active');
-                                                                $('.showcase-item-dropdown-select').removeClass('active');
-                                                                responseFeedback.finalCount = 0;
-                                                            }
-                                                            localStorage.setItem("responseFeedback", JSON.stringify(responseFeedback));
-                                                            $('.showcase-item-dropdown-list .response-list').html(result.slice(1));
-                                                        }
-                                                    });
-                                                }
+                const countRes = document.querySelector('#COUNT_RESPONSE').value;
+                $.ajax({
+                    type: "POST",
+                    url: "/SWP391_PROJECT/NotificationResponseController",
+                    data: {notification: countRes},
+                    success: function (result) {
+                        var pendingUser = JSON.parse(localStorage.getItem("pendingUserFeedback"));
+                        var trash = JSON.parse(localStorage.getItem("trashFeedback"));
+                        if (!pendingUser && !trash) {
+                            var finalCount = 0;
+                        } else {
+                            finalCount = pendingUser.finalCount + trash.finalCount;
+                        }
+                        var responseFeedback = {
+                            finalCount: finalCount,
+                            name: "response feedback"
+                        };
+                        if (result !== '') {
+                            var lenght = result.slice(0, 1);
+                            responseFeedback.finalCount = parseInt(lenght);
+                            finalCount += parseInt(lenght);
+                            if (finalCount !== 0) {
+                                $('.showcase-item-dropdown-actual-notification').addClass('active');
+                                $('.showcase-item-dropdown-actual-notification').html(finalCount);
+                                $('.showcase-item-dropdown-select').addClass('active');
+                                $('.showcase-item-dropdown-sub-title').html("You have " + finalCount + " new feedback");
+                            }
+                        } else {
+                            $('.showcase-item-dropdown-sub-title').html($('.showcase-item-dropdown-sub-title.sub-title-no').text());
+                            $('.showcase-item-dropdown-actual-notification').removeClass('active');
+                            $('.showcase-item-dropdown-select').removeClass('active');
+                            responseFeedback.finalCount = 0;
+                        }
+                        localStorage.setItem("responseFeedback", JSON.stringify(responseFeedback));
+                        $('.showcase-item-dropdown-list .response-list').html(result.slice(1));
+                    }
+                });
+            }
 
-                                                function loadResultsPipeStyle(index, list) {
-                                                    let amount = list.querySelectorAll('.pipe .pipe-item').length;
-                                                    let search = document.querySelector('input[name="search"]').value;
-                                                    $.ajax({
-                                                        url: "/SWP391_PROJECT/LoadFeedback",
-                                                        type: "post",
-                                                        data: {
-                                                            amount: amount,
-                                                            flag_navigation: index,
-                                                            search: search
-                                                        },
-                                                        beforeSend: function (xhr) {
-                                                            $(list).after($("<li class='loading'>Loading...</li>").fadeIn('slow')).data("loading", true);
-                                                        },
-                                                        success: function (data) {
-                                                            setTimeout(() => {
-                                                                var $results = $(list);
+            function loadResultsPipeStyle(index, list) {
+                let amount = list.querySelectorAll('.pipe .pipe-item').length;
+                let search = document.querySelector('input[name="search"]').value;
+                $.ajax({
+                    url: "/SWP391_PROJECT/LoadFeedback",
+                    type: "post",
+                    data: {
+                        amount: amount,
+                        flag_navigation: index,
+                        search: search
+                    },
+                    beforeSend: function (xhr) {
+                        $(list).after($("<li class='loading'>Loading...</li>").fadeIn('slow')).data("loading", true);
+                    },
+                    success: function (data) {
+                        setTimeout(() => {
+                            var $results = $(list);
 
-                                                                $(".loading").fadeOut('fast', function () {
-                                                                    $(this).remove();
-                                                                });
-                                                                var $data = $(data);
-                                                                $results.append($data);
-                                                                $data.show("slow");
-                                                                $results.removeData("loading");
-                                                            }, 1500)
-                                                        }
-                                                    });
-                                                }
-                                                ;
+                            $(".loading").fadeOut('fast', function () {
+                                $(this).remove();
+                            });
+                            var $data = $(data);
+                            $results.append($data);
+                            $data.show("slow");
+                            $results.removeData("loading");
+                        }, 1500)
+                    }
+                });
+            }
+            ;
 
-                                                function loadResultsListStyle(index, list) {
-                                                    let amount = list.querySelectorAll('.list-showcase-item .pipe-item').length;
-                                                    let search = document.querySelector('input[name="search"]').value;
-                                                    $.ajax({
-                                                        url: "/SWP391_PROJECT/LoadFeedback",
-                                                        type: "post",
-                                                        data: {
-                                                            amount: amount,
-                                                            flag_navigation: index,
-                                                            search: search
-                                                        },
-                                                        beforeSend: function (xhr) {
-                                                            $(list).after($("<li class='loading'>Loading...</li>").fadeIn('slow')).data("loading", true);
-                                                        },
-                                                        success: function (data) {
-                                                            setTimeout(() => {
-                                                                var $results = $(list);
+            function loadResultsListStyle(index, list) {
+                let amount = list.querySelectorAll('.list-showcase-item .pipe-item').length;
+                let search = document.querySelector('input[name="search"]').value;
+                $.ajax({
+                    url: "/SWP391_PROJECT/LoadFeedback",
+                    type: "post",
+                    data: {
+                        amount: amount,
+                        flag_navigation: index,
+                        search: search
+                    },
+                    beforeSend: function (xhr) {
+                        $(list).after($("<li class='loading'>Loading...</li>").fadeIn('slow')).data("loading", true);
+                    },
+                    success: function (data) {
+                        setTimeout(() => {
+                            var $results = $(list);
 
-                                                                $(".loading").fadeOut('fast', function () {
-                                                                    $(this).remove();
-                                                                });
-                                                                var $data = $(data);
-                                                                $results.append($data);
-                                                                $data.show("slow");
-                                                                $results.removeData("loading");
-                                                            }, 1500)
-                                                        }
-                                                    });
-                                                }
-                                                ;
+                            $(".loading").fadeOut('fast', function () {
+                                $(this).remove();
+                            });
+                            var $data = $(data);
+                            $results.append($data);
+                            $data.show("slow");
+                            $results.removeData("loading");
+                        }, 1500)
+                    }
+                });
+            }
+            ;
 
 //                                                    Javascript of load data when scroll of comment in adminPage.jsp
 //                                                function loadResultsComments(list) {
@@ -1541,60 +1567,60 @@
 //                                                }
 //                                                ;
 
-                                                $(function () {
+            $(function () {
 //                                                    handleNotification();
 //                                                    setInterval(handleNotification, 10000);
 
-                                                    var imagesPreview2 = function (input, placeToInsertImagePreview) {
-                                                        if (input.files) {
-                                                            var filesAmount = input.files.length;
+                var imagesPreview2 = function (input, placeToInsertImagePreview) {
+                    if (input.files) {
+                        var filesAmount = input.files.length;
 
-                                                            for (i = 0; i < filesAmount; i++) {
-                                                                var reader = new FileReader();
+                        for (i = 0; i < filesAmount; i++) {
+                            var reader = new FileReader();
 
-                                                                reader.onload = function (event) {
+                            reader.onload = function (event) {
 
-                                                                    $(".avatar").attr("src", event.target.result);
-                                                                };
+                                $(".avatar").attr("src", event.target.result);
+                            };
 
-                                                                reader.readAsDataURL(input.files[i]);
-                                                            }
-                                                        }
-                                                    };
+                            reader.readAsDataURL(input.files[i]);
+                        }
+                    }
+                };
 
-                                                    $("#image").on("change", function (e) {
-                                                        imagesPreview2(this);
-                                                    });
+                $("#image").on("change", function (e) {
+                    imagesPreview2(this);
+                });
 
 
-                                                    Array.from($(".pipe .pipe-list")).forEach(item => {
-                                                        item.addEventListener('scroll', (e) => {
-                                                            var list = e.target.closest('.pipe .pipe-list');
-                                                            if (!e.target.getAttribute("data-loading")) {
-                                                                if (Math.ceil(list.offsetHeight + list.scrollTop) === list.scrollHeight) {
-                                                                    loadResultsPipeStyle(e.target.closest('.pipe .pipe-column').dataset.index, list);
-                                                                }
-                                                            }
-                                                        });
-                                                    });
+                Array.from($(".pipe .pipe-list")).forEach(item => {
+                    item.addEventListener('scroll', (e) => {
+                        var list = e.target.closest('.pipe .pipe-list');
+                        if (!e.target.getAttribute("data-loading")) {
+                            if (Math.ceil(list.offsetHeight + list.scrollTop) === list.scrollHeight) {
+                                loadResultsPipeStyle(e.target.closest('.pipe .pipe-column').dataset.index, list);
+                            }
+                        }
+                    });
+                });
 
-                                                    Array.from($(".list-showcase-item .pipe-list")).forEach(item => {
-                                                        item.addEventListener('scroll', (e) => {
-                                                            var list = e.target.closest('.list-showcase-item .pipe-list');
-                                                            if (!e.target.getAttribute("data-loading")) {
-                                                                if (Math.ceil(list.offsetHeight + list.scrollTop) === list.scrollHeight) {
-                                                                    loadResultsListStyle(e.target.closest('.list-showcase-item .pipe-list').dataset.index, list);
-                                                                }
-                                                            }
-                                                        });
-                                                    });
+                Array.from($(".list-showcase-item .pipe-list")).forEach(item => {
+                    item.addEventListener('scroll', (e) => {
+                        var list = e.target.closest('.list-showcase-item .pipe-list');
+                        if (!e.target.getAttribute("data-loading")) {
+                            if (Math.ceil(list.offsetHeight + list.scrollTop) === list.scrollHeight) {
+                                loadResultsListStyle(e.target.closest('.list-showcase-item .pipe-list').dataset.index, list);
+                            }
+                        }
+                    });
+                });
 
-                                                    setTimeout(() => {
-                                                        $(".pipe-comment-item.active")[0].scrollIntoView({
-                                                            behavior: "smooth",
-                                                            block: "center"
-                                                        });
-                                                    }, 700);
+                setTimeout(() => {
+                    $(".pipe-comment-item.active")[0].scrollIntoView({
+                        behavior: "smooth",
+                        block: "center"
+                    });
+                }, 700);
 
 //                                                    Javascript of load data when scroll of comment in adminPage.jsp
 //                                                    document.querySelector(".comment-list-feedback .pipe-list").addEventListener('scroll', function (e) {
@@ -1605,7 +1631,7 @@
 //                                                            }
 //                                                        }
 //                                                    });
-                                                });
+            });
 //                                                window.onload = function () {
 //                                                    console.log("123");
 //                                                   

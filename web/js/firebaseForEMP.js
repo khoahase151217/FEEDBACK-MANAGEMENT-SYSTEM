@@ -1,8 +1,6 @@
-
 Array.from(document.querySelectorAll(".assign-form")).forEach(item => {
     item.addEventListener("submit", (e) => {
         e.preventDefault();
-        console.log("123");
         var empID = e.target.querySelector('option:checked').value;
         var emp = JSON.parse(localStorage.getItem("Empobj")) || {
             id: 0,

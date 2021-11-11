@@ -31,8 +31,7 @@ const database = getDatabase();
 //adminPage.jsp
 
 window.onload = function () {
-    var userid = document.getElementById("LOGIN_EMP").value
-    console.log(userid);
+    var userid = document.getElementById("LOGIN_EMP").value;
     const userRef = ref(database, "/Emp_Assign");
 
     onChildAdded(query(ref(database, "/Emp_Assign"), limitToLast(1)), (data) => {

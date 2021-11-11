@@ -27,7 +27,6 @@ if (document.querySelector(".feedback-form-message").classList.contains("open"))
             type: "post",
             dataType: "json",
             success: function (data) {
-                console.log(data);
                 set(ref(database, "User-feedback/" + data.feedbackID), {
                     Feedback_ID: data.feedbackID,
                     Email: data.email,

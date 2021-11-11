@@ -656,7 +656,7 @@
                                     class="input-wrap-image"
                                     />
                                 <div class="actual-input">
-                                    <input type="text" name="search" id="search" placeholder="Search ..." value="${requestScope.
+                                    <input type="text" name="search" id="search" placeholder="Device name" value="${requestScope.
                                                                                                                    SEARCH}"/>
                                     <input type="hidden" name="amount_done" value="${requestScope.COUNT_FLAG_DONE}">
                                     <input type="hidden" name="amount_decline" value="${requestScope.COUNT_FLAG_DECLINE}">
@@ -800,7 +800,7 @@
                                                     </div>
 
                                                     <script type="module">
-                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser3.js';
+                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser.js';
                                                         Array.from(document.querySelectorAll('.pipe_image-all-wrapper')).forEach((ele) => {
                                                         if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
                                                         //  getImageString
@@ -857,7 +857,7 @@
                                                     <div class="image-all-wrapper pipe_image-all-wrapper" data-id="<%=feedback.getFeedbackId()%>">
                                                     </div>
                                                     <script type="module">
-                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser3.js';
+                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser.js';
                                                         Array.from(document.querySelectorAll('.pipe_image-all-wrapper')).forEach((ele) => {
                                                         if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
                                                         //  getImageString
@@ -914,7 +914,7 @@
 
                                                     <div class="image-all-wrapper pipe_image-all-wrapper" data-id="<%=feedback.getFeedbackId()%>"></div>
                                                     <script type="module">
-                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser3.js';
+                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser.js';
                                                         Array.from(document.querySelectorAll('.pipe_image-all-wrapper')).forEach((ele) => {
                                                         if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
                                                         //  getImageString
@@ -1011,7 +1011,7 @@
                                                     </div>
 
                                                     <script type="module">
-                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser3.js';
+                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser.js';
                                                         Array.from(document.querySelectorAll('.List_All')).forEach((ele) => {
                                                         if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
                                                         //  getImageString
@@ -1061,7 +1061,7 @@
                                                     </div>
 
                                                     <script type="module">
-                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser3.js';
+                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser.js';
                                                         Array.from(document.querySelectorAll('.list_image-all-wrapper')).forEach((ele) => {
                                                         if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
                                                         //  getImageString
@@ -1109,7 +1109,7 @@
                                                     </div>
 
                                                     <script type="module">
-                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser3.js';
+                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser.js';
 
                                                         Array.from(document.querySelectorAll('.list_image-all-wrapper')).forEach((ele) => {
                                                         if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
@@ -1157,7 +1157,7 @@
                                                     </div>
 
                                                     <script type="module">
-                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser3.js';
+                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser.js';
 
                                                         Array.from(document.querySelectorAll('.list_image-all-wrapper')).forEach((ele) => {
                                                         if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
@@ -1317,10 +1317,10 @@
         <script src="${pageContext.request.contextPath}/js/User2.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseForUser.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseUserfromAdmin.js"></script>
-        <script type="module" src="${pageContext.request.contextPath}/js/firebaseStorageForUser3.js"></script>
+        <script type="module" src="${pageContext.request.contextPath}/js/firebaseStorageForUser.js"></script>
 
         <script type="module">
-          import handleLoadImageForUserFromFirebase from './js/firebaseStorageForUser3.js';
+          import handleLoadImageForUserFromFirebase from './js/firebaseStorageForUser.js';
                 var imagesPreview = function (input, placeToInsertImagePreview) {
                     if (input.files) {
                         var filesAmount = input.files.length;
@@ -1499,7 +1499,7 @@
                                 switch (index) {
                                     case "0":
                                         if (search) {
-                                            list.closest('.list-showcase').querySelector('input[name="FEEDBACKID_FROM_SEARCH"]').value = data[0].amount;
+                                                list.closest('.list-showcase').querySelector('input[name="FEEDBACKID_FROM_SEARCH"]').value = data[0].amount;
                                             data.forEach(item => {
                                                 Array.from(document.querySelectorAll('.List_All')).forEach((ele) => {
                                                     if (ele.dataset.id === item.feedbackID) {
@@ -1655,7 +1655,6 @@
 //        var loopComment = document.getElementsByClassName("pipe-item-title-comment");
 
                         for (let i = 0; i < Array.from(loop).length; i++) {
-                            console.log(Array.from(loop)[i].innerHTML);
                             if ((Array.from(loop)[i].innerHTML).includes(id)) {
                                 setTimeout(function () {
                                     (loop[i]).scrollIntoView({

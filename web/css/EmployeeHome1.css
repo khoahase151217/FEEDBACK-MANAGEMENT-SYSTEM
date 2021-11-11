@@ -899,7 +899,13 @@ img {
     left: 50%;
     transform: translateX(-50%);
     cursor: pointer;
+    transition: background 0.25s linear;
 }
+
+.reponse-form .submit-btn:hover {
+    background: #5256AD;
+}
+
 .reponse-form.open {
     display: block;
 }
@@ -1255,11 +1261,11 @@ img {
 }
 
 @media screen and (max-width: 1600px) {
-    
+
     .showcase-content-item {
         padding: 17px 40px;
     }
-    
+
     .showcase .feedback-detail-input > div:not(:last-child) {
         margin-bottom: 1.25rem;
     }
@@ -1285,11 +1291,11 @@ img {
 }
 
 @media screen and (max-width: 1025px) {
-    
+
     .showcase {
         padding: 20px;
     }
-    
+
     .showcase-main {
         height: calc(100vh - 4rem);
     }
@@ -1334,7 +1340,7 @@ img {
     .showcase-content-item {
         padding: 20px 40px 10px;
     }
-        
+
     .content-item-main {
         height: calc(100% - 153px);
     }
@@ -1417,7 +1423,7 @@ img {
     .showcase .pipe-column {
         max-height: revert;
     }
-    
+
     .showcase .pipe-column.pipe-columm-list {
         max-height: 400px;
     }

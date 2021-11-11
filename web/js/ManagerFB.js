@@ -10,7 +10,6 @@ Array.from(listFBCategory).forEach((item) => {
 
         // Show page tương ứng
         var index = e.target.dataset.index;
-        console.log(index);
         Array.from(FbListItems).forEach((item) => {
             item.classList.remove("active");
         });
@@ -61,7 +60,6 @@ taskChervonBack.addEventListener("click", () => {
 });
 
 taskChervonBack.addEventListener("mouseover", (e) => {
-    console.log(123);
     e.target.closest(".feedback-detail").style.borderTopLeftRadius = 0;
     e.target.closest(".feedback-detail").style.borderBottomLeftRadius = 0;
 });
