@@ -128,7 +128,7 @@ public class FeedbackDetailDTO {
         this.description = description;
         this.categoryDevice = categoryDevice;
     }
-
+    
     public FeedbackDetailDTO(String facilityID, String userID, String feedbackID, String quanity, String reason, String location, boolean flag) {
         this.facilityID = facilityID;
         this.userID = userID;

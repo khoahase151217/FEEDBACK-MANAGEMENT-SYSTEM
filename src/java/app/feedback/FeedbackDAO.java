@@ -1331,7 +1331,6 @@ public class FeedbackDAO {
                     String date = rs.getString("date");
                     String facilityName = rs.getString("FacilityName");
                     list.add(new FeedbackDetailDTO(feedbackDetailId, facilityID, userId, feedbackID, quantity, reason, location, base64Image, flag, facilityName, date, "", "", des, categoryID));
-
                 }
             }
 
