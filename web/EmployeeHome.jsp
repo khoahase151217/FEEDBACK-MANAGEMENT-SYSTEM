@@ -586,6 +586,7 @@
                                                                             </div>
                                                                             <div class="feedback-detail-image-wrapper">
                                                                                 <c:if test="${feedbackDetail.image ne ''}">
+                                                                                    // feedbackDetail.imageFirebase
                                                                                     <img
                                                                                         src="data:image/jpg/png;base64,${feedbackDetail.image}"
                                                                                         alt=""
@@ -1051,6 +1052,7 @@
 
                                                                         <div class="feedback-detail-image-wrapper">
                                                                             <c:if test="${response.image ne ''}">
+                                                                                // feedbackDetail.image
                                                                                 <img
                                                                                     src="data:image/jpg/png;base64,${response.image}"
                                                                                     alt=""

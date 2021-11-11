@@ -71,6 +71,7 @@
                                                 <p>Reason: ${feedbackDetail.reason}</p>
                                             </div>
                                             <div class="all-wrapper">
+                                                // feedbackDetail.imageFirebase
                                                 <c:if test="${feedbackDetail.image ne ''}">
                                                     <img
                                                         src="data:image/jpg/png;base64,${feedbackDetail.image}"
@@ -1192,6 +1193,7 @@
                                                                                 <label class="input-label">Description</label>
                                                                             </div>
                                                                             <div class="feedback-detail-image-wrapper">
+                                                                                // reponseDetail.image
                                                                                 <img
                                                                                     src="data:image/jpg/png;base64,${reponseDetail.image}"
                                                                                     alt=""

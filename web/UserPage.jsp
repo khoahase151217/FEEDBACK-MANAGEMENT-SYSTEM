@@ -801,7 +801,7 @@
 
                                                     <script type="module">
                                                         import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser3.js';
-                                                        Array.from(document.querySelectorAll('.pipe_image-all-wrapper')).forEach(async (ele) => {
+                                                        Array.from(document.querySelectorAll('.pipe_image-all-wrapper')).forEach((ele) => {
                                                         if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
                                                         //  getImageString
                                                         let imageString = '<%=feedback.getImageFirebase()%>';
@@ -858,7 +858,7 @@
                                                     </div>
                                                     <script type="module">
                                                         import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser3.js';
-                                                        Array.from(document.querySelectorAll('.pipe_image-all-wrapper')).forEach(async (ele) => {
+                                                        Array.from(document.querySelectorAll('.pipe_image-all-wrapper')).forEach((ele) => {
                                                         if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
                                                         //  getImageString
                                                         let imageString = '<%=feedback.getImageFirebase()%>';
@@ -915,7 +915,7 @@
                                                     <div class="image-all-wrapper pipe_image-all-wrapper" data-id="<%=feedback.getFeedbackId()%>"></div>
                                                     <script type="module">
                                                         import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser3.js';
-                                                        Array.from(document.querySelectorAll('.pipe_image-all-wrapper')).forEach(async (ele) => {
+                                                        Array.from(document.querySelectorAll('.pipe_image-all-wrapper')).forEach((ele) => {
                                                         if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
                                                         //  getImageString
                                                         let imageString = '<%=feedback.getImageFirebase()%>';
@@ -1007,12 +1007,12 @@
                                                     </div>
 
 
-                                                    <div class="image-all-wrapper list_image-all-wrapper" data-id="<%=feedback.getFeedbackId()%>">
+                                                    <div class="image-all-wrapper List_All" data-id="<%=feedback.getFeedbackId()%>">
                                                     </div>
-                                                    
+
                                                     <script type="module">
                                                         import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser3.js';
-                                                        Array.from(document.querySelectorAll('.list_image-all-wrapper')).forEach(async (ele) => {
+                                                        Array.from(document.querySelectorAll('.List_All')).forEach((ele) => {
                                                         if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
                                                         //  getImageString
                                                         let imageString = '<%=feedback.getImageFirebase()%>';
@@ -1062,7 +1062,7 @@
 
                                                     <script type="module">
                                                         import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser3.js';
-                                                        Array.from(document.querySelectorAll('.list_image-all-wrapper')).forEach(async (ele) => {
+                                                        Array.from(document.querySelectorAll('.list_image-all-wrapper')).forEach((ele) => {
                                                         if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
                                                         //  getImageString
                                                         let imageString = '<%=feedback.getImageFirebase()%>';
@@ -1111,7 +1111,7 @@
                                                     <script type="module">
                                                         import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser3.js';
 
-                                                        Array.from(document.querySelectorAll('.list_image-all-wrapper')).forEach(async (ele) => {
+                                                        Array.from(document.querySelectorAll('.list_image-all-wrapper')).forEach((ele) => {
                                                         if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
                                                         //  getImageString
                                                         let imageString = '<%=feedback.getImageFirebase()%>';
@@ -1159,7 +1159,7 @@
                                                     <script type="module">
                                                         import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser3.js';
 
-                                                        Array.from(document.querySelectorAll('.list_image-all-wrapper')).forEach(async (ele) => {
+                                                        Array.from(document.querySelectorAll('.list_image-all-wrapper')).forEach((ele) => {
                                                         if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
                                                         //  getImageString
                                                         let imageString = '<%=feedback.getImageFirebase()%>';
@@ -1319,253 +1319,270 @@
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseUserfromAdmin.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseStorageForUser3.js"></script>
 
-        <script>
-                                                            var imagesPreview = function (input, placeToInsertImagePreview) {
-                                                                if (input.files) {
-                                                                    var filesAmount = input.files.length;
-                                                                    for (i = 0; i < filesAmount; i++) {
-                                                                        var reader = new FileReader();
-                                                                        reader.onload = function (event) {
-                                                                            $($.parseHTML("<img>"))
-                                                                                    .attr("src", event.target.result)
-                                                                                    .appendTo(placeToInsertImagePreview);
-                                                                        };
-                                                                        reader.readAsDataURL(input.files[i]);
-                                                                    }
-                                                                }
-                                                            };
-                                                            var imagesPreview2 = function (input) {
-                                                                if (input.files) {
-                                                                    var filesAmount = input.files.length;
-                                                                    for (i = 0; i < filesAmount; i++) {
-                                                                        var reader = new FileReader();
-                                                                        reader.onload = function (event) {
-                                                                            $(".avatar").attr("src", event.target.result);
-                                                                        };
-                                                                        reader.readAsDataURL(input.files[i]);
-                                                                    }
-                                                                }
-                                                            };
-                                                            function loadResultsPipeStyle(index, list) {
-                                                                let amount;
-                                                                switch (index) {
-                                                                    case "0":
-                                                                        amount = list.closest('.pipe').querySelector('input[name="amount_all"]').value;
-                                                                        break;
-                                                                    case "1":
-                                                                        amount = list.closest('.pipe').querySelector('input[name="amount_done"]').value;
-                                                                        break;
-                                                                    case "2":
-                                                                        amount = list.closest('.pipe').querySelector('input[name="amount_onGoing"]').value;
-                                                                        break;
-                                                                    default:
-                                                                        amount = list.closest('.pipe').querySelector('input[name="amount_decline"]').value;
-                                                                        break;
-                                                                }
-                                                                ;
-                                                                let search = document.querySelector('input[name="search"]').value;
-                                                                $.ajax({
-                                                                    url: "/SWP391_PROJECT/LoadFeedbackUserPipe",
-                                                                    type: "post",
-                                                                    data: {
-                                                                        amount: amount,
-                                                                        flag_navigation: index,
-                                                                        search: search
-                                                                    },
-                                                                    beforeSend: function (xhr) {
-                                                                        $(list).after($("<li class='loading'>Loading...</li>").fadeIn('slow')).data("loading", true);
-                                                                    },
-                                                                    success: function (data) {
-                                                                        setTimeout(() => {
-                                                                            var $results = $(list);
-                                                                            $(".loading").fadeOut('fast', function () {
-                                                                                $(this).remove();
-                                                                            });
-                                                                            switch (index) {
-                                                                                case "0":
-                                                                                    list.closest('.pipe').querySelector('input[name="amount_all"]').value = data.slice(1, data.indexOf("<") - 1);
-                                                                                    break;
-                                                                                case "1":
-                                                                                    list.closest('.pipe').querySelector('input[name="amount_done"]').value = data.slice(1, data.indexOf("<") - 1);
-                                                                                    break;
-                                                                                case "2":
-                                                                                    list.closest('.pipe').querySelector('input[name="amount_onGoing"]').value = data.slice(1, data.indexOf("<") - 1);
-                                                                                    break;
-                                                                                default:
-                                                                                    list.closest('.pipe').querySelector('input[name="amount_decline"]').value = data.slice(1, data.indexOf("<") - 1);
-                                                                                    break;
-                                                                            }
-                                                                            ;
-                                                                            var $data = $(data.slice(data.indexOf("<")));
-                                                                            $results.append($data);
-                                                                            $data.show("slow");
-                                                                            $results.removeData("loading");
-                                                                        }, 1500)
-                                                                    }
-                                                                });
-                                                            }
-                                                            ;
-                                                            function loadResultsListStyle(index, list) {
-                                                                let amount;
-                                                                switch (index) {
-                                                                    case "0":
-                                                                        amount = list.closest('.list-showcase').querySelector('input[name="amount_all"]').value;
-                                                                        break;
-                                                                    case "1":
-                                                                        amount = list.closest('.list-showcase').querySelector('input[name="amount_done"]').value;
-                                                                        break;
-                                                                    case "2":
-                                                                        amount = list.closest('.list-showcase').querySelector('input[name="amount_onGoing"]').value;
-                                                                        break;
-                                                                    default:
-                                                                        amount = list.closest('.list-showcase').querySelector('input[name="amount_decline"]').value;
-                                                                        break;
-                                                                }
-                                                                let search = document.querySelector('input[name="search"]').value;
-                                                                let FEEDBACKID_FROM_SEARCH = document.querySelector('input[name="FEEDBACKID_FROM_SEARCH"]').value;
-                                                                $.ajax({
-                                                                    url: "/SWP391_PROJECT/LoadFeedbackUserList",
-                                                                    type: "post",
-                                                                    data: {
-                                                                        amount: amount,
-                                                                        flag_navigation: index,
-                                                                        search: search,
-                                                                        FEEDBACKID_FROM_SEARCH: FEEDBACKID_FROM_SEARCH
-                                                                    },
-                                                                    beforeSend: function (xhr) {
-                                                                        $(list).after($("<li class='loading'>Loading...</li>").fadeIn('slow')).data("loading", true);
-                                                                    },
-                                                                    success: function (data) {
-                                                                        console.log(data);
-                                                                        setTimeout(() => {
-                                                                            var $results = $(list);
-                                                                            $(".loading").fadeOut('fast', function () {
-                                                                                $(this).remove();
-                                                                            });
-                                                                            switch (index) {
-                                                                                case "0":
-                                                                                    if (search) {
-                                                                                        list.closest('.list-showcase').querySelector('input[name="FEEDBACKID_FROM_SEARCH"]').value = data.slice(1, data.indexOf("<") - 1);
-                                                                                    } else {
-                                                                                        list.closest('.list-showcase').querySelector('input[name="amount_all"]').value = data.slice(1, data.indexOf("<") - 1);
-                                                                                    }
-                                                                                    break;
-                                                                                case "1":
-                                                                                    list.closest('.list-showcase').querySelector('input[name="amount_done"]').value = data.slice(1, data.indexOf("<") - 1);
-                                                                                    break;
-                                                                                case "2":
-                                                                                    list.closest('.list-showcase').querySelector('input[name="amount_onGoing"]').value = data.slice(1, data.indexOf("<") - 1);
-                                                                                    break;
-                                                                                default:
-                                                                                    list.closest('.list-showcase').querySelector('input[name="amount_decline"]').value = data.slice(1, data.indexOf("<") - 1);
-                                                                                    break;
-                                                                            }
-                                                                            ;
-                                                                            var $data = $(data.slice(data.indexOf("<")));
-                                                                            $results.append($data);
-                                                                            $data.show("slow");
-                                                                            $results.removeData("loading");
-                                                                        }, 1500)
-                                                                    }
-                                                                });
-                                                            }
-                                                            ;
-                                                            $(function () {
+        <script type="module">
+            import handleLoadImageForUserFromFirebase from './js/firebaseStorageForUser3.js';
+                var imagesPreview = function (input, placeToInsertImagePreview) {
+                    if (input.files) {
+                        var filesAmount = input.files.length;
+                        for (i = 0; i < filesAmount; i++) {
+                            var reader = new FileReader();
+                            reader.onload = function (event) {
+                                $($.parseHTML("<img>"))
+                                        .attr("src", event.target.result)
+                                        .appendTo(placeToInsertImagePreview);
+                            };
+                            reader.readAsDataURL(input.files[i]);
+                        }
+                    }
+                };
+                var imagesPreview2 = function (input) {
+                    if (input.files) {
+                        var filesAmount = input.files.length;
+                        for (i = 0; i < filesAmount; i++) {
+                            var reader = new FileReader();
+                            reader.onload = function (event) {
+                                $(".avatar").attr("src", event.target.result);
+                            };
+                            reader.readAsDataURL(input.files[i]);
+                        }
+                    }
+                };
+                function loadResultsPipeStyle(index, list) {
+                    let amount;
+                    switch (index) {
+                        case "0":
+                            amount = list.closest('.pipe').querySelector('input[name="amount_all"]').value;
+                            break;
+                        case "1":
+                            amount = list.closest('.pipe').querySelector('input[name="amount_done"]').value;
+                            break;
+                        case "2":
+                            amount = list.closest('.pipe').querySelector('input[name="amount_onGoing"]').value;
+                            break;
+                        default:
+                            amount = list.closest('.pipe').querySelector('input[name="amount_decline"]').value;
+                            break;
+                    }
+                    ;
+                    let search = document.querySelector('input[name="search"]').value;
+                    $.ajax({
+                        url: "/SWP391_PROJECT/LoadFeedbackUserPipe",
+                        type: "post",
+                        data: {
+                            amount: amount,
+                            flag_navigation: index,
+                            search: search
+                        },
+                        beforeSend: function (xhr) {
+                            $(list).after($("<li class='loading'>Loading...</li>").fadeIn('slow')).data("loading", true);
+                        },
+                        success: function (data) {
+                            setTimeout(() => {
+                                var $results = $(list);
+                                $(".loading").fadeOut('fast', function () {
+                                    $(this).remove();
+                                });
+                                switch (index) {
+                                    case "0":
+                                        list.closest('.pipe').querySelector('input[name="amount_all"]').value = data.slice(1, data.indexOf("<") - 1);
+                                        break;
+                                    case "1":
+                                        list.closest('.pipe').querySelector('input[name="amount_done"]').value = data.slice(1, data.indexOf("<") - 1);
+                                        break;
+                                    case "2":
+                                        list.closest('.pipe').querySelector('input[name="amount_onGoing"]').value = data.slice(1, data.indexOf("<") - 1);
+                                        break;
+                                    default:
+                                        list.closest('.pipe').querySelector('input[name="amount_decline"]').value = data.slice(1, data.indexOf("<") - 1);
+                                        break;
+                                }
+                                ;
+                                var $data = $(data.slice(data.indexOf("<")));
+                                $results.append($data);
+                                $data.show("slow");
+                                $results.removeData("loading");
+                            }, 1500)
+                        }
+                    });
+                }
+                ;
+                function loadResultsListStyle(index, list) {
+                    let amount;
+                    switch (index) {
+                        case "0":
+                            amount = list.closest('.list-showcase').querySelector('input[name="amount_all"]').value;
+                            break;
+                        case "1":
+                            amount = list.closest('.list-showcase').querySelector('input[name="amount_done"]').value;
+                            break;
+                        case "2":
+                            amount = list.closest('.list-showcase').querySelector('input[name="amount_onGoing"]').value;
+                            break;
+                        default:
+                            amount = list.closest('.list-showcase').querySelector('input[name="amount_decline"]').value;
+                            break;
+                    }
+                    let search = document.querySelector('input[name="search"]').value;
+                    let FEEDBACKID_FROM_SEARCH = document.querySelector('input[name="FEEDBACKID_FROM_SEARCH"]').value;
+                    $.ajax({
+                        url: "/SWP391_PROJECT/LoadFeedbackUserList",
+                        type: "post",
+                        data: {
+                            amount: amount,
+                            flag_navigation: index,
+                            search: search,
+                            FEEDBACKID_FROM_SEARCH: FEEDBACKID_FROM_SEARCH
+                        },
+                        beforeSend: function (xhr) {
+                            $(list).after($("<li class='loading'>Loading...</li>").fadeIn('slow')).data("loading", true);
+                        },
+                        success: function (data) {
+                            data = JSON.parse(data);
+                            setTimeout(() => {
+                                var $results = $(list);
+                                $(".loading").fadeOut('fast', function () {
+                                    $(this).remove();
+                                });
+                                let html = '';
+                                data.forEach(ele => {
+                                    html += ele.html;
+                                })
+                                var $data = $(html);
+                                $results.append($data);
+                                $data.show("slow");
+                                
+                                switch (index) {
+                                    case "0":
+                                        if (search) {
+                                            list.closest('.list-showcase').querySelector('input[name="FEEDBACKID_FROM_SEARCH"]').value = data.slice(1, data.indexOf("<") - 1);
+                                        } else {
+                                            list.closest('.list-showcase').querySelector('input[name="amount_all"]').value = data[0].amount;
+                                            data.forEach(item => {
+                                                Array.from(document.querySelectorAll('.List_All')).forEach((ele) => {
+                                                    if (ele.dataset.id === item.feedbackID) {
+                                                        if(item.imageString) {
+                                                            handleLoadImageForUserFromFirebase(item.imageString, ele);
+                                                        }
+                                                        return;
+                                                    }
+                                                });
+                                            })
+                                        }
+                                        break;
+                                    case "1":
+                                        list.closest('.list-showcase').querySelector('input[name="amount_done"]').value = data[0].amount;
+                                        break;
+                                    case "2":
+                                        list.closest('.list-showcase').querySelector('input[name="amount_onGoing"]').value = data[0].amount;
+                                        break;
+                                    default:
+                                        list.closest('.list-showcase').querySelector('input[name="amount_decline"]').value = data[0].amount;
+                                        break;
+                                }
+                                ;
+                                
+                                $results.removeData("loading");
+                            }, 1500)
+                        }
+                    });
+                }
+                ;
+                $(function () {
 
-                                                                Array.from($(".reponse-form-drag-area")).forEach(ele => {
-                                                                    ele.addEventListener("drop", function (event) {
-                                                                        event.preventDefault();
-                                                                        let id = "#gallery-photo-add-" + ele.dataset.index;
-                                                                        $(id).prop("files", event.dataTransfer.files);
-                                                                        $(id).trigger("change");
-                                                                    });
-                                                                })
+                    Array.from($(".reponse-form-drag-area")).forEach(ele => {
+                        ele.addEventListener("drop", function (event) {
+                            event.preventDefault();
+                            let id = "#gallery-photo-add-" + ele.dataset.index;
+                            $(id).prop("files", event.dataTransfer.files);
+                            $(id).trigger("change");
+                        });
+                    })
 
-                                                                $("#Image").on("custom", function (event, param1, param2) {
-                                                                    alert(param1 + "\n" + param2);
-                                                                });
-                                                                $(document).on("change", ":file", function () {
-                                                                    var input = $(this),
-                                                                            numFiles = input.get(0).files ? input.get(0).files.length : 1,
-                                                                            label = input.val().replace(/\\/g, "/").replace(/.*\//, "");
-                                                                    input.trigger("fileselect", [numFiles, label]);
-                                                                });
-                                                                $(document).ready(function () {
-                                                                    $(":file").on("fileselect", function (event, numFiles, label) {
-                                                                        var input = $(this).parents(".input-file-wrap").find(":text"),
-                                                                                log = numFiles > 1 ? numFiles + " files selected" : label;
-                                                                        if (input.length) {
-                                                                            input.val(log);
-                                                                        }
-                                                                    });
-                                                                });
-                                                                $("#gallery-photo-add-1").on("change", function (e) {
-                                                                    imagesPreview(this, "div.tab-img-1");
-                                                                    e.target.closest('.reponse-form-drag-area').querySelector('header').innerHTML = `Click <strong>Browse File</strong> to remove all image`;
-                                                                    e.target.closest('.reponse-form-drag-area').querySelector('span').style.margin = '5px 0';
-                                                                });
-                                                                $("#gallery-photo-add-2").on("change", function (e) {
-                                                                    imagesPreview(this, "div.tab-img-2");
-                                                                    e.target.closest('.reponse-form-drag-area').querySelector('header').innerHTML = `Click <strong>Browse File</strong> to remove all image`;
-                                                                    e.target.closest('.reponse-form-drag-area').querySelector('span').style.margin = '5px 0';
-                                                                });
-                                                                $("#gallery-photo-add-3").on("change", function (e) {
-                                                                    e.target.closest('.reponse-form-drag-area').querySelector('header').innerHTML = `Click <strong>Browse File</strong> to remove all image`;
-                                                                    e.target.closest('.reponse-form-drag-area').querySelector('span').style.margin = '5px 0';
-                                                                    imagesPreview(this, "div.tab-img-3");
-                                                                });
-                                                                $("#gallery-photo-add-4").on("change", function (e) {
-                                                                    e.target.closest('.reponse-form-drag-area').querySelector('header').innerHTML = `Click <strong>Browse File</strong> to remove all image`;
-                                                                    e.target.closest('.reponse-form-drag-area').querySelector('span').style.margin = '5px 0';
-                                                                    imagesPreview(this, "div.tab-img-4");
-                                                                });
-                                                                $("#image").on("change", function (e) {
-                                                                    imagesPreview2(this);
-                                                                });
+                    $("#Image").on("custom", function (event, param1, param2) {
+                        alert(param1 + "\n" + param2);
+                    });
+                    $(document).on("change", ":file", function () {
+                        var input = $(this),
+                                numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                                label = input.val().replace(/\\/g, "/").replace(/.*\//, "");
+                        input.trigger("fileselect", [numFiles, label]);
+                    });
+                    $(document).ready(function () {
+                        $(":file").on("fileselect", function (event, numFiles, label) {
+                            var input = $(this).parents(".input-file-wrap").find(":text"),
+                                    log = numFiles > 1 ? numFiles + " files selected" : label;
+                            if (input.length) {
+                                input.val(log);
+                            }
+                        });
+                    });
+                    $("#gallery-photo-add-1").on("change", function (e) {
+                        imagesPreview(this, "div.tab-img-1");
+                        e.target.closest('.reponse-form-drag-area').querySelector('header').innerHTML = `Click <strong>Browse File</strong> to remove all image`;
+                        e.target.closest('.reponse-form-drag-area').querySelector('span').style.margin = '5px 0';
+                    });
+                    $("#gallery-photo-add-2").on("change", function (e) {
+                        imagesPreview(this, "div.tab-img-2");
+                        e.target.closest('.reponse-form-drag-area').querySelector('header').innerHTML = `Click <strong>Browse File</strong> to remove all image`;
+                        e.target.closest('.reponse-form-drag-area').querySelector('span').style.margin = '5px 0';
+                    });
+                    $("#gallery-photo-add-3").on("change", function (e) {
+                        e.target.closest('.reponse-form-drag-area').querySelector('header').innerHTML = `Click <strong>Browse File</strong> to remove all image`;
+                        e.target.closest('.reponse-form-drag-area').querySelector('span').style.margin = '5px 0';
+                        imagesPreview(this, "div.tab-img-3");
+                    });
+                    $("#gallery-photo-add-4").on("change", function (e) {
+                        e.target.closest('.reponse-form-drag-area').querySelector('header').innerHTML = `Click <strong>Browse File</strong> to remove all image`;
+                        e.target.closest('.reponse-form-drag-area').querySelector('span').style.margin = '5px 0';
+                        imagesPreview(this, "div.tab-img-4");
+                    });
+                    $("#image").on("change", function (e) {
+                        imagesPreview2(this);
+                    });
 //                                                                Scroll and load more data
-                                                                Array.from($(".pipe .pipe-list")).forEach(item => {
-                                                                    item.addEventListener('scroll', (e) => {
-                                                                        var list = e.target.closest('.pipe .pipe-list');
-                                                                        if (!e.target.getAttribute("data-loading")) {
-                                                                            if (Math.ceil(list.offsetHeight + list.scrollTop) === list.scrollHeight) {
-                                                                                loadResultsPipeStyle(e.target.dataset.index, list);
-                                                                            }
-                                                                        }
-                                                                    });
-                                                                });
-                                                                Array.from($(".list-showcase-item .pipe-list")).forEach(item => {
-                                                                    item.addEventListener('scroll', (e) => {
-                                                                        var list = e.target.closest('.list-showcase-item .pipe-list');
-                                                                        if (!e.target.getAttribute("data-loading")) {
-                                                                            if (Math.ceil(list.offsetHeight + list.scrollTop) === list.scrollHeight) {
-                                                                                loadResultsListStyle(e.target.closest('.list-showcase-item .pipe-list').dataset.index, list);
-                                                                            }
-                                                                        }
-                                                                    });
-                                                                });
-                                                            });
-                                                            window.onload = function () {
-                                                                const flag = localStorage.getItem('flag');
-                                                                if (JSON.parse(flag) === true) {
-                                                                    var feedback = JSON.parse(localStorage.getItem('feedbackDoneID'));
-                                                                    var id = feedback[1].toString();
-                                                                    var loop = document.getElementsByClassName("pipe-item-title");
+                    Array.from($(".pipe .pipe-list")).forEach(item => {
+                        item.addEventListener('scroll', (e) => {
+                            var list = e.target.closest('.pipe .pipe-list');
+                            if (!e.target.getAttribute("data-loading")) {
+                                if (Math.ceil(list.offsetHeight + list.scrollTop) === list.scrollHeight) {
+                                    loadResultsPipeStyle(e.target.dataset.index, list);
+                                }
+                            }
+                        });
+                    });
+                    Array.from($(".list-showcase-item .pipe-list")).forEach(item => {
+                        item.addEventListener('scroll', (e) => {
+                            var list = e.target.closest('.list-showcase-item .pipe-list');
+                            if (!e.target.getAttribute("data-loading")) {
+                                if (Math.ceil(list.offsetHeight + list.scrollTop) === list.scrollHeight) {
+                                    loadResultsListStyle(e.target.closest('.list-showcase-item .pipe-list').dataset.index, list);
+                                }
+                            }
+                        });
+                    });
+                });
+                window.onload = function () {
+                    const flag = localStorage.getItem('flag');
+                    if (JSON.parse(flag) === true) {
+                        var feedback = JSON.parse(localStorage.getItem('feedbackDoneID'));
+                        var id = feedback[1].toString();
+                        var loop = document.getElementsByClassName("pipe-item-title");
 //        var loopComment = document.getElementsByClassName("pipe-item-title-comment");
 
-                                                                    for (let i = 0; i < Array.from(loop).length; i++) {
-                                                                        console.log(Array.from(loop)[i].innerHTML);
-                                                                        if ((Array.from(loop)[i].innerHTML).includes(id)) {
-                                                                            setTimeout(function () {
-                                                                                (loop[i]).scrollIntoView({
-                                                                                    behavior: "smooth",
-                                                                                    block: "center"
-                                                                                });
-                                                                            }, 700);
-                                                                        }
-                                                                    }
-                                                                    localStorage.removeItem('flag');
-                                                                }
-                                                            }
+                        for (let i = 0; i < Array.from(loop).length; i++) {
+                            console.log(Array.from(loop)[i].innerHTML);
+                            if ((Array.from(loop)[i].innerHTML).includes(id)) {
+                                setTimeout(function () {
+                                    (loop[i]).scrollIntoView({
+                                        behavior: "smooth",
+                                        block: "center"
+                                    });
+                                }, 700);
+                            }
+                        }
+                        localStorage.removeItem('flag');
+                    }
+                 }
         </script>
     </body>
 </html>
