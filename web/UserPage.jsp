@@ -1436,6 +1436,7 @@
                                                                         $(list).after($("<li class='loading'>Loading...</li>").fadeIn('slow')).data("loading", true);
                                                                     },
                                                                     success: function (data) {
+                                                                        console.log(data);
                                                                         setTimeout(() => {
                                                                             var $results = $(list);
                                                                             $(".loading").fadeOut('fast', function () {

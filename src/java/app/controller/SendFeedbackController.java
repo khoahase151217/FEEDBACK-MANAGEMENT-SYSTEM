@@ -139,7 +139,7 @@ public class SendFeedbackController extends HttpServlet {
                             image1 = item.getString();
                             if (facilityID.equals("") || quantity.equals("") || reason.equals("") || location.equals("")) {
                                 Fdao.deleteFeedback(feedbackId);
-                                Fdao.deleteDetail(feedbackId);
+//                                Fdao.deleteDetail(feedbackId);
                                 url = ERROR;
                                 request.setAttribute("SEND_FAILURE", "active");
                                 request.setAttribute("SEND_SUCCESS", "");
