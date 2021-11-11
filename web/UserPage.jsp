@@ -1315,16 +1315,16 @@
         <!-- Query -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/User2.js"></script>
-        <script type="module" src="${pageContext.request.contextPath}/js/firebaseForUser1.js"></script>
+        <script type="module" src="${pageContext.request.contextPath}/js/firebaseForUser.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseUserfromAdmin.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseStorageForUser3.js"></script>
 
         <script type="module">
-            import handleLoadImageForUserFromFirebase from './js/firebaseStorageForUser3.js';
+          import handleLoadImageForUserFromFirebase from './js/firebaseStorageForUser3.js';
                 var imagesPreview = function (input, placeToInsertImagePreview) {
                     if (input.files) {
                         var filesAmount = input.files.length;
-                        for (i = 0; i < filesAmount; i++) {
+                        for (let i = 0; i < filesAmount; i++) {
                             var reader = new FileReader();
                             reader.onload = function (event) {
                                 $($.parseHTML("<img>"))
@@ -1338,7 +1338,7 @@
                 var imagesPreview2 = function (input) {
                     if (input.files) {
                         var filesAmount = input.files.length;
-                        for (i = 0; i < filesAmount; i++) {
+                        for (let i = 0; i < filesAmount; i++) {
                             var reader = new FileReader();
                             reader.onload = function (event) {
                                 $(".avatar").attr("src", event.target.result);
@@ -1377,29 +1377,74 @@
                             $(list).after($("<li class='loading'>Loading...</li>").fadeIn('slow')).data("loading", true);
                         },
                         success: function (data) {
+                            data = JSON.parse(data);
                             setTimeout(() => {
                                 var $results = $(list);
                                 $(".loading").fadeOut('fast', function () {
                                     $(this).remove();
                                 });
+                                let html = '';
+                                data.forEach(ele => {
+                                    html += ele.html;
+                                })
+                                var $data = $(html);
+                                $results.append($data);
+                                $data.show("slow");
                                 switch (index) {
                                     case "0":
-                                        list.closest('.pipe').querySelector('input[name="amount_all"]').value = data.slice(1, data.indexOf("<") - 1);
+                                        list.closest('.pipe').querySelector('input[name="amount_all"]').value = data[0].amount;
+                                        data.forEach(item => {
+                                                Array.from(document.querySelectorAll('.pipe_image-all-wrapper')).forEach((ele) => {
+                                                    if (ele.dataset.id === item.feedbackID) {
+                                                        if(item.imageString) {
+                                                            handleLoadImageForUserFromFirebase(item.imageString, ele);
+                                                        }
+                                                        return;
+                                                    }
+                                                });
+                                            })
                                         break;
                                     case "1":
-                                        list.closest('.pipe').querySelector('input[name="amount_done"]').value = data.slice(1, data.indexOf("<") - 1);
+                                        list.closest('.pipe').querySelector('input[name="amount_done"]').value = data[0].amount;
+                                        data.forEach(item => {
+                                                Array.from(document.querySelectorAll('.pipe_image-all-wrapper')).forEach((ele) => {
+                                                    if (ele.dataset.id === item.feedbackID) {
+                                                        if(item.imageString) {
+                                                            handleLoadImageForUserFromFirebase(item.imageString, ele);
+                                                        }
+                                                        return;
+                                                    }
+                                                });
+                                            })
                                         break;
                                     case "2":
-                                        list.closest('.pipe').querySelector('input[name="amount_onGoing"]').value = data.slice(1, data.indexOf("<") - 1);
+                                        list.closest('.pipe').querySelector('input[name="amount_onGoing"]').value = data[0].amount;
+                                        data.forEach(item => {
+                                                Array.from(document.querySelectorAll('.pipe_image-all-wrapper')).forEach((ele) => {
+                                                    if (ele.dataset.id === item.feedbackID) {
+                                                        if(item.imageString) {
+                                                            handleLoadImageForUserFromFirebase(item.imageString, ele);
+                                                        }
+                                                        return;
+                                                    }
+                                                });
+                                            })
                                         break;
                                     default:
-                                        list.closest('.pipe').querySelector('input[name="amount_decline"]').value = data.slice(1, data.indexOf("<") - 1);
+                                        list.closest('.pipe').querySelector('input[name="amount_decline"]').value = data[0].amount;
+                                        data.forEach(item => {
+                                                Array.from(document.querySelectorAll('.pipe_image-all-wrapper')).forEach((ele) => {
+                                                    if (ele.dataset.id === item.feedbackID) {
+                                                        if(item.imageString) {
+                                                            handleLoadImageForUserFromFirebase(item.imageString, ele);
+                                                        }
+                                                        return;
+                                                    }
+                                                });
+                                            })
                                         break;
                                 }
                                 ;
-                                var $data = $(data.slice(data.indexOf("<")));
-                                $results.append($data);
-                                $data.show("slow");
                                 $results.removeData("loading");
                             }, 1500)
                         }
@@ -1454,7 +1499,17 @@
                                 switch (index) {
                                     case "0":
                                         if (search) {
-                                            list.closest('.list-showcase').querySelector('input[name="FEEDBACKID_FROM_SEARCH"]').value = data.slice(1, data.indexOf("<") - 1);
+                                            list.closest('.list-showcase').querySelector('input[name="FEEDBACKID_FROM_SEARCH"]').value = data[0].amount;
+                                            data.forEach(item => {
+                                                Array.from(document.querySelectorAll('.List_All')).forEach((ele) => {
+                                                    if (ele.dataset.id === item.feedbackID) {
+                                                        if(item.imageString) {
+                                                            handleLoadImageForUserFromFirebase(item.imageString, ele);
+                                                        }
+                                                        return;
+                                                    }
+                                                });
+                                            })
                                         } else {
                                             list.closest('.list-showcase').querySelector('input[name="amount_all"]').value = data[0].amount;
                                             data.forEach(item => {
@@ -1471,12 +1526,42 @@
                                         break;
                                     case "1":
                                         list.closest('.list-showcase').querySelector('input[name="amount_done"]').value = data[0].amount;
+                                        data.forEach(item => {
+                                                Array.from(document.querySelectorAll('.list_image-all-wrapper')).forEach((ele) => {
+                                                    if (ele.dataset.id === item.feedbackID) {
+                                                        if(item.imageString) {
+                                                            handleLoadImageForUserFromFirebase(item.imageString, ele);
+                                                        }
+                                                        return;
+                                                    }
+                                                });
+                                            })
                                         break;
                                     case "2":
                                         list.closest('.list-showcase').querySelector('input[name="amount_onGoing"]').value = data[0].amount;
+                                        data.forEach(item => {
+                                                Array.from(document.querySelectorAll('.list_image-all-wrapper')).forEach((ele) => {
+                                                    if (ele.dataset.id === item.feedbackID) {
+                                                        if(item.imageString) {
+                                                            handleLoadImageForUserFromFirebase(item.imageString, ele);
+                                                        }
+                                                        return;
+                                                    }
+                                                });
+                                            })
                                         break;
                                     default:
                                         list.closest('.list-showcase').querySelector('input[name="amount_decline"]').value = data[0].amount;
+                                        data.forEach(item => {
+                                                Array.from(document.querySelectorAll('.list_image-all-wrapper')).forEach((ele) => {
+                                                    if (ele.dataset.id === item.feedbackID) {
+                                                        if(item.imageString) {
+                                                            handleLoadImageForUserFromFirebase(item.imageString, ele);
+                                                        }
+                                                        return;
+                                                    }
+                                                });
+                                            })
                                         break;
                                 }
                                 ;

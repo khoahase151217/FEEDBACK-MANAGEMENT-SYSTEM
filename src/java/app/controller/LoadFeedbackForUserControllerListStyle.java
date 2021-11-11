@@ -159,36 +159,27 @@ public class LoadFeedbackForUserControllerListStyle extends HttpServlet {
 //                                            + "         </div>";
 //                                }
 //                            }
-                            html += "<div class=\"pipe-item\">\n"
+                            html = "<div class=\"pipe-item\">\n"
                                     + "                                                    <div class=\"pipe-item-heading\">\n"
                                     + "                                                        <div class=\"pipe-item-title-wrapper\">\n"
                                     + "                                                            <h3 class=\"pipe-item-title\">Feedback " + UserHistory.getFeedbackId() + "</h3>\n"
                                     + "                                                        </div>\n"
                                     + "                                                        <div class=\"pipe-item-date\">" + UserHistory.getDate() + "</div>\n"
                                     + "                                                    </div>\n"
-                                    + "                                                    <div class=\"image-all-wrapper list_image-all-wrapper\" data-id=\"" + UserHistory.getFeedbackId() + "\">"
+                                    + "                                                    <div class=\"image-all-wrapper List_All\" data-id=\"" + UserHistory.getFeedbackId() + "\">"
                                     + "                                                    </div> "
-                                    + "                                                        <script type=\"module\">\n"
-                                    + "                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser3.js';\n"
-                                    + "                                                        Array.from(document.querySelectorAll('.list_image-all-wrapper')).forEach(async (ele) => {\n"
-                                    + "                                                        if (ele.dataset.id === '" + UserHistory.getFeedbackId() + "') {\n"
-                                    + "                                                        //  getImageString\n"
-                                    + "                                                        let imageString = '" + UserHistory.getImageFirebase() + "';\n"
-                                    + "                                                        if(imageString) {\n"
-                                    + "                                                         handleLoadImageForUserFromFirebase(imageString, ele);\n"
-                                    + "                                                        }\n"
-                                    + "                                                        return;\n"
-                                    + "                                                        };\n"
-                                    + "                                                        });\n"
-                                    + "                                                    </script>"
                                     + "                                                    <div class=\"pipe-item-bottom\">\n"
                                     + "                                                        <p class=\"pipe-bottom-item\">" + UserHistory.getDeviceName() + "</p>\n"
                                     + "                                                        <p class=\"pipe-bottom-item\">Room: " + UserHistory.getLocation() + "</p>\n"
                                     + "                                                    </div>\n"
                                     + "                                                </div>\n";
+                            FeedbackLoaderDTO feedbackLoader = new FeedbackLoaderDTO(Integer.parseInt(newAmount), UserHistory.getFeedbackId(), html, UserHistory.getImageFirebase());
+                            listFBLoader.add(feedbackLoader);
 
                         }
-                        out.println("'" + newAmount + "'" + html);
+//                        out.println("'" + newAmount + "'" + html);
+                        out.println(gson.toJson(listFBLoader));
+
                     } else {
                         List<UserHistoryDTO> listAll = dao.getListFeedbackForUserNext(user.getUserID(), Integer.parseInt(amount));
                         List<UserHistoryDTO> listAllCheck = dao.getListFeedbackForUserNextForCheck(user.getUserID(), Integer.parseInt(amount) + 10);
@@ -359,36 +350,25 @@ public class LoadFeedbackForUserControllerListStyle extends HttpServlet {
 //                                + "                                                        <p class=\"pipe-bottom-item\">Room: " + UserHistory.getLocation() + "</p>\n"
 //                                + "                                                    </div>\n"
 //                                + "                                                </div>\n";
-                        html += "<div class=\"pipe-item\">\n"
-                                + "                                                    <div class=\"pipe-item-heading\">\n"
-                                + "                                                        <div class=\"pipe-item-title-wrapper\">\n"
-                                + "                                                            <h3 class=\"pipe-item-title\">Feedback " + UserHistory.getFeedbackId() + "</h3>\n"
-                                + "                                                        </div>\n"
-                                + "                                                        <div class=\"pipe-item-date\">" + UserHistory.getDate() + "</div>\n"
-                                + "                                                    </div>\n"
-                                + "                                                    <div class=\"image-all-wrapper list_image-all-wrapper\" data-id=\"" + UserHistory.getFeedbackId() + "\">"
-                                + "                                                    </div> "
-                                + "                                                        <script type=\"module\">\n"
-                                + "                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser3.js';\n"
-                                + "                                                        Array.from(document.querySelectorAll('.list_image-all-wrapper')).forEach(async (ele) => {\n"
-                                + "                                                        if (ele.dataset.id === '" + UserHistory.getFeedbackId() + "') {\n"
-                                + "                                                        //  getImageString\n"
-                                + "                                                        let imageString = '" + UserHistory.getImageFirebase() + "';\n"
-                                + "                                                        if(imageString) {\n"
-                                + "                                                         handleLoadImageForUserFromFirebase(imageString, ele);\n"
-                                + "                                                        }\n"
-                                + "                                                        return;\n"
-                                + "                                                        };\n"
-                                + "                                                        });\n"
-                                + "                                                    </script>"
-                                + "                                                    <div class=\"pipe-item-bottom\">\n"
-                                + "                                                        <p class=\"pipe-bottom-item\">" + UserHistory.getDeviceName() + "</p>\n"
-                                + "                                                        <p class=\"pipe-bottom-item\">Room: " + UserHistory.getLocation() + "</p>\n"
-                                + "                                                    </div>\n"
-                                + "                                                </div>\n";
-
-                    }
-                    out.println("'" + newAmount + "'" + html);
+                        html = "<div class=\"pipe-item\">\n"
+                                    + "                                                    <div class=\"pipe-item-heading\">\n"
+                                    + "                                                        <div class=\"pipe-item-title-wrapper\">\n"
+                                    + "                                                            <h3 class=\"pipe-item-title\">Feedback " + UserHistory.getFeedbackId() + "</h3>\n"
+                                    + "                                                        </div>\n"
+                                    + "                                                        <div class=\"pipe-item-date\">" + UserHistory.getDate() + "</div>\n"
+                                    + "                                                    </div>\n"
+                                    + "                                                    <div class=\"image-all-wrapper list_image-all-wrapper\" data-id=\"" + UserHistory.getFeedbackId() + "\">"
+                                    + "                                                    </div> "
+                                    + "                                                    <div class=\"pipe-item-bottom\">\n"
+                                    + "                                                        <p class=\"pipe-bottom-item\">" + UserHistory.getDeviceName() + "</p>\n"
+                                    + "                                                        <p class=\"pipe-bottom-item\">Room: " + UserHistory.getLocation() + "</p>\n"
+                                    + "                                                    </div>\n"
+                                    + "                                                </div>\n";
+                            FeedbackLoaderDTO feedbackLoader = new FeedbackLoaderDTO(newAmount, UserHistory.getFeedbackId(), html, UserHistory.getImageFirebase());
+                            listFBLoader.add(feedbackLoader);
+                        }
+//                        out.println("'" + newAmount + "'" + html);
+                        out.println(gson.toJson(listFBLoader));
                     break;
                 case "2":
                     List<UserHistoryDTO> listOnGoing = dao.getListFeedbackOnGoingForUserNext(user.getUserID(), Integer.parseInt(amount));
@@ -460,36 +440,25 @@ public class LoadFeedbackForUserControllerListStyle extends HttpServlet {
 //                                + "                                                        <p class=\"pipe-bottom-item\">Room: " + UserHistory.getLocation() + "</p>\n"
 //                                + "                                                    </div>\n"
 //                                + "                                                </div>\n";
-                        html += "<div class=\"pipe-item\">\n"
-                                + "                                                    <div class=\"pipe-item-heading\">\n"
-                                + "                                                        <div class=\"pipe-item-title-wrapper\">\n"
-                                + "                                                            <h3 class=\"pipe-item-title\">Feedback " + UserHistory.getFeedbackId() + "</h3>\n"
-                                + "                                                        </div>\n"
-                                + "                                                        <div class=\"pipe-item-date\">" + UserHistory.getDate() + "</div>\n"
-                                + "                                                    </div>\n"
-                                + "                                                    <div class=\"image-all-wrapper list_image-all-wrapper\" data-id=\"" + UserHistory.getFeedbackId() + "\">"
-                                + "                                                    </div> "
-                                + "                                                        <script type=\"module\">\n"
-                                + "                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser3.js';\n"
-                                + "                                                        Array.from(document.querySelectorAll('.list_image-all-wrapper')).forEach(async (ele) => {\n"
-                                + "                                                        if (ele.dataset.id === '" + UserHistory.getFeedbackId() + "') {\n"
-                                + "                                                        //  getImageString\n"
-                                + "                                                        let imageString = '" + UserHistory.getImageFirebase() + "';\n"
-                                + "                                                        if(imageString) {\n"
-                                + "                                                         handleLoadImageForUserFromFirebase(imageString, ele);\n"
-                                + "                                                        }\n"
-                                + "                                                        return;\n"
-                                + "                                                        };\n"
-                                + "                                                        });\n"
-                                + "                                                    </script>"
-                                + "                                                    <div class=\"pipe-item-bottom\">\n"
-                                + "                                                        <p class=\"pipe-bottom-item\">" + UserHistory.getDeviceName() + "</p>\n"
-                                + "                                                        <p class=\"pipe-bottom-item\">Room: " + UserHistory.getLocation() + "</p>\n"
-                                + "                                                    </div>\n"
-                                + "                                                </div>\n";
-
-                    }
-                    out.println("'" + newAmount + "'" + html);
+                        html = "<div class=\"pipe-item\">\n"
+                                    + "                                                    <div class=\"pipe-item-heading\">\n"
+                                    + "                                                        <div class=\"pipe-item-title-wrapper\">\n"
+                                    + "                                                            <h3 class=\"pipe-item-title\">Feedback " + UserHistory.getFeedbackId() + "</h3>\n"
+                                    + "                                                        </div>\n"
+                                    + "                                                        <div class=\"pipe-item-date\">" + UserHistory.getDate() + "</div>\n"
+                                    + "                                                    </div>\n"
+                                    + "                                                    <div class=\"image-all-wrapper list_image-all-wrapper\" data-id=\"" + UserHistory.getFeedbackId() + "\">"
+                                    + "                                                    </div> "
+                                    + "                                                    <div class=\"pipe-item-bottom\">\n"
+                                    + "                                                        <p class=\"pipe-bottom-item\">" + UserHistory.getDeviceName() + "</p>\n"
+                                    + "                                                        <p class=\"pipe-bottom-item\">Room: " + UserHistory.getLocation() + "</p>\n"
+                                    + "                                                    </div>\n"
+                                    + "                                                </div>\n";
+                            FeedbackLoaderDTO feedbackLoader = new FeedbackLoaderDTO(newAmount, UserHistory.getFeedbackId(), html, UserHistory.getImageFirebase());
+                            listFBLoader.add(feedbackLoader);
+                        }
+//                        out.println("'" + newAmount + "'" + html);
+                        out.println(gson.toJson(listFBLoader));
                     break;
 
                 default:
@@ -563,36 +532,25 @@ public class LoadFeedbackForUserControllerListStyle extends HttpServlet {
 //                                + "                                                        <p class=\"pipe-bottom-item\">Room: " + UserHistory.getLocation() + "</p>\n"
 //                                + "                                                    </div>\n"
 //                                + "                                                </div>\n";
-                        html += "<div class=\"pipe-item\">\n"
-                                + "                                                    <div class=\"pipe-item-heading\">\n"
-                                + "                                                        <div class=\"pipe-item-title-wrapper\">\n"
-                                + "                                                            <h3 class=\"pipe-item-title\">Feedback " + UserHistory.getFeedbackId() + "</h3>\n"
-                                + "                                                        </div>\n"
-                                + "                                                        <div class=\"pipe-item-date\">" + UserHistory.getDate() + "</div>\n"
-                                + "                                                    </div>\n"
-                                + "                                                    <div class=\"image-all-wrapper list_image-all-wrapper\" data-id=\"" + UserHistory.getFeedbackId() + "\">"
-                                + "                                                    </div> "
-                                + "                                                        <script type=\"module\">\n"
-                                + "                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser3.js';\n"
-                                + "                                                        Array.from(document.querySelectorAll('.list_image-all-wrapper')).forEach(async (ele) => {\n"
-                                + "                                                        if (ele.dataset.id === '" + UserHistory.getFeedbackId() + "') {\n"
-                                + "                                                        //  getImageString\n"
-                                + "                                                        let imageString = '" + UserHistory.getImageFirebase() + "';\n"
-                                + "                                                        if(imageString) {\n"
-                                + "                                                         handleLoadImageForUserFromFirebase(imageString, ele);\n"
-                                + "                                                        }\n"
-                                + "                                                        return;\n"
-                                + "                                                        };\n"
-                                + "                                                        });\n"
-                                + "                                                    </script>"
-                                + "                                                    <div class=\"pipe-item-bottom\">\n"
-                                + "                                                        <p class=\"pipe-bottom-item\">" + UserHistory.getDeviceName() + "</p>\n"
-                                + "                                                        <p class=\"pipe-bottom-item\">Room: " + UserHistory.getLocation() + "</p>\n"
-                                + "                                                    </div>\n"
-                                + "                                                </div>\n";
-
-                    }
-                    out.println("'" + newAmount + "'" + html);
+                         html = "<div class=\"pipe-item\">\n"
+                                    + "                                                    <div class=\"pipe-item-heading\">\n"
+                                    + "                                                        <div class=\"pipe-item-title-wrapper\">\n"
+                                    + "                                                            <h3 class=\"pipe-item-title\">Feedback " + UserHistory.getFeedbackId() + "</h3>\n"
+                                    + "                                                        </div>\n"
+                                    + "                                                        <div class=\"pipe-item-date\">" + UserHistory.getDate() + "</div>\n"
+                                    + "                                                    </div>\n"
+                                    + "                                                    <div class=\"image-all-wrapper list_image-all-wrapper\" data-id=\"" + UserHistory.getFeedbackId() + "\">"
+                                    + "                                                    </div> "
+                                    + "                                                    <div class=\"pipe-item-bottom\">\n"
+                                    + "                                                        <p class=\"pipe-bottom-item\">" + UserHistory.getDeviceName() + "</p>\n"
+                                    + "                                                        <p class=\"pipe-bottom-item\">Room: " + UserHistory.getLocation() + "</p>\n"
+                                    + "                                                    </div>\n"
+                                    + "                                                </div>\n";
+                            FeedbackLoaderDTO feedbackLoader = new FeedbackLoaderDTO(newAmount, UserHistory.getFeedbackId(), html, UserHistory.getImageFirebase());
+                            listFBLoader.add(feedbackLoader);
+                        }
+//                        out.println("'" + newAmount + "'" + html);
+                        out.println(gson.toJson(listFBLoader));
                     break;
             }
         } catch (Exception e) {

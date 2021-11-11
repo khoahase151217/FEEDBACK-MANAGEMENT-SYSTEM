@@ -7,10 +7,13 @@ package app.controller;
 
 import app.feedback.FeedbackDAO;
 import app.feedback.FeedbackDTO;
+import app.feedback.FeedbackLoaderDTO;
 import app.users.UserDTO;
 import app.users.UserHistoryDTO;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -45,6 +48,8 @@ public class LoadFeedbackForUserControllerPipeStyle extends HttpServlet {
             String flag = request.getParameter("flag_navigation");
             String search = request.getParameter("search");
             FeedbackDAO dao = new FeedbackDAO();
+            List<FeedbackLoaderDTO> listFBLoader = new ArrayList<>();
+            Gson gson = new Gson();
             switch (flag) {
                 case "1":
                     List<UserHistoryDTO> listDone = dao.getListFeedbackDoneForUserNext(user.getUserID(), Integer.parseInt(amount));
@@ -150,9 +155,12 @@ public class LoadFeedbackForUserControllerPipeStyle extends HttpServlet {
                                 + "                                                        <p class=\"pipe-bottom-item\">Room: " + UserHistory.getLocation() + "</p>\n"
                                 + "                                                    </div>\n"
                                 + "                                                </div>\n";
-
+                        FeedbackLoaderDTO feedbackLoader = new FeedbackLoaderDTO(newAmount, UserHistory.getFeedbackId(), html, UserHistory.getImageFirebase());
+                        listFBLoader.add(feedbackLoader);
                     }
-                    out.println("'" + newAmount + "'" + html);
+//                        out.println("'" + newAmount + "'" + html);
+                    out.println(gson.toJson(listFBLoader));
+
                     break;
                 case "2":
                     List<UserHistoryDTO> listOnGoing = dao.getListFeedbackOnGoingForUserNext(user.getUserID(), Integer.parseInt(amount));
@@ -243,7 +251,7 @@ public class LoadFeedbackForUserControllerPipeStyle extends HttpServlet {
 //                                    + "                                                            </div>\n"
 //                                    + "                                                        </div>";
 //                        }
-                        html += "<div class=\"pipe-item\">\n"
+                        html = "<div class=\"pipe-item\">\n"
                                 + "                                                    <div class=\"pipe-item-heading\">\n"
                                 + "                                                        <div class=\"pipe-item-title-wrapper\">\n"
                                 + "                                                            <h3 class=\"pipe-item-title\">Feedback " + UserHistory.getFeedbackId() + "</h3>\n"
@@ -257,9 +265,11 @@ public class LoadFeedbackForUserControllerPipeStyle extends HttpServlet {
                                 + "                                                        <p class=\"pipe-bottom-item\">Room: " + UserHistory.getLocation() + "</p>\n"
                                 + "                                                    </div>\n"
                                 + "                                                </div>\n";
-
+                        FeedbackLoaderDTO feedbackLoader = new FeedbackLoaderDTO(newAmount, UserHistory.getFeedbackId(), html, UserHistory.getImageFirebase());
+                        listFBLoader.add(feedbackLoader);
                     }
-                    out.println("'" + newAmount + "'" + html);
+//                        out.println("'" + newAmount + "'" + html);
+                    out.println(gson.toJson(listFBLoader));
                     break;
 
                 default:
@@ -352,7 +362,7 @@ public class LoadFeedbackForUserControllerPipeStyle extends HttpServlet {
 //                                    + "                                                            </div>\n"
 //                                    + "                                                        </div>";
 //                        }
-                       html += "<div class=\"pipe-item\">\n"
+                        html = "<div class=\"pipe-item\">\n"
                                 + "                                                    <div class=\"pipe-item-heading\">\n"
                                 + "                                                        <div class=\"pipe-item-title-wrapper\">\n"
                                 + "                                                            <h3 class=\"pipe-item-title\">Feedback " + UserHistory.getFeedbackId() + "</h3>\n"
@@ -366,9 +376,11 @@ public class LoadFeedbackForUserControllerPipeStyle extends HttpServlet {
                                 + "                                                        <p class=\"pipe-bottom-item\">Room: " + UserHistory.getLocation() + "</p>\n"
                                 + "                                                    </div>\n"
                                 + "                                                </div>\n";
-
+                        FeedbackLoaderDTO feedbackLoader = new FeedbackLoaderDTO(newAmount, UserHistory.getFeedbackId(), html, UserHistory.getImageFirebase());
+                        listFBLoader.add(feedbackLoader);
                     }
-                    out.println("'" + newAmount + "'" + html);
+//                        out.println("'" + newAmount + "'" + html);
+                    out.println(gson.toJson(listFBLoader));
                     break;
             }
         } catch (Exception e) {
