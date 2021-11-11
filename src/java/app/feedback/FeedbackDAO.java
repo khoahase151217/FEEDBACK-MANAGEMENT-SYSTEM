@@ -375,7 +375,7 @@ public class FeedbackDAO {
                     String facilityName = rs.getString("FacilityName");
                     String des = rs.getString("Description");
                     String userID = rs.getString("UserID");
-                    list.add(new FeedbackDetailDTO("", "", userID, feedbackID, quantity, reason, location, "", false, facilityName, date, des));
+                    list.add(new FeedbackDetailDTO("", "", userID, feedbackID, quantity, reason, location, false, facilityName, date, des,""));
                 }
             }
 
@@ -1323,16 +1323,20 @@ public class FeedbackDAO {
                     String des = rs.getString("Description");
                     String cmt = rs.getString("comment");
                     String categoryID = rs.getString("categoryID");
-                    byte[] tmp = rs.getBytes("Image");
-                    if (tmp != null) {
-                        base64Image = Base64.getEncoder().encodeToString(tmp);
-                    } else {
-                        base64Image = "";
+                    String image = rs.getString("ImageFirebase");
+                    if(image==null){
+                        image="";
                     }
+//                    byte[] tmp = rs.getBytes("Image");
+//                    if (tmp != null) {
+//                        base64Image = Base64.getEncoder().encodeToString(tmp);
+//                    } else {
+//                        base64Image = "";
+//                    }
                     boolean flag = rs.getBoolean("flag");
                     String date = rs.getString("date");
                     String facilityName = rs.getString("FacilityName");
-                    list.add(new FeedbackDetailDTO(feedbackDetailId, facilityID, userId, feedbackID, quantity, reason, location, base64Image, flag, facilityName, date, "", "", des, categoryID));
+                    list.add(new FeedbackDetailDTO(feedbackDetailId, facilityID, userId, feedbackID, quantity, reason, location, flag, facilityName, date, "", "", des, categoryID,image));
                 }
             }
 
@@ -1394,16 +1398,20 @@ public class FeedbackDAO {
                     String location = rs.getString("Location");
                     String des = rs.getString("Description");
                     String categoryID = rs.getString("categoryID");
-                    byte[] tmp = rs.getBytes("Image");
-                    if (tmp != null) {
-                        base64Image = Base64.getEncoder().encodeToString(tmp);
-                    } else {
-                        base64Image = "";
+                    String image = rs.getString("ImageFireBase");
+                    if(image==null){
+                        image="";
                     }
+//                    byte[] tmp = rs.getBytes("Image");
+//                    if (tmp != null) {
+//                        base64Image = Base64.getEncoder().encodeToString(tmp);
+//                    } else {
+//                        base64Image = "";
+//                    }
                     boolean flag = rs.getBoolean("flag");
                     String date = rs.getString("date");
                     String facilityName = rs.getString("FacilityName");
-                    list.add(new FeedbackDetailDTO(feedbackDetailId, facilityID, userId, feedbackID, quantity, reason, location, base64Image, flag, facilityName, date, "", "", des, categoryID));
+                    list.add(new FeedbackDetailDTO(feedbackDetailId, facilityID, userId, feedbackID, quantity, reason, location, flag, facilityName, date, "", "", des, categoryID,image));
 
                 }
             }
@@ -1463,17 +1471,21 @@ public class FeedbackDAO {
                     String location = rs.getString("Location");
                     String des = rs.getString("Description");
                     String categoryID = rs.getString("categoryID");
-                    byte[] tmp = rs.getBytes("Image");
-                    if (tmp != null) {
-                        base64Image = Base64.getEncoder().encodeToString(tmp);
-                    } else {
-                        base64Image = "";
+                    String image = rs.getString("ImageFirebase");
+                    if(image==null){
+                        image="";
                     }
+//                    byte[] tmp = rs.getBytes("Image");
+//                    if (tmp != null) {
+//                        base64Image = Base64.getEncoder().encodeToString(tmp);
+//                    } else {
+//                        base64Image = "";
+//                    }
                     boolean flag = rs.getBoolean("flag");
                     String date = rs.getString("date");
                     String facilityName = rs.getString("FacilityName");
                     String fullName = rs.getString("fullName");
-                    list.add(new FeedbackDetailDTO(feedbackDetailId, facilityID, userId, feedbackID, quantity, reason, location, base64Image, flag, facilityName, date, fullName, "", des, categoryID));
+                    list.add(new FeedbackDetailDTO(feedbackDetailId, facilityID, userId, feedbackID, quantity, reason, location, flag, facilityName, date, fullName, "", des, categoryID,image));
                 }
             }
 

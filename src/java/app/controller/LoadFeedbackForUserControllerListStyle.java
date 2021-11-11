@@ -313,12 +313,14 @@ public class LoadFeedbackForUserControllerListStyle extends HttpServlet {
                             List<String> imageList = tmpUserHistory.getImageList();
                             String deviceName = tmpUserHistory.getDeviceName();
                             String location = tmpUserHistory.getLocation();
+                            String image = tmpUserHistory.getImageFirebase();
                             if (UserHistory.getImage() != null) {
                                 imageList.add(UserHistory.getImage());
                                 tmpUserHistory.setImageList(imageList);
                             }
                             tmpUserHistory.setDeviceName(deviceName.concat(", ").concat(UserHistory.getDeviceName()));
                             tmpUserHistory.setLocation(location.concat(", ").concat(UserHistory.getLocation()));
+                            tmpUserHistory.setImageFirebase(image.concat(";").concat(UserHistory.getImageFirebase()));
                         } else {
                             List<String> imageList = new ArrayList<String>();
                             if (UserHistory.getImage() != null) {
@@ -413,12 +415,14 @@ public class LoadFeedbackForUserControllerListStyle extends HttpServlet {
                             List<String> imageList = tmpUserHistory.getImageList();
                             String deviceName = tmpUserHistory.getDeviceName();
                             String location = tmpUserHistory.getLocation();
+                            String image = tmpUserHistory.getImageFirebase();
                             if (UserHistory.getImage() != null) {
                                 imageList.add(UserHistory.getImage());
                                 tmpUserHistory.setImageList(imageList);
                             }
                             tmpUserHistory.setDeviceName(deviceName.concat(", ").concat(UserHistory.getDeviceName()));
                             tmpUserHistory.setLocation(location.concat(", ").concat(UserHistory.getLocation()));
+                            tmpUserHistory.setImageFirebase(image.concat(";").concat(UserHistory.getImageFirebase()));
                         } else {
                             List<String> imageList = new ArrayList<String>();
                             if (UserHistory.getImage() != null) {
@@ -513,12 +517,14 @@ public class LoadFeedbackForUserControllerListStyle extends HttpServlet {
                             List<String> imageList = tmpUserHistory.getImageList();
                             String deviceName = tmpUserHistory.getDeviceName();
                             String location = tmpUserHistory.getLocation();
+                            String image = tmpUserHistory.getImageFirebase();
                             if (UserHistory.getImage() != null) {
                                 imageList.add(UserHistory.getImage());
                                 tmpUserHistory.setImageList(imageList);
                             }
                             tmpUserHistory.setDeviceName(deviceName.concat(", ").concat(UserHistory.getDeviceName()));
                             tmpUserHistory.setLocation(location.concat(", ").concat(UserHistory.getLocation()));
+                            tmpUserHistory.setImageFirebase(image.concat(";").concat(UserHistory.getImageFirebase()));
                         } else {
                             List<String> imageList = new ArrayList<String>();
                             if (UserHistory.getImage() != null) {

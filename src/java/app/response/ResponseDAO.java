@@ -58,19 +58,20 @@ public class ResponseDAO {
         return count;
     }
 
-    public boolean insertResponseFeedback(ResponseDTO response, FileInputStream image) throws SQLException, ClassNotFoundException {
+//    public boolean insertResponseFeedback(ResponseDTO response, FileInputStream image) throws SQLException, ClassNotFoundException {
+    public boolean insertResponseFeedback(ResponseDTO response, String image) throws SQLException, ClassNotFoundException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ps = null;
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = " INSERT INTO tblResponseFeedback( FeedbackDetailID, UserID, Image, Description, StatusID, Date,Realtime ) "
+                String sql = " INSERT INTO tblResponseFeedback( FeedbackDetailID, UserID, ImageFirebase, Description, StatusID, Date,Realtime ) "
                         + " VALUES(?,?,?,?,?,?,CURRENT_TIMESTAMP) ";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, response.getFeedbackDetailID());
                 ps.setString(2, response.getUserID());
-                ps.setBinaryStream(3, image);
+                ps.setString(3, image);
                 ps.setString(4, response.getDes());
                 ps.setString(5, response.getStatusID());
                 ps.setString(6, response.getDate());
@@ -89,7 +90,8 @@ public class ResponseDAO {
         return check;
     }
 
-    public boolean updateResponseFeedback(ResponseDTO response, FileInputStream image) throws SQLException {
+//    public boolean updateResponseFeedback(ResponseDTO response, FileInputStream image) throws SQLException {
+    public boolean updateResponseFeedback(ResponseDTO response, String image) throws SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ps = null;
@@ -97,10 +99,10 @@ public class ResponseDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 String sql = " UPDATE tblResponseFeedback "
-                        + " SET Image=?, Description=?,StatusID=? ,Date=? ,Realtime=CURRENT_TIMESTAMP "
+                        + " SET ImageFirebase=?, Description=?,StatusID=? ,Date=? ,Realtime=CURRENT_TIMESTAMP "
                         + " WHERE FeedbackDetailID=? AND UserID=? ";
                 ps = conn.prepareStatement(sql);
-                ps.setBinaryStream(1, image);
+                ps.setString(1, image);
                 ps.setString(2, response.getDes());
                 ps.setString(3, response.getStatusID());
                 ps.setString(4, response.getDate());
@@ -343,15 +345,16 @@ public class ResponseDAO {
                     String userName = rs.getString("userName");
                     String des = rs.getString("Description");
                     String quantity = rs.getString("quantity");
-                    byte[] tmp = rs.getBytes("Image");
-                    if (tmp != null) {
-                        base64Image = Base64.getEncoder().encodeToString(tmp);
-                    } else {
-                        base64Image = "";
-                    }
+                    String image = rs.getString("ImageFirebase");
+//                    byte[] tmp = rs.getBytes("Image");
+//                    if (tmp != null) {
+//                        base64Image = Base64.getEncoder().encodeToString(tmp);
+//                    } else {
+//                        base64Image = "";
+//                    }
                     String location = rs.getString("location");
                     String deviceName = rs.getString("deivcename");
-                    dto.add(new ResponseDTO(feedbackDetailID, base64Image, des, responseID, deviceName, location, userName, quantity, date));
+                    dto.add(new ResponseDTO(feedbackDetailID, image, des, responseID, deviceName, location, userName, quantity, date));
 
                 }
             }
