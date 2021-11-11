@@ -32,13 +32,12 @@ function handleImageName(element_id, input_name) {
             const storageRef = ref(storage, "Images/" + file.lastModified + '.' + fileName[1]);
             let uploadTask = uploadBytesResumable(storageRef, file, metadata);
             stringImageName += file.lastModified + '.' + fileName[1] + ";";
+            var input = document.createElement("input");
+            input.name = input_name;
+            input.type = 'hidden';
+            input.value = stringImageName.slice(0, stringImageName.length - 1);
+            document.getElementById(element_id).closest('.list-items-wrapper').insertAdjacentElement("beforeend", input);
         });
-        var input = document.createElement("input");
-        input.name = input_name;
-        input.type = 'hidden';
-        input.value = stringImageName.slice(0, stringImageName.length - 1);
-        document.getElementById(element_id).closest('.list-items-wrapper').insertAdjacentElement("beforeend", input);
-        console.log(stringImageName.slice(0, stringImageName.length - 1));
     }
 }
 
@@ -49,13 +48,14 @@ form.addEventListener("submit", (e) => {
     handleImageName('gallery-photo-add-2', 'image-2');
     handleImageName('gallery-photo-add-3', 'image-3');
     handleImageName('gallery-photo-add-4', 'image-4');
+    e.target.submit();
 });
 
-export default function handleLoadImageForUserFromFirebase(imageString, element) {
+export default async function handleLoadImageForUserFromFirebase(imageString, element) {
     const imageList = imageString.split(';');
     // download image form fireabase
     for (let index = 0; index < imageList.length; index++) {
-        getDownloadURL(ref(storage, 'Images/' + imageList[index]))
+        await getDownloadURL(ref(storage, 'Images/' + imageList[index]))
                 .then((url) => {
                     var img = document.createElement("img");
                     img.src = url;

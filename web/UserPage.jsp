@@ -52,7 +52,6 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/User1.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/FeedbackForm3.css" />
 
-        <script type="module" src="${pageContext.request.contextPath}/js/firebaseStorageForUser2.js"></script>
 
     </head>
     <body>
@@ -801,13 +800,13 @@
                                                     </div>
 
                                                     <script type="module">
-                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser2.js';
+                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser3.js';
                                                         Array.from(document.querySelectorAll('.pipe_image-all-wrapper')).forEach(async (ele) => {
                                                         if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
                                                         //  getImageString
-                                                        let imageString = '1632495909914.jpg;1632495816317.jpg;1632496006478.jpg;1632571757122.jpg;1632486574805.png';
+                                                        let imageString = '<%=feedback.getImageFirebase()%>';
                                                         if(imageString) {
-                                                        await handleLoadImageForUserFromFirebase(imageString, ele);
+                                                         handleLoadImageForUserFromFirebase(imageString, ele);
                                                         }
                                                         return;
                                                         };
@@ -858,13 +857,13 @@
                                                     <div class="image-all-wrapper pipe_image-all-wrapper" data-id="<%=feedback.getFeedbackId()%>">
                                                     </div>
                                                     <script type="module">
-                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser2.js';
+                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser3.js';
                                                         Array.from(document.querySelectorAll('.pipe_image-all-wrapper')).forEach(async (ele) => {
                                                         if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
                                                         //  getImageString
-                                                        let imageString = '';
+                                                        let imageString = '<%=feedback.getImageFirebase()%>';
                                                         if(imageString) {
-                                                        await handleLoadImageForUserFromFirebase(imageString, ele);
+                                                         handleLoadImageForUserFromFirebase(imageString, ele);
                                                         }
                                                         return;
                                                         };
@@ -915,13 +914,13 @@
 
                                                     <div class="image-all-wrapper pipe_image-all-wrapper" data-id="<%=feedback.getFeedbackId()%>"></div>
                                                     <script type="module">
-                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser2.js';
+                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser3.js';
                                                         Array.from(document.querySelectorAll('.pipe_image-all-wrapper')).forEach(async (ele) => {
                                                         if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
                                                         //  getImageString
-                                                        let imageString = '1632495909914.jpg;1632495816317.jpg;1632496006478.jpg;1632571757122.jpg;1632486574805.png';
+                                                        let imageString = '<%=feedback.getImageFirebase()%>';
                                                         if(imageString) {
-                                                        await handleLoadImageForUserFromFirebase(imageString, ele);
+                                                         handleLoadImageForUserFromFirebase(imageString, ele);
                                                         }
                                                         return;
                                                         };
@@ -1010,15 +1009,15 @@
 
                                                     <div class="image-all-wrapper list_image-all-wrapper" data-id="<%=feedback.getFeedbackId()%>">
                                                     </div>
-
+                                                    
                                                     <script type="module">
-                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser2.js';
+                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser3.js';
                                                         Array.from(document.querySelectorAll('.list_image-all-wrapper')).forEach(async (ele) => {
                                                         if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
                                                         //  getImageString
-                                                        let imageString = '1632495909914.jpg;1632495816317.jpg;1632496006478.jpg;1632571757122.jpg;1632486574805.png';
+                                                        let imageString = '<%=feedback.getImageFirebase()%>';
                                                         if(imageString) {
-                                                        await handleLoadImageForUserFromFirebase(imageString, ele);
+                                                         handleLoadImageForUserFromFirebase(imageString, ele);
                                                         }
                                                         return;
                                                         };
@@ -1062,13 +1061,13 @@
                                                     </div>
 
                                                     <script type="module">
-                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser2.js';
+                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser3.js';
                                                         Array.from(document.querySelectorAll('.list_image-all-wrapper')).forEach(async (ele) => {
                                                         if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
                                                         //  getImageString
-                                                        let imageString = '';
+                                                        let imageString = '<%=feedback.getImageFirebase()%>';
                                                         if(imageString) {
-                                                        await handleLoadImageForUserFromFirebase(imageString, ele);
+                                                         handleLoadImageForUserFromFirebase(imageString, ele);
                                                         }
                                                         return;
                                                         };
@@ -1110,14 +1109,14 @@
                                                     </div>
 
                                                     <script type="module">
-                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser2.js';
+                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser3.js';
 
                                                         Array.from(document.querySelectorAll('.list_image-all-wrapper')).forEach(async (ele) => {
                                                         if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
                                                         //  getImageString
-                                                        let imageString = '';
+                                                        let imageString = '<%=feedback.getImageFirebase()%>';
                                                         if(imageString) {
-                                                        await handleLoadImageForUserFromFirebase(imageString, ele);
+                                                         handleLoadImageForUserFromFirebase(imageString, ele);
                                                         }
                                                         return;
                                                         };
@@ -1158,14 +1157,14 @@
                                                     </div>
 
                                                     <script type="module">
-                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser2.js';
+                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser3.js';
 
                                                         Array.from(document.querySelectorAll('.list_image-all-wrapper')).forEach(async (ele) => {
                                                         if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
                                                         //  getImageString
-                                                        let imageString = '';
+                                                        let imageString = '<%=feedback.getImageFirebase()%>';
                                                         if(imageString) {
-                                                        await handleLoadImageForUserFromFirebase(imageString, ele);
+                                                         handleLoadImageForUserFromFirebase(imageString, ele);
                                                         }
                                                         return;
                                                         };
@@ -1318,7 +1317,7 @@
         <script src="${pageContext.request.contextPath}/js/User2.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseForUser1.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseUserfromAdmin.js"></script>
-
+        <script type="module" src="${pageContext.request.contextPath}/js/firebaseStorageForUser3.js"></script>
 
         <script>
                                                             var imagesPreview = function (input, placeToInsertImagePreview) {

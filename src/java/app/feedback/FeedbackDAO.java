@@ -527,21 +527,22 @@ public class FeedbackDAO {
         return result;
     }
 
-    public boolean insertFeedbackDetail(String feedbackID, FeedbackDetailDTO detail, FileInputStream image) throws SQLException, ClassNotFoundException, IOException {
+//    public boolean insertFeedbackDetail(String feedbackID, FeedbackDetailDTO detail, FileInputStream image) throws SQLException, ClassNotFoundException, IOException {
+    public boolean insertFeedbackDetail(String feedbackID, FeedbackDetailDTO detail, String image) throws SQLException, ClassNotFoundException, IOException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ps = null;
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = " INSERT INTO tblFeedbackDetail( FacilityID, Quantity, Reason, Location, Image, FeedbackID, UserID, flag, Description, StatusID ) "
+                String sql = " INSERT INTO tblFeedbackDetail( FacilityID, Quantity, Reason, Location, ImageFirebase, FeedbackID, UserID, flag, Description, StatusID ) "
                         + " VALUES(?,?,?,?,?,?,?,?,?,'active') ";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, detail.getFacilityID());
                 ps.setString(2, detail.getQuanity());
                 ps.setString(3, detail.getReason());
                 ps.setString(4, detail.getLocation());
-                ps.setBinaryStream(5, image);
+                ps.setString(5, image);
                 ps.setString(6, feedbackID);
                 ps.setString(7, detail.getUserID());
                 ps.setBoolean(8, detail.isFlag());
@@ -1320,6 +1321,7 @@ public class FeedbackDAO {
                     String reason = rs.getString("Reason");
                     String location = rs.getString("Location");
                     String des = rs.getString("Description");
+                    String cmt = rs.getString("comment");
                     String categoryID = rs.getString("categoryID");
                     byte[] tmp = rs.getBytes("Image");
                     if (tmp != null) {
@@ -1360,6 +1362,7 @@ public class FeedbackDAO {
         }
         return list;
     }
+
     public List<FeedbackDetailDTO> getListDeclineFeedbackDetail(String feedbackID) throws SQLException, IOException {
         List<FeedbackDetailDTO> list = new ArrayList<>();
         Connection conn = null;
@@ -2192,7 +2195,8 @@ public class FeedbackDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT TOP 10 t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+//                String sql = "SELECT TOP 10 t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                String sql = "SELECT TOP 10 t1.*, t2.ImageFirebase as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
                         + " FROM tblFeedback t1 "
                         + " JOIN tblFeedbackDetail t2 "
                         + "  ON t1.FeedbackID = t2.FeedbackID "
@@ -2214,13 +2218,17 @@ public class FeedbackDAO {
                     String statusName = rs.getString("statusName");
                     String deviceName = rs.getString("deviceName");
                     String location = rs.getString("location");
-                    byte[] tmp = rs.getBytes("Image");
-                    if (tmp != null) {
-                        base64Image = Base64.getEncoder().encodeToString(tmp);
-                    } else {
-                        base64Image = "";
+                    String image = rs.getString("image");
+                    if (image == null) {
+                        image = "";
                     }
-                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+//                    byte[] tmp = rs.getBytes("Image");
+//                    if (tmp != null) {
+//                        base64Image = Base64.getEncoder().encodeToString(tmp);
+//                    } else {
+//                        base64Image = "";
+//                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, "", deviceName, location, statusName, statusId, image));
                 }
             }
 
@@ -2248,7 +2256,8 @@ public class FeedbackDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+//                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                String sql = "SELECT t1.*, t2.ImageFirebase as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
                         + " FROM tblFeedback t1 "
                         + " JOIN tblFeedbackDetail t2 "
                         + "  ON t1.FeedbackID = t2.FeedbackID "
@@ -2270,13 +2279,17 @@ public class FeedbackDAO {
                     String statusName = rs.getString("statusName");
                     String deviceName = rs.getString("deviceName");
                     String location = rs.getString("location");
-                    byte[] tmp = rs.getBytes("Image");
-                    if (tmp != null) {
-                        base64Image = Base64.getEncoder().encodeToString(tmp);
-                    } else {
-                        base64Image = "";
+                    String image = rs.getString("image");
+                    if (image == null) {
+                        image = "";
                     }
-                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+//                    byte[] tmp = rs.getBytes("Image");
+//                    if (tmp != null) {
+//                        base64Image = Base64.getEncoder().encodeToString(tmp);
+//                    } else {
+//                        base64Image = "";
+//                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, "", deviceName, location, statusName, statusId, image));
                 }
             }
 
@@ -2304,7 +2317,8 @@ public class FeedbackDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT TOP 10 t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+//                String sql = "SELECT TOP 10 t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                String sql = "SELECT TOP 10 t1.*, t2.ImageFirebase as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
                         + " FROM tblFeedback t1 "
                         + " JOIN tblFeedbackDetail t2 "
                         + "  ON t1.FeedbackID = t2.FeedbackID "
@@ -2326,13 +2340,17 @@ public class FeedbackDAO {
                     String statusName = rs.getString("statusName");
                     String deviceName = rs.getString("deviceName");
                     String location = rs.getString("location");
-                    byte[] tmp = rs.getBytes("Image");
-                    if (tmp != null) {
-                        base64Image = Base64.getEncoder().encodeToString(tmp);
-                    } else {
-                        base64Image = "";
+                    String image = rs.getString("image");
+                    if (image == null) {
+                        image = "";
                     }
-                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+//                    byte[] tmp = rs.getBytes("Image");
+//                    if (tmp != null) {
+//                        base64Image = Base64.getEncoder().encodeToString(tmp);
+//                    } else {
+//                        base64Image = "";
+//                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, "", deviceName, location, statusName, statusId, image));
                 }
             }
 
@@ -2360,7 +2378,8 @@ public class FeedbackDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT TOP 10 t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+//                String sql = "SELECT TOP 10 t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                String sql = "SELECT TOP 10 t1.*, t2.ImageFirebase as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
                         + " FROM tblFeedback t1 "
                         + " JOIN tblFeedbackDetail t2 "
                         + "  ON t1.FeedbackID = t2.FeedbackID "
@@ -2382,13 +2401,17 @@ public class FeedbackDAO {
                     String statusName = rs.getString("statusName");
                     String deviceName = rs.getString("deviceName");
                     String location = rs.getString("location");
-                    byte[] tmp = rs.getBytes("Image");
-                    if (tmp != null) {
-                        base64Image = Base64.getEncoder().encodeToString(tmp);
-                    } else {
-                        base64Image = "";
+                    String image = rs.getString("image");
+                    if (image == null) {
+                        image = "";
                     }
-                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+//                    byte[] tmp = rs.getBytes("Image");
+//                    if (tmp != null) {
+//                        base64Image = Base64.getEncoder().encodeToString(tmp);
+//                    } else {
+//                        base64Image = "";
+//                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, "", deviceName, location, statusName, statusId, image));
                 }
             }
 
@@ -2416,7 +2439,8 @@ public class FeedbackDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT TOP 10 t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+//                String sql = "SELECT TOP 10 t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                String sql = "SELECT TOP 10 t1.*, t2.ImageFirebase as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
                         + " FROM tblFeedback t1 "
                         + " JOIN tblFeedbackDetail t2 "
                         + "  ON t1.FeedbackID = t2.FeedbackID "
@@ -2438,13 +2462,17 @@ public class FeedbackDAO {
                     String statusName = rs.getString("statusName");
                     String deviceName = rs.getString("deviceName");
                     String location = rs.getString("location");
-                    byte[] tmp = rs.getBytes("Image");
-                    if (tmp != null) {
-                        base64Image = Base64.getEncoder().encodeToString(tmp);
-                    } else {
-                        base64Image = "";
+                    String image = rs.getString("image");
+                    if (image == null) {
+                        image = "";
                     }
-                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+//                    byte[] tmp = rs.getBytes("Image");
+//                    if (tmp != null) {
+//                        base64Image = Base64.getEncoder().encodeToString(tmp);
+//                    } else {
+//                        base64Image = "";
+//                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, "", deviceName, location, statusName, statusId, image));
                 }
             }
 
@@ -2624,7 +2652,8 @@ public class FeedbackDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+//                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                String sql = "SELECT t1.*, t2.ImageFirebase as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
                         + " FROM tblFeedback t1 "
                         + " JOIN tblFeedbackDetail t2 "
                         + "  ON t1.FeedbackID = t2.FeedbackID "
@@ -2649,13 +2678,17 @@ public class FeedbackDAO {
                     String statusName = rs.getString("statusName");
                     String deviceName = rs.getString("deviceName");
                     String location = rs.getString("location");
-                    byte[] tmp = rs.getBytes("Image");
-                    if (tmp != null) {
-                        base64Image = Base64.getEncoder().encodeToString(tmp);
-                    } else {
-                        base64Image = "";
+                    String image = rs.getString("image");
+                    if (image == null) {
+                        image = "";
                     }
-                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+//                    byte[] tmp = rs.getBytes("Image");
+//                    if (tmp != null) {
+//                        base64Image = Base64.getEncoder().encodeToString(tmp);
+//                    } else {
+//                        base64Image = "";
+//                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, "", deviceName, location, statusName, statusId, image));
                 }
             }
 
@@ -2683,7 +2716,8 @@ public class FeedbackDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+//                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                String sql = "SELECT t1.*, t2.ImageFirebase as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
                         + " FROM tblFeedback t1 "
                         + " JOIN tblFeedbackDetail t2 "
                         + "  ON t1.FeedbackID = t2.FeedbackID "
@@ -2707,13 +2741,17 @@ public class FeedbackDAO {
                     String statusName = rs.getString("statusName");
                     String deviceName = rs.getString("deviceName");
                     String location = rs.getString("location");
-                    byte[] tmp = rs.getBytes("Image");
-                    if (tmp != null) {
-                        base64Image = Base64.getEncoder().encodeToString(tmp);
-                    } else {
-                        base64Image = "";
+                    String image = rs.getString("image");
+                    if (image == null) {
+                        image = "";
                     }
-                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+//                    byte[] tmp = rs.getBytes("Image");
+//                    if (tmp != null) {
+//                        base64Image = Base64.getEncoder().encodeToString(tmp);
+//                    } else {
+//                        base64Image = "";
+//                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, "", deviceName, location, statusName, statusId, image));
                 }
             }
 
@@ -2741,7 +2779,8 @@ public class FeedbackDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+//                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                String sql = "SELECT t1.*, t2.ImageFirebase as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
                         + " FROM tblFeedback t1 "
                         + " JOIN tblFeedbackDetail t2 "
                         + "  ON t1.FeedbackID = t2.FeedbackID "
@@ -2767,13 +2806,17 @@ public class FeedbackDAO {
                     String statusName = rs.getString("statusName");
                     String deviceName = rs.getString("deviceName");
                     String location = rs.getString("location");
-                    byte[] tmp = rs.getBytes("Image");
-                    if (tmp != null) {
-                        base64Image = Base64.getEncoder().encodeToString(tmp);
-                    } else {
-                        base64Image = "";
+                    String image = rs.getString("image");
+                    if (image == null) {
+                        image = "";
                     }
-                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+//                    byte[] tmp = rs.getBytes("Image");
+//                    if (tmp != null) {
+//                        base64Image = Base64.getEncoder().encodeToString(tmp);
+//                    } else {
+//                        base64Image = "";
+//                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, "", deviceName, location, statusName, statusId, image));
                 }
             }
 
@@ -2859,7 +2902,8 @@ public class FeedbackDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+//                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                String sql = "SELECT t1.*, t2.ImageFirebase as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
                         + " FROM tblFeedback t1 "
                         + " JOIN tblFeedbackDetail t2 "
                         + "  ON t1.FeedbackID = t2.FeedbackID "
@@ -2884,13 +2928,17 @@ public class FeedbackDAO {
                     String statusName = rs.getString("statusName");
                     String deviceName = rs.getString("deviceName");
                     String location = rs.getString("location");
-                    byte[] tmp = rs.getBytes("Image");
-                    if (tmp != null) {
-                        base64Image = Base64.getEncoder().encodeToString(tmp);
-                    } else {
-                        base64Image = "";
+                    String image = rs.getString("image");
+                    if (image == null) {
+                        image = "";
                     }
-                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+//                    byte[] tmp = rs.getBytes("Image");
+//                    if (tmp != null) {
+//                        base64Image = Base64.getEncoder().encodeToString(tmp);
+//                    } else {
+//                        base64Image = "";
+//                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, "", deviceName, location, statusName, statusId, image));
                 }
             }
 
@@ -3098,7 +3146,8 @@ public class FeedbackDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+//                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                String sql = "SELECT t1.*, t2.ImageFirebase as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
                         + " FROM tblFeedback t1 "
                         + " JOIN tblFeedbackDetail t2 "
                         + "  ON t1.FeedbackID = t2.FeedbackID "
@@ -3123,13 +3172,17 @@ public class FeedbackDAO {
                     String statusName = rs.getString("statusName");
                     String deviceName = rs.getString("deviceName");
                     String location = rs.getString("location");
-                    byte[] tmp = rs.getBytes("Image");
-                    if (tmp != null) {
-                        base64Image = Base64.getEncoder().encodeToString(tmp);
-                    } else {
-                        base64Image = "";
+                    String image = rs.getString("image");
+                    if (image == null) {
+                        image = "";
                     }
-                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+//                    byte[] tmp = rs.getBytes("Image");
+//                    if (tmp != null) {
+//                        base64Image = Base64.getEncoder().encodeToString(tmp);
+//                    } else {
+//                        base64Image = "";
+//                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, "", deviceName, location, statusName, statusId, image));
                 }
             }
 
@@ -3157,7 +3210,8 @@ public class FeedbackDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+//                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                String sql = "SELECT t1.*, t2.ImageFirebase as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
                         + " FROM tblFeedback t1 "
                         + " JOIN tblFeedbackDetail t2 "
                         + "  ON t1.FeedbackID = t2.FeedbackID "
@@ -3183,13 +3237,17 @@ public class FeedbackDAO {
                     String statusName = rs.getString("statusName");
                     String deviceName = rs.getString("deviceName");
                     String location = rs.getString("location");
-                    byte[] tmp = rs.getBytes("Image");
-                    if (tmp != null) {
-                        base64Image = Base64.getEncoder().encodeToString(tmp);
-                    } else {
-                        base64Image = "";
+                    String image = rs.getString("image");
+                    if (image == null) {
+                        image = "";
                     }
-                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+//                    byte[] tmp = rs.getBytes("Image");
+//                    if (tmp != null) {
+//                        base64Image = Base64.getEncoder().encodeToString(tmp);
+//                    } else {
+//                        base64Image = "";
+//                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, "", deviceName, location, statusName, statusId, image));
                 }
             }
 
@@ -3275,7 +3333,8 @@ public class FeedbackDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+//                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                String sql = "SELECT t1.*, t2.ImageFirebase as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
                         + " FROM tblFeedback t1 "
                         + " JOIN tblFeedbackDetail t2 "
                         + "  ON t1.FeedbackID = t2.FeedbackID "
@@ -3300,13 +3359,17 @@ public class FeedbackDAO {
                     String statusName = rs.getString("statusName");
                     String deviceName = rs.getString("deviceName");
                     String location = rs.getString("location");
-                    byte[] tmp = rs.getBytes("Image");
-                    if (tmp != null) {
-                        base64Image = Base64.getEncoder().encodeToString(tmp);
-                    } else {
-                        base64Image = "";
+                    String image = rs.getString("image");
+                    if (image == null) {
+                        image = "";
                     }
-                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+//                    byte[] tmp = rs.getBytes("Image");
+//                    if (tmp != null) {
+//                        base64Image = Base64.getEncoder().encodeToString(tmp);
+//                    } else {
+//                        base64Image = "";
+//                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, "", deviceName, location, statusName, statusId, image));
                 }
             }
 
@@ -3334,7 +3397,8 @@ public class FeedbackDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+//                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                String sql = "SELECT t1.*, t2.ImageFirebase as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
                         + " FROM tblFeedback t1 "
                         + " JOIN tblFeedbackDetail t2 "
                         + "  ON t1.FeedbackID = t2.FeedbackID "
@@ -3359,13 +3423,17 @@ public class FeedbackDAO {
                     String statusName = rs.getString("statusName");
                     String deviceName = rs.getString("deviceName");
                     String location = rs.getString("location");
-                    byte[] tmp = rs.getBytes("Image");
-                    if (tmp != null) {
-                        base64Image = Base64.getEncoder().encodeToString(tmp);
-                    } else {
-                        base64Image = "";
+                    String image = rs.getString("image");
+                    if (image == null) {
+                        image = "";
                     }
-                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+//                    byte[] tmp = rs.getBytes("Image");
+//                    if (tmp != null) {
+//                        base64Image = Base64.getEncoder().encodeToString(tmp);
+//                    } else {
+//                        base64Image = "";
+//                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, "", deviceName, location, statusName, statusId, image));
                 }
             }
 
@@ -3393,7 +3461,8 @@ public class FeedbackDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+//                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                String sql = "SELECT t1.*, t2.ImageFirebase as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
                         + " FROM tblFeedback t1 "
                         + " JOIN tblFeedbackDetail t2 "
                         + "  ON t1.FeedbackID = t2.FeedbackID "
@@ -3419,13 +3488,17 @@ public class FeedbackDAO {
                     String statusName = rs.getString("statusName");
                     String deviceName = rs.getString("deviceName");
                     String location = rs.getString("location");
-                    byte[] tmp = rs.getBytes("Image");
-                    if (tmp != null) {
-                        base64Image = Base64.getEncoder().encodeToString(tmp);
-                    } else {
-                        base64Image = "";
+                    String image = rs.getString("image");
+                    if (image == null) {
+                        image = "";
                     }
-                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+//                    byte[] tmp = rs.getBytes("Image");
+//                    if (tmp != null) {
+//                        base64Image = Base64.getEncoder().encodeToString(tmp);
+//                    } else {
+//                        base64Image = "";
+//                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, "", deviceName, location, statusName, statusId, image));
                 }
             }
 
@@ -3511,7 +3584,8 @@ public class FeedbackDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+//                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                String sql = "SELECT t1.*, t2.ImageFirebase as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
                         + " FROM tblFeedback t1 "
                         + " JOIN tblFeedbackDetail t2 "
                         + "  ON t1.FeedbackID = t2.FeedbackID "
@@ -3536,13 +3610,17 @@ public class FeedbackDAO {
                     String statusName = rs.getString("statusName");
                     String deviceName = rs.getString("deviceName");
                     String location = rs.getString("location");
-                    byte[] tmp = rs.getBytes("Image");
-                    if (tmp != null) {
-                        base64Image = Base64.getEncoder().encodeToString(tmp);
-                    } else {
-                        base64Image = "";
+                    String image = rs.getString("image");
+                    if (image == null) {
+                        image = "";
                     }
-                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+//                    byte[] tmp = rs.getBytes("Image");
+//                    if (tmp != null) {
+//                        base64Image = Base64.getEncoder().encodeToString(tmp);
+//                    } else {
+//                        base64Image = "";
+//                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, "", deviceName, location, statusName, statusId, image));
                 }
             }
 
@@ -3570,7 +3648,8 @@ public class FeedbackDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+//                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                String sql = "SELECT t1.*, t2.ImageFirebase as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
                         + " FROM tblFeedback t1 "
                         + " JOIN tblFeedbackDetail t2 "
                         + "  ON t1.FeedbackID = t2.FeedbackID "
@@ -3596,13 +3675,17 @@ public class FeedbackDAO {
                     String statusName = rs.getString("statusName");
                     String deviceName = rs.getString("deviceName");
                     String location = rs.getString("location");
-                    byte[] tmp = rs.getBytes("Image");
-                    if (tmp != null) {
-                        base64Image = Base64.getEncoder().encodeToString(tmp);
-                    } else {
-                        base64Image = "";
+                    String image = rs.getString("image");
+                    if (image == null) {
+                        image = "";
                     }
-                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+//                    byte[] tmp = rs.getBytes("Image");
+//                    if (tmp != null) {
+//                        base64Image = Base64.getEncoder().encodeToString(tmp);
+//                    } else {
+//                        base64Image = "";
+//                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, "", deviceName, location, statusName, statusId, image));
                 }
             }
 
@@ -3688,7 +3771,8 @@ public class FeedbackDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+//                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                String sql = "SELECT t1.*, t2.ImageFirebase as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
                         + " FROM tblFeedback t1 "
                         + " JOIN tblFeedbackDetail t2 "
                         + "  ON t1.FeedbackID = t2.FeedbackID "
@@ -3713,13 +3797,17 @@ public class FeedbackDAO {
                     String statusName = rs.getString("statusName");
                     String deviceName = rs.getString("deviceName");
                     String location = rs.getString("location");
-                    byte[] tmp = rs.getBytes("Image");
-                    if (tmp != null) {
-                        base64Image = Base64.getEncoder().encodeToString(tmp);
-                    } else {
-                        base64Image = "";
+                    String image = rs.getString("image");
+                    if (image == null) {
+                        image = "";
                     }
-                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+//                    byte[] tmp = rs.getBytes("Image");
+//                    if (tmp != null) {
+//                        base64Image = Base64.getEncoder().encodeToString(tmp);
+//                    } else {
+//                        base64Image = "";
+//                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, "", deviceName, location, statusName, statusId, image));
                 }
             }
 
@@ -3747,7 +3835,8 @@ public class FeedbackDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+//                String sql = "SELECT t1.*, t2.Image as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
+                String sql = "SELECT t1.*, t2.ImageFirebase as image, t2.Location as location, t3.Name as deviceName, t5.Name as statusName  "
                         + " FROM tblFeedback t1 "
                         + " JOIN tblFeedbackDetail t2 "
                         + "  ON t1.FeedbackID = t2.FeedbackID "
@@ -3772,13 +3861,17 @@ public class FeedbackDAO {
                     String statusName = rs.getString("statusName");
                     String deviceName = rs.getString("deviceName");
                     String location = rs.getString("location");
-                    byte[] tmp = rs.getBytes("Image");
-                    if (tmp != null) {
-                        base64Image = Base64.getEncoder().encodeToString(tmp);
-                    } else {
-                        base64Image = "";
+                    String image = rs.getString("image");
+                    if (image == null) {
+                        image = "";
                     }
-                    list.add(new UserHistoryDTO(feedbackId, date, base64Image, deviceName, location, statusName, statusId));
+//                    byte[] tmp = rs.getBytes("Image");
+//                    if (tmp != null) {
+//                        base64Image = Base64.getEncoder().encodeToString(tmp);
+//                    } else {
+//                        base64Image = "";
+//                    }
+                    list.add(new UserHistoryDTO(feedbackId, date, "", deviceName, location, statusName, statusId, image));
                 }
             }
 
