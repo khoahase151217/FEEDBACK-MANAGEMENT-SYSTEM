@@ -162,7 +162,7 @@ public class LoadFeedbackForUserControllerListStyle extends HttpServlet {
                                     + "                                                        </div>\n"
                                     + "                                                        <div class=\"pipe-item-date\">" + UserHistory.getDate() + "</div>\n"
                                     + "                                                    </div>\n"
-                                    + "                                                    <div class=\"image-all-wrapper\""
+                                    + "                                                    <div class=\"image-all-wrapper list_image-all-wrapper\" data-id=\"" + UserHistory.getFeedbackId() + "\""
                                     + "                                                    </div> "
                                     + "                                                        <script type=\"module\">\n"
                                     + "                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser3.js';\n"

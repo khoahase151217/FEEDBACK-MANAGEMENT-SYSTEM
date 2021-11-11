@@ -32,13 +32,22 @@ function handleImageName(element_id, input_name) {
             const storageRef = ref(storage, "Images/" + file.lastModified + '.' + fileName[1]);
             let uploadTask = uploadBytesResumable(storageRef, file, metadata);
             stringImageName += file.lastModified + '.' + fileName[1] + ";";
-            var input = document.createElement("input");
-            input.name = input_name;
-            input.type = 'hidden';
-            input.value = stringImageName.slice(0, stringImageName.length - 1);
-            document.getElementById(element_id).closest('.list-items-wrapper').insertAdjacentElement("beforeend", input);
+//            var input = document.createElement("input");
+//            input.name = input_name;
+//            input.type = 'hidden';
+//            input.value = stringImageName.slice(0, stringImageName.length - 1);
+//            document.getElementById(element_id).closest('.list-items-wrapper').insertAdjacentElement("beforeend", input);
         });
     }
+    var input = document.createElement("input");
+    input.name = input_name;
+    input.type = 'hidden';
+    if (stringImageName) {
+        input.value = stringImageName.slice(0, stringImageName.length - 1);
+    } else {
+        input.value = stringImageName;
+    }
+    document.getElementById(element_id).closest('.list-items-wrapper').insertAdjacentElement("beforeend", input);
 }
 
 const form = document.getElementById("root");
