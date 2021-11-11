@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author ADMIN
  */
-public class UserHistoryDTO  {
+public class UserHistoryDTO {
 
     private String feedbackId;
     private String date;
@@ -23,6 +23,7 @@ public class UserHistoryDTO  {
     private String location;
     private String statusName;
     private String statusId;
+    private String imageFirebase;
 
     public UserHistoryDTO() {
     }
@@ -45,6 +46,27 @@ public class UserHistoryDTO  {
         this.location = location;
         this.statusName = statusName;
         this.statusId = statusId;
+
+    }
+
+    public UserHistoryDTO(String feedbackId, String date, String image, String deviceName, String location, String statusName, String statusId, String imageFirebase) {
+        this.feedbackId = feedbackId;
+        this.date = date;
+        this.image = image;
+        this.deviceName = deviceName;
+        this.location = location;
+        this.statusName = statusName;
+        this.statusId = statusId;
+        this.imageFirebase = imageFirebase;
+    }
+
+
+    public String getImageFirebase() {
+        return imageFirebase;
+    }
+
+    public void setImageFirebase(String imageFirebase) {
+        this.imageFirebase = imageFirebase;
     }
 
     public String getImage() {
@@ -114,7 +136,5 @@ public class UserHistoryDTO  {
     public void setStatusName(String statusName) {
         this.statusName = statusName;
     }
-
-    
 
 }

@@ -89,7 +89,8 @@ public class SearchUserFeedbackController extends HttpServlet {
                     List<String> deviceName = new ArrayList<String>();
                     String deviceNameArray = null;
                     String locationArray = null;
-                    List<String> imageList = new ArrayList<String>();
+                    String imageArray = null;
+//                    List<String> imageList = new ArrayList<String>();
 
                     List<UserHistoryDTO> listAll = new ArrayList<>();
 
@@ -102,7 +103,8 @@ public class SearchUserFeedbackController extends HttpServlet {
                             deviceNameArray = list.get(i).getDeviceName();
                             deviceName.add(list.get(i).getDeviceName());
                             locationArray = list.get(i).getLocation();
-                            imageList.add(list.get(i).getImage());
+                            imageArray = list.get(i).getImageFirebase();
+//                            imageList.add(list.get(i).getImage());
 
                         } else {
                             //optimize code at final sprint
@@ -113,7 +115,7 @@ public class SearchUserFeedbackController extends HttpServlet {
                                 statusName = list.get(i - 1).getStatusName();
                                 for (String device : deviceName) {
                                     if (device.toUpperCase().contains(search.toUpperCase())) {
-                                        listAll.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
+                                        listAll.add(new UserHistoryDTO(feedbackId, date, "", deviceNameArray, locationArray, statusName, statusId, imageArray));
                                     }
                                 }
 
@@ -126,17 +128,19 @@ public class SearchUserFeedbackController extends HttpServlet {
                                 statusName = list.get(i - 1).getStatusName();
                                 for (String device : deviceName) {
                                     if (device.toUpperCase().contains(search.toUpperCase())) {
-                                        listAll.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
+                                        listAll.add(new UserHistoryDTO(feedbackId, date, "", deviceNameArray, locationArray, statusName, statusId, imageArray));
                                     }
                                 }
                                 deviceNameArray = "";
                                 locationArray = "";
+                                imageArray = "";
                                 deviceName = new ArrayList<String>();
-                                imageList = new ArrayList<String>();
+//                                imageList = new ArrayList<String>();
                                 deviceName.add(list.get(i).getDeviceName());
                                 deviceNameArray = list.get(i).getDeviceName();
                                 locationArray = list.get(i).getLocation();
-                                imageList.add(list.get(i).getImage());
+                                imageArray = list.get(i).getImageFirebase();
+//                                imageList.add(list.get(i).getImage());
 
                             } else {
                                 deviceName.add(list.get(i).getDeviceName());
@@ -144,7 +148,9 @@ public class SearchUserFeedbackController extends HttpServlet {
                                 deviceNameArray = deviceNameArray.concat(list.get(i).getDeviceName());
                                 locationArray = locationArray.concat(", ");
                                 locationArray = locationArray.concat(list.get(i).getLocation());
-                                imageList.add(list.get(i).getImage());
+                                imageArray = imageArray.concat(";");
+                                imageArray = imageArray.concat(list.get(i).getImageFirebase());
+//                                imageList.add(list.get(i).getImage());
                             }
                         }
                     }

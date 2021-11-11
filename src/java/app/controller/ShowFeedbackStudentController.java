@@ -54,6 +54,7 @@ public class ShowFeedbackStudentController extends HttpServlet {
             if (!listFull.isEmpty() || !listFullDone.isEmpty() || !listFullOngoing.isEmpty() || !listFullDecline.isEmpty()) {
                 String deviceNameArray = null;
                 String locationArray = null;
+                String imageArray = null;
                 List<String> imageList = new ArrayList<String>();
 
                 List<UserHistoryDTO> listAll = new ArrayList<>();
@@ -85,7 +86,8 @@ public class ShowFeedbackStudentController extends HttpServlet {
                         if (i == 0) {
                             deviceNameArray = listFull.get(i).getDeviceName();
                             locationArray = listFull.get(i).getLocation();
-                            imageList.add(listFull.get(i).getImage());
+                            imageArray = listFull.get(i).getImageFirebase();
+//                            imageList.add(listFull.get(i).getImage());
 
                         } else {
                             //optimize code at final sprint
@@ -94,9 +96,11 @@ public class ShowFeedbackStudentController extends HttpServlet {
                                 date = listFull.get(i - 1).getDate();
                                 statusId = listFull.get(i - 1).getStatusId();
                                 statusName = listFull.get(i - 1).getStatusName();
-                                listAll.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
+//                                listAll.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
+                                listAll.add(new UserHistoryDTO(feedbackId, date, "", deviceNameArray, locationArray, statusName, statusId, imageArray));
                                 deviceNameArray = "";
                                 locationArray = "";
+                                imageArray = "";
                                 imageList = new ArrayList<String>();
                                 break;
                             }
@@ -105,20 +109,24 @@ public class ShowFeedbackStudentController extends HttpServlet {
                                 date = listFull.get(i - 1).getDate();
                                 statusId = listFull.get(i - 1).getStatusId();
                                 statusName = listFull.get(i - 1).getStatusName();
-                                listAll.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
+                                listAll.add(new UserHistoryDTO(feedbackId, date, "", deviceNameArray, locationArray, statusName, statusId, imageArray));
                                 deviceNameArray = "";
                                 locationArray = "";
+                                imageArray = "";
                                 imageList = new ArrayList<String>();
                                 deviceNameArray = listFull.get(i).getDeviceName();
                                 locationArray = listFull.get(i).getLocation();
-                                imageList.add(listFull.get(i).getImage());
+                                imageArray = listFull.get(i).getImageFirebase();
+//                                imageList.add(listFull.get(i).getImage());
 
                             } else {
                                 deviceNameArray = deviceNameArray.concat(", ");
                                 deviceNameArray = deviceNameArray.concat(listFull.get(i).getDeviceName());
                                 locationArray = locationArray.concat(", ");
                                 locationArray = locationArray.concat(listFull.get(i).getLocation());
-                                imageList.add(listFull.get(i).getImage());
+                                imageArray = imageArray.concat(";");
+                                imageArray = imageArray.concat(listFull.get(i).getImageFirebase());
+//                                imageList.add(listFull.get(i).getImage());
 
                             }
                         }
@@ -128,7 +136,7 @@ public class ShowFeedbackStudentController extends HttpServlet {
 
                 // list DONE
                 if (!listFullDone.isEmpty()) {
-                    List<UserHistoryDTO> listDoneCheck = dao.getListFeedbackDoneForUserNextCheck(user.getUserID(),listFullDone.size());
+                    List<UserHistoryDTO> listDoneCheck = dao.getListFeedbackDoneForUserNextCheck(user.getUserID(), listFullDone.size());
                     int count_flag = 0;
                     for (UserHistoryDTO userHistory : listDoneCheck) {
                         if (userHistory.getFeedbackId().equalsIgnoreCase(listFullDone.get(listFullDone.size() - 1).getFeedbackId())) {
@@ -146,7 +154,8 @@ public class ShowFeedbackStudentController extends HttpServlet {
                         if (i == 0) {
                             deviceNameArray = listFullDone.get(i).getDeviceName();
                             locationArray = listFullDone.get(i).getLocation();
-                            imageList.add(listFullDone.get(i).getImage());
+                            imageArray = listFullDone.get(i).getImageFirebase();
+//                            imageList.add(listFullDone.get(i).getImage());
 
                         } else {
                             //optimize code at final sprint
@@ -155,9 +164,10 @@ public class ShowFeedbackStudentController extends HttpServlet {
                                 date = listFullDone.get(i - 1).getDate();
                                 statusId = listFullDone.get(i - 1).getStatusId();
                                 statusName = listFullDone.get(i - 1).getStatusName();
-                                listDone.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
+                                listDone.add(new UserHistoryDTO(feedbackId, date, "", deviceNameArray, locationArray, statusName, statusId, imageArray));
                                 deviceNameArray = "";
                                 locationArray = "";
+                                imageArray = "";
                                 imageList = new ArrayList<String>();
                                 break;
                             }
@@ -166,20 +176,24 @@ public class ShowFeedbackStudentController extends HttpServlet {
                                 date = listFullDone.get(i - 1).getDate();
                                 statusId = listFullDone.get(i - 1).getStatusId();
                                 statusName = listFullDone.get(i - 1).getStatusName();
-                                listDone.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
+                                listDone.add(new UserHistoryDTO(feedbackId, date, "", deviceNameArray, locationArray, statusName, statusId, imageArray));
                                 deviceNameArray = "";
                                 locationArray = "";
+                                imageArray = "";
                                 imageList = new ArrayList<String>();
                                 deviceNameArray = listFullDone.get(i).getDeviceName();
                                 locationArray = listFullDone.get(i).getLocation();
-                                imageList.add(listFullDone.get(i).getImage());
+                                imageArray = listFullDone.get(i).getImageFirebase();
+//                                imageList.add(listFullDone.get(i).getImage());
 
                             } else {
                                 deviceNameArray = deviceNameArray.concat(", ");
                                 deviceNameArray = deviceNameArray.concat(listFullDone.get(i).getDeviceName());
                                 locationArray = locationArray.concat(", ");
                                 locationArray = locationArray.concat(listFullDone.get(i).getLocation());
-                                imageList.add(listFullDone.get(i).getImage());
+                                imageArray = imageArray.concat(";");
+                                imageArray = imageArray.concat(listFullDone.get(i).getImageFirebase());
+//                                imageList.add(listFullDone.get(i).getImage());
 
                             }
                         }
@@ -207,7 +221,8 @@ public class ShowFeedbackStudentController extends HttpServlet {
                         if (i == 0) {
                             deviceNameArray = listFullOngoing.get(i).getDeviceName();
                             locationArray = listFullOngoing.get(i).getLocation();
-                            imageList.add(listFullOngoing.get(i).getImage());
+                            imageArray = listFullOngoing.get(i).getImageFirebase();
+//                            imageList.add(listFullOngoing.get(i).getImage());
 
                         } else {
                             //optimize code at final sprint
@@ -216,9 +231,10 @@ public class ShowFeedbackStudentController extends HttpServlet {
                                 date = listFullOngoing.get(i - 1).getDate();
                                 statusId = listFullOngoing.get(i - 1).getStatusId();
                                 statusName = listFullOngoing.get(i - 1).getStatusName();
-                                listOngoing.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
+                                listOngoing.add(new UserHistoryDTO(feedbackId, date, "", deviceNameArray, locationArray, statusName, statusId, imageArray));
                                 deviceNameArray = "";
                                 locationArray = "";
+                                imageArray = "";
                                 imageList = new ArrayList<String>();
                                 break;
                             }
@@ -227,20 +243,24 @@ public class ShowFeedbackStudentController extends HttpServlet {
                                 date = listFullOngoing.get(i - 1).getDate();
                                 statusId = listFullOngoing.get(i - 1).getStatusId();
                                 statusName = listFullOngoing.get(i - 1).getStatusName();
-                                listOngoing.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
+                                listOngoing.add(new UserHistoryDTO(feedbackId, date, "", deviceNameArray, locationArray, statusName, statusId, imageArray));
                                 deviceNameArray = "";
                                 locationArray = "";
+                                imageArray = "";
                                 imageList = new ArrayList<String>();
                                 deviceNameArray = listFullOngoing.get(i).getDeviceName();
                                 locationArray = listFullOngoing.get(i).getLocation();
-                                imageList.add(listFullOngoing.get(i).getImage());
+                                imageArray = listFullOngoing.get(i).getImageFirebase();
+//                                imageList.add(listFullOngoing.get(i).getImage());
 
                             } else {
                                 deviceNameArray = deviceNameArray.concat(", ");
                                 deviceNameArray = deviceNameArray.concat(listFullOngoing.get(i).getDeviceName());
                                 locationArray = locationArray.concat(", ");
                                 locationArray = locationArray.concat(listFullOngoing.get(i).getLocation());
-                                imageList.add(listFullOngoing.get(i).getImage());
+                                imageArray = imageArray.concat(";");
+                                imageArray = imageArray.concat(listFullOngoing.get(i).getImageFirebase());
+//                                imageList.add(listFullOngoing.get(i).getImage());
 
                             }
                         }
@@ -268,7 +288,8 @@ public class ShowFeedbackStudentController extends HttpServlet {
                         if (i == 0) {
                             deviceNameArray = listDecline.get(i).getDeviceName();
                             locationArray = listDecline.get(i).getLocation();
-                            imageList.add(listDecline.get(i).getImage());
+                            imageArray = listDecline.get(i).getImageFirebase();
+//                            imageList.add(listDecline.get(i).getImage());
 
                         } else {
                             //optimize code at final sprint
@@ -277,9 +298,10 @@ public class ShowFeedbackStudentController extends HttpServlet {
                                 date = listDecline.get(i - 1).getDate();
                                 statusId = listDecline.get(i - 1).getStatusId();
                                 statusName = listDecline.get(i - 1).getStatusName();
-                                listDecline.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
+                                listDecline.add(new UserHistoryDTO(feedbackId, date, "", deviceNameArray, locationArray, statusName, statusId, imageArray));
                                 deviceNameArray = "";
                                 locationArray = "";
+                                imageArray = "";
                                 imageList = new ArrayList<String>();
                                 break;
                             }
@@ -288,20 +310,24 @@ public class ShowFeedbackStudentController extends HttpServlet {
                                 date = listDecline.get(i - 1).getDate();
                                 statusId = listDecline.get(i - 1).getStatusId();
                                 statusName = listDecline.get(i - 1).getStatusName();
-                                listDecline.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
+                                listDecline.add(new UserHistoryDTO(feedbackId, date, "", deviceNameArray, locationArray, statusName, statusId, imageArray));
                                 deviceNameArray = "";
                                 locationArray = "";
+                                imageArray = "";
                                 imageList = new ArrayList<String>();
                                 deviceNameArray = listDecline.get(i).getDeviceName();
                                 locationArray = listDecline.get(i).getLocation();
-                                imageList.add(listDecline.get(i).getImage());
+                                imageArray = listDecline.get(i).getImageFirebase();
+//                                imageList.add(listDecline.get(i).getImage());
 
                             } else {
                                 deviceNameArray = deviceNameArray.concat(", ");
                                 deviceNameArray = deviceNameArray.concat(listDecline.get(i).getDeviceName());
                                 locationArray = locationArray.concat(", ");
                                 locationArray = locationArray.concat(listDecline.get(i).getLocation());
-                                imageList.add(listDecline.get(i).getImage());
+                                imageArray = imageArray.concat(";");
+                                imageArray = imageArray.concat(listDecline.get(i).getImageFirebase());
+//                                imageList.add(listDecline.get(i).getImage());
 
                             }
                         }

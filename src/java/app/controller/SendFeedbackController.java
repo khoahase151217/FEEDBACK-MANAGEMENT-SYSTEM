@@ -41,7 +41,7 @@ public class SendFeedbackController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-//
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -87,6 +87,10 @@ public class SendFeedbackController extends HttpServlet {
             String quantity = "";
             String reason = "";
             String location = "";
+            String image1 = "";
+            String image2 = "";
+            String image3 = "";
+            String image4 = "";
             int count = 0;
             int check = 0; //3
             boolean isMultiPart = ServletFileUpload.isMultipartContent(request);
@@ -130,6 +134,124 @@ public class SendFeedbackController extends HttpServlet {
 
                             location = item.getString();
                         }
+                        if (inputName.equalsIgnoreCase("image-1")) {
+
+                            image1 = item.getString();
+                            if (facilityID.equals("") || quantity.equals("") || reason.equals("") || location.equals("")) {
+                                Fdao.deleteFeedback(feedbackId);
+                                Fdao.deleteDetail(feedbackId);
+                                url = ERROR;
+                                request.setAttribute("SEND_FAILURE", "active");
+                                request.setAttribute("SEND_SUCCESS", "");
+                                break;
+                            } else {
+                                if (!image1.equals("")) {
+                                    detail = new FeedbackDetailDTO(facilityID, user.getUserID(), feedbackId, quantity, reason, location, false, description);
+                                    Fdao.insertFeedbackDetail(feedbackId, detail, image1);
+                                    count++;
+                                    request.setAttribute("SEND_SUCCESS", "active");
+                                    request.setAttribute("SEND_FAILURE", "");
+                                    url = SUCCESS;
+                                } else {
+                                    detail = new FeedbackDetailDTO(facilityID, user.getUserID(), feedbackId, quantity, reason, location, false, description);
+                                    Fdao.insertFeedbackDetail(feedbackId, detail, null);
+                                    count++;
+                                    request.setAttribute("SEND_SUCCESS", "active");
+                                    request.setAttribute("SEND_FAILURE", "");
+                                    url = SUCCESS;
+                                }
+
+                            }
+                        }
+                        if (inputName.equalsIgnoreCase("image-2")) {
+                            if (check >= 2) {
+                                image2 = item.getString();
+                                if (facilityID.equals("") || quantity.equals("") || reason.equals("") || location.equals("")) {
+                                    Fdao.deleteDetail(feedbackId);
+                                    Fdao.deleteFeedback(feedbackId);
+                                    url = ERROR;
+                                    request.setAttribute("SEND_FAILURE", "active");
+                                    request.setAttribute("SEND_SUCCESS", "");
+                                    break;
+                                } else {
+                                    if (!image2.equals("")) {
+                                        detail = new FeedbackDetailDTO(facilityID, user.getUserID(), feedbackId, quantity, reason, location, false, description);
+                                        Fdao.insertFeedbackDetail(feedbackId, detail, image2);
+                                        count++;
+                                        request.setAttribute("SEND_SUCCESS", "active");
+                                        request.setAttribute("SEND_FAILURE", "");
+                                        url = SUCCESS;
+                                    } else {
+                                        detail = new FeedbackDetailDTO(facilityID, user.getUserID(), feedbackId, quantity, reason, location, false, description);
+                                        Fdao.insertFeedbackDetail(feedbackId, detail, null);
+                                        count++;
+                                        request.setAttribute("SEND_SUCCESS", "active");
+                                        request.setAttribute("SEND_FAILURE", "");
+                                        url = SUCCESS;
+                                    }
+
+                                }
+                            }
+                        }
+                        if (inputName.equalsIgnoreCase("image-3")) {
+                            if (check >= 3) {
+                                image3 = item.getString();
+                                if (facilityID.equals("") || quantity.equals("") || reason.equals("") || location.equals("")) {
+                                    Fdao.deleteDetail(feedbackId);
+                                    Fdao.deleteFeedback(feedbackId);
+                                    url = ERROR;
+                                    request.setAttribute("SEND_FAILURE", "active");
+                                    request.setAttribute("SEND_SUCCESS", "");
+                                    break;
+                                } else {
+                                    if (!image3.equals("")) {
+                                        detail = new FeedbackDetailDTO(facilityID, user.getUserID(), feedbackId, quantity, reason, location, false, description);
+                                        Fdao.insertFeedbackDetail(feedbackId, detail, image3);
+                                        count++;
+                                        request.setAttribute("SEND_SUCCESS", "active");
+                                        request.setAttribute("SEND_FAILURE", "");
+                                        url = SUCCESS;
+                                    } else {
+                                        detail = new FeedbackDetailDTO(facilityID, user.getUserID(), feedbackId, quantity, reason, location, false, description);
+                                        Fdao.insertFeedbackDetail(feedbackId, detail, null);
+                                        count++;
+                                        request.setAttribute("SEND_SUCCESS", "active");
+                                        request.setAttribute("SEND_FAILURE", "");
+                                        url = SUCCESS;
+                                    }
+                                }
+                            }
+                        }
+                        if (inputName.equalsIgnoreCase("image-4")) {
+                            if (check >= 4) {
+                                image4 = item.getString();
+                                if (facilityID.equals("") || quantity.equals("") || reason.equals("") || location.equals("")) {
+                                    Fdao.deleteDetail(feedbackId);
+                                    Fdao.deleteFeedback(feedbackId);
+                                    url = ERROR;
+                                    request.setAttribute("SEND_FAILURE", "active");
+                                    request.setAttribute("SEND_SUCCESS", "");
+                                    break;
+                                } else {
+                                    if (!image4.equals("")) {
+                                        detail = new FeedbackDetailDTO(facilityID, user.getUserID(), feedbackId, quantity, reason, location, false, description);
+                                        Fdao.insertFeedbackDetail(feedbackId, detail, image4);
+                                        count++;
+                                        request.setAttribute("SEND_SUCCESS", "active");
+                                        request.setAttribute("SEND_FAILURE", "");
+                                        url = SUCCESS;
+                                    } else {
+                                        detail = new FeedbackDetailDTO(facilityID, user.getUserID(), feedbackId, quantity, reason, location, false, description);
+                                        Fdao.insertFeedbackDetail(feedbackId, detail, null);
+                                        count++;
+                                        request.setAttribute("SEND_SUCCESS", "active");
+                                        request.setAttribute("SEND_FAILURE", "");
+                                        url = SUCCESS;
+                                    }
+
+                                }
+                            }
+                        }
 
                         // Front - end 
                         if (inputName.equalsIgnoreCase("style_pipe")) {
@@ -144,39 +266,39 @@ public class SendFeedbackController extends HttpServlet {
                                 request.setAttribute("STYLE_LIST", "active");
                             }
                         }
-
-                    } else {
-                        if (count == check) {
-                            break;
-                        }
-                        if (facilityID.equals("") || quantity.equals("") || reason.equals("") || location.equals("")) {
-                            Fdao.deleteFeedback(feedbackId);
-                            Fdao.deleteDetail(feedbackId);
-                            url = ERROR;
-                            request.setAttribute("SEND_FAILURE", "active");
-                            request.setAttribute("SEND_SUCCESS", "");
-                            break;
-                        } else {
-                            tmp = item.getContentType();
-                            if (tmp.contains("image")) {
-                                photo = (FileInputStream) item.getInputStream();
-                                detail = new FeedbackDetailDTO(facilityID, user.getUserID(), feedbackId, quantity, reason, location, false, description);
-                                Fdao.insertFeedbackDetail(feedbackId, detail, photo);
-                                count++;
-                                request.setAttribute("SEND_SUCCESS", "active");
-                                request.setAttribute("SEND_FAILURE", "");
-                                url = SUCCESS;
-                            } else {
-                                detail = new FeedbackDetailDTO(facilityID, user.getUserID(), feedbackId, quantity, reason, location, false, description);
-                                Fdao.insertFeedbackDetail(feedbackId, detail, null);
-                                count++;
-                                request.setAttribute("SEND_SUCCESS", "active");
-                                request.setAttribute("SEND_FAILURE", "");
-                                url = SUCCESS;
-                            }
-
-                        }
                     }
+//                     else {
+//                        if (count == check) {
+//                            break;
+//                        }
+//                        if (facilityID.equals("") || quantity.equals("") || reason.equals("") || location.equals("")) {
+//                            Fdao.deleteFeedback(feedbackId);
+//                            Fdao.deleteDetail(feedbackId);
+//                            url = ERROR;
+//                            request.setAttribute("SEND_FAILURE", "active");
+//                            request.setAttribute("SEND_SUCCESS", "");
+//                            break;
+//                        } else {
+//                            tmp = item.getContentType();
+//                            if (tmp.contains("image")) {
+//                                photo = (FileInputStream) item.getInputStream();
+//                                detail = new FeedbackDetailDTO(facilityID, user.getUserID(), feedbackId, quantity, reason, location, false, description);
+//                                Fdao.insertFeedbackDetail(feedbackId, detail, photo);
+//                                count++;
+//                                request.setAttribute("SEND_SUCCESS", "active");
+//                                request.setAttribute("SEND_FAILURE", "");
+//                                url = SUCCESS;
+//                            } else {
+//                                detail = new FeedbackDetailDTO(facilityID, user.getUserID(), feedbackId, quantity, reason, location, false, description);
+//                                Fdao.insertFeedbackDetail(feedbackId, detail, null);
+//                                count++;
+//                                request.setAttribute("SEND_SUCCESS", "active");
+//                                request.setAttribute("SEND_FAILURE", "");
+//                                url = SUCCESS;
+//                            }
+//
+//                        }
+//                    }
                 }
 
             }

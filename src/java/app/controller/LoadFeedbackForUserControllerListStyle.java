@@ -66,6 +66,7 @@ public class LoadFeedbackForUserControllerListStyle extends HttpServlet {
                         List<UserHistoryDTO> newlistAll = new ArrayList<>();
                         List<String> deviceName = new ArrayList<String>();
                         String deviceNameArray = null;
+                        String imageArray = null;
                         String locationArray = null;
                         List<String> imageList = new ArrayList<String>();
 
@@ -78,7 +79,8 @@ public class LoadFeedbackForUserControllerListStyle extends HttpServlet {
                                 deviceNameArray = listAll.get(i).getDeviceName();
                                 deviceName.add(listAll.get(i).getDeviceName());
                                 locationArray = listAll.get(i).getLocation();
-                                imageList.add(listAll.get(i).getImage());
+                                imageArray = listAll.get(i).getImageFirebase();
+//                                imageList.add(listAll.get(i).getImage());
 
                             } else {
                                 //optimize code at final sprint
@@ -89,7 +91,7 @@ public class LoadFeedbackForUserControllerListStyle extends HttpServlet {
                                     statusName = listAll.get(i - 1).getStatusName();
                                     for (String device : deviceName) {
                                         if (device.toUpperCase().contains(search.toUpperCase())) {
-                                            newlistAll.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
+                                            newlistAll.add(new UserHistoryDTO(feedbackId, date, "", deviceNameArray, locationArray, statusName, statusId, imageArray));
                                         }
                                     }
 
@@ -102,17 +104,19 @@ public class LoadFeedbackForUserControllerListStyle extends HttpServlet {
                                     statusName = listAll.get(i - 1).getStatusName();
                                     for (String device : deviceName) {
                                         if (device.toUpperCase().contains(search.toUpperCase())) {
-                                            newlistAll.add(new UserHistoryDTO(feedbackId, date, imageList, deviceNameArray, locationArray, statusName, statusId));
+                                            newlistAll.add(new UserHistoryDTO(feedbackId, date, "", deviceNameArray, locationArray, statusName, statusId, imageArray));
                                         }
                                     }
                                     deviceNameArray = "";
                                     locationArray = "";
+                                    imageArray = "";
                                     deviceName = new ArrayList<String>();
                                     imageList = new ArrayList<String>();
                                     deviceName.add(listAll.get(i).getDeviceName());
                                     deviceNameArray = listAll.get(i).getDeviceName();
                                     locationArray = listAll.get(i).getLocation();
-                                    imageList.add(listAll.get(i).getImage());
+                                    imageArray = listAll.get(i).getImageFirebase();
+//                                    imageList.add(listAll.get(i).getImage());
 
                                 } else {
                                     deviceName.add(listAll.get(i).getDeviceName());
@@ -120,7 +124,9 @@ public class LoadFeedbackForUserControllerListStyle extends HttpServlet {
                                     deviceNameArray = deviceNameArray.concat(listAll.get(i).getDeviceName());
                                     locationArray = locationArray.concat(", ");
                                     locationArray = locationArray.concat(listAll.get(i).getLocation());
-                                    imageList.add(listAll.get(i).getImage());
+                                    imageArray = imageArray.concat(";");
+                                    imageArray = imageArray.concat(listAll.get(i).getImageFirebase());
+//                                    imageList.add(listAll.get(i).getImage());
                                 }
                             }
                         }
@@ -138,17 +144,17 @@ public class LoadFeedbackForUserControllerListStyle extends HttpServlet {
                         List<UserHistoryDTO> withoutDuplicates = new ArrayList<UserHistoryDTO>(historySet);
                         String newAmount = withoutDuplicates.get(withoutDuplicates.size() - 1).getFeedbackId();
                         for (UserHistoryDTO UserHistory : withoutDuplicates) {
-                            String imageHtml = "";
-                            for (String image : UserHistory.getImageList()) {
-                                if (!image.equals("")) {
-                                    imageHtml += "<div class=\"pipe-item-image\">\n"
-                                            + "       <img\n"
-                                            + "     src=\"data:image/jpg/png;base64," + image + "\"\n"
-                                            + "         alt=\"\"\n"
-                                            + "     />\n"
-                                            + "         </div>";
-                                }
-                            }
+//                            String imageHtml = "";
+//                            for (String image : UserHistory.getImageList()) {
+//                                if (!image.equals("")) {
+//                                    imageHtml += "<div class=\"pipe-item-image\">\n"
+//                                            + "       <img\n"
+//                                            + "     src=\"data:image/jpg/png;base64," + image + "\"\n"
+//                                            + "         alt=\"\"\n"
+//                                            + "     />\n"
+//                                            + "         </div>";
+//                                }
+//                            }
                             html += "<div class=\"pipe-item\">\n"
                                     + "                                                    <div class=\"pipe-item-heading\">\n"
                                     + "                                                        <div class=\"pipe-item-title-wrapper\">\n"
@@ -156,8 +162,21 @@ public class LoadFeedbackForUserControllerListStyle extends HttpServlet {
                                     + "                                                        </div>\n"
                                     + "                                                        <div class=\"pipe-item-date\">" + UserHistory.getDate() + "</div>\n"
                                     + "                                                    </div>\n"
-                                    + "                                                    <div class=\"image-all-wrapper\"> " + imageHtml + ""
-                                    + "                                                    </div>\n"
+                                    + "                                                    <div class=\"image-all-wrapper list_image-all-wrapper\" data-id=\"" + UserHistory.getFeedbackId() + "\""
+                                    + "                                                    </div> "
+                                    + "                                                        <script type=\"module\">\n"
+                                    + "                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser3.js';\n"
+                                    + "                                                        Array.from(document.querySelectorAll('.list_image-all-wrapper')).forEach(async (ele) => {\n"
+                                    + "                                                        if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {\n"
+                                    + "                                                        //  getImageString\n"
+                                    + "                                                        let imageString = '<%=feedback.getImageFirebase()%>';\n"
+                                    + "                                                        if(imageString) {\n"
+                                    + "                                                         handleLoadImageForUserFromFirebase(imageString, ele);\n"
+                                    + "                                                        }\n"
+                                    + "                                                        return;\n"
+                                    + "                                                        };\n"
+                                    + "                                                        });\n"
+                                    + "                                                    </script>"
                                     + "                                                    <div class=\"pipe-item-bottom\">\n"
                                     + "                                                        <p class=\"pipe-bottom-item\">" + UserHistory.getDeviceName() + "</p>\n"
                                     + "                                                        <p class=\"pipe-bottom-item\">Room: " + UserHistory.getLocation() + "</p>\n"
@@ -189,6 +208,7 @@ public class LoadFeedbackForUserControllerListStyle extends HttpServlet {
                         for (UserHistoryDTO UserHistory : listAll) {
                             if (UserHistory.getFeedbackId().equalsIgnoreCase(check)) {
                                 List<String> imageList = tmpUserHistory.getImageList();
+
                                 String deviceName = tmpUserHistory.getDeviceName();
                                 String location = tmpUserHistory.getLocation();
                                 if (UserHistory.getImage() != null) {
