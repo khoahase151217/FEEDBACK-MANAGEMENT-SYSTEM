@@ -29,6 +29,8 @@ public class FeedbackDetailDTO {
     private boolean check;
     private boolean checkDone;
     private String declineReason;
+    private String imageFirebase;
+    
     
 
     public FeedbackDetailDTO() {
@@ -69,7 +71,7 @@ public class FeedbackDetailDTO {
         this.description = description;
     }
 
-    public FeedbackDetailDTO(String feedbackDetailID, String facilityID, String userID, String feedbackID, String quanity, String reason, String location, String image, boolean flag, String deviceName, String date, String description) {
+    public FeedbackDetailDTO(String feedbackDetailID, String facilityID, String userID, String feedbackID, String quanity, String reason, String location, boolean flag, String deviceName, String date, String description, String imageFirebase) {
         this.feedbackDetailID = feedbackDetailID;
         this.facilityID = facilityID;
         this.userID = userID;
@@ -77,11 +79,11 @@ public class FeedbackDetailDTO {
         this.quanity = quanity;
         this.reason = reason;
         this.location = location;
-        this.image = image;
         this.flag = flag;
         this.deviceName = deviceName;
         this.date = date;
         this.description = description;
+        this.imageFirebase = imageFirebase;
     }
 
     public FeedbackDetailDTO(String facilityID, String userID, String feedbackID, String quanity, String reason, String location, boolean flag, String description) {
@@ -111,7 +113,7 @@ public class FeedbackDetailDTO {
 //        this.categoryDevice = categoryDevice;
 //    }
 
-    public FeedbackDetailDTO(String feedbackDetailID, String facilityID, String userID, String feedbackID, String quanity, String reason, String location, String image, boolean flag, String deviceName, String date, String employeeName, String responseDes, String description, String categoryDevice) {
+    public FeedbackDetailDTO(String feedbackDetailID, String facilityID, String userID, String feedbackID, String quanity, String reason, String location, boolean flag, String deviceName, String date, String employeeName, String responseDes, String description, String categoryDevice, String imageFirebase) {
         this.feedbackDetailID = feedbackDetailID;
         this.facilityID = facilityID;
         this.userID = userID;
@@ -119,7 +121,6 @@ public class FeedbackDetailDTO {
         this.quanity = quanity;
         this.reason = reason;
         this.location = location;
-        this.image = image;
         this.flag = flag;
         this.deviceName = deviceName;
         this.date = date;
@@ -127,6 +128,7 @@ public class FeedbackDetailDTO {
         this.responseDes = responseDes;
         this.description = description;
         this.categoryDevice = categoryDevice;
+        this.imageFirebase = imageFirebase;
     }
     
     public FeedbackDetailDTO(String facilityID, String userID, String feedbackID, String quanity, String reason, String location, boolean flag) {
@@ -182,6 +184,14 @@ public class FeedbackDetailDTO {
         this.description = description;
         this.categoryDevice = categoryDevice;
         this.check = check;
+    }
+
+    public String getImageFirebase() {
+        return imageFirebase;
+    }
+
+    public void setImageFirebase(String imageFirebase) {
+        this.imageFirebase = imageFirebase;
     }
 
     public boolean isCheck() {

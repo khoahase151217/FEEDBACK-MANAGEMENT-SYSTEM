@@ -333,17 +333,22 @@ public class EmployeesDAO {
                     String reason = rs.getString("Reason");
                     String location = rs.getString("Location");
                     String des = rs.getString("Description");
-                    byte[] tmp = rs.getBytes("Image");
-                    if (tmp != null) {
-                        base64Image = Base64.getEncoder().encodeToString(tmp);
-                    } else {
-                        base64Image = "";
+                    String image = rs.getString("ImageFirebase");
+                    if(image==null){
+                        image="";
                     }
+                    
+//                    byte[] tmp = rs.getBytes("Image");
+//                    if (tmp != null) {
+//                        base64Image = Base64.getEncoder().encodeToString(tmp);
+//                    } else {
+//                        base64Image = "";
+//                    }
                     boolean flag = rs.getBoolean("flag");
                     String date = rs.getString("date");
                     String facilityName = rs.getString("FacilityName");
                     String feedbackDetailID = rs.getString("feedbackDetailID");
-                    dto.add(new FeedbackDetailDTO(feedbackDetailID, facilityID, userID, feedbackID, quantity, reason, location, base64Image, flag, facilityName, date, des));
+                    dto.add(new FeedbackDetailDTO(feedbackDetailID, facilityID, userID, feedbackID, quantity, reason, location, flag, facilityName, date, des,image));
                 }
             }
 
