@@ -1283,8 +1283,8 @@
                         </ul>
                         <ul class="footer-email text">
                             <li class="footer-links-item">
-                                <a href="mailto: ducndmse151198@fpt.edu.vn"
-                                   >Email: support@fpt.edu.vn</a
+                                <a href="mailto: fptfacilityfeedback@gmail.com"
+                                   >Email: fptfacilityfeedback@gmail.com</a
                                 >
                             </li>
                         </ul>
@@ -1314,9 +1314,9 @@
 
         <!-- Query -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/User2.js"></script>
+        <script src="${pageContext.request.contextPath}/js/User.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseForUser.js"></script>
-        <script type="module" src="${pageContext.request.contextPath}/js/firebaseUserfromAdmin1.js"></script>
+        <script type="module" src="${pageContext.request.contextPath}/js/firebaseUserfromAdmin.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseStorageForUser.js"></script>
 
         <script type="module">

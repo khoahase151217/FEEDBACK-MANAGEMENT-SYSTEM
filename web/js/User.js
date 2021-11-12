@@ -14,6 +14,7 @@ document.querySelector('[name="search"]').addEventListener("blur", () => {
             .classList.remove("active");
 });
 window.addEventListener('load', () => {
+      localStorage.setItem("UserCount", JSON.stringify(0));
        const flag = localStorage.getItem('flag');
                     if (JSON.parse(flag) === true) {
                         var feedback = JSON.parse(localStorage.getItem('feedbackDoneID'));
@@ -33,7 +34,7 @@ window.addEventListener('load', () => {
                         }
                         localStorage.removeItem('flag');
                     }
-    localStorage.setItem("UserCount", JSON.stringify(0));
+  
 });
 
 // Pop-up form feedback
