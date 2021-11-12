@@ -1223,28 +1223,6 @@ ul {
     font-weight: 400;
     font-size: 1.1rem;
 }
-.hero .pipe-item-image {
-    width: 100%;
-    height: 13rem;
-}
-.img-more {
-    display: none;
-    width: 3rem;
-    height: 10rem;
-    margin-top: 3rem;
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
-}
-.img-more.active {
-    display: block;
-}
-
-.hero .img-more img {
-    object-fit: cover;
-    margin-top: 1.5rem;
-    font-size: 100rem;
-    opacity: 30%;
-}
 
 .more-wrapper {
     display: grid;
@@ -1254,9 +1232,18 @@ ul {
 
 .image-all-wrapper {
     display: flex;
-    overflow: hidden;
+    overflow-x: auto;
     gap: 0 1rem;
+    max-width: 100%;
+    max-height: 13rem;
 }
+
+.image-all-wrapper img {
+    width: calc(50% - 5px);
+    height: auto;
+    object-fit: cover;
+}
+
 .pipe-item-bottom {
     display: flex;
     flex-direction: column;
@@ -1520,17 +1507,13 @@ ul {
 
 .content-item-main-category-item.active.list .list-showcase .pipe-list .pipe-item .image-all-wrapper {
     gap: 0 2rem;
+    max-height: 13rem;
 }
 
-.content-item-main-category-item.active.list .list-showcase .pipe-list .pipe-item .image-all-wrapper .pipe-item-image,
-.content-item-main-category-item.active.list .list-showcase .pipe-list .pipe-item-done .image-all-wrapper .pipe-item-image{
-    width: calc(20% - 15px);
-    height: 18rem;
-}
-
-.content-item-main-category-item.active.list .list-showcase .pipe-list .pipe-item .image-all-wrapper .pipe-item-image img,
-.content-item-main-category-item.active.list .list-showcase .pipe-list .pipe-item-done .image-all-wrapper .pipe-item-image img{
-    width: 100%;
+.content-item-main-category-item.active.list .list-showcase .pipe-list .pipe-item .image-all-wrapper img,
+.content-item-main-category-item.active.list .list-showcase .pipe-list .pipe-item-done .image-all-wrapper img{
+    width: calc(20% - 16px);
+    height: auto;
 }
 
 .content-item-main-category-item.active.list .list-showcase .list-showcase-item{
@@ -1588,7 +1571,7 @@ ul {
     .hero .pipe-column {
         max-height: 630px;
     }
-    
+
     .content-item-main-category-item.active.list .list-showcase .pipe-list {
         max-height: 570px;
     }
@@ -1625,9 +1608,6 @@ ul {
         margin-top: 1rem;
     }
 
-    /*    .content-item-main-category-item.list {
-            max-height: 465px;
-        }*/
     .content-item-main-category-item.active.list .list-showcase .pipe-list {
         max-height: 345px;
     }
@@ -1679,26 +1659,16 @@ ul {
         max-height: 910px;
     }
 
-    .hero .pipe-item-image {
-        height: 11rem;
+    .image-all-wrapper {
+        max-height: 11rem;
     }
 
-    .hero .pipe-item-image img {
-        width: 13rem;
+    .content-item-main-category-item.active.list .list-showcase .pipe-list .pipe-item .image-all-wrapper {
+        max-height: 15rem;
     }
 
-    .img-more {
-        margin-top: 0;
-        height: 100%;
-
-    }
-    .img-more.active {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .hero .img-more img {
-        margin-top: 0;
+    .content-item-main-category-item.active.list .list-showcase .pipe-list .pipe-item .image-all-wrapper img, .content-item-main-category-item.active.list .list-showcase .pipe-list .pipe-item-done .image-all-wrapper img{
+        width: calc(25% - 15px);
     }
 
     .content-item-main-category-item.active.list .list-showcase {
@@ -1736,12 +1706,12 @@ ul {
         font-size: 1.1rem;
     }
 
-    .hero .pipe-item-image {
-        height: 7rem;
+    .image-all-wrapper {
+        max-height: 9rem;
     }
 
-    .hero .pipe-item-image img{
-        width: 10rem;
+    .image-all-wrapper img {
+        width: 100%
     }
 
     .pipe-bottom-item {
@@ -1756,9 +1726,8 @@ ul {
         width: 75%;
     }
 
-    .content-item-main-category-item.active.list .list-showcase .pipe-list .pipe-item .image-all-wrapper .pipe-item-image, 
-    .content-item-main-category-item.active.list .list-showcase .pipe-list .pipe-item-done .image-all-wrapper .pipe-item-image{
-        height: 12rem;
+    .content-item-main-category-item.active.list .list-showcase .pipe-list .pipe-item .image-all-wrapper {
+        max-height: 12rem;
     }
 
     .footer-top {

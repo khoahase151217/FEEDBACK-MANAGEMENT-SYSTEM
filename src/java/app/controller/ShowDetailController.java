@@ -64,7 +64,11 @@ public class ShowDetailController extends HttpServlet {
             if (!list.isEmpty()) {
                 for (FeedbackDetailDTO detail : list) {
                     if (dao2.countDeclineResponse2(detail.getFeedbackDetailID()) != 0) {
+                        String reason = dao2.getDeclineResponeForFeedback(detail.getFeedbackDetailID());
+                        String fullName = dao2.getEmployeeDeclineResponeForFeedback(detail.getFeedbackDetailID());
                         detail.setCheck(true);
+                        detail.setDeclineReason(reason);
+                        detail.setEmployeeName(fullName);
                     }
                 }
                 session.setAttribute("LIST_DETAIL", list);

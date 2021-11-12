@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 
-
 import app.feedback.FeedbackDAO;
 import app.response.ResponseDAO;
 import app.response.ResponseDTO;
@@ -52,6 +51,7 @@ public class AddResponseController extends HttpServlet {
             UserDTO user = (UserDTO) session.getAttribute("LOGIN_EMP");
             String feedbackDetailId = "";
             String des = "";
+            String image = "";
 
             boolean isMultiPart = ServletFileUpload.isMultipartContent(request);
             if (!isMultiPart) {
@@ -79,37 +79,50 @@ public class AddResponseController extends HttpServlet {
                         if (inputName.equalsIgnoreCase("feedbackDetailID")) {
                             feedbackDetailId = item.getString();
                         }
-
-                    } else {
-                        String tmp = item.getContentType();
-                        if (des.equals("")||!tmp.contains("image")) {
-                            url = ERROR;
-                            request.setAttribute("ADD_FAILURE", "active");
-                            request.setAttribute("SEND_FAILURE", "active");
-                            request.setAttribute("SEND_FEEDBACK_FLAG", "open");
-                            request.setAttribute("FEEDBACK_DETAIL_ID", feedbackDetailId);
-                            break;
+                        if (inputName.equalsIgnoreCase("image")) {
+                            image = item.getString();
                         }
-                        photo = (FileInputStream) item.getInputStream();
                     }
+//                    else {
+//                        String tmp = item.getContentType();
+//                        if (des.equals("")||!tmp.contains("image")) {
+//                            url = ERROR;
+//                            request.setAttribute("ADD_FAILURE", "active");
+//                            request.setAttribute("SEND_FAILURE", "active");
+//                            request.setAttribute("SEND_FEEDBACK_FLAG", "open");
+//                            request.setAttribute("FEEDBACK_DETAIL_ID", feedbackDetailId);
+//                            break;
+//                        }
+//                        photo = (FileInputStream) item.getInputStream();
+//                    }
                 }
+
             }
             ResponseDTO res = new ResponseDTO(feedbackDetailId, user.getUserID(), des, "done", date);
-            if (photo!=null) {
-                if(dao.countResponseFeedback(res)!=0){
-                    dao.updateResponseFeedback(res, photo);
-                dao.updateFlagDetail(feedbackDetailId);
+
+            if (des.equals("") || image.equals("")) {
+                url = ERROR;
+                request.setAttribute("ADD_FAILURE", "active");
+                request.setAttribute("SEND_FAILURE", "active");
                 request.setAttribute("SEND_FEEDBACK_FLAG", "open");
-                request.setAttribute("SEND_SUCCESS", "active");
-                url = SUCCESS;
-                }else{
-                    dao.insertResponseFeedback(res, photo);
-                dao.updateFlagDetail(feedbackDetailId);
-                request.setAttribute("SEND_FEEDBACK_FLAG", "open");
-                request.setAttribute("SEND_SUCCESS", "active");
-                url = SUCCESS;
+                request.setAttribute("FEEDBACK_DETAIL_ID", feedbackDetailId);
+            } else {
+                if (dao.countResponseFeedback(res) != 0) {
+//                    dao.updateResponseFeedback(res, photo);
+                    dao.updateResponseFeedback(res, image);
+                    dao.updateFlagDetail(feedbackDetailId);
+                    request.setAttribute("SEND_FEEDBACK_FLAG", "open");
+                    request.setAttribute("SEND_SUCCESS", "active");
+                    url = SUCCESS;
+                } else {
+//                    dao.insertResponseFeedback(res, photo);
+                    dao.insertResponseFeedback(res, image);
+                    dao.updateFlagDetail(feedbackDetailId);
+                    request.setAttribute("SEND_FEEDBACK_FLAG", "open");
+                    request.setAttribute("SEND_SUCCESS", "active");
+                    url = SUCCESS;
                 }
-                
+
             }
             request.setAttribute("FEEDBACK_ID", dao2.getFeedbackIDByFeedbackDetailID(feedbackDetailId));
             request.setAttribute("flag", "open");

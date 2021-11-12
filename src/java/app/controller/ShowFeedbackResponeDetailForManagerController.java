@@ -57,7 +57,11 @@ public class ShowFeedbackResponeDetailForManagerController extends HttpServlet {
                 List<FeedbackDTO> listAll = dao2.getAllListFeedbackByStatusAscForManager();
                 session.setAttribute("FEEDBACK_LIST_ALL", listAll);
             } else {
-                request.setAttribute("STYLE_TASK", "active");
+                if (request.getAttribute("FLAG_FROM_UPDATE_FB_DONE") != null) {
+                    request.setAttribute("STYLE_COMMENT", "active");
+                } else {
+                    request.setAttribute("STYLE_TASK", "active");
+                }
             }
             url = SUCCESS;
         } catch (Exception e) {

@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -29,6 +30,7 @@ public class UpdateFeedbackDoneController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
+        HttpSession session = request.getSession();
         try {
             String feedbackID = request.getParameter("feedbackID");
             FeedbackDAO dao = new FeedbackDAO();
@@ -36,10 +38,8 @@ public class UpdateFeedbackDoneController extends HttpServlet {
             List<FeedbackDetailDTO> list = dao.getListFeedbackDetailForMail(feedbackID);
             if (dao.updateDone(feedbackID)) {
                 dao.sendDone(list, userEmail);
+                request.setAttribute("FLAG_FROM_UPDATE_FB_DONE", true);
                 url = SUCCESS;
-//                } else {
-//                    url = ERROR;
-//                }
             }
         } catch (Exception e) {
             log("Error at UpdateFeedbackDoneController:" + e.toString());

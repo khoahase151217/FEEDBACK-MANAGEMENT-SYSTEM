@@ -7,10 +7,13 @@ package app.controller;
 
 import app.feedback.FeedbackDAO;
 import app.feedback.FeedbackDTO;
+import app.feedback.FeedbackLoaderDTO;
 import app.users.UserDTO;
 import app.users.UserHistoryDTO;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -45,6 +48,8 @@ public class LoadFeedbackForUserControllerPipeStyle extends HttpServlet {
             String flag = request.getParameter("flag_navigation");
             String search = request.getParameter("search");
             FeedbackDAO dao = new FeedbackDAO();
+            List<FeedbackLoaderDTO> listFBLoader = new ArrayList<>();
+            Gson gson = new Gson();
             switch (flag) {
                 case "1":
                     List<UserHistoryDTO> listDone = dao.getListFeedbackDoneForUserNext(user.getUserID(), Integer.parseInt(amount));
@@ -71,12 +76,14 @@ public class LoadFeedbackForUserControllerPipeStyle extends HttpServlet {
                             List<String> imageList = tmpUserHistory.getImageList();
                             String deviceName = tmpUserHistory.getDeviceName();
                             String location = tmpUserHistory.getLocation();
+                            String image = tmpUserHistory.getImageFirebase();
                             if (UserHistory.getImage() != null) {
                                 imageList.add(UserHistory.getImage());
                                 tmpUserHistory.setImageList(imageList);
                             }
                             tmpUserHistory.setDeviceName(deviceName.concat(", ").concat(UserHistory.getDeviceName()));
                             tmpUserHistory.setLocation(location.concat(", ").concat(UserHistory.getLocation()));
+                            tmpUserHistory.setImageFirebase(image.concat(";").concat(UserHistory.getImageFirebase()));
                         } else {
                             List<String> imageList = new ArrayList<String>();
                             if (UserHistory.getImage() != null) {
@@ -89,68 +96,71 @@ public class LoadFeedbackForUserControllerPipeStyle extends HttpServlet {
                         check = UserHistory.getFeedbackId();
                     }
                     for (UserHistoryDTO UserHistory : newListDone) {
-                        String imageHtml = "";
-                        int count = 1;
-                        for (String image : UserHistory.getImageList()) {
-                            if (!image.equals("") && (count == 1 || count == 2)) {
-                                imageHtml += "<div class=\"pipe-item-image\">\n"
-                                        + "       <img\n"
-                                        + "     src=\"data:image/jpg/png;base64," + image + "\"\n"
-                                        + "         alt=\"\"\n"
-                                        + "     />\n"
-                                        + "         </div>";
-                                count++;
-                            }
-
-                        }
-                        if (UserHistory.getImageList().size() == 3) {
-                            imageHtml += "<div class=\"more-wrapper\">\n"
-                                    + "                                                            <div class=\"img-more active\">\n"
-                                    + "                                                                <img\n"
-                                    + "                                                                    src=\"https://icons-for-free.com/iconfiles/png/512/exposure+plus+1+48px-131985226685054051.png\"\n"
-                                    + "                                                                    alt=\"\"\n"
-                                    + "                                                                    />\n"
-                                    + "                                                            </div>\n"
-                                    + "                                                        </div>\n"
-                                    + "                                                        <div class=\"img-more\">\n"
-                                    + "                                                            <img\n"
-                                    + "                                                                src=\"https://www.shareicon.net/data/128x128/2015/09/12/100167_plus_512x512.png\"\n"
-                                    + "                                                                alt=\"\"\n"
-                                    + "                                                                />\n"
-                                    + "                                                        </div>";
-                        } else if (UserHistory.getImageList().size() == 4) {
-                            imageHtml += "<div class=\"more-wrapper\">\n"
-                                    + "                                                            <div class=\"img-more\">\n"
-                                    + "                                                                <img\n"
-                                    + "                                                                    src=\"https://icons-for-free.com/iconfiles/png/512/exposure+plus+1+48px-131985226685054051.png\"\n"
-                                    + "                                                                    alt=\"\"\n"
-                                    + "                                                                    />\n"
-                                    + "                                                            </div>\n"
-                                    + "                                                            <div class=\"img-more active\">\n"
-                                    + "                                                                <img\n"
-                                    + "                                                                    src=\"https://www.shareicon.net/data/128x128/2015/09/12/100167_plus_512x512.png\"\n"
-                                    + "                                                                    alt=\"\"\n"
-                                    + "                                                                    />\n"
-                                    + "                                                            </div>\n"
-                                    + "                                                        </div>";
-                        }
-                        html += "<div class=\"pipe-item\">\n"
+//                        String imageHtml = "";
+//                        int count = 1;
+//                        for (String image : UserHistory.getImageList()) {
+//                            if (!image.equals("") && (count == 1 || count == 2)) {
+//                                imageHtml += "<div class=\"pipe-item-image\">\n"
+//                                        + "       <img\n"
+//                                        + "     src=\"data:image/jpg/png;base64," + image + "\"\n"
+//                                        + "         alt=\"\"\n"
+//                                        + "     />\n"
+//                                        + "         </div>";
+//                                count++;
+//                            }
+//
+//                        }
+//                        if (UserHistory.getImageList().size() == 3) {
+//                            imageHtml += "<div class=\"more-wrapper\">\n"
+//                                    + "                                                            <div class=\"img-more active\">\n"
+//                                    + "                                                                <img\n"
+//                                    + "                                                                    src=\"https://icons-for-free.com/iconfiles/png/512/exposure+plus+1+48px-131985226685054051.png\"\n"
+//                                    + "                                                                    alt=\"\"\n"
+//                                    + "                                                                    />\n"
+//                                    + "                                                            </div>\n"
+//                                    + "                                                        </div>\n"
+//                                    + "                                                        <div class=\"img-more\">\n"
+//                                    + "                                                            <img\n"
+//                                    + "                                                                src=\"https://www.shareicon.net/data/128x128/2015/09/12/100167_plus_512x512.png\"\n"
+//                                    + "                                                                alt=\"\"\n"
+//                                    + "                                                                />\n"
+//                                    + "                                                        </div>";
+//                        } else if (UserHistory.getImageList().size() == 4) {
+//                            imageHtml += "<div class=\"more-wrapper\">\n"
+//                                    + "                                                            <div class=\"img-more\">\n"
+//                                    + "                                                                <img\n"
+//                                    + "                                                                    src=\"https://icons-for-free.com/iconfiles/png/512/exposure+plus+1+48px-131985226685054051.png\"\n"
+//                                    + "                                                                    alt=\"\"\n"
+//                                    + "                                                                    />\n"
+//                                    + "                                                            </div>\n"
+//                                    + "                                                            <div class=\"img-more active\">\n"
+//                                    + "                                                                <img\n"
+//                                    + "                                                                    src=\"https://www.shareicon.net/data/128x128/2015/09/12/100167_plus_512x512.png\"\n"
+//                                    + "                                                                    alt=\"\"\n"
+//                                    + "                                                                    />\n"
+//                                    + "                                                            </div>\n"
+//                                    + "                                                        </div>";
+//                        }
+                        html = "<div class=\"pipe-item\">\n"
                                 + "                                                    <div class=\"pipe-item-heading\">\n"
                                 + "                                                        <div class=\"pipe-item-title-wrapper\">\n"
                                 + "                                                            <h3 class=\"pipe-item-title\">Feedback " + UserHistory.getFeedbackId() + "</h3>\n"
                                 + "                                                        </div>\n"
                                 + "                                                        <div class=\"pipe-item-date\">" + UserHistory.getDate() + "</div>\n"
                                 + "                                                    </div>\n"
-                                + "                                                    <div class=\"image-all-wrapper\"> " + imageHtml + ""
+                                + "                                                    <div class=\"image-all-wrapper pipe_image-all-wrapper\" data-id=\"" + UserHistory.getFeedbackId() + "\">"
                                 + "                                                    </div>\n"
                                 + "                                                    <div class=\"pipe-item-bottom\">\n"
                                 + "                                                        <p class=\"pipe-bottom-item\">" + UserHistory.getDeviceName() + "</p>\n"
                                 + "                                                        <p class=\"pipe-bottom-item\">Room: " + UserHistory.getLocation() + "</p>\n"
                                 + "                                                    </div>\n"
                                 + "                                                </div>\n";
-
+                        FeedbackLoaderDTO feedbackLoader = new FeedbackLoaderDTO(newAmount, UserHistory.getFeedbackId(), html, UserHistory.getImageFirebase());
+                        listFBLoader.add(feedbackLoader);
                     }
-                    out.println("'" + newAmount + "'" + html);
+//                        out.println("'" + newAmount + "'" + html);
+                    out.println(gson.toJson(listFBLoader));
+
                     break;
                 case "2":
                     List<UserHistoryDTO> listOnGoing = dao.getListFeedbackOnGoingForUserNext(user.getUserID(), Integer.parseInt(amount));
@@ -177,12 +187,14 @@ public class LoadFeedbackForUserControllerPipeStyle extends HttpServlet {
                             List<String> imageList = tmpUserHistory.getImageList();
                             String deviceName = tmpUserHistory.getDeviceName();
                             String location = tmpUserHistory.getLocation();
+                            String image = tmpUserHistory.getImageFirebase();
                             if (UserHistory.getImage() != null) {
                                 imageList.add(UserHistory.getImage());
                                 tmpUserHistory.setImageList(imageList);
                             }
                             tmpUserHistory.setDeviceName(deviceName.concat(", ").concat(UserHistory.getDeviceName()));
                             tmpUserHistory.setLocation(location.concat(", ").concat(UserHistory.getLocation()));
+                            tmpUserHistory.setImageFirebase(image.concat(";").concat(UserHistory.getImageFirebase()));
                         } else {
                             List<String> imageList = new ArrayList<String>();
                             if (UserHistory.getImage() != null) {
@@ -195,67 +207,69 @@ public class LoadFeedbackForUserControllerPipeStyle extends HttpServlet {
                         check = UserHistory.getFeedbackId();
                     }
                     for (UserHistoryDTO UserHistory : newlistOnGoing) {
-                        String imageHtml = "";
-                        int count = 1;
-                        for (String image : UserHistory.getImageList()) {
-                            if (!image.equals("") && (count == 1 || count == 2)) {
-                                imageHtml += "<div class=\"pipe-item-image\">\n"
-                                        + "       <img\n"
-                                        + "     src=\"data:image/jpg/png;base64," + image + "\"\n"
-                                        + "         alt=\"\"\n"
-                                        + "     />\n"
-                                        + "         </div>";
-                                count++;
-                            }
-                        }
-                        if (UserHistory.getImageList().size() == 3) {
-                            imageHtml += "<div class=\"more-wrapper\">\n"
-                                    + "                                                            <div class=\"img-more active\">\n"
-                                    + "                                                                <img\n"
-                                    + "                                                                    src=\"https://icons-for-free.com/iconfiles/png/512/exposure+plus+1+48px-131985226685054051.png\"\n"
-                                    + "                                                                    alt=\"\"\n"
-                                    + "                                                                    />\n"
-                                    + "                                                            </div>\n"
-                                    + "                                                        </div>\n"
-                                    + "                                                        <div class=\"img-more\">\n"
-                                    + "                                                            <img\n"
-                                    + "                                                                src=\"https://www.shareicon.net/data/128x128/2015/09/12/100167_plus_512x512.png\"\n"
-                                    + "                                                                alt=\"\"\n"
-                                    + "                                                                />\n"
-                                    + "                                                        </div>";
-                        } else if (UserHistory.getImageList().size() == 4) {
-                            imageHtml += "<div class=\"more-wrapper\">\n"
-                                    + "                                                            <div class=\"img-more\">\n"
-                                    + "                                                                <img\n"
-                                    + "                                                                    src=\"https://icons-for-free.com/iconfiles/png/512/exposure+plus+1+48px-131985226685054051.png\"\n"
-                                    + "                                                                    alt=\"\"\n"
-                                    + "                                                                    />\n"
-                                    + "                                                            </div>\n"
-                                    + "                                                            <div class=\"img-more active\">\n"
-                                    + "                                                                <img\n"
-                                    + "                                                                    src=\"https://www.shareicon.net/data/128x128/2015/09/12/100167_plus_512x512.png\"\n"
-                                    + "                                                                    alt=\"\"\n"
-                                    + "                                                                    />\n"
-                                    + "                                                            </div>\n"
-                                    + "                                                        </div>";
-                        }
-                        html += "<div class=\"pipe-item\">\n"
+//                        String imageHtml = "";
+//                        int count = 1;
+//                        for (String image : UserHistory.getImageList()) {
+//                            if (!image.equals("") && (count == 1 || count == 2)) {
+//                                imageHtml += "<div class=\"pipe-item-image\">\n"
+//                                        + "       <img\n"
+//                                        + "     src=\"data:image/jpg/png;base64," + image + "\"\n"
+//                                        + "         alt=\"\"\n"
+//                                        + "     />\n"
+//                                        + "         </div>";
+//                                count++;
+//                            }
+//                        }
+//                        if (UserHistory.getImageList().size() == 3) {
+//                            imageHtml += "<div class=\"more-wrapper\">\n"
+//                                    + "                                                            <div class=\"img-more active\">\n"
+//                                    + "                                                                <img\n"
+//                                    + "                                                                    src=\"https://icons-for-free.com/iconfiles/png/512/exposure+plus+1+48px-131985226685054051.png\"\n"
+//                                    + "                                                                    alt=\"\"\n"
+//                                    + "                                                                    />\n"
+//                                    + "                                                            </div>\n"
+//                                    + "                                                        </div>\n"
+//                                    + "                                                        <div class=\"img-more\">\n"
+//                                    + "                                                            <img\n"
+//                                    + "                                                                src=\"https://www.shareicon.net/data/128x128/2015/09/12/100167_plus_512x512.png\"\n"
+//                                    + "                                                                alt=\"\"\n"
+//                                    + "                                                                />\n"
+//                                    + "                                                        </div>";
+//                        } else if (UserHistory.getImageList().size() == 4) {
+//                            imageHtml += "<div class=\"more-wrapper\">\n"
+//                                    + "                                                            <div class=\"img-more\">\n"
+//                                    + "                                                                <img\n"
+//                                    + "                                                                    src=\"https://icons-for-free.com/iconfiles/png/512/exposure+plus+1+48px-131985226685054051.png\"\n"
+//                                    + "                                                                    alt=\"\"\n"
+//                                    + "                                                                    />\n"
+//                                    + "                                                            </div>\n"
+//                                    + "                                                            <div class=\"img-more active\">\n"
+//                                    + "                                                                <img\n"
+//                                    + "                                                                    src=\"https://www.shareicon.net/data/128x128/2015/09/12/100167_plus_512x512.png\"\n"
+//                                    + "                                                                    alt=\"\"\n"
+//                                    + "                                                                    />\n"
+//                                    + "                                                            </div>\n"
+//                                    + "                                                        </div>";
+//                        }
+                        html = "<div class=\"pipe-item\">\n"
                                 + "                                                    <div class=\"pipe-item-heading\">\n"
                                 + "                                                        <div class=\"pipe-item-title-wrapper\">\n"
                                 + "                                                            <h3 class=\"pipe-item-title\">Feedback " + UserHistory.getFeedbackId() + "</h3>\n"
                                 + "                                                        </div>\n"
                                 + "                                                        <div class=\"pipe-item-date\">" + UserHistory.getDate() + "</div>\n"
                                 + "                                                    </div>\n"
-                                + "                                                    <div class=\"image-all-wrapper\"> " + imageHtml + ""
+                                + "                                                    <div class=\"image-all-wrapper pipe_image-all-wrapper\" data-id=\"" + UserHistory.getFeedbackId() + "\">"
                                 + "                                                    </div>\n"
                                 + "                                                    <div class=\"pipe-item-bottom\">\n"
                                 + "                                                        <p class=\"pipe-bottom-item\">" + UserHistory.getDeviceName() + "</p>\n"
                                 + "                                                        <p class=\"pipe-bottom-item\">Room: " + UserHistory.getLocation() + "</p>\n"
                                 + "                                                    </div>\n"
                                 + "                                                </div>\n";
-
+                        FeedbackLoaderDTO feedbackLoader = new FeedbackLoaderDTO(newAmount, UserHistory.getFeedbackId(), html, UserHistory.getImageFirebase());
+                        listFBLoader.add(feedbackLoader);
                     }
-                    out.println("'" + newAmount + "'" + html);
+//                        out.println("'" + newAmount + "'" + html);
+                    out.println(gson.toJson(listFBLoader));
                     break;
 
                 default:
@@ -283,12 +297,14 @@ public class LoadFeedbackForUserControllerPipeStyle extends HttpServlet {
                             List<String> imageList = tmpUserHistory.getImageList();
                             String deviceName = tmpUserHistory.getDeviceName();
                             String location = tmpUserHistory.getLocation();
+                            String image = tmpUserHistory.getImageFirebase();
                             if (UserHistory.getImage() != null) {
                                 imageList.add(UserHistory.getImage());
                                 tmpUserHistory.setImageList(imageList);
                             }
                             tmpUserHistory.setDeviceName(deviceName.concat(", ").concat(UserHistory.getDeviceName()));
                             tmpUserHistory.setLocation(location.concat(", ").concat(UserHistory.getLocation()));
+                            tmpUserHistory.setImageFirebase(image.concat(";").concat(UserHistory.getImageFirebase()));
                         } else {
                             List<String> imageList = new ArrayList<String>();
                             if (UserHistory.getImage() != null) {
@@ -301,68 +317,70 @@ public class LoadFeedbackForUserControllerPipeStyle extends HttpServlet {
                         check = UserHistory.getFeedbackId();
                     }
                     for (UserHistoryDTO UserHistory : newlistDeny) {
-                        String imageHtml = "";
-                        int count = 1;
-                        for (String image : UserHistory.getImageList()) {
-                            if (!image.equals("") && (count == 1 || count == 2)) {
-                                imageHtml += "<div class=\"pipe-item-image\">\n"
-                                        + "       <img\n"
-                                        + "     src=\"data:image/jpg/png;base64," + image + "\"\n"
-                                        + "         alt=\"\"\n"
-                                        + "     />\n"
-                                        + "         </div>";
-                                count++;
-                            }
-
-                        }
-                        if (UserHistory.getImageList().size() == 3) {
-                            imageHtml += "<div class=\"more-wrapper\">\n"
-                                    + "                                                            <div class=\"img-more active\">\n"
-                                    + "                                                                <img\n"
-                                    + "                                                                    src=\"https://icons-for-free.com/iconfiles/png/512/exposure+plus+1+48px-131985226685054051.png\"\n"
-                                    + "                                                                    alt=\"\"\n"
-                                    + "                                                                    />\n"
-                                    + "                                                            </div>\n"
-                                    + "                                                        </div>\n"
-                                    + "                                                        <div class=\"img-more\">\n"
-                                    + "                                                            <img\n"
-                                    + "                                                                src=\"https://www.shareicon.net/data/128x128/2015/09/12/100167_plus_512x512.png\"\n"
-                                    + "                                                                alt=\"\"\n"
-                                    + "                                                                />\n"
-                                    + "                                                        </div>";
-                        } else if (UserHistory.getImageList().size() == 4) {
-                            imageHtml += "<div class=\"more-wrapper\">\n"
-                                    + "                                                            <div class=\"img-more\">\n"
-                                    + "                                                                <img\n"
-                                    + "                                                                    src=\"https://icons-for-free.com/iconfiles/png/512/exposure+plus+1+48px-131985226685054051.png\"\n"
-                                    + "                                                                    alt=\"\"\n"
-                                    + "                                                                    />\n"
-                                    + "                                                            </div>\n"
-                                    + "                                                            <div class=\"img-more active\">\n"
-                                    + "                                                                <img\n"
-                                    + "                                                                    src=\"https://www.shareicon.net/data/128x128/2015/09/12/100167_plus_512x512.png\"\n"
-                                    + "                                                                    alt=\"\"\n"
-                                    + "                                                                    />\n"
-                                    + "                                                            </div>\n"
-                                    + "                                                        </div>";
-                        }
-                        html += "<div class=\"pipe-item\">\n"
+//                        String imageHtml = "";
+//                        int count = 1;
+//                        for (String image : UserHistory.getImageList()) {
+//                            if (!image.equals("") && (count == 1 || count == 2)) {
+//                                imageHtml += "<div class=\"pipe-item-image\">\n"
+//                                        + "       <img\n"
+//                                        + "     src=\"data:image/jpg/png;base64," + image + "\"\n"
+//                                        + "         alt=\"\"\n"
+//                                        + "     />\n"
+//                                        + "         </div>";
+//                                count++;
+//                            }
+//
+//                        }
+//                        if (UserHistory.getImageList().size() == 3) {
+//                            imageHtml += "<div class=\"more-wrapper\">\n"
+//                                    + "                                                            <div class=\"img-more active\">\n"
+//                                    + "                                                                <img\n"
+//                                    + "                                                                    src=\"https://icons-for-free.com/iconfiles/png/512/exposure+plus+1+48px-131985226685054051.png\"\n"
+//                                    + "                                                                    alt=\"\"\n"
+//                                    + "                                                                    />\n"
+//                                    + "                                                            </div>\n"
+//                                    + "                                                        </div>\n"
+//                                    + "                                                        <div class=\"img-more\">\n"
+//                                    + "                                                            <img\n"
+//                                    + "                                                                src=\"https://www.shareicon.net/data/128x128/2015/09/12/100167_plus_512x512.png\"\n"
+//                                    + "                                                                alt=\"\"\n"
+//                                    + "                                                                />\n"
+//                                    + "                                                        </div>";
+//                        } else if (UserHistory.getImageList().size() == 4) {
+//                            imageHtml += "<div class=\"more-wrapper\">\n"
+//                                    + "                                                            <div class=\"img-more\">\n"
+//                                    + "                                                                <img\n"
+//                                    + "                                                                    src=\"https://icons-for-free.com/iconfiles/png/512/exposure+plus+1+48px-131985226685054051.png\"\n"
+//                                    + "                                                                    alt=\"\"\n"
+//                                    + "                                                                    />\n"
+//                                    + "                                                            </div>\n"
+//                                    + "                                                            <div class=\"img-more active\">\n"
+//                                    + "                                                                <img\n"
+//                                    + "                                                                    src=\"https://www.shareicon.net/data/128x128/2015/09/12/100167_plus_512x512.png\"\n"
+//                                    + "                                                                    alt=\"\"\n"
+//                                    + "                                                                    />\n"
+//                                    + "                                                            </div>\n"
+//                                    + "                                                        </div>";
+//                        }
+                        html = "<div class=\"pipe-item\">\n"
                                 + "                                                    <div class=\"pipe-item-heading\">\n"
                                 + "                                                        <div class=\"pipe-item-title-wrapper\">\n"
                                 + "                                                            <h3 class=\"pipe-item-title\">Feedback " + UserHistory.getFeedbackId() + "</h3>\n"
                                 + "                                                        </div>\n"
                                 + "                                                        <div class=\"pipe-item-date\">" + UserHistory.getDate() + "</div>\n"
                                 + "                                                    </div>\n"
-                                + "                                                    <div class=\"image-all-wrapper\"> " + imageHtml + ""
+                                + "                                                    <div class=\"image-all-wrapper pipe_image-all-wrapper\" data-id=\"" + UserHistory.getFeedbackId() + "\">"
                                 + "                                                    </div>\n"
                                 + "                                                    <div class=\"pipe-item-bottom\">\n"
                                 + "                                                        <p class=\"pipe-bottom-item\">" + UserHistory.getDeviceName() + "</p>\n"
                                 + "                                                        <p class=\"pipe-bottom-item\">Room: " + UserHistory.getLocation() + "</p>\n"
                                 + "                                                    </div>\n"
                                 + "                                                </div>\n";
-
+                        FeedbackLoaderDTO feedbackLoader = new FeedbackLoaderDTO(newAmount, UserHistory.getFeedbackId(), html, UserHistory.getImageFirebase());
+                        listFBLoader.add(feedbackLoader);
                     }
-                    out.println("'" + newAmount + "'" + html);
+//                        out.println("'" + newAmount + "'" + html);
+                    out.println(gson.toJson(listFBLoader));
                     break;
             }
         } catch (Exception e) {

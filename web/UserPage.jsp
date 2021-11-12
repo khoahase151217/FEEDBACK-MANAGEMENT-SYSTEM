@@ -49,8 +49,10 @@
             referrerpolicy="no-referrer"
             />
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/User.css" />
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/FeedbackForm.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/User1.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/FeedbackForm3.css" />
+
+
     </head>
     <body>
         <c:if test="${sessionScope.LOGIN_USER == null}">
@@ -151,24 +153,44 @@
                                                     ></textarea>
                                             </fieldset>
                                             <!-- End Description -->
-                                            <div class="input-file-wrap">
-                                                <label>
-                                                    <ion-icon
-                                                        name="image-outline"
-                                                        class="input-file-select"
-                                                        onclick="handleShowImage(event)"
-                                                        data-index="1"
-                                                        ></ion-icon>
-                                                    <input
-                                                        type="file"
-                                                        name="image-1"
-                                                        id="gallery-photo-add-1"
-                                                        style="display: none"
-                                                        />
-                                                </label>
-                                                <input type="text" class="input-file-name" readonly />
+                                            <!--                                            <div class="input-file-wrap">
+                                                                                            <label>
+                                                                                                <ion-icon
+                                                                                                    name="image-outline"
+                                                                                                    class="input-file-select"
+                                                                                                    onclick="handleShowImage(event)"
+                                                                                                    data-index="1"
+                                                                                                    ></ion-icon>
+                                                                                                <input
+                                                                                                    type="file"
+                                                                                                    name="image-1"
+                                                                                                    id="gallery-photo-add-1"
+                                                                                                    style="display: none"
+                                                                                                    multiple
+                                                                                                    />
+                                                                                            </label>
+                                                                                            <input type="text" class="input-file-name" readonly />
+                                                                                        </div>-->
+                                            <div class="reponse-form-drag-area-wrapper">
+                                                <div class="reponse-form-drag-area" data-index="1">
+                                                    <div class="icon">
+                                                        <i class="fas fa-cloud-upload-alt"></i>
+                                                    </div>
+                                                    <header>Drag & Drop to Upload File</header>
+                                                    <span>OR</span>
+                                                    <label>
+                                                        <p onclick="handleShowImage(event)" data-index="1">Browse File</p>
+                                                        <input
+                                                            type="file"
+                                                            name="image-1"
+                                                            id="gallery-photo-add-1"
+                                                            style="display: none"
+                                                            multiple
+                                                            />
+                                                    </label>
+                                                </div>
+                                                <div class="img-feedback tab-img-1"></div>
                                             </div>
-                                            <div class="img-feedback tab-img-1"></div>
                                         </div>
                                     </div>
                                     <div class="list-items-wrapper">
@@ -225,24 +247,44 @@
                                                     ></textarea>
                                             </fieldset>
                                             <!-- End Description -->
-                                            <div class="input-file-wrap">
-                                                <label>
-                                                    <ion-icon
-                                                        name="image-outline"
-                                                        class="input-file-select"
-                                                        onclick="handleShowImage(event)"
-                                                        data-index="2"
-                                                        ></ion-icon>
-                                                    <input
-                                                        type="file"
-                                                        name="image-2"
-                                                        id="gallery-photo-add-2"
-                                                        style="display: none"
-                                                        />
-                                                </label>
-                                                <input type="text" class="input-file-name" readonly />
+                                            <!--                                            <div class="input-file-wrap">
+                                                                                            <label>
+                                                                                                <ion-icon
+                                                                                                    name="image-outline"
+                                                                                                    class="input-file-select"
+                                                                                                    onclick="handleShowImage(event)"
+                                                                                                    data-index="2"
+                                                                                                    ></ion-icon>
+                                                                                                <input
+                                                                                                    type="file"
+                                                                                                    name="image-2"
+                                                                                                    id="gallery-photo-add-2"
+                                                                                                    style="display: none"
+                                                                                                    multiple
+                                                                                                    />
+                                                                                            </label>
+                                                                                            <input type="text" class="input-file-name" readonly />
+                                                                                        </div>-->
+                                            <div class="reponse-form-drag-area-wrapper">
+                                                <div class="reponse-form-drag-area" data-index="2">
+                                                    <div class="icon">
+                                                        <i class="fas fa-cloud-upload-alt"></i>
+                                                    </div>
+                                                    <header>Drag & Drop to Upload File</header>
+                                                    <span>OR</span>
+                                                    <label>
+                                                        <p onclick="handleShowImage(event)" data-index="2">Browse File</p>
+                                                        <input
+                                                            type="file"
+                                                            name="image-2"
+                                                            id="gallery-photo-add-2"
+                                                            style="display: none"
+                                                            multiple
+                                                            />
+                                                    </label>
+                                                </div>
+                                                <div class="img-feedback tab-img-2"></div>
                                             </div>
-                                            <div class="img-feedback tab-img-2"></div>
                                         </div>
                                     </div>
                                     <div class="list-items-wrapper">
@@ -299,24 +341,44 @@
                                                     ></textarea>
                                             </fieldset>
                                             <!-- End Description -->
-                                            <div class="input-file-wrap">
-                                                <label>
-                                                    <ion-icon
-                                                        name="image-outline"
-                                                        class="input-file-select"
-                                                        onclick="handleShowImage(event)"
-                                                        data-index="3"
-                                                        ></ion-icon>
-                                                    <input
-                                                        type="file"
-                                                        name="image-3"
-                                                        id="gallery-photo-add-3"
-                                                        style="display: none"
-                                                        />
-                                                </label>
-                                                <input type="text" class="input-file-name" readonly />
+                                            <!--                                            <div class="input-file-wrap">
+                                                                                            <label>
+                                                                                                <ion-icon
+                                                                                                    name="image-outline"
+                                                                                                    class="input-file-select"
+                                                                                                    onclick="handleShowImage(event)"
+                                                                                                    data-index="3"
+                                                                                                    ></ion-icon>
+                                                                                                <input
+                                                                                                    type="file"
+                                                                                                    name="image-3"
+                                                                                                    id="gallery-photo-add-3"
+                                                                                                    style="display: none"
+                                                                                                    multiple
+                                                                                                    />
+                                                                                            </label>
+                                                                                            <input type="text" class="input-file-name" readonly />
+                                                                                        </div>-->
+                                            <div class="reponse-form-drag-area-wrapper">
+                                                <div class="reponse-form-drag-area" data-index="3">
+                                                    <div class="icon">
+                                                        <i class="fas fa-cloud-upload-alt"></i>
+                                                    </div>
+                                                    <header>Drag & Drop to Upload File</header>
+                                                    <span>OR</span>
+                                                    <label>
+                                                        <p onclick="handleShowImage(event)" data-index="3">Browse File</p>
+                                                        <input
+                                                            type="file"
+                                                            name="image-3"
+                                                            id="gallery-photo-add-3"
+                                                            style="display: none"
+                                                            multiple
+                                                            />
+                                                    </label>
+                                                </div>
+                                                <div class="img-feedback tab-img-3"></div>
                                             </div>
-                                            <div class="img-feedback tab-img-3"></div>
                                         </div>
                                     </div>
                                     <div class="list-items-wrapper">
@@ -373,24 +435,44 @@
                                                     ></textarea>
                                             </fieldset>
                                             <!-- End Description -->
-                                            <div class="input-file-wrap">
-                                                <label>
-                                                    <ion-icon
-                                                        name="image-outline"
-                                                        class="input-file-select"
-                                                        onclick="handleShowImage(event)"
-                                                        data-index="4"
-                                                        ></ion-icon>
-                                                    <input
-                                                        type="file"
-                                                        name="image-4"
-                                                        id="gallery-photo-add-4"
-                                                        style="display: none"
-                                                        />
-                                                </label>
-                                                <input type="text" class="input-file-name" readonly />
+                                            <!--                                            <div class="input-file-wrap">
+                                                                                            <label>
+                                                                                                <ion-icon
+                                                                                                    name="image-outline"
+                                                                                                    class="input-file-select"
+                                                                                                    onclick="handleShowImage(event)"
+                                                                                                    data-index="4"
+                                                                                                    ></ion-icon>
+                                                                                                <input
+                                                                                                    type="file"
+                                                                                                    name="image-4"
+                                                                                                    id="gallery-photo-add-4"
+                                                                                                    style="display: none"
+                                                                                                    multiple
+                                                                                                    />
+                                                                                            </label>
+                                                                                            <input type="text" class="input-file-name" readonly />
+                                                                                        </div>-->
+                                            <div class="reponse-form-drag-area-wrapper">
+                                                <div class="reponse-form-drag-area" data-index="4">
+                                                    <div class="icon">
+                                                        <i class="fas fa-cloud-upload-alt"></i>
+                                                    </div>
+                                                    <header>Drag & Drop to Upload File</header>
+                                                    <span>OR</span>
+                                                    <label>
+                                                        <p onclick="handleShowImage(event)" data-index="4">Browse File</p>
+                                                        <input
+                                                            type="file"
+                                                            name="image-4"
+                                                            id="gallery-photo-add-4"
+                                                            style="display: none"
+                                                            multiple
+                                                            />
+                                                    </label>
+                                                </div>
+                                                <div class="img-feedback tab-img-4"></div>
                                             </div>
-                                            <div class="img-feedback tab-img-4"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -574,7 +656,7 @@
                                     class="input-wrap-image"
                                     />
                                 <div class="actual-input">
-                                    <input type="text" name="search" id="search" placeholder="Search ..." value="${requestScope.
+                                    <input type="text" name="search" id="search" placeholder="Device name" value="${requestScope.
                                                                                                                    SEARCH}"/>
                                     <input type="hidden" name="amount_done" value="${requestScope.COUNT_FLAG_DONE}">
                                     <input type="hidden" name="amount_decline" value="${requestScope.COUNT_FLAG_DECLINE}">
@@ -607,7 +689,7 @@
                                 </c:choose>
                             </div>
                             <div class="dropdown-list">
-                                <a href="ShowUserFormController?search=${requestScope.SEARCH}&style_pipe=${requestScope.STYLE_PIPE}&style_list=${requestScope.STYLE_LIST}&user=user" class="dropdown-item">
+                                <a href="ShowUserFormController?search=${requestScope.SEARCH}&style_pipe=${requestScope.STYLE_PIPE}&style_list=${requestScope.STYLE_LIST}&user=user&amount_done=${requestScope.COUNT_FLAG_DONE}&amount_onGoing=${requestScope.COUNT_FLAG_ONGOING}&amount_decline=${requestScope.COUNT_FLAG_DECLINE}&amount_all=${requestScope.COUNT_FLAG_ALL}" class="dropdown-item">
                                     <ion-icon name="create-outline"></ion-icon>
                                     Edit Profile
                                 </a>
@@ -701,9 +783,10 @@
                                                 <%
                                                     List<UserHistoryDTO> listDone = (List<UserHistoryDTO>) session.getAttribute("HISTORY_DONE");
                                                     if (listDone != null) {
-
+                                                        // feedback.getImageFirebase()
                                                         for (UserHistoryDTO feedback : listDone) {
                                                 %> 
+
                                                 <div class="pipe-item">
                                                     <div class="pipe-item-heading">
                                                         <div class="pipe-item-title-wrapper">
@@ -712,68 +795,23 @@
                                                         <div class="pipe-item-date"><%=feedback.getDate()%></div>
                                                     </div>
 
+                                                    <div class="image-all-wrapper pipe_image-all-wrapper" data-id="<%=feedback.getFeedbackId()%>">
 
-                                                    <div class="image-all-wrapper">
-                                                        <%
-                                                            int count = 1;
-                                                            for (String img : feedback.getImageList()) {
-                                                                if (!img.equals("")) {
-                                                                    if (count == 1 || count == 2) {
-                                                        %>
-
-                                                        <div class="pipe-item-image">
-                                                            <img
-                                                                src="data:image/jpg/png;base64,<%=img%>"
-                                                                alt=""
-                                                                />
-                                                        </div>
-
-
-                                                        <%                                                        } else if (feedback.getImageList().size() == 3) {
-                                                        %>
-                                                        <div class="more-wrapper">
-                                                            <div class="img-more active">
-                                                                <img
-                                                                    src="https://icons-for-free.com/iconfiles/png/512/exposure+plus+1+48px-131985226685054051.png"
-                                                                    alt=""
-                                                                    />
-                                                            </div>
-                                                        </div>
-                                                        <div class="img-more">
-                                                            <img
-                                                                src="https://www.shareicon.net/data/128x128/2015/09/12/100167_plus_512x512.png"
-                                                                alt=""
-                                                                />
-                                                        </div>
-
-                                                        <%
-                                                            break;
-                                                        } else {
-                                                        %>
-                                                        <div class="more-wrapper">
-                                                            <div class="img-more">
-                                                                <img
-                                                                    src="https://icons-for-free.com/iconfiles/png/512/exposure+plus+1+48px-131985226685054051.png"
-                                                                    alt=""
-                                                                    />
-                                                            </div>
-                                                            <div class="img-more active">
-                                                                <img
-                                                                    src="https://www.shareicon.net/data/128x128/2015/09/12/100167_plus_512x512.png"
-                                                                    alt=""
-                                                                    />
-                                                            </div>
-                                                        </div>
-                                                        <%
-                                                                        break;
-                                                                    }
-                                                                    count++;
-                                                                }
-                                                            }
-                                                        %>  
                                                     </div>
 
-
+                                                    <script type="module">
+                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser.js';
+                                                        Array.from(document.querySelectorAll('.pipe_image-all-wrapper')).forEach((ele) => {
+                                                        if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
+                                                        //  getImageString
+                                                        let imageString = '<%=feedback.getImageFirebase()%>';
+                                                        if(imageString) {
+                                                         handleLoadImageForUserFromFirebase(imageString, ele);
+                                                        }
+                                                        return;
+                                                        };
+                                                        });
+                                                    </script>
 
                                                     <div class="pipe-item-bottom">
                                                         <p class="pipe-bottom-item"><%=feedback.getDeviceName()%></p>
@@ -816,66 +854,21 @@
                                                     </div>
 
 
-                                                    <div class="image-all-wrapper">
-                                                        <%
-                                                            int count = 1;
-                                                            for (String img : feedback.getImageList()) {
-                                                                if (!img.equals("")) {
-                                                                    if (count == 1 || count == 2) {
-
-                                                        %>  
-                                                        <div class="pipe-item-image">
-                                                            <img
-                                                                src="data:image/jpg/png;base64,<%=img%>"
-                                                                alt=""
-                                                                />
-                                                        </div>
-
-
-
-                                                        <%                                                        } else if (feedback.getImageList().size() == 3) {
-                                                        %>
-                                                        <div class="more-wrapper">
-                                                            <div class="img-more active">
-                                                                <img
-                                                                    src="https://icons-for-free.com/iconfiles/png/512/exposure+plus+1+48px-131985226685054051.png"
-                                                                    alt=""
-                                                                    />
-                                                            </div>
-                                                        </div>
-                                                        <div class="img-more">
-                                                            <img
-                                                                src="https://www.shareicon.net/data/128x128/2015/09/12/100167_plus_512x512.png"
-                                                                alt=""
-                                                                />
-                                                        </div>
-
-                                                        <%
-                                                            break;
-                                                        } else {
-                                                        %>
-                                                        <div class="more-wrapper">
-                                                            <div class="img-more">
-                                                                <img
-                                                                    src="https://icons-for-free.com/iconfiles/png/512/exposure+plus+1+48px-131985226685054051.png"
-                                                                    alt=""
-                                                                    />
-                                                            </div>
-                                                            <div class="img-more active">
-                                                                <img
-                                                                    src="https://www.shareicon.net/data/128x128/2015/09/12/100167_plus_512x512.png"
-                                                                    alt=""
-                                                                    />
-                                                            </div>
-                                                        </div>
-                                                        <%
-                                                                        break;
-                                                                    }
-                                                                    count++;
-                                                                }
-                                                            }
-                                                        %>  
+                                                    <div class="image-all-wrapper pipe_image-all-wrapper" data-id="<%=feedback.getFeedbackId()%>">
                                                     </div>
+                                                    <script type="module">
+                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser.js';
+                                                        Array.from(document.querySelectorAll('.pipe_image-all-wrapper')).forEach((ele) => {
+                                                        if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
+                                                        //  getImageString
+                                                        let imageString = '<%=feedback.getImageFirebase()%>';
+                                                        if(imageString) {
+                                                         handleLoadImageForUserFromFirebase(imageString, ele);
+                                                        }
+                                                        return;
+                                                        };
+                                                        });
+                                                    </script>
 
 
 
@@ -919,66 +912,20 @@
                                                     </div>
 
 
-                                                    <div class="image-all-wrapper">
-                                                        <%
-                                                            int count = 1;
-                                                            for (String img : feedback.getImageList()) {
-                                                                if (!img.equals("")) {
-                                                                    if (count == 1 || count == 2) {
-
-                                                        %>  
-                                                        <div class="pipe-item-image">
-                                                            <img
-                                                                src="data:image/jpg/png;base64,<%=img%>"
-                                                                alt=""
-                                                                />
-                                                        </div>
-
-
-
-                                                        <%                                                        } else if (feedback.getImageList().size() == 3) {
-                                                        %>
-                                                        <div class="more-wrapper">
-                                                            <div class="img-more active">
-                                                                <img
-                                                                    src="https://icons-for-free.com/iconfiles/png/512/exposure+plus+1+48px-131985226685054051.png"
-                                                                    alt=""
-                                                                    />
-                                                            </div>
-                                                        </div>
-                                                        <div class="img-more">
-                                                            <img
-                                                                src="https://www.shareicon.net/data/128x128/2015/09/12/100167_plus_512x512.png"
-                                                                alt=""
-                                                                />
-                                                        </div>
-
-                                                        <%
-                                                            break;
-                                                        } else {
-                                                        %>
-                                                        <div class="more-wrapper">
-                                                            <div class="img-more">
-                                                                <img
-                                                                    src="https://icons-for-free.com/iconfiles/png/512/exposure+plus+1+48px-131985226685054051.png"
-                                                                    alt=""
-                                                                    />
-                                                            </div>
-                                                            <div class="img-more active">
-                                                                <img
-                                                                    src="https://www.shareicon.net/data/128x128/2015/09/12/100167_plus_512x512.png"
-                                                                    alt=""
-                                                                    />
-                                                            </div>
-                                                        </div>
-                                                        <%
-                                                                        break;
-                                                                    }
-                                                                    count++;
-                                                                }
-                                                            }
-                                                        %>  
-                                                    </div>
+                                                    <div class="image-all-wrapper pipe_image-all-wrapper" data-id="<%=feedback.getFeedbackId()%>"></div>
+                                                    <script type="module">
+                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser.js';
+                                                        Array.from(document.querySelectorAll('.pipe_image-all-wrapper')).forEach((ele) => {
+                                                        if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
+                                                        //  getImageString
+                                                        let imageString = '<%=feedback.getImageFirebase()%>';
+                                                        if(imageString) {
+                                                         handleLoadImageForUserFromFirebase(imageString, ele);
+                                                        }
+                                                        return;
+                                                        };
+                                                        });
+                                                    </script>
 
 
 
@@ -1060,27 +1007,22 @@
                                                     </div>
 
 
-                                                    <div class="image-all-wrapper">
-                                                        <%
-                                                            int count = 1;
-                                                            for (String img : feedback.getImageList()) {
-                                                                if (!img.equals("")) {
-
-                                                        %>
-
-                                                        <div class="pipe-item-image">
-                                                            <img
-                                                                src="data:image/jpg/png;base64,<%=img%>"
-                                                                alt=""
-                                                                />
-                                                        </div>
-
-                                                        <%
-                                                                }
-                                                            }
-                                                        %>
-
+                                                    <div class="image-all-wrapper List_All" data-id="<%=feedback.getFeedbackId()%>">
                                                     </div>
+
+                                                    <script type="module">
+                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser.js';
+                                                        Array.from(document.querySelectorAll('.List_All')).forEach((ele) => {
+                                                        if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
+                                                        //  getImageString
+                                                        let imageString = '<%=feedback.getImageFirebase()%>';
+                                                        if(imageString) {
+                                                         handleLoadImageForUserFromFirebase(imageString, ele);
+                                                        }
+                                                        return;
+                                                        };
+                                                        });
+                                                    </script>
 
                                                     <div class="pipe-item-bottom">
                                                         <p class="pipe-bottom-item"><%=feedback.getDeviceName()%></p>
@@ -1115,27 +1057,22 @@
                                                     </div>
 
 
-                                                    <div class="image-all-wrapper">
-                                                        <%
-                                                            int count = 1;
-                                                            for (String img : feedback.getImageList()) {
-                                                                if (!img.equals("")) {
-
-                                                        %>
-
-                                                        <div class="pipe-item-image">
-                                                            <img
-                                                                src="data:image/jpg/png;base64,<%=img%>"
-                                                                alt=""
-                                                                />
-                                                        </div>
-
-                                                        <%
-                                                                }
-                                                            }
-                                                        %>
-
+                                                    <div class="image-all-wrapper list_image-all-wrapper" data-id="<%=feedback.getFeedbackId()%>">
                                                     </div>
+
+                                                    <script type="module">
+                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser.js';
+                                                        Array.from(document.querySelectorAll('.list_image-all-wrapper')).forEach((ele) => {
+                                                        if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
+                                                        //  getImageString
+                                                        let imageString = '<%=feedback.getImageFirebase()%>';
+                                                        if(imageString) {
+                                                         handleLoadImageForUserFromFirebase(imageString, ele);
+                                                        }
+                                                        return;
+                                                        };
+                                                        });
+                                                    </script>
 
                                                     <div class="pipe-item-bottom">
                                                         <p class="pipe-bottom-item"><%=feedback.getDeviceName()%></p>
@@ -1168,27 +1105,23 @@
                                                     </div>
 
 
-                                                    <div class="image-all-wrapper">
-                                                        <%
-                                                            int count = 1;
-                                                            for (String img : feedback.getImageList()) {
-                                                                if (!img.equals("")) {
-
-                                                        %>  
-                                                        <div class="pipe-item-image">
-                                                            <img
-                                                                src="data:image/jpg/png;base64,<%=img%>"
-                                                                alt=""
-                                                                />
-                                                        </div>
-
-                                                        <%
-                                                                }
-                                                            }
-                                                        %>
+                                                    <div class="image-all-wrapper list_image-all-wrapper" data-id="<%=feedback.getFeedbackId()%>">
                                                     </div>
 
+                                                    <script type="module">
+                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser.js';
 
+                                                        Array.from(document.querySelectorAll('.list_image-all-wrapper')).forEach((ele) => {
+                                                        if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
+                                                        //  getImageString
+                                                        let imageString = '<%=feedback.getImageFirebase()%>';
+                                                        if(imageString) {
+                                                         handleLoadImageForUserFromFirebase(imageString, ele);
+                                                        }
+                                                        return;
+                                                        };
+                                                        });
+                                                    </script>
 
                                                     <div class="pipe-item-bottom">
                                                         <p class="pipe-bottom-item"><%=feedback.getDeviceName()%></p>
@@ -1220,24 +1153,23 @@
                                                     </div>
 
 
-                                                    <div class="image-all-wrapper">
-                                                        <%
-                                                            int count = 1;
-                                                            for (String img : feedback.getImageList()) {
-                                                                if (!img.equals("")) {
-                                                        %>  
-                                                        <div class="pipe-item-image">
-                                                            <img
-                                                                src="data:image/jpg/png;base64,<%=img%>"
-                                                                alt=""
-                                                                />
-                                                        </div>
-
-                                                        <%
-                                                                }
-                                                            }
-                                                        %>
+                                                    <div class="image-all-wrapper list_image-all-wrapper" data-id="<%=feedback.getFeedbackId()%>">
                                                     </div>
+
+                                                    <script type="module">
+                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser.js';
+
+                                                        Array.from(document.querySelectorAll('.list_image-all-wrapper')).forEach((ele) => {
+                                                        if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
+                                                        //  getImageString
+                                                        let imageString = '<%=feedback.getImageFirebase()%>';
+                                                        if(imageString) {
+                                                         handleLoadImageForUserFromFirebase(imageString, ele);
+                                                        }
+                                                        return;
+                                                        };
+                                                        });
+                                                    </script>
 
 
 
@@ -1377,291 +1309,364 @@
                 </div>
             </div>
 
-                            <input id="LOGIN_USER_ID" type="hidden" name="COUNT_RESPONSE" value="${sessionScope.LOGIN_USER.userID}"/>
+            <input id="LOGIN_USER_ID" type="hidden" name="COUNT_RESPONSE" value="${sessionScope.LOGIN_USER.userID}"/>
         </footer>
-                                               <!-- Query -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/User1.js"></script>
+
+        <!-- Query -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/User2.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseForUser.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseUserfromAdmin.js"></script>
-     
-        
-        <script>
-                                                            function handleNotification() {
-                                                                const count = document.querySelector('input[name="LIST_DONE_COUNT"]').value;
-                                                                $.ajax({
-                                                                    type: "POST",
-                                                                    url: "/SWP391_PROJECT/NotificationUserController",
-                                                                    data: {notification: count},
-                                                                    success: function (result) {
-                                                                        if (result !== '') {
-                                                                            var lenght = result.slice(0, 1);
-                                                                            $('.showcase-item-dropdown-actual-notification').addClass('active');
-                                                                            $('.showcase-item-dropdown-actual-notification').html(lenght);
-                                                                            $('.showcase-item-dropdown-select').addClass('active');
-                                                                            $('.showcase-item-dropdown-sub-title').html("You have " + lenght + " new feedback");
-                                                                        } else {
-                                                                            $('.showcase-item-dropdown-sub-title').html($('.showcase-item-dropdown-sub-title.sub-title-no').text());
-                                                                            $('.showcase-item-dropdown-actual-notification').removeClass('active');
-                                                                            $('.showcase-item-dropdown-select').removeClass('active');
-                                                                        }
-                                                                        $('.showcase-item-dropdown-list .pipe-list').html(result.slice(1));
+        <script type="module" src="${pageContext.request.contextPath}/js/firebaseStorageForUser.js"></script>
 
-                                                                    }
-                                                                });
-                                                            }
-                                                            //handleNotification();
-                                                            //setInterval(handleNotification, 10000);
-                                                            var imagesPreview = function (input, placeToInsertImagePreview) {
-                                                                if (input.files) {
-                                                                    var filesAmount = input.files.length;
+        <script type="module">
+          import handleLoadImageForUserFromFirebase from './js/firebaseStorageForUser.js';
+                var imagesPreview = function (input, placeToInsertImagePreview) {
+                    if (input.files) {
+                        var filesAmount = input.files.length;
+                        for (let i = 0; i < filesAmount; i++) {
+                            var reader = new FileReader();
+                            reader.onload = function (event) {
+                                $($.parseHTML("<img>"))
+                                        .attr("src", event.target.result)
+                                        .appendTo(placeToInsertImagePreview);
+                            };
+                            reader.readAsDataURL(input.files[i]);
+                        }
+                    }
+                };
+                var imagesPreview2 = function (input) {
+                    if (input.files) {
+                        var filesAmount = input.files.length;
+                        for (let i = 0; i < filesAmount; i++) {
+                            var reader = new FileReader();
+                            reader.onload = function (event) {
+                                $(".avatar").attr("src", event.target.result);
+                            };
+                            reader.readAsDataURL(input.files[i]);
+                        }
+                    }
+                };
+                function loadResultsPipeStyle(index, list) {
+                    let amount;
+                    switch (index) {
+                        case "0":
+                            amount = list.closest('.pipe').querySelector('input[name="amount_all"]').value;
+                            break;
+                        case "1":
+                            amount = list.closest('.pipe').querySelector('input[name="amount_done"]').value;
+                            break;
+                        case "2":
+                            amount = list.closest('.pipe').querySelector('input[name="amount_onGoing"]').value;
+                            break;
+                        default:
+                            amount = list.closest('.pipe').querySelector('input[name="amount_decline"]').value;
+                            break;
+                    }
+                    ;
+                    let search = document.querySelector('input[name="search"]').value;
+                    $.ajax({
+                        url: "/SWP391_PROJECT/LoadFeedbackUserPipe",
+                        type: "post",
+                        data: {
+                            amount: amount,
+                            flag_navigation: index,
+                            search: search
+                        },
+                        beforeSend: function (xhr) {
+                            $(list).after($("<li class='loading'>Loading...</li>").fadeIn('slow')).data("loading", true);
+                        },
+                        success: function (data) {
+                            data = JSON.parse(data);
+                            setTimeout(() => {
+                                var $results = $(list);
+                                $(".loading").fadeOut('fast', function () {
+                                    $(this).remove();
+                                });
+                                let html = '';
+                                data.forEach(ele => {
+                                    html += ele.html;
+                                })
+                                var $data = $(html);
+                                $results.append($data);
+                                $data.show("slow");
+                                switch (index) {
+                                    case "0":
+                                        list.closest('.pipe').querySelector('input[name="amount_all"]').value = data[0].amount;
+                                        data.forEach(item => {
+                                                Array.from(document.querySelectorAll('.pipe_image-all-wrapper')).forEach((ele) => {
+                                                    if (ele.dataset.id === item.feedbackID) {
+                                                        if(item.imageString) {
+                                                            handleLoadImageForUserFromFirebase(item.imageString, ele);
+                                                        }
+                                                        return;
+                                                    }
+                                                });
+                                            })
+                                        break;
+                                    case "1":
+                                        list.closest('.pipe').querySelector('input[name="amount_done"]').value = data[0].amount;
+                                        data.forEach(item => {
+                                                Array.from(document.querySelectorAll('.pipe_image-all-wrapper')).forEach((ele) => {
+                                                    if (ele.dataset.id === item.feedbackID) {
+                                                        if(item.imageString) {
+                                                            handleLoadImageForUserFromFirebase(item.imageString, ele);
+                                                        }
+                                                        return;
+                                                    }
+                                                });
+                                            })
+                                        break;
+                                    case "2":
+                                        list.closest('.pipe').querySelector('input[name="amount_onGoing"]').value = data[0].amount;
+                                        data.forEach(item => {
+                                                Array.from(document.querySelectorAll('.pipe_image-all-wrapper')).forEach((ele) => {
+                                                    if (ele.dataset.id === item.feedbackID) {
+                                                        if(item.imageString) {
+                                                            handleLoadImageForUserFromFirebase(item.imageString, ele);
+                                                        }
+                                                        return;
+                                                    }
+                                                });
+                                            })
+                                        break;
+                                    default:
+                                        list.closest('.pipe').querySelector('input[name="amount_decline"]').value = data[0].amount;
+                                        data.forEach(item => {
+                                                Array.from(document.querySelectorAll('.pipe_image-all-wrapper')).forEach((ele) => {
+                                                    if (ele.dataset.id === item.feedbackID) {
+                                                        if(item.imageString) {
+                                                            handleLoadImageForUserFromFirebase(item.imageString, ele);
+                                                        }
+                                                        return;
+                                                    }
+                                                });
+                                            })
+                                        break;
+                                }
+                                ;
+                                $results.removeData("loading");
+                            }, 1500)
+                        }
+                    });
+                }
+                ;
+                function loadResultsListStyle(index, list) {
+                    let amount;
+                    switch (index) {
+                        case "0":
+                            amount = list.closest('.list-showcase').querySelector('input[name="amount_all"]').value;
+                            break;
+                        case "1":
+                            amount = list.closest('.list-showcase').querySelector('input[name="amount_done"]').value;
+                            break;
+                        case "2":
+                            amount = list.closest('.list-showcase').querySelector('input[name="amount_onGoing"]').value;
+                            break;
+                        default:
+                            amount = list.closest('.list-showcase').querySelector('input[name="amount_decline"]').value;
+                            break;
+                    }
+                    let search = document.querySelector('input[name="search"]').value;
+                    let FEEDBACKID_FROM_SEARCH = document.querySelector('input[name="FEEDBACKID_FROM_SEARCH"]').value;
+                    $.ajax({
+                        url: "/SWP391_PROJECT/LoadFeedbackUserList",
+                        type: "post",
+                        data: {
+                            amount: amount,
+                            flag_navigation: index,
+                            search: search,
+                            FEEDBACKID_FROM_SEARCH: FEEDBACKID_FROM_SEARCH
+                        },
+                        beforeSend: function (xhr) {
+                            $(list).after($("<li class='loading'>Loading...</li>").fadeIn('slow')).data("loading", true);
+                        },
+                        success: function (data) {
+                            data = JSON.parse(data);
+                            setTimeout(() => {
+                                var $results = $(list);
+                                $(".loading").fadeOut('fast', function () {
+                                    $(this).remove();
+                                });
+                                let html = '';
+                                data.forEach(ele => {
+                                    html += ele.html;
+                                })
+                                var $data = $(html);
+                                $results.append($data);
+                                $data.show("slow");
+                                
+                                switch (index) {
+                                    case "0":
+                                        if (search) {
+                                                list.closest('.list-showcase').querySelector('input[name="FEEDBACKID_FROM_SEARCH"]').value = data[0].amount;
+                                            data.forEach(item => {
+                                                Array.from(document.querySelectorAll('.List_All')).forEach((ele) => {
+                                                    if (ele.dataset.id === item.feedbackID) {
+                                                        if(item.imageString) {
+                                                            handleLoadImageForUserFromFirebase(item.imageString, ele);
+                                                        }
+                                                        return;
+                                                    }
+                                                });
+                                            })
+                                        } else {
+                                            list.closest('.list-showcase').querySelector('input[name="amount_all"]').value = data[0].amount;
+                                            data.forEach(item => {
+                                                Array.from(document.querySelectorAll('.List_All')).forEach((ele) => {
+                                                    if (ele.dataset.id === item.feedbackID) {
+                                                        if(item.imageString) {
+                                                            handleLoadImageForUserFromFirebase(item.imageString, ele);
+                                                        }
+                                                        return;
+                                                    }
+                                                });
+                                            })
+                                        }
+                                        break;
+                                    case "1":
+                                        list.closest('.list-showcase').querySelector('input[name="amount_done"]').value = data[0].amount;
+                                        data.forEach(item => {
+                                                Array.from(document.querySelectorAll('.list_image-all-wrapper')).forEach((ele) => {
+                                                    if (ele.dataset.id === item.feedbackID) {
+                                                        if(item.imageString) {
+                                                            handleLoadImageForUserFromFirebase(item.imageString, ele);
+                                                        }
+                                                        return;
+                                                    }
+                                                });
+                                            })
+                                        break;
+                                    case "2":
+                                        list.closest('.list-showcase').querySelector('input[name="amount_onGoing"]').value = data[0].amount;
+                                        data.forEach(item => {
+                                                Array.from(document.querySelectorAll('.list_image-all-wrapper')).forEach((ele) => {
+                                                    if (ele.dataset.id === item.feedbackID) {
+                                                        if(item.imageString) {
+                                                            handleLoadImageForUserFromFirebase(item.imageString, ele);
+                                                        }
+                                                        return;
+                                                    }
+                                                });
+                                            })
+                                        break;
+                                    default:
+                                        list.closest('.list-showcase').querySelector('input[name="amount_decline"]').value = data[0].amount;
+                                        data.forEach(item => {
+                                                Array.from(document.querySelectorAll('.list_image-all-wrapper')).forEach((ele) => {
+                                                    if (ele.dataset.id === item.feedbackID) {
+                                                        if(item.imageString) {
+                                                            handleLoadImageForUserFromFirebase(item.imageString, ele);
+                                                        }
+                                                        return;
+                                                    }
+                                                });
+                                            })
+                                        break;
+                                }
+                                ;
+                                
+                                $results.removeData("loading");
+                            }, 1500)
+                        }
+                    });
+                }
+                ;
+                $(function () {
 
-                                                                    for (i = 0; i < filesAmount; i++) {
-                                                                        var reader = new FileReader();
+                    Array.from($(".reponse-form-drag-area")).forEach(ele => {
+                        ele.addEventListener("drop", function (event) {
+                            event.preventDefault();
+                            let id = "#gallery-photo-add-" + ele.dataset.index;
+                            $(id).prop("files", event.dataTransfer.files);
+                            $(id).trigger("change");
+                        });
+                    })
 
-                                                                        reader.onload = function (event) {
-                                                                            $($.parseHTML("<img>"))
-                                                                                    .attr("src", event.target.result)
-                                                                                    .appendTo(placeToInsertImagePreview);
-                                                                        };
-
-                                                                        reader.readAsDataURL(input.files[i]);
-                                                                    }
-                                                                }
-                                                            };
-
-                                                            var imagesPreview2 = function (input) {
-                                                                if (input.files) {
-                                                                    var filesAmount = input.files.length;
-
-                                                                    for (i = 0; i < filesAmount; i++) {
-                                                                        var reader = new FileReader();
-
-                                                                        reader.onload = function (event) {
-                                                                            $(".avatar").attr("src", event.target.result);
-                                                                        };
-
-                                                                        reader.readAsDataURL(input.files[i]);
-                                                                    }
-                                                                }
-                                                            };
-
-                                                            function loadResultsPipeStyle(index, list) {
-                                                                let amount;
-                                                                switch (index) {
-                                                                    case "0":
-                                                                        amount = list.closest('.pipe').querySelector('input[name="amount_all"]').value;
-                                                                        break;
-                                                                    case "1":
-                                                                        amount = list.closest('.pipe').querySelector('input[name="amount_done"]').value;
-                                                                        break;
-                                                                    case "2":
-                                                                        amount = list.closest('.pipe').querySelector('input[name="amount_onGoing"]').value;
-                                                                        break;
-                                                                    default:
-                                                                        amount = list.closest('.pipe').querySelector('input[name="amount_decline"]').value;
-                                                                        break;
-
-                                                                }
-                                                                ;
-                                                                let search = document.querySelector('input[name="search"]').value;
-                                                                $.ajax({
-                                                                    url: "/SWP391_PROJECT/LoadFeedbackUserPipe",
-                                                                    type: "post",
-                                                                    data: {
-                                                                        amount: amount,
-                                                                        flag_navigation: index,
-                                                                        search: search
-                                                                    },
-                                                                    beforeSend: function (xhr) {
-                                                                        $(list).after($("<li class='loading'>Loading...</li>").fadeIn('slow')).data("loading", true);
-                                                                    },
-                                                                    success: function (data) {
-                                                                        setTimeout(() => {
-                                                                            var $results = $(list);
-
-                                                                            $(".loading").fadeOut('fast', function () {
-                                                                                $(this).remove();
-                                                                            });
-                                                                            switch (index) {
-                                                                                case "0":
-                                                                                    list.closest('.pipe').querySelector('input[name="amount_all"]').value = data.slice(1, data.indexOf("<") - 1);
-                                                                                    break;
-                                                                                case "1":
-                                                                                    list.closest('.pipe').querySelector('input[name="amount_done"]').value = data.slice(1, data.indexOf("<") - 1);
-                                                                                    break;
-                                                                                case "2":
-                                                                                    list.closest('.pipe').querySelector('input[name="amount_onGoing"]').value = data.slice(1, data.indexOf("<") - 1);
-                                                                                    break;
-                                                                                default:
-                                                                                    list.closest('.pipe').querySelector('input[name="amount_decline"]').value = data.slice(1, data.indexOf("<") - 1);
-                                                                                    break;
-                                                                            }
-                                                                            ;
-                                                                            var $data = $(data.slice(data.indexOf("<")));
-                                                                            $results.append($data);
-                                                                            $data.show("slow");
-                                                                            $results.removeData("loading");
-                                                                        }, 1500)
-                                                                    }
-                                                                });
-                                                            }
-                                                            ;
-                                                            function loadResultsListStyle(index, list) {
-                                                                let amount;
-                                                                switch (index) {
-                                                                    case "0":
-                                                                        amount = list.closest('.list-showcase').querySelector('input[name="amount_all"]').value;
-                                                                        break;
-                                                                    case "1":
-                                                                        amount = list.closest('.list-showcase').querySelector('input[name="amount_done"]').value;
-                                                                        break;
-                                                                    case "2":
-                                                                        amount = list.closest('.list-showcase').querySelector('input[name="amount_onGoing"]').value;
-                                                                        break;
-                                                                    default:
-                                                                        amount = list.closest('.list-showcase').querySelector('input[name="amount_decline"]').value;
-                                                                        break;
-
-                                                                }
-                                                                let search = document.querySelector('input[name="search"]').value;
-                                                                let FEEDBACKID_FROM_SEARCH = document.querySelector('input[name="FEEDBACKID_FROM_SEARCH"]').value;
-                                                                $.ajax({
-                                                                    url: "/SWP391_PROJECT/LoadFeedbackUserList",
-                                                                    type: "post",
-                                                                    data: {
-                                                                        amount: amount,
-                                                                        flag_navigation: index,
-                                                                        search: search,
-                                                                        FEEDBACKID_FROM_SEARCH: FEEDBACKID_FROM_SEARCH
-                                                                    },
-                                                                    beforeSend: function (xhr) {
-                                                                        $(list).after($("<li class='loading'>Loading...</li>").fadeIn('slow')).data("loading", true);
-                                                                    },
-                                                                    success: function (data) {
-                                                                        setTimeout(() => {
-                                                                            var $results = $(list);
-
-                                                                            $(".loading").fadeOut('fast', function () {
-                                                                                $(this).remove();
-                                                                            });
-                                                                            switch (index) {
-                                                                                case "0":
-                                                                                    if (search) {
-                                                                                        list.closest('.list-showcase').querySelector('input[name="FEEDBACKID_FROM_SEARCH"]').value = data.slice(1, data.indexOf("<") - 1);
-                                                                                    } else {
-                                                                                        list.closest('.list-showcase').querySelector('input[name="amount_all"]').value = data.slice(1, data.indexOf("<") - 1);
-                                                                                    }
-                                                                                    break;
-                                                                                case "1":
-                                                                                    list.closest('.list-showcase').querySelector('input[name="amount_done"]').value = data.slice(1, data.indexOf("<") - 1);
-                                                                                    break;
-                                                                                case "2":
-                                                                                    list.closest('.list-showcase').querySelector('input[name="amount_onGoing"]').value = data.slice(1, data.indexOf("<") - 1);
-                                                                                    break;
-                                                                                default:
-                                                                                    list.closest('.list-showcase').querySelector('input[name="amount_decline"]').value = data.slice(1, data.indexOf("<") - 1);
-                                                                                    break;
-                                                                            }
-                                                                            ;
-                                                                            var $data = $(data.slice(data.indexOf("<")));
-                                                                            $results.append($data);
-                                                                            $data.show("slow");
-                                                                            $results.removeData("loading");
-                                                                        }, 1500)
-                                                                    }
-                                                                });
-                                                            }
-                                                            ;
-
-                                                            $(function () {
-
-                                                                $(document).on("change", ":file", function () {
-                                                                    var input = $(this),
-                                                                            numFiles = input.get(0).files ? input.get(0).files.length : 1,
-                                                                            label = input.val().replace(/\\/g, "/").replace(/.*\//, "");
-                                                                    input.trigger("fileselect", [numFiles, label]);
-                                                                });
-
-                                                                $(document).ready(function () {
-                                                                    $(":file").on("fileselect", function (event, numFiles, label) {
-                                                                        var input = $(this).parents(".input-file-wrap").find(":text"),
-                                                                                log = numFiles > 1 ? numFiles + " files selected" : label;
-                                                                        if (input.length) {
-                                                                            input.val(log);
-                                                                        }
-                                                                    });
-                                                                });
-
-
-                                                                $("#gallery-photo-add-1").on("change", function (e) {
-                                                                    imagesPreview(this, "div.tab-img-1");
-                                                                });
-                                                                $("#gallery-photo-add-2").on("change", function (e) {
-                                                                    console.log(e.target);
-                                                                    imagesPreview(this, "div.tab-img-2");
-                                                                });
-                                                                $("#gallery-photo-add-3").on("change", function (e) {
-                                                                    console.log(e.target);
-                                                                    imagesPreview(this, "div.tab-img-3");
-                                                                });
-                                                                $("#gallery-photo-add-4").on("change", function (e) {
-                                                                    console.log(e.target);
-                                                                    imagesPreview(this, "div.tab-img-4");
-                                                                });
-
-                                                                $("#image").on("change", function (e) {
-                                                                    imagesPreview2(this);
-                                                                });
-
+                    $("#Image").on("custom", function (event, param1, param2) {
+                        alert(param1 + "\n" + param2);
+                    });
+                    $(document).on("change", ":file", function () {
+                        var input = $(this),
+                                numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                                label = input.val().replace(/\\/g, "/").replace(/.*\//, "");
+                        input.trigger("fileselect", [numFiles, label]);
+                    });
+                    $(document).ready(function () {
+                        $(":file").on("fileselect", function (event, numFiles, label) {
+                            var input = $(this).parents(".input-file-wrap").find(":text"),
+                                    log = numFiles > 1 ? numFiles + " files selected" : label;
+                            if (input.length) {
+                                input.val(log);
+                            }
+                        });
+                    });
+                    $("#gallery-photo-add-1").on("change", function (e) {
+                        imagesPreview(this, "div.tab-img-1");
+                        e.target.closest('.reponse-form-drag-area').querySelector('header').innerHTML = `Click <strong>Browse File</strong> to remove all image`;
+                        e.target.closest('.reponse-form-drag-area').querySelector('span').style.margin = '5px 0';
+                    });
+                    $("#gallery-photo-add-2").on("change", function (e) {
+                        imagesPreview(this, "div.tab-img-2");
+                        e.target.closest('.reponse-form-drag-area').querySelector('header').innerHTML = `Click <strong>Browse File</strong> to remove all image`;
+                        e.target.closest('.reponse-form-drag-area').querySelector('span').style.margin = '5px 0';
+                    });
+                    $("#gallery-photo-add-3").on("change", function (e) {
+                        e.target.closest('.reponse-form-drag-area').querySelector('header').innerHTML = `Click <strong>Browse File</strong> to remove all image`;
+                        e.target.closest('.reponse-form-drag-area').querySelector('span').style.margin = '5px 0';
+                        imagesPreview(this, "div.tab-img-3");
+                    });
+                    $("#gallery-photo-add-4").on("change", function (e) {
+                        e.target.closest('.reponse-form-drag-area').querySelector('header').innerHTML = `Click <strong>Browse File</strong> to remove all image`;
+                        e.target.closest('.reponse-form-drag-area').querySelector('span').style.margin = '5px 0';
+                        imagesPreview(this, "div.tab-img-4");
+                    });
+                    $("#image").on("change", function (e) {
+                        imagesPreview2(this);
+                    });
 //                                                                Scroll and load more data
-                                                                Array.from($(".pipe .pipe-list")).forEach(item => {
-                                                                    item.addEventListener('scroll', (e) => {
-                                                                        var list = e.target.closest('.pipe .pipe-list');
-                                                                        if (!e.target.getAttribute("data-loading")) {
-                                                                            if (Math.ceil(list.offsetHeight + list.scrollTop) === list.scrollHeight) {
-                                                                                loadResultsPipeStyle(e.target.dataset.index, list);
-                                                                            }
-                                                                        }
-                                                                    });
-                                                                });
-
-                                                                Array.from($(".list-showcase-item .pipe-list")).forEach(item => {
-                                                                    item.addEventListener('scroll', (e) => {
-                                                                        var list = e.target.closest('.list-showcase-item .pipe-list');
-                                                                        if (!e.target.getAttribute("data-loading")) {
-                                                                            if (Math.ceil(list.offsetHeight + list.scrollTop) === list.scrollHeight) {
-                                                                                loadResultsListStyle(e.target.closest('.list-showcase-item .pipe-list').dataset.index, list);
-                                                                            }
-                                                                        }
-                                                                    });
-                                                                });
-
-
-                                                            });
-                                                            window.onload = function () {
-                                                                const flag = localStorage.getItem('flag');
-                                                                if (JSON.parse(flag) === true) {
-                                                                    var feedback = JSON.parse(localStorage.getItem('feedbackDoneID'));
-                                                                    var id = feedback[1].toString();
-                                                                    var loop = document.getElementsByClassName("pipe-item-title");
+                    Array.from($(".pipe .pipe-list")).forEach(item => {
+                        item.addEventListener('scroll', (e) => {
+                            var list = e.target.closest('.pipe .pipe-list');
+                            if (!e.target.getAttribute("data-loading")) {
+                                if (Math.ceil(list.offsetHeight + list.scrollTop) === list.scrollHeight) {
+                                    loadResultsPipeStyle(e.target.dataset.index, list);
+                                }
+                            }
+                        });
+                    });
+                    Array.from($(".list-showcase-item .pipe-list")).forEach(item => {
+                        item.addEventListener('scroll', (e) => {
+                            var list = e.target.closest('.list-showcase-item .pipe-list');
+                            if (!e.target.getAttribute("data-loading")) {
+                                if (Math.ceil(list.offsetHeight + list.scrollTop) === list.scrollHeight) {
+                                    loadResultsListStyle(e.target.closest('.list-showcase-item .pipe-list').dataset.index, list);
+                                }
+                            }
+                        });
+                    });
+                });
+                window.onload = function () {
+                    const flag = localStorage.getItem('flag');
+                    if (JSON.parse(flag) === true) {
+                        var feedback = JSON.parse(localStorage.getItem('feedbackDoneID'));
+                        var id = feedback[1].toString();
+                        var loop = document.getElementsByClassName("pipe-item-title");
 //        var loopComment = document.getElementsByClassName("pipe-item-title-comment");
 
-                                                                    for (let i = 0; i < Array.from(loop).length; i++) {
-                                                                        console.log(Array.from(loop)[i].innerHTML);
-                                                                        if ((Array.from(loop)[i].innerHTML).includes(id)) {
-                                                                            setTimeout(function () {
-                                                                                (loop[i]).scrollIntoView({
-                                                                                    behavior: "smooth",
-                                                                                    block: "center"
-                                                                                });
-                                                                            }, 700);
-                                                                        }
-                                                                    }
-                                                                    localStorage.removeItem('flag');
-
-                                                                }
-                                                            }
+                        for (let i = 0; i < Array.from(loop).length; i++) {
+                            if ((Array.from(loop)[i].innerHTML).includes(id)) {
+                                setTimeout(function () {
+                                    (loop[i]).scrollIntoView({
+                                        behavior: "smooth",
+                                        block: "center"
+                                    });
+                                }, 700);
+                            }
+                        }
+                        localStorage.removeItem('flag');
+                    }
+                 }
         </script>
     </body>
 </html>

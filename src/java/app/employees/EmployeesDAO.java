@@ -333,17 +333,22 @@ public class EmployeesDAO {
                     String reason = rs.getString("Reason");
                     String location = rs.getString("Location");
                     String des = rs.getString("Description");
-                    byte[] tmp = rs.getBytes("Image");
-                    if (tmp != null) {
-                        base64Image = Base64.getEncoder().encodeToString(tmp);
-                    } else {
-                        base64Image = "";
+                    String image = rs.getString("ImageFirebase");
+                    if(image==null){
+                        image="";
                     }
+                    
+//                    byte[] tmp = rs.getBytes("Image");
+//                    if (tmp != null) {
+//                        base64Image = Base64.getEncoder().encodeToString(tmp);
+//                    } else {
+//                        base64Image = "";
+//                    }
                     boolean flag = rs.getBoolean("flag");
                     String date = rs.getString("date");
                     String facilityName = rs.getString("FacilityName");
                     String feedbackDetailID = rs.getString("feedbackDetailID");
-                    dto.add(new FeedbackDetailDTO(feedbackDetailID, facilityID, userID, feedbackID, quantity, reason, location, base64Image, flag, facilityName, date, des));
+                    dto.add(new FeedbackDetailDTO(feedbackDetailID, facilityID, userID, feedbackID, quantity, reason, location, flag, facilityName, date, des,image));
                 }
             }
 
@@ -389,19 +394,20 @@ public class EmployeesDAO {
                 while (rs.next()) {
                     String quantity = rs.getString("quantity");
                     String location = rs.getString("location");
-                    byte[] tmp = rs.getBytes("Image");
-                    if (tmp != null) {
-                        base64Image = Base64.getEncoder().encodeToString(tmp);
-                    } else {
-                        base64Image = "";
-                    }
+                    String image = rs.getString("ImageFirebase");
+//                    byte[] tmp = rs.getBytes("Image");
+//                    if (tmp != null) {
+//                        base64Image = Base64.getEncoder().encodeToString(tmp);
+//                    } else {
+//                        base64Image = "";
+//                    }
                     String date = rs.getString("Date");
                     String facilityName = rs.getString("FacilityName");
                     String statusID = rs.getString("StatusID");
                     String des = rs.getString("Description");
                     String detailId = rs.getString("FeedbackDetailID");
                     String responseId = rs.getString("ResponseID");
-                    dto.add(new ResponseDTO(detailId, userID, base64Image, des, statusID, responseId, facilityName, location, "", quantity, date, ""));
+                    dto.add(new ResponseDTO(detailId, userID, image, des, statusID, responseId, facilityName, location, "", quantity, date, ""));
                 }
             }
 
@@ -660,6 +666,73 @@ public class EmployeesDAO {
             }
         }
         return count;
+    }
+
+    public String getDeclineResponeForFeedback(String feedbackDetailID) throws SQLException {
+
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String reason = "";
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " SELECT t2.DeclinedReason as reason\n"
+                        + "FROM tblResponseFeedback t1\n"
+                        + "JOIN tblDeclinedResponse t2 on t2.ResponseID =t1.ResponseID\n"
+                        + " WHERE t1.FeedbackDetailID = ? AND t1.StatusID='decline' \n"
+                        + " GROUP BY t2.DeclinedReason ";
+                ps = conn.prepareCall(sql);
+                ps.setString(1, feedbackDetailID);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    reason = rs.getString("reason");
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return reason;
+    }
+
+    public String getEmployeeDeclineResponeForFeedback(String feedbackDetailID) throws SQLException {
+
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String fullName = "";
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " SELECT t3.FullName \n"
+                        + "FROM tblResponseFeedback t1\n"
+                        + "JOIN tblFeedbackDetail t2 on t1.UserID =t2.UserID\n"
+                        + "JOIN tblUser t3 on t2.UserID = t3.UserID\n"
+                        + "WHERE t1.FeedbackDetailID = ? AND t1.StatusID='decline'\n"
+                        + "GROUP BY t3.FullName ";
+                ps = conn.prepareCall(sql);
+                ps.setString(1, feedbackDetailID);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    fullName = rs.getString("FullName");
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return fullName;
     }
 
     public String getDeclineReason(String responseId) throws SQLException {
@@ -926,12 +999,12 @@ public class EmployeesDAO {
                     String Image = rs.getString("Image");
                     int count = rs.getInt("count");
                     byte[] tmp = rs.getBytes("BinaryImage");
-                    int rating=rs.getInt("Rating");
+                    int rating = rs.getInt("Rating");
                     if (tmp != null) {
                         String base64Image = Base64.getEncoder().encodeToString(tmp);
-                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, "", "", count,rating)));
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, "", "", count, rating)));
                     } else {
-                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, "", "", count,rating)));
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, "", "", count, rating)));
                     }
                 }
             }
@@ -976,12 +1049,12 @@ public class EmployeesDAO {
                     String StatusID = rs.getString("StatusID");
                     String Image = rs.getString("Image");
                     byte[] tmp = rs.getBytes("BinaryImage");
-                    int rating=rs.getInt("Rating");
+                    int rating = rs.getInt("Rating");
                     if (tmp != null) {
                         String base64Image = Base64.getEncoder().encodeToString(tmp);
                         list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, base64Image, "", "", 0, rating)));
                     } else {
-                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, "", "", 0,rating)));
+                        list.add((new UserDTO(userID, name, "*****", email, RoleID, StatusID, Image, "", "", 0, rating)));
                     }
                 }
             }
@@ -1027,7 +1100,7 @@ public class EmployeesDAO {
                     String userID = rs.getString("UserID");
                     String location = rs.getString("Location");
                     String quantity = rs.getString("quantity");
-                    String statusID=rs.getString("StatusID");
+                    String statusID = rs.getString("StatusID");
                     list.add(new ResponseDTO(feedbackdetailID, userID, "", description, statusID, responeID, facilityName, location, "", quantity, date, ""));
 
                 }
@@ -1047,6 +1120,7 @@ public class EmployeesDAO {
         }
         return list;
     }
+
     public List<ResponseDTO> getListAllRecentRespone() throws SQLException {
         List<ResponseDTO> list = new ArrayList<>();
         Connection conn = null;
@@ -1072,7 +1146,7 @@ public class EmployeesDAO {
                     String userID = rs.getString("UserID");
                     String location = rs.getString("Location");
                     String quantity = rs.getString("quantity");
-                    String statusID=rs.getString("StatusID");
+                    String statusID = rs.getString("StatusID");
                     list.add(new ResponseDTO(feedbackdetailID, userID, "", description, statusID, responeID, facilityName, location, "", quantity, date, ""));
 
                 }
@@ -1092,7 +1166,6 @@ public class EmployeesDAO {
         }
         return list;
     }
-
 
     public List<ResponseDTO> getListRecentNotDeclineResponeRating() throws SQLException {
         List<ResponseDTO> list = new ArrayList<>();

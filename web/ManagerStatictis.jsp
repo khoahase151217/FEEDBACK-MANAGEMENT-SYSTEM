@@ -33,7 +33,7 @@
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
         ></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage1.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ManagerStatictis.css" />
     </head>
     <body>
@@ -1267,7 +1267,6 @@
                         url: "/SWP391_PROJECT/DonutStatisticController",
                         dataType: "JSON",
                         success: function (data) {
-                            console.log(data);
                             google.charts.load("current", {packages: ["corechart"]});
                             google.charts.setOnLoadCallback(() => {
                                 drawChart2(data);

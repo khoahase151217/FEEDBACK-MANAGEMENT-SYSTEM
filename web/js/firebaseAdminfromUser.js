@@ -4,8 +4,7 @@
 //password: Hoangtuquan2
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.2.0/firebase-app.js";
-// https://firebase.google.com/docs/web/setup#available-libraries
-//Config
+
 const firebaseConfig = {
     apiKey: "AIzaSyDgj70nlsLRc3pYoa_I2NiIV1I8U3A8Eq8",
     authDomain: "facilityfeedbackmanagement.firebaseapp.com",

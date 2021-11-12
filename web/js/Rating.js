@@ -1,11 +1,5 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-$(':radio').change(function() {
+$(':radio').change(function () {
     console.log('New star rating: ' + this.value);
-  });
+});
 
 

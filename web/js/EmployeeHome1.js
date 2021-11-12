@@ -176,7 +176,6 @@ document.querySelector(".reponse-form").addEventListener("click", (e) => {
 
 const formMessage = document.querySelector(".feedback-form-message");
 formMessage.addEventListener("click", (e) => {
-    console.log(e.target);
     if (!e.target.classList.contains("feedback-form-message-modal"))
         return;
     formMessage.classList.remove("open");
@@ -222,3 +221,12 @@ Array.from(document.querySelectorAll(".btn-submit-links.trash")).forEach(item =>
 
     })
 })
+
+function decline(){
+    var proceed=confirm("Do you want to decline this task?");
+    if (proceed){
+        return true;
+    }else{
+        return false;
+    }
+}
