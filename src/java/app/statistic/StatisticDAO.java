@@ -239,7 +239,7 @@ public class StatisticDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 String sql = 
-                        "select top 1 * ,t2.FullName,t2.Email\n"
+                        "select top 1 * ,t2.FullName,t2.Email \n"
                         + "from tblFeedback t1\n"
                         + "JOIN tblUser t2 on t1.UserID = t2.UserID\n"
                         + "where t1.statusID='pending' and t1.TrashDate IS  NULL \n"
