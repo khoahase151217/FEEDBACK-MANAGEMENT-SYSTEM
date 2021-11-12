@@ -65,7 +65,7 @@ window.onload = function () {
                         document.querySelector('.showcase-item-dropdown-actual-notification').classList.add('active');
                         document.querySelector('.showcase-item-dropdown-actual-notification').innerHTML = count;
                         document.querySelector('.showcase-item-dropdown-select').classList.add('active');
-                        document.querySelector('.showcase-item-dropdown-sub-title').innerHTML = "You have " + count + " new feedback";
+                        document.querySelector('.showcase-item-dropdown-sub-title').innerHTML = `You have <strong>${count}</strong> new feedback`;
                     }
 
                     remove(ref(database, "Admin-done/" + done.id), {

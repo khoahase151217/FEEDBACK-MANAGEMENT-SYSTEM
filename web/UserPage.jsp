@@ -635,6 +635,15 @@
             </div>
         </div>
 
+        <div class="loader">
+            <div class="modal loader-modal">
+                <div class="loader-main">
+                    <div class="lds-dual-ring"></div>
+                    <p>Loading ...</p>
+                </div>
+            </div>
+        </div>
+
 
         <header class="header">
             <div class="container">
@@ -657,12 +666,11 @@
                                     />
                                 <div class="actual-input">
                                     <input type="text" name="search" id="search" placeholder="Device name" value="${requestScope.
-                                                                                                                   SEARCH}"/>
+                                                                                                                    SEARCH}"/>
                                     <input type="hidden" name="amount_done" value="${requestScope.COUNT_FLAG_DONE}">
                                     <input type="hidden" name="amount_decline" value="${requestScope.COUNT_FLAG_DECLINE}">
                                     <input type="hidden" name="amount_onGoing" value="${requestScope.COUNT_FLAG_ONGOING}">
                                     <input type="hidden" name="amount_all" value="${requestScope.COUNT_FLAG_ALL}">
-                                    <!--<label>Search ...</label>-->
                                 </div>
                             </div>
                         </form>
@@ -719,11 +727,11 @@
                             <span></span>
                             <div class="showcase-item-dropdown-list">
                                 <h4 class="showcase-item-dropdown-title">Notification</h4>
+<!--                                <h5 class="showcase-item-dropdown-sub-title sub-title-no">
+                                    You have <Strong>${sessionScope.NOTIFICATION_QUANTITY}</Strong> new tasks
+                                </h5>-->
                                 <h5 class="showcase-item-dropdown-sub-title">
-                                    You have ${sessionScope.NOTIFICATION_QUANTITY} new tasks
-                                </h5>
-                                <h5 class="showcase-item-dropdown-sub-title sub-title-no">
-                                    No notification can be found ...
+                                    No notification can be found
                                 </h5> 
 
                                 <div class="pipe-list">
@@ -800,13 +808,13 @@
                                                     </div>
 
                                                     <script type="module">
-                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser.js';
+                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser2.js';
                                                         Array.from(document.querySelectorAll('.pipe_image-all-wrapper')).forEach((ele) => {
                                                         if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
                                                         //  getImageString
                                                         let imageString = '<%=feedback.getImageFirebase()%>';
                                                         if(imageString) {
-                                                         handleLoadImageForUserFromFirebase(imageString, ele);
+                                                        handleLoadImageForUserFromFirebase(imageString, ele);
                                                         }
                                                         return;
                                                         };
@@ -857,13 +865,13 @@
                                                     <div class="image-all-wrapper pipe_image-all-wrapper" data-id="<%=feedback.getFeedbackId()%>">
                                                     </div>
                                                     <script type="module">
-                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser.js';
+                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser2.js';
                                                         Array.from(document.querySelectorAll('.pipe_image-all-wrapper')).forEach((ele) => {
                                                         if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
                                                         //  getImageString
                                                         let imageString = '<%=feedback.getImageFirebase()%>';
                                                         if(imageString) {
-                                                         handleLoadImageForUserFromFirebase(imageString, ele);
+                                                        handleLoadImageForUserFromFirebase(imageString, ele);
                                                         }
                                                         return;
                                                         };
@@ -914,13 +922,13 @@
 
                                                     <div class="image-all-wrapper pipe_image-all-wrapper" data-id="<%=feedback.getFeedbackId()%>"></div>
                                                     <script type="module">
-                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser.js';
+                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser2.js';
                                                         Array.from(document.querySelectorAll('.pipe_image-all-wrapper')).forEach((ele) => {
                                                         if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
                                                         //  getImageString
                                                         let imageString = '<%=feedback.getImageFirebase()%>';
                                                         if(imageString) {
-                                                         handleLoadImageForUserFromFirebase(imageString, ele);
+                                                        handleLoadImageForUserFromFirebase(imageString, ele);
                                                         }
                                                         return;
                                                         };
@@ -1011,13 +1019,13 @@
                                                     </div>
 
                                                     <script type="module">
-                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser.js';
+                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser2.js';
                                                         Array.from(document.querySelectorAll('.List_All')).forEach((ele) => {
                                                         if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
                                                         //  getImageString
                                                         let imageString = '<%=feedback.getImageFirebase()%>';
                                                         if(imageString) {
-                                                         handleLoadImageForUserFromFirebase(imageString, ele);
+                                                        handleLoadImageForUserFromFirebase(imageString, ele);
                                                         }
                                                         return;
                                                         };
@@ -1061,13 +1069,13 @@
                                                     </div>
 
                                                     <script type="module">
-                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser.js';
+                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser2.js';
                                                         Array.from(document.querySelectorAll('.list_image-all-wrapper')).forEach((ele) => {
                                                         if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
                                                         //  getImageString
                                                         let imageString = '<%=feedback.getImageFirebase()%>';
                                                         if(imageString) {
-                                                         handleLoadImageForUserFromFirebase(imageString, ele);
+                                                        handleLoadImageForUserFromFirebase(imageString, ele);
                                                         }
                                                         return;
                                                         };
@@ -1109,14 +1117,14 @@
                                                     </div>
 
                                                     <script type="module">
-                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser.js';
+                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser2.js';
 
                                                         Array.from(document.querySelectorAll('.list_image-all-wrapper')).forEach((ele) => {
                                                         if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
                                                         //  getImageString
                                                         let imageString = '<%=feedback.getImageFirebase()%>';
                                                         if(imageString) {
-                                                         handleLoadImageForUserFromFirebase(imageString, ele);
+                                                        handleLoadImageForUserFromFirebase(imageString, ele);
                                                         }
                                                         return;
                                                         };
@@ -1157,14 +1165,14 @@
                                                     </div>
 
                                                     <script type="module">
-                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser.js';
+                                                        import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser2.js';
 
                                                         Array.from(document.querySelectorAll('.list_image-all-wrapper')).forEach((ele) => {
                                                         if (ele.dataset.id === '<%=feedback.getFeedbackId()%>') {
                                                         //  getImageString
                                                         let imageString = '<%=feedback.getImageFirebase()%>';
                                                         if(imageString) {
-                                                         handleLoadImageForUserFromFirebase(imageString, ele);
+                                                        handleLoadImageForUserFromFirebase(imageString, ele);
                                                         }
                                                         return;
                                                         };
@@ -1314,13 +1322,13 @@
 
         <!-- Query -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/User.js"></script>
+        <script src="${pageContext.request.contextPath}/js/User1.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseForUser.js"></script>
-        <script type="module" src="${pageContext.request.contextPath}/js/firebaseUserfromAdmin.js"></script>
-        <script type="module" src="${pageContext.request.contextPath}/js/firebaseStorageForUser.js"></script>
+        <script type="module" src="${pageContext.request.contextPath}/js/firebaseUserfromAdmin1.js"></script>
+        <script type="module" src="${pageContext.request.contextPath}/js/firebaseStorageForUser2.js"></script>
 
         <script type="module">
-          import handleLoadImageForUserFromFirebase from './js/firebaseStorageForUser.js';
+          import handleLoadImageForUserFromFirebase from './js/firebaseStorageForUser2.js';
                 var imagesPreview = function (input, placeToInsertImagePreview) {
                     if (input.files) {
                         var filesAmount = input.files.length;
@@ -1646,9 +1654,6 @@
                         });
                     });
                 });
-//                window.onload = function () {
-//                 
-//                 }
         </script>
     </body>
 </html>

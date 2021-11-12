@@ -273,10 +273,7 @@
                                     <div class="showcase-item-dropdown-list">
                                         <h4 class="showcase-item-dropdown-title">Notification</h4>
                                         <h5 class="showcase-item-dropdown-sub-title">
-                                            You have ${sessionScope.NOTIFICATION_QUANTITY} new tasks
-                                        </h5>
-                                        <h5 class="showcase-item-dropdown-sub-title sub-title-no">
-                                            No notification can be found ...
+                                            No notification can be found
                                         </h5> 
 
                                         <div class="pipe-list">
@@ -596,7 +593,7 @@
                                                                                                                                                                             />-->
                                                                                 </c:if>
                                                                                 <script type="module">
-                                                                                    import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser.js';
+                                                                                    import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser2.js';
                                                                                     //  getImageString
                                                                                     let imageString = '${feedbackDetail.imageFirebase}';
                                                                                     if(imageString) {
@@ -704,7 +701,7 @@
                                                                                                                                                                             />-->
                                                                                 </c:if>
                                                                                 <script type="module">
-                                                                                    import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser.js';
+                                                                                    import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser2.js';
                                                                                     //  getImageString
                                                                                     let imageString = '${feedbackDetail.imageFirebase}';
                                                                                     if(imageString) {
@@ -812,7 +809,7 @@
                                                                                                                                                                             />-->
                                                                                 </c:if>
                                                                                 <script type="module">
-                                                                                    import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser.js';
+                                                                                    import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser2.js';
                                                                                     //  getImageString
                                                                                     let imageString = '${feedbackDetail.imageFirebase}';
                                                                                     if(imageString) {
@@ -1001,7 +998,7 @@
                                                                                                                                                                     />-->
                                                                             </c:if>
                                                                             <script type="module">
-                                                                                import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser.js';
+                                                                                import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser2.js';
                                                                                 //  getImageString
                                                                                 let imageString = '${response.image}';
                                                                                 if(imageString) {
@@ -1097,7 +1094,7 @@
                                                                                                                                                                     />-->
                                                                             </c:if>
                                                                             <script type="module">
-                                                                                import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser.js';
+                                                                                import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser2.js';
                                                                                 //  getImageString
                                                                                 let imageString = '${response.image}';
                                                                                 if(imageString) {
