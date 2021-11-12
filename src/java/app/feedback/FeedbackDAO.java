@@ -583,7 +583,7 @@ public class FeedbackDAO {
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t3.Name like N'" + "%" + search + "%" + "' "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name,t1.comment "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name,t1.comment,t1.DoneDate "
                         + " order by t1.FeedbackID desc ";
                 ps = conn.prepareStatement(sql);
 //                ps.setString(1, '%' + search + '%');
@@ -635,7 +635,7 @@ public class FeedbackDAO {
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t3.Name like N'" + "%" + search + "%" + "' "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name,t1.comment "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name,t1.comment,t1.DoneDate "
                         + " order by t1.FeedbackID desc "
                         + " OFFSET ? ROWS "
                         + " FETCH NEXT 10 ROWS ONLY";
@@ -732,7 +732,7 @@ public class FeedbackDAO {
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t1.statusID='done' "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name,t1.TrashDate,t1.comment "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name,t1.TrashDate,t1.comment,t1.DoneDate "
                         + " order by t1.FeedbackID desc ";
                 ps = conn.prepareStatement(sql);
                 rs = ps.executeQuery();
@@ -779,7 +779,7 @@ public class FeedbackDAO {
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t1.statusID='done' "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name,t1.comment "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name,t1.comment,t1.DoneDate "
                         + " order by t1.FeedbackID desc "
                         + " OFFSET ? ROWS "
                         + " FETCH NEXT 10 ROWS ONLY";
@@ -876,7 +876,7 @@ public class FeedbackDAO {
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t1.statusID='onGoing' "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name,t1.TrashDate,t1.comment "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name,t1.TrashDate,t1.comment,t1.DoneDate "
                         + " order by t1.FeedbackID desc ";
                 ps = conn.prepareStatement(sql);
                 rs = ps.executeQuery();
@@ -923,7 +923,7 @@ public class FeedbackDAO {
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t1.statusID='onGoing' "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name,t1.comment "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name,t1.comment,t1.DoneDate "
                         + " order by t1.FeedbackID desc "
                         + " OFFSET ? ROWS "
                         + " FETCH NEXT 10 ROWS ONLY";
@@ -1020,7 +1020,7 @@ public class FeedbackDAO {
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t1.statusID='pending'  "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name,t1.TrashDate,t1.comment  "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name,t1.TrashDate,t1.comment,t1.DoneDate  "
                         + " order by t1.FeedbackID desc ";
                 ps = conn.prepareStatement(sql);
                 rs = ps.executeQuery();
@@ -1067,7 +1067,7 @@ public class FeedbackDAO {
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t1.statusID='pending'  "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name,t1.TrashDate,t1.comment  "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name,t1.TrashDate,t1.comment,t1.DoneDate  "
                         + " order by t1.FeedbackID desc ";
                 ps = conn.prepareStatement(sql);
                 rs = ps.executeQuery();
@@ -1115,7 +1115,7 @@ public class FeedbackDAO {
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t1.statusID='pending'  "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name,t1.comment "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name,t1.comment,t1.DoneDate "
                         + " order by t1.FeedbackID desc "
                         + " OFFSET ? ROWS "
                         + " FETCH NEXT 10 ROWS ONLY";
@@ -1210,7 +1210,7 @@ public class FeedbackDAO {
                         + " ON t1.StatusID=t2.FeedbackStatusID "
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name,t1.TrashDate,t1.comment"
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name,t1.TrashDate,t1.comment,t1.DoneDate"
                         + " order by t1.FeedbackID desc ";
                 ps = conn.prepareStatement(sql);
                 rs = ps.executeQuery();
@@ -1256,7 +1256,7 @@ public class FeedbackDAO {
                         + " ON t1.StatusID=t2.FeedbackStatusID "
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name,t1.comment "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name,t1.comment,t1.DoneDate "
                         + " order by t1.FeedbackID desc "
                         + " OFFSET ? ROWS "
                         + " FETCH NEXT 10 ROWS ONLY";
@@ -1775,7 +1775,7 @@ public class FeedbackDAO {
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t1.statusID='decline' "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name,t1.TrashDate,t1.comment  "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t4.Email,t4.FullName,t2.Name,t1.TrashDate,t1.comment,t1.DoneDate  "
                         + " order by t1.FeedbackID desc ";
                 ps = conn.prepareStatement(sql);
                 rs = ps.executeQuery();
@@ -1822,7 +1822,7 @@ public class FeedbackDAO {
                         + " JOIN tblUser t4 "
                         + " ON t1.UserID = t4.UserID "
                         + " WHERE t1.statusID='decline' "
-                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name,t1.comment "
+                        + " group by t1.FeedbackID,t1.UserID,t1.Date,t1.statusID,t1.trashDate,t4.Email,t4.FullName,t2.Name,t1.comment,t1.DoneDate "
                         + " order by t1.FeedbackID desc "
                         + " OFFSET ? ROWS "
                         + " FETCH NEXT 10 ROWS ONLY";
@@ -2097,7 +2097,7 @@ public class FeedbackDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 String sql = " UPDATE tblFeedback "
-                        + " SET statusID='done' "
+                        + " SET statusID='done', DoneDate=CURRENT_TIMESTAMP "
                         + " WHERE FeedbackID=? ";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, feedbackId);

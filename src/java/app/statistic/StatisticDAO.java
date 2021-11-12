@@ -329,7 +329,7 @@ public class StatisticDAO {
                         + "from tblFeedback t1\n"
                         + "JOIN tblUser t2 on t1.UserID = t2.UserID\n"
                         + "where t1.statusID='done' \n"
-                        + "order by t1.FeedbackID desc ";
+                        + "order by t1.DoneDate desc ";
                 stm = conn.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
