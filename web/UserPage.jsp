@@ -1316,7 +1316,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/User2.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseForUser.js"></script>
-        <script type="module" src="${pageContext.request.contextPath}/js/firebaseUserfromAdmin.js"></script>
+        <script type="module" src="${pageContext.request.contextPath}/js/firebaseUserfromAdmin1.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseStorageForUser.js"></script>
 
         <script type="module">
