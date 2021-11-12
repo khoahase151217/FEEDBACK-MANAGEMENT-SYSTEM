@@ -597,7 +597,7 @@
                 </div>
             </section>
         </main>
-        <script src="${pageContext.request.contextPath}/js/adminPage1.js"></script>
+        <script src="${pageContext.request.contextPath}/js/adminPage.js"></script>
         <script src="${pageContext.request.contextPath}/js/ManagerUser1.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseAdminfromUser.js"></script>
         <!-- Query -->
