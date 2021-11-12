@@ -96,22 +96,30 @@
                                                             <c:choose>
                                                                 <c:when test="${feedbackDetail.categoryDevice eq 'TD'}">
                                                                     <c:forEach var="employee" items="${sessionScope.EMPLOYEE_ELETRIC_LIST}">
-                                                                        <option id ="employee_ID" value="${employee.userID}">${employee.fullName}</option>
+                                                                        <c:if test="${feedbackDetail.userID ne employee.userID}">
+                                                                            <option id ="employee_ID" value="${employee.userID}">${employee.fullName}</option>
+                                                                        </c:if>
                                                                     </c:forEach>
                                                                 </c:when>
                                                                 <c:when test="${feedbackDetail.categoryDevice eq 'TN'}">
                                                                     <c:forEach var="employee" items="${sessionScope.EMPLOYEE_WATER_LIST}">
-                                                                        <option id ="employee_ID" value="${employee.userID}">${employee.fullName}</option>
+                                                                        <c:if test="${feedbackDetail.userID ne employee.userID}">
+                                                                            <option id ="employee_ID" value="${employee.userID}">${employee.fullName}</option>
+                                                                        </c:if>
                                                                     </c:forEach>
                                                                 </c:when>
                                                                 <c:when test="${feedbackDetail.categoryDevice eq 'EN'}">
                                                                     <c:forEach var="employee" items="${sessionScope.EMPLOYEE_ENVIROMENT_LIST}">
-                                                                        <option id ="employee_ID" value="${employee.userID}">${employee.fullName}</option>
+                                                                        <c:if test="${feedbackDetail.userID ne employee.userID}">
+                                                                            <option id ="employee_ID" value="${employee.userID}">${employee.fullName}</option>
+                                                                        </c:if>
                                                                     </c:forEach>
                                                                 </c:when>
                                                                 <c:otherwise>
                                                                     <c:forEach var="employee" items="${sessionScope.EMPLOYEE_OTHER_LIST}">
-                                                                        <option id ="employee_ID" value="${employee.userID}">${employee.fullName}</option>
+                                                                        <c:if test="${feedbackDetail.userID ne employee.userID}">
+                                                                            <option id ="employee_ID" value="${employee.userID}">${employee.fullName}</option>
+                                                                        </c:if>
                                                                     </c:forEach>
                                                                 </c:otherwise>
                                                             </c:choose>
@@ -200,22 +208,30 @@
                                                             <c:choose>
                                                                 <c:when test="${feedbackDetail.categoryDevice eq 'TD'}">
                                                                     <c:forEach var="employee" items="${sessionScope.EMPLOYEE_ELETRIC_LIST}">
-                                                                        <option value="${employee.userID}">${employee.fullName}</option>
+                                                                        <c:if test="${feedbackDetail.userID ne employee.userID}">
+                                                                            <option value="${employee.userID}">${employee.fullName}</option>
+                                                                        </c:if>
                                                                     </c:forEach>
                                                                 </c:when>
                                                                 <c:when test="${feedbackDetail.categoryDevice eq 'TN'}">
                                                                     <c:forEach var="employee" items="${sessionScope.EMPLOYEE_WATER_LIST}">
-                                                                        <option value="${employee.userID}">${employee.fullName}</option>
+                                                                        <c:if test="${feedbackDetail.userID ne employee.userID}">
+                                                                            <option value="${employee.userID}">${employee.fullName}</option>
+                                                                        </c:if>
                                                                     </c:forEach>
                                                                 </c:when>
                                                                 <c:when test="${feedbackDetail.categoryDevice eq 'EN'}">
                                                                     <c:forEach var="employee" items="${sessionScope.EMPLOYEE_ENVIROMENT_LIST}">
-                                                                        <option value="${employee.userID}">${employee.fullName}</option>
+                                                                        <c:if test="${feedbackDetail.userID ne employee.userID}">
+                                                                            <option value="${employee.userID}">${employee.fullName}</option>
+                                                                        </c:if>
                                                                     </c:forEach>
                                                                 </c:when>
                                                                 <c:otherwise>
                                                                     <c:forEach var="employee" items="${sessionScope.EMPLOYEE_OTHER_LIST}">
-                                                                        <option value="${employee.userID}">${employee.fullName}</option>
+                                                                        <c:if test="${feedbackDetail.userID ne employee.userID}">
+                                                                            <option value="${employee.userID}">${employee.fullName}</option>
+                                                                        </c:if>
                                                                     </c:forEach>
                                                                 </c:otherwise>
                                                             </c:choose>

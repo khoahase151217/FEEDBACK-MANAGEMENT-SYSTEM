@@ -31,38 +31,38 @@ const facilityCategoryContentItems = document.querySelectorAll(
         );
 
 window.addEventListener('load', () => {
-    
+
     //scrolltoview new FB
-     const flag = localStorage.getItem('flag');
-                                                    if (JSON.parse(flag) === true) {
-                                                        var feedback = JSON.parse(localStorage.getItem('feedbackID'));
-                                                        var id = feedback[1].toString();
-                                                        var loop = document.getElementsByClassName("pipe-item-title");
-                                                        var loopActive = document.getElementsByTagName("a");
+    const flag = localStorage.getItem('flag');
+    if (JSON.parse(flag) === true) {
+        var feedback = JSON.parse(localStorage.getItem('feedbackID'));
+        var id = feedback[1].toString();
+        var loop = document.getElementsByClassName("pipe-item-title");
+        var loopActive = document.getElementsByTagName("a");
 
-                                                        for (let i = 0; i < Array.from(loop).length; i++) {
-                                                            if ((Array.from(loop)[i].innerHTML).includes(id)) {
-                                                                setTimeout(function () {
-                                                                    (loop[i]).scrollIntoView({
-                                                                        behavior: "smooth",
-                                                                        block: "center"
-                                                                    });
-                                                                }, 700);
-                                                            }
-                                                        }
+        for (let i = 0; i < Array.from(loop).length; i++) {
+            if ((Array.from(loop)[i].innerHTML).includes(id)) {
+                setTimeout(function () {
+                    (loop[i]).scrollIntoView({
+                        behavior: "smooth",
+                        block: "center"
+                    });
+                }, 700);
+            }
+        }
 
-                                                        for (let i = 0; i < Array.from(loopActive).length; i++) {
-                                                            if ((loopActive[i].href).includes(id) && (loopActive[i].href).includes("response_id")) {
-                                                                loopActive[i].click();
-                                                            }
-                                                        }
+        for (let i = 0; i < Array.from(loopActive).length; i++) {
+            if ((loopActive[i].href).includes(id) && (loopActive[i].href).includes("response_id")) {
+                loopActive[i].click();
+            }
+        }
 
-                                                        localStorage.removeItem('flag');
+        localStorage.removeItem('flag');
 
-                                                    }
+    }
     //set new noticout
-        localStorage.setItem("NotiCount", JSON.stringify(0));
-    
+    localStorage.setItem("NotiCount", JSON.stringify(0));
+
     navigationScrollBar.style.left = document.querySelector('.navigation-item.active').offsetLeft + "px";
     navigationScrollBar.style.width = document.querySelector('.navigation-item.active').offsetWidth + "px";
     if (document.querySelector('.facility-item-main-item.active').dataset.index === '2') {
@@ -233,33 +233,33 @@ document.querySelector(".user-form .modal").addEventListener("click", (e) => {
 });
 
 
-Array.from(document.querySelectorAll(".btn--done")).forEach(item=>{
-    item.addEventListener("click",()=>{
-    var done = JSON.parse(localStorage.getItem("Doneobj"))||{
-        id:0,
-        flag:false
-    };
-    if(done.flag===false){
-    done.id++;
-    done.flag=true;
-    localStorage.setItem("Doneobj", JSON.stringify(done));
-    }
-    
-})
+Array.from(document.querySelectorAll(".btn--done")).forEach(item => {
+    item.addEventListener("click", () => {
+        var done = JSON.parse(localStorage.getItem("Doneobj")) || {
+            id: 0,
+            flag: false
+        };
+        if (done.flag === false) {
+            done.id++;
+            done.flag = true;
+            localStorage.setItem("Doneobj", JSON.stringify(done));
+        }
+
+    })
 })
 
-Array.from(document.querySelectorAll(".icon-block")).forEach(item=>{
-    item.addEventListener("click",()=>{
-    var emp = JSON.parse(localStorage.getItem("Empobj"))||{
-        id:0,
-        emp_id:""
-    };
-    if(emp.emp_id===""){
-    emp.id++;
-    localStorage.setItem("Empobj", JSON.stringify(emp));
-    }
-    
-})
+Array.from(document.querySelectorAll(".icon-block")).forEach(item => {
+    item.addEventListener("click", () => {
+        var emp = JSON.parse(localStorage.getItem("Empobj")) || {
+            id: 0,
+            emp_id: ""
+        };
+        if (emp.emp_id === "") {
+            emp.id++;
+            localStorage.setItem("Empobj", JSON.stringify(emp));
+        }
+
+    })
 })
 
 

@@ -405,6 +405,7 @@
                                                                                         <input type="hidden" name="history" value="${requestScope.HISTORY_ACTIVE}"/>
                                                                                         <button
                                                                                             type="submit"
+                                                                                            onclick="return confirm('Do you want to decline this task?')"
                                                                                             class="btn-submit-links trash"
                                                                                             >
                                                                                             <ion-icon name="trash"></ion-icon>
@@ -437,6 +438,7 @@
                                                                                         <input type="hidden" name="history" value="${requestScope.HISTORY_ACTIVE}"/>
                                                                                         <button
                                                                                             type="submit"
+                                                                                            onclick="return confirm('Do you want to decline this task?')"
                                                                                             class="btn-submit-links trash "
                                                                                             >
                                                                                             <ion-icon name="trash"></ion-icon>
@@ -464,11 +466,12 @@
                                                                                     ${feedback.email}
                                                                                 </p>
                                                                                 <div class="pipe-bottom-links">
-                                                                                    <form action="EmployeeDeclineController" method="post">
+                                                                                    <form action="EmployeeDeclineController" method="post" onsubmit="return decline()">
                                                                                         <input type="hidden" name="feedbackId" value="${feedback.feedbackID}"/>
                                                                                         <input type="hidden" name="history" value="${requestScope.HISTORY_ACTIVE}"/>
                                                                                         <button
                                                                                             type="submit"
+                                                                                            onclick="decline()"
                                                                                             class="btn-submit-links trash"
                                                                                             >
                                                                                             <ion-icon name="trash"></ion-icon>
@@ -958,7 +961,9 @@
                                                                             <div class="responsearea done">
                                                                                 <div class="response-manager">
                                                                                     <img src="img/checked.png"/>
-
+                                                                                    <div class="done-label">
+                                                                                         You have finished this task 
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </c:if>
@@ -1052,7 +1057,9 @@
                                                                             <div class="responsearea done">
                                                                                 <div class="response-manager">
                                                                                     <img src="img/checked.png"/>
-
+                                                                                    <div class="done-label">
+                                                                                         You have finished this task 
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </c:if>

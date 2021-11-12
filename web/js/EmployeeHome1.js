@@ -221,3 +221,12 @@ Array.from(document.querySelectorAll(".btn-submit-links.trash")).forEach(item =>
 
     })
 })
+
+function decline(){
+    var proceed=confirm("Do you want to decline this task?");
+    if (proceed){
+        return true;
+    }else{
+        return false;
+    }
+}

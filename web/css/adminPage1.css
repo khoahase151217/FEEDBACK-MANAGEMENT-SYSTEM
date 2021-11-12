@@ -2112,6 +2112,9 @@ img {
 }
 .warning-box.active{
     display: block;
+    position:absolute;
+    right:10px;
+    bottom:10px;
 }
 
 .description{

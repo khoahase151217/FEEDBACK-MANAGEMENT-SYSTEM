@@ -112,6 +112,7 @@
     margin-bottom: 1rem;
     border-radius: 15px;
     border: solid black 0.1rem;
+    position:relative;
 }
 .detail-items .detail-wrapper {
     display: flex;

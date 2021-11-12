@@ -1432,3 +1432,14 @@ img {
         padding: 10px 13px;
     }
 }
+
+.done-label{
+    align-items: center;
+    text-align: center;
+    position: absolute;
+    left:13%;
+    top:100%;
+    padding-top:1rem;
+    font-size:2rem;
+    font-weight:600;
+}
