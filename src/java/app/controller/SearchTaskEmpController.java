@@ -8,8 +8,6 @@ package app.controller;
 import app.employees.EmployeesDAO;
 import app.feedback.FeedbackDAO;
 import app.feedback.FeedbackDTO;
-import app.feedback.FeedbackDetailDTO;
-import app.response.ResponseDTO;
 import app.users.UserDTO;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,9 +26,9 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "SearchTaskEmp", urlPatterns = {"/SearchTaskEmpController"})
 public class SearchTaskEmpController extends HttpServlet {
 
-    private static final String ERROR = "error.jsp";//ShowFeedbackDetailForEmpController";
+    private static final String ERROR = "ShowFeedbackDetailForEmpController";//ShowFeedbackDetailForEmpController";
     private static final String SUCCESS = "ShowFeedbackDetailForEmpController";
-    private static final String FULL__NAME_REGEX = "^(?![\\s.]+$)[a-zA-Z\\s.]*$";
+    private static final String FULL__NAME_REGEX = "[A-Za-z . ]+(\\\\s*[A-Za-z .-]+)*$";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -50,22 +48,43 @@ public class SearchTaskEmpController extends HttpServlet {
             UserDTO user = (UserDTO) session.getAttribute("LOGIN_EMP");
             String task = request.getParameter("LIST_STYLE_TASK");
             String his = request.getParameter("LIST_STYLE_HISTORY");
-
-            if (!search.matches(FULL__NAME_REGEX)) {
-                list = new ArrayList<>();
-                historyList = new ArrayList<>();
-                session.setAttribute("LIST_FEEDBACK", list);
+            
+            if (search.equals("")) {
+                list = dao2.showListFeedback(user.getUserID());
+                historyList = dao2.showHistoryFeedback(user.getUserID());
+                //active
+                session.setAttribute("HISTORY", historyList.get(0).getFeedbackID());
+                session.setAttribute("FEEDBACK", list.get(0).getFeedbackID());
+                //
                 session.setAttribute("LIST_HISTORY", historyList);
+                session.setAttribute("LIST_FEEDBACK", list);
                 request.setAttribute("SEARCH", search);
-                if (task != null && his == null) {
-                    list = dao.searchListFeedbackUpdate(user.getUserID());
-                } else {
-                    historyList = dao.searchHistoryFeedbackUpdate(user.getUserID());
-                }
-                session.setAttribute("LIST_HISTORY", historyList);
-                session.setAttribute("LIST_FEEDBACK", list);
                 url = SUCCESS;
+                return;
+            }else if (!search.matches(FULL__NAME_REGEX) && task != null) { //sai
+                //task rỗng
+                list = new ArrayList<>();
+                session.setAttribute("LIST_FEEDBACK", list);
+
+                //history full
+                historyList = dao2.showHistoryFeedback(user.getUserID());
+                session.setAttribute("LIST_HISTORY", historyList);
+                // active history
+                session.setAttribute("HISTORY", historyList.get(0).getFeedbackID());
+                request.setAttribute("SEARCH", search);
                 //request.getRequestDispatcher(url).forward(request, response);
+                return;
+            } //else
+            if (!search.matches(FULL__NAME_REGEX) && task == null) {
+                //task full
+                list = dao2.showListFeedback(user.getUserID());
+                session.setAttribute("LIST_FEEDBACK", list);
+                //history rỗng
+                historyList = new ArrayList<>();
+                session.setAttribute("LIST_HISTORY", historyList);
+                //active task
+                session.setAttribute("FEEDBACK", list.get(0).getFeedbackID());
+                request.setAttribute("SEARCH", search);
                 return;
             }
 

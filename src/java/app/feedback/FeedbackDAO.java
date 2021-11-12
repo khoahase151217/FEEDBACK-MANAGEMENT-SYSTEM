@@ -1918,7 +1918,7 @@ public class FeedbackDAO {
                         + " JOIN tblFacilities t5 "
                         + "  ON t5.FacilityID = t2.FacilityID "
                         + " WHERE t2.UserID = ? AND t5.Name like ? AND t2.flag= 'false' AND t1.statusID != 'decline' "
-                        + " group by t1.Date ,t1.FeedbackID,t1.statusID, t1.UserID, t3.Email, t3.FullName, t4.Name,t1.comment,t1.trashDate "
+                        + " group by t1.Date ,t1.FeedbackID,t1.statusID, t1.UserID, t3.Email, t3.FullName, t4.Name,t1.comment,t1.trashDate,t1.DoneDate "
                         + " ORDER BY t1.DATE";
                 stm = conn.prepareCall(sql);
                 stm.setString(1, userID);
@@ -2057,7 +2057,7 @@ public class FeedbackDAO {
                         + " JOIN tblFacilities t5 "
                         + "  ON t5.FacilityID = t2.FacilityID "
                         + " WHERE t2.UserID = ? AND t5.Name like ? AND t2.flag= 'true' AND t1.statusID in ('decline','done','onGoing') "
-                        + " group by t1.Date ,t1.FeedbackID,t1.statusID, t1.UserID, t3.Email, t3.FullName, t4.Name,t1.comment, t1.trashDate "
+                        + " group by t1.Date ,t1.FeedbackID,t1.statusID, t1.UserID, t3.Email, t3.FullName, t4.Name,t1.comment, t1.trashDate,t1.DoneDate "
                         + " ORDER BY t1.DATE";
                 stm = conn.prepareCall(sql);
                 stm.setString(1, userID);

@@ -34,8 +34,7 @@ public class SearchStudentController extends HttpServlet {
         //catch trường hợp chuyển trang về mất list
         try {
             String search = request.getParameter("search");
-            if (search == "") {
-                list = new ArrayList<>();
+            if (search.equals("")) {
                 list = dao.showAllUserAsc();
                 session.setAttribute("LIST_ALL_USER", list);
                 request.setAttribute("SEARCH", search);
@@ -48,8 +47,6 @@ public class SearchStudentController extends HttpServlet {
                 request.setAttribute("STYLE_LIST_ALL", "active");
                 //request.getRequestDispatcher(url).forward(request, response);
                 // list = dao.showAllUserAsc();
-                session.setAttribute("LIST_ALL_USER", list);
-                request.setAttribute("SEARCH", search);
                 url = SUCCESS;
                 //return;
             } else {
