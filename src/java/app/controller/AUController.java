@@ -7,6 +7,7 @@ package app.controller;
 
 import app.feedback.FeedbackDAO;
 import app.users.UserDAO;
+import app.users.UserDTO;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +20,7 @@ import javax.servlet.http.HttpSession;
  * @author HieuTran
  */
 public class AUController extends HttpServlet {
-
+    
     private static final String ERROR = "error.jsp";
     private static final String SUCCESS = "ShowUserController";
     private static final String UNBAN = "StatisticBadUSERController";
@@ -41,11 +42,12 @@ public class AUController extends HttpServlet {
             HttpSession session = request.getSession();
             UserDAO dao = new UserDAO();
             FeedbackDAO dao2 = new FeedbackDAO();
+            UserDTO user = (UserDTO) session.getAttribute("LOGIN_ADMIN");
             String userID = request.getParameter("userID");
             String statusID = request.getParameter("StatusID");
             String email = dao.getUserEmailByID(userID);
             String flag = request.getParameter("flag");
-            if (statusID.equalsIgnoreCase("active")) {
+            if (statusID.equalsIgnoreCase("active") && !userID.equals(user.getUserID())) {
                 dao.UpdateUserStatusInactive(userID, statusID);
             } else {
                 if (dao2.getDateWarning(userID) != null) {
@@ -55,7 +57,7 @@ public class AUController extends HttpServlet {
                 }
                 dao.UpdateUserStatusActive(userID, statusID);
             }
-
+            
             String listStyle = request.getParameter("style_flag");
             if (listStyle != null) {
                 switch (listStyle) {

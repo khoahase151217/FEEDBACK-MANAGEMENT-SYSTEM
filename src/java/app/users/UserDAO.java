@@ -302,7 +302,7 @@ public class UserDAO {
                 String sql = "select userID, FullName, tblUser.RoleID as RoleID, tblRole.name as roleName, tblUser.StatusID as StatusID, tblUserStatus.Name as statusName, Image, BinaryImage from "
                         + "tblUser join tblRole on tblUser.roleID = tblRole.roleID "
                         + " join tblUserStatus on tblUser.statusID = tblUserStatus.statusID "
-                        + " where Email=? and Password=? and tblUser.statusID = 'active' ";
+                        + " where Email=? and Password=? ";
                 st = conn.prepareStatement(sql);
                 st.setString(1, email);
                 st.setString(2, password);

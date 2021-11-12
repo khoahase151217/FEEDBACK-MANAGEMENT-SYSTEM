@@ -76,6 +76,13 @@ public class LoginGoogleController extends HttpServlet {
                     if (checkStatus == true) {
                         Date date = dao2.getDateWarning(user.getUserID());
                         int level = dao2.getWarningLevel(user.getUserID());
+                        if(level == 0){
+                            request.setAttribute("flag", null);
+                            request.setAttribute("INVALID", "invalid");
+                            request.setAttribute("ERROR_MESSAGE", "Your account is not authorized");
+                            url = ERROR;
+                            return;
+                        }
                         boolean flag = false;
                         Calendar c = Calendar.getInstance();
                         Date tmpDate;

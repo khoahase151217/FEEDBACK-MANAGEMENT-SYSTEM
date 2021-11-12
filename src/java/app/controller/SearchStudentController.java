@@ -21,7 +21,7 @@ public class SearchStudentController extends HttpServlet {
 
     private static final String ERROR = "error.jsp";
     private static final String SUCCESS = "ManagerViewUser.jsp";
-    private static final String FULL__NAME_REGEX = "^[A-Za-z.-]+(\\s*[A-Za-z.-]+)*$";
+    private static final String FULL__NAME_REGEX = "[A-Za-z . ]+(\\\\s*[A-Za-z .-]+)*$";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -34,22 +34,30 @@ public class SearchStudentController extends HttpServlet {
         //catch trường hợp chuyển trang về mất list
         try {
             String search = request.getParameter("search");
-            if (!search.matches(FULL__NAME_REGEX)) {
+            if (search == "") {
+                list = new ArrayList<>();
+                list = dao.showAllUserAsc();
+                session.setAttribute("LIST_ALL_USER", list);
+                request.setAttribute("SEARCH", search);
+                url = SUCCESS;
+            } else if (!search.matches(FULL__NAME_REGEX)) { //sai vo day
                 list = new ArrayList<>();
                 session.setAttribute("LIST_ALL_USER", list);
                 request.setAttribute("SEARCH", search);
                 request.setAttribute("STYLE_LIST", "active");
                 request.setAttribute("STYLE_LIST_ALL", "active");
                 //request.getRequestDispatcher(url).forward(request, response);
-                list = dao.showAllUserAsc();
+                // list = dao.showAllUserAsc();
                 session.setAttribute("LIST_ALL_USER", list);
                 request.setAttribute("SEARCH", search);
                 url = SUCCESS;
-                return;
+                //return;
+            } else {
+                list = dao.getListStudent(search);
+                session.setAttribute("LIST_ALL_USER", list);
+                request.setAttribute("SEARCH", search);
+                url = SUCCESS;
             }
-            list = dao.getListStudent(search);
-            session.setAttribute("LIST_ALL_USER", list);
-            request.setAttribute("SEARCH", search);
 
             // Phần của front-end nhé            
             String listStyle = request.getParameter("style_flag");

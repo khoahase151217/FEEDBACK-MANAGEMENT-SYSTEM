@@ -67,7 +67,7 @@ public class LoginController extends HttpServlet {
                 }
 
             } else {
-                request.setAttribute("ERROR_MESSAGE", "Incorrect UserName, Password or Your account is banned!");
+                request.setAttribute("ERROR_MESSAGE", "Incorrect UserName or Password ");
                 request.setAttribute("flag", null);
                 request.setAttribute("INVALID", "invalid");
             }
@@ -76,6 +76,13 @@ public class LoginController extends HttpServlet {
 
                 Date date = dao2.getDateWarning(user.getUserID());
                 int level = dao2.getWarningLevel(user.getUserID());
+                if (level == 0) {
+                    request.setAttribute("flag", null);
+                    request.setAttribute("INVALID", "invalid");
+                    request.setAttribute("ERROR_MESSAGE", "Your account is not authorized");
+                    url = ERROR;
+                    return;
+                }
                 boolean flag = false;
                 Calendar c = Calendar.getInstance();
                 Date tmpDate;
