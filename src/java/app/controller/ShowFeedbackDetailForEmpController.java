@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -26,7 +26,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "ShowFeedbackDetailForEmpController", urlPatterns = {"/ShowFeedbackDetailForEmpController"})
 public class ShowFeedbackDetailForEmpController extends HttpServlet {
 
-    private static final String ERROR = "##";
+    private static final String ERROR = "error.jsp";
     private static final String SUCCESS = "EmployeeHome.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

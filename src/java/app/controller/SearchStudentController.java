@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "SearchStudentController", urlPatterns = {"/SearchStudentController"})
 public class SearchStudentController extends HttpServlet {
 
-    private static final String ERROR = "ManagerViewUser.jsp";
+    private static final String ERROR = "error.jsp";
     private static final String SUCCESS = "ManagerViewUser.jsp";
     private static final String FULL__NAME_REGEX = "^[A-Za-z.-]+(\\s*[A-Za-z.-]+)*$";
 
@@ -30,6 +30,7 @@ public class SearchStudentController extends HttpServlet {
         HttpSession session = request.getSession();
         session.setAttribute("STUDENT_LIST", null);
         List<UserDTO> list;
+        UserDAO dao = new UserDAO();
         //catch trường hợp chuyển trang về mất list
         try {
             String search = request.getParameter("search");
@@ -39,14 +40,17 @@ public class SearchStudentController extends HttpServlet {
                 request.setAttribute("SEARCH", search);
                 request.setAttribute("STYLE_LIST", "active");
                 request.setAttribute("STYLE_LIST_ALL", "active");
-                request.getRequestDispatcher(url).forward(request, response);
+                //request.getRequestDispatcher(url).forward(request, response);
+                list = dao.showAllUserAsc();
+                session.setAttribute("LIST_ALL_USER", list);
+                request.setAttribute("SEARCH", search);
+                url = SUCCESS;
                 return;
             }
-            UserDAO dao = new UserDAO();
             list = dao.getListStudent(search);
             session.setAttribute("LIST_ALL_USER", list);
             request.setAttribute("SEARCH", search);
-            
+
             // Phần của front-end nhé            
             String listStyle = request.getParameter("style_flag");
             if (listStyle != null) {

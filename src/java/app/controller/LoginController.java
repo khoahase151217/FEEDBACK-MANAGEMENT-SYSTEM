@@ -51,6 +51,7 @@ public class LoginController extends HttpServlet {
             HttpSession session = request.getSession();
 
             if (user != null) {
+
                 if ("AD".equals(user.getRoleID())) {
                     session.setAttribute("LOGIN_ADMIN", user);
 
@@ -66,7 +67,7 @@ public class LoginController extends HttpServlet {
                 }
 
             } else {
-                request.setAttribute("ERROR_MESSAGE", "Incorrect UserName or Password!");
+                request.setAttribute("ERROR_MESSAGE", "Incorrect UserName, Password or Your account is banned!");
                 request.setAttribute("flag", null);
                 request.setAttribute("INVALID", "invalid");
             }

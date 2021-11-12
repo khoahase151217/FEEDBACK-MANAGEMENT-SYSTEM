@@ -8,6 +8,8 @@ package app.controller;
 import app.employees.EmployeesDAO;
 import app.feedback.FeedbackDAO;
 import app.feedback.FeedbackDTO;
+import app.feedback.FeedbackDetailDTO;
+import app.response.ResponseDTO;
 import app.users.UserDTO;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,7 +28,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "SearchTaskEmp", urlPatterns = {"/SearchTaskEmpController"})
 public class SearchTaskEmpController extends HttpServlet {
 
-    private static final String ERROR = "ShowFeedbackDetailForEmpController";
+    private static final String ERROR = "error.jsp";//ShowFeedbackDetailForEmpController";
     private static final String SUCCESS = "ShowFeedbackDetailForEmpController";
     private static final String FULL__NAME_REGEX = "^(?![\\s.]+$)[a-zA-Z\\s.]*$";
 
@@ -50,10 +52,20 @@ public class SearchTaskEmpController extends HttpServlet {
             String his = request.getParameter("LIST_STYLE_HISTORY");
 
             if (!search.matches(FULL__NAME_REGEX)) {
+                list = new ArrayList<>();
+                historyList = new ArrayList<>();
                 session.setAttribute("LIST_FEEDBACK", list);
                 session.setAttribute("LIST_HISTORY", historyList);
                 request.setAttribute("SEARCH", search);
-                request.getRequestDispatcher(url).forward(request, response);
+                if (task != null && his == null) {
+                    list = dao.searchListFeedbackUpdate(user.getUserID());
+                } else {
+                    historyList = dao.searchHistoryFeedbackUpdate(user.getUserID());
+                }
+                session.setAttribute("LIST_HISTORY", historyList);
+                session.setAttribute("LIST_FEEDBACK", list);
+                url = SUCCESS;
+                //request.getRequestDispatcher(url).forward(request, response);
                 return;
             }
 

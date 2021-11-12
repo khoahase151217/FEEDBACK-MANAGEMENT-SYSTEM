@@ -1905,11 +1905,103 @@ public class FeedbackDAO {
                         + " JOIN tblFacilities t5 "
                         + "  ON t5.FacilityID = t2.FacilityID "
                         + " WHERE t2.UserID = ? AND t5.Name like ? AND t2.flag= 'false' AND t1.statusID != 'decline' "
-                        + " group by t1.Date ,t1.FeedbackID,t1.statusID, t1.UserID, t3.Email, t3.FullName, t4.Name,t1.comment "
+                        + " group by t1.Date ,t1.FeedbackID,t1.statusID, t1.UserID, t3.Email, t3.FullName, t4.Name,t1.comment,t1.trashDate "
                         + " ORDER BY t1.DATE";
                 stm = conn.prepareCall(sql);
                 stm.setString(1, userID);
                 stm.setString(2, "%" + search + "%");
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String feedbackID = rs.getString("FeedbackID");
+                    String date = rs.getString("date");
+                    String statusID = rs.getString("statusID");
+                    String email = rs.getString("email");
+                    String fullName = rs.getString("fullName");
+                    String statusName = rs.getString("statusName");
+                    list.add(new FeedbackDTO(feedbackID, userID, date, email, statusID, fullName, statusName));
+                }
+            }   
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+//new one
+    public List<FeedbackDTO> searchListFeedbackUpdate(String userID) throws SQLException {
+        List<FeedbackDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " SELECT t1.*,t3.Email as email ,t3.FullName as fullName ,t4.Name as statusName FROM tblFeedback t1 "
+                        + " JOIN tblFeedbackDetail t2  ON t1.FeedbackID = t2.FeedbackID "
+                        + " JOIN tblUser t3    ON t1.UserID = t3.UserID "
+                        + " JOIN tblFeedbackStatus t4 ON t1.statusID = t4.FeedbackStatusID "
+                        + " JOIN tblFacilities t5 "
+                        + "  ON t5.FacilityID = t2.FacilityID "
+                        + " WHERE t2.UserID = ? AND t2.flag= 'false' AND t1.statusID != 'decline' "
+                        + " group by t1.Date ,t1.FeedbackID,t1.statusID, t1.UserID, t3.Email, t3.FullName, t4.Name,t1.comment,t1.trashDate "
+                        + " ORDER BY t1.DATE";
+                stm = conn.prepareCall(sql);
+                stm.setString(1, userID);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String feedbackID = rs.getString("FeedbackID");
+                    String date = rs.getString("date");
+                    String statusID = rs.getString("statusID");
+                    String email = rs.getString("email");
+                    String fullName = rs.getString("fullName");
+                    String statusName = rs.getString("statusName");
+                    list.add(new FeedbackDTO(feedbackID, userID, date, email, statusID, fullName, statusName));
+                }
+            }   
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+    
+    public List<FeedbackDTO> searchHistoryFeedbackUpdate(String userID) throws SQLException {
+        List<FeedbackDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " SELECT t1.*,t3.Email as email ,t3.FullName as fullName ,t4.Name as statusName FROM tblFeedback t1 "
+                        + " JOIN tblFeedbackDetail t2  ON t1.FeedbackID = t2.FeedbackID "
+                        + " JOIN tblUser t3    ON t1.UserID = t3.UserID "
+                        + " JOIN tblFeedbackStatus t4 ON t1.statusID = t4.FeedbackStatusID "
+                        + " JOIN tblFacilities t5 "
+                        + "  ON t5.FacilityID = t2.FacilityID "
+                        + " WHERE t2.UserID = ? AND t2.flag= 'true' AND t1.statusID in ('decline','done','onGoing') "
+                        + " group by t1.Date ,t1.FeedbackID,t1.statusID, t1.UserID, t3.Email, t3.FullName, t4.Name,t1.comment, t1.trashDate "
+                        + " ORDER BY t1.DATE";
+                stm = conn.prepareCall(sql);
+                stm.setString(1, userID);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     String feedbackID = rs.getString("FeedbackID");
@@ -1936,7 +2028,7 @@ public class FeedbackDAO {
         }
         return list;
     }
-
+    
     public List<FeedbackDTO> searchHistoryFeedback(String userID, String search) throws SQLException {
         List<FeedbackDTO> list = new ArrayList<>();
         Connection conn = null;
@@ -1952,7 +2044,7 @@ public class FeedbackDAO {
                         + " JOIN tblFacilities t5 "
                         + "  ON t5.FacilityID = t2.FacilityID "
                         + " WHERE t2.UserID = ? AND t5.Name like ? AND t2.flag= 'true' AND t1.statusID in ('decline','done','onGoing') "
-                        + " group by t1.Date ,t1.FeedbackID,t1.statusID, t1.UserID, t3.Email, t3.FullName, t4.Name,t1.comment "
+                        + " group by t1.Date ,t1.FeedbackID,t1.statusID, t1.UserID, t3.Email, t3.FullName, t4.Name,t1.comment, t1.trashDate "
                         + " ORDER BY t1.DATE";
                 stm = conn.prepareCall(sql);
                 stm.setString(1, userID);

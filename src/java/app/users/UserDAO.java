@@ -7,7 +7,6 @@ package app.users;
 
 import app.feedback.FeedbackDTO;
 import app.feedback.FeedbackDetailDTO;
-import app.response.ResponseDTO;
 import app.utils.DBUtils;
 import java.io.FileInputStream;
 import java.sql.Connection;
@@ -256,6 +255,40 @@ public class UserDAO {
 
     }
 
+    public String getStatusIdFromLogin(String email, String password) throws SQLException {
+        String result = "";
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " SELECT StatusID FROM tblUser "
+                        + " WHERE email = ? and password = ? ";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, email);
+                ps.setString(2, password);
+                ps.executeQuery();
+                if (rs.next()) {
+                    result = rs.getString("statusID");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return result;
+    }
+
     public UserDTO checkLogin(String email, String password) throws SQLException {
         UserDTO user = null;
         Connection conn = null;
@@ -269,7 +302,7 @@ public class UserDAO {
                 String sql = "select userID, FullName, tblUser.RoleID as RoleID, tblRole.name as roleName, tblUser.StatusID as StatusID, tblUserStatus.Name as statusName, Image, BinaryImage from "
                         + "tblUser join tblRole on tblUser.roleID = tblRole.roleID "
                         + " join tblUserStatus on tblUser.statusID = tblUserStatus.statusID "
-                        + " where Email=? and Password=? ";
+                        + " where Email=? and Password=? and tblUser.statusID = 'active' ";
                 st = conn.prepareStatement(sql);
                 st.setString(1, email);
                 st.setString(2, password);
