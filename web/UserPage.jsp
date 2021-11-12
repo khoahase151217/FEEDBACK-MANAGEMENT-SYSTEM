@@ -1316,7 +1316,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/User2.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseForUser.js"></script>
-        <script type="module" src="${pageContext.request.contextPath}/js/firebaseUserfromAdmin.js"></script>
+        <script type="module" src="${pageContext.request.contextPath}/js/firebaseUserfromAdmin1.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseStorageForUser.js"></script>
 
         <script type="module">
@@ -1646,27 +1646,9 @@
                         });
                     });
                 });
-                window.onload = function () {
-                    const flag = localStorage.getItem('flag');
-                    if (JSON.parse(flag) === true) {
-                        var feedback = JSON.parse(localStorage.getItem('feedbackDoneID'));
-                        var id = feedback[1].toString();
-                        var loop = document.getElementsByClassName("pipe-item-title");
-//        var loopComment = document.getElementsByClassName("pipe-item-title-comment");
-
-                        for (let i = 0; i < Array.from(loop).length; i++) {
-                            if ((Array.from(loop)[i].innerHTML).includes(id)) {
-                                setTimeout(function () {
-                                    (loop[i]).scrollIntoView({
-                                        behavior: "smooth",
-                                        block: "center"
-                                    });
-                                }, 700);
-                            }
-                        }
-                        localStorage.removeItem('flag');
-                    }
-                 }
+//                window.onload = function () {
+//                 
+//                 }
         </script>
     </body>
 </html>
