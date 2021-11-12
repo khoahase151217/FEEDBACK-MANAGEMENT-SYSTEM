@@ -1646,27 +1646,9 @@
                         });
                     });
                 });
-                window.onload = function () {
-                    const flag = localStorage.getItem('flag');
-                    if (JSON.parse(flag) === true) {
-                        var feedback = JSON.parse(localStorage.getItem('feedbackDoneID'));
-                        var id = feedback[1].toString();
-                        var loop = document.getElementsByClassName("pipe-item-title");
-//        var loopComment = document.getElementsByClassName("pipe-item-title-comment");
-
-                        for (let i = 0; i < Array.from(loop).length; i++) {
-                            if ((Array.from(loop)[i].innerHTML).includes(id)) {
-                                setTimeout(function () {
-                                    (loop[i]).scrollIntoView({
-                                        behavior: "smooth",
-                                        block: "center"
-                                    });
-                                }, 700);
-                            }
-                        }
-                        localStorage.removeItem('flag');
-                    }
-                 }
+//                window.onload = function () {
+//                 
+//                 }
         </script>
     </body>
 </html>
