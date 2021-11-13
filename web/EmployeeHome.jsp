@@ -34,7 +34,7 @@
         <!-- font awesome -->
         <script src="https://kit.fontawesome.com/97ce91ff3b.js" crossorigin="anonymous"></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/EmployeeHome1.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/EmployeeHome.css" />
     </head>
     <body>
         <c:if test="${sessionScope.LOGIN_EMP == null}">
@@ -222,6 +222,15 @@
                         </div>
                         <input type="hidden" name="userID" value="${requestScope.USER_UPDATE.userID}"/>
                     </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="loader">
+            <div class="modal loader-modal">
+                <div class="loader-main">
+                    <div class="lds-dual-ring"></div>
+                    <p>Loading ...</p>
                 </div>
             </div>
         </div>
@@ -596,8 +605,9 @@
                                                                                     import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser2.js';
                                                                                     //  getImageString
                                                                                     let imageString = '${feedbackDetail.imageFirebase}';
+                                                                                    let index = ${counter.index};
                                                                                     if(imageString) {
-                                                                                    handleLoadImageForUserFromFirebase(imageString, document.querySelector('.task-detail-image-wrapper'));
+                                                                                    handleLoadImageForUserFromFirebase(imageString, Array.from(document.querySelectorAll('.task-detail-image-wrapper'))[index]);
                                                                                     }
                                                                                 </script>
                                                                             </div>
@@ -704,8 +714,9 @@
                                                                                     import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser2.js';
                                                                                     //  getImageString
                                                                                     let imageString = '${feedbackDetail.imageFirebase}';
+                                                                                    let index = ${counter.index};
                                                                                     if(imageString) {
-                                                                                    handleLoadImageForUserFromFirebase(imageString, document.querySelector('.task-detail-image-wrapper'));
+                                                                                    handleLoadImageForUserFromFirebase(imageString, Array.from(document.querySelectorAll('.task-detail-image-wrapper'))[index]);
                                                                                     }
                                                                                 </script>
                                                                             </div>
@@ -812,8 +823,9 @@
                                                                                     import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser2.js';
                                                                                     //  getImageString
                                                                                     let imageString = '${feedbackDetail.imageFirebase}';
+                                                                                    let index = ${counter.index};
                                                                                     if(imageString) {
-                                                                                    handleLoadImageForUserFromFirebase(imageString, document.querySelector('.task-detail-image-wrapper'));
+                                                                                    handleLoadImageForUserFromFirebase(imageString, Array.from(document.querySelectorAll('.task-detail-image-wrapper'))[index]);
                                                                                     }
                                                                                 </script>
                                                                             </div>
@@ -959,7 +971,7 @@
                                                                                 <div class="response-manager">
                                                                                     <img src="img/checked.png"/>
                                                                                     <div class="done-label">
-                                                                                         You have finished this task 
+                                                                                        You have finished this task 
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -1001,8 +1013,9 @@
                                                                                 import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser2.js';
                                                                                 //  getImageString
                                                                                 let imageString = '${response.image}';
+                                                                                let index = ${counter.index};
                                                                                 if(imageString) {
-                                                                                handleLoadImageForUserFromFirebase(imageString, document.querySelector('.history-detail-image-wrapper'));
+                                                                                handleLoadImageForUserFromFirebase(imageString, Array.from(document.querySelectorAll('.history-detail-image-wrapper'))[index]);
                                                                                 }
                                                                             </script>
                                                                         </div>
@@ -1055,7 +1068,7 @@
                                                                                 <div class="response-manager">
                                                                                     <img src="img/checked.png"/>
                                                                                     <div class="done-label">
-                                                                                         You have finished this task 
+                                                                                        You have finished this task 
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -1097,8 +1110,9 @@
                                                                                 import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser2.js';
                                                                                 //  getImageString
                                                                                 let imageString = '${response.image}';
+                                                                                let index = ${counter.index};
                                                                                 if(imageString) {
-                                                                                handleLoadImageForUserFromFirebase(imageString, document.querySelector('.history-detail-image-wrapper'));
+                                                                                handleLoadImageForUserFromFirebase(imageString, Array.from(document.querySelectorAll('.history-detail-image-wrapper'))[index]);
                                                                                 }
                                                                             </script>
                                                                         </div>
@@ -1135,51 +1149,51 @@
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseEmpFromAdmin1.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseForResponse.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseForTrash.js"></script>
-        <script type="module" src="${pageContext.request.contextPath}/js/firebaseStorageForEmployee.js"></script>
+        <script type="module" src="${pageContext.request.contextPath}/js/firebaseStorageForEmployee1.js"></script>
         <!-- Query -->
 
         <script>
-$(function () {
-    var imagesPreview = function (input, placeToInsertImagePreview) {
-        if (input.files) {
-            var filesAmount = input.files.length;
-            for (i = 0; i < filesAmount; i++) {
-                var reader = new FileReader();
-                reader.onload = function (event) {
-                    $($.parseHTML("<img>"))
-                            .attr("src", event.target.result)
-                            .appendTo(placeToInsertImagePreview);
-                };
-                reader.readAsDataURL(input.files[i]);
-            }
-        }
-    };
-    var imagesPreview2 = function (input) {
-        if (input.files) {
-            var filesAmount = input.files.length;
-            for (i = 0; i < filesAmount; i++) {
-                var reader = new FileReader();
-                reader.onload = function (event) {
+                                                                                                $(function () {
+                                                                                                    var imagesPreview = function (input, placeToInsertImagePreview) {
+                                                                                                        if (input.files) {
+                                                                                                            var filesAmount = input.files.length;
+                                                                                                            for (i = 0; i < filesAmount; i++) {
+                                                                                                                var reader = new FileReader();
+                                                                                                                reader.onload = function (event) {
+                                                                                                                    $($.parseHTML("<img>"))
+                                                                                                                            .attr("src", event.target.result)
+                                                                                                                            .appendTo(placeToInsertImagePreview);
+                                                                                                                };
+                                                                                                                reader.readAsDataURL(input.files[i]);
+                                                                                                            }
+                                                                                                        }
+                                                                                                    };
+                                                                                                    var imagesPreview2 = function (input) {
+                                                                                                        if (input.files) {
+                                                                                                            var filesAmount = input.files.length;
+                                                                                                            for (i = 0; i < filesAmount; i++) {
+                                                                                                                var reader = new FileReader();
+                                                                                                                reader.onload = function (event) {
 
-                    $(".avatar").attr("src", event.target.result);
-                };
-                reader.readAsDataURL(input.files[i]);
-            }
-        }
-    };
-    $(".reponse-form-drag-area").on("drop", function (event) {
-        event.preventDefault();
-        $("#image").prop("files", event.originalEvent.dataTransfer.files);
-        $("#image").trigger("change");
-    });
-    $("#image").on("change", function (e) {
-        $(".reponse-form-image-show").empty();
-        imagesPreview(this, "div.reponse-form-image-show");
-    });
-    $("#avatarImage").on("change", function (e) {
-        imagesPreview2(this);
-    });
-});
+                                                                                                                    $(".avatar").attr("src", event.target.result);
+                                                                                                                };
+                                                                                                                reader.readAsDataURL(input.files[i]);
+                                                                                                            }
+                                                                                                        }
+                                                                                                    };
+                                                                                                    $(".reponse-form-drag-area").on("drop", function (event) {
+                                                                                                        event.preventDefault();
+                                                                                                        $("#image").prop("files", event.originalEvent.dataTransfer.files);
+                                                                                                        $("#image").trigger("change");
+                                                                                                    });
+                                                                                                    $("#image").on("change", function (e) {
+                                                                                                        $(".reponse-form-image-show").empty();
+                                                                                                        imagesPreview(this, "div.reponse-form-image-show");
+                                                                                                    });
+                                                                                                    $("#avatarImage").on("change", function (e) {
+                                                                                                        imagesPreview2(this);
+                                                                                                    });
+                                                                                                });
         </script>
     </body>
 </html>

@@ -1222,8 +1222,9 @@
                                                                                     import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser2.js';
                                                                                     //  getImageString
                                                                                     let imageString = '${reponseDetail.image}';
+                                                                                    let index = ${counter.index};
                                                                                     if(imageString) {
-                                                                                    handleLoadImageForUserFromFirebase(imageString, document.querySelector('.feedback-detail-image-wrapper'));
+                                                                                    handleLoadImageForUserFromFirebase(imageString, Array.from(document.querySelectorAll('.feedback-detail-image-wrapper'))[index]);
                                                                                     }
                                                                                 </script>
                                                                             </div>
@@ -1316,10 +1317,15 @@
                                                                                 <label class="input-label">Description</label>
                                                                             </div>
                                                                             <div class="feedback-detail-image-wrapper">
-                                                                                <img
-                                                                                    src="data:image/jpg/png;base64,${reponseDetail.image}"
-                                                                                    alt=""
-                                                                                    />
+                                                                                <script type="module">
+                                                                                    import handleLoadImageForUserFromFirebase from '${pageContext.request.contextPath}/js/firebaseStorageForUser2.js';
+                                                                                    //  getImageString
+                                                                                    let imageString = '${reponseDetail.image}';
+                                                                                    let index = ${counter.index};
+                                                                                    if(imageString) {
+                                                                                    handleLoadImageForUserFromFirebase(imageString, Array.from(document.querySelectorAll('.feedback-detail-image-wrapper'))[index]);
+                                                                                    }
+                                                                                </script>
 
                                                                             </div>
                                                                         </div>
