@@ -39,9 +39,9 @@ window.onload = function () {
             snapshot.forEach((childSnapshot) => {
                 if (childSnapshot.val().User_ID === userid) {
                     var count = JSON.parse(localStorage.getItem("UserCount")) || 0;
+                    var done = JSON.parse(localStorage.getItem("Doneobj"));
                     count++;
                     localStorage.setItem("UserCount", JSON.stringify(count));
-                    var done = JSON.parse(localStorage.getItem("Doneobj"));
                     var html = "<div class=\"notification-item\" onclick=\"handleReloadUserPage(event)\">\n"
                             + "                                                <div class=\"pipe-item-heading\">\n"
                             + "                                                    <div class=\"pipe-item-title-wrapper\">\n"
@@ -66,9 +66,10 @@ window.onload = function () {
                         document.querySelector('.showcase-item-dropdown-actual-notification').innerHTML = count;
                         document.querySelector('.showcase-item-dropdown-select').classList.add('active');
                         document.querySelector('.showcase-item-dropdown-sub-title').innerHTML = `You have <strong>${count}</strong> new feedback`;
+//                        document.querySelector('.showcase-item-dropdown-sub-title').innerHTML = 'You have '+count+'new feedback';
                     }
 
-                    remove(ref(database, "Admin-done/" + done.id), {
+                    remove(ref(database, "Admin-done/" +  childSnapshot.key), {
                         Feedback_ID: childSnapshot.val().Feedback_ID,
                         Email: childSnapshot.val().Email,
                         Date: childSnapshot.val().Date,
