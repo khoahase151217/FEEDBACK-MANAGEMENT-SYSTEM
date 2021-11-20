@@ -53,6 +53,7 @@ public class SearchTaskEmpController extends HttpServlet {
                 list = dao2.showListFeedback(user.getUserID());
                 historyList = dao2.showHistoryFeedback(user.getUserID());
                 //active
+                
                 session.setAttribute("HISTORY", historyList.get(0).getFeedbackID());
                 session.setAttribute("FEEDBACK", list.get(0).getFeedbackID());
                 //
@@ -61,7 +62,7 @@ public class SearchTaskEmpController extends HttpServlet {
                 request.setAttribute("SEARCH", search);
                 url = SUCCESS;
                 return;
-            }else if (!search.matches(FULL__NAME_REGEX) && task != null) { //sai
+            }else if (!search.matches(FULL__NAME_REGEX) && task != null) { //search sai
                 //task rỗng
                 list = new ArrayList<>();
                 session.setAttribute("LIST_FEEDBACK", list);
@@ -72,6 +73,7 @@ public class SearchTaskEmpController extends HttpServlet {
                 // active history
                 session.setAttribute("HISTORY", historyList.get(0).getFeedbackID());
                 request.setAttribute("SEARCH", search);
+                
                 //request.getRequestDispatcher(url).forward(request, response);
                 return;
             } //else
@@ -121,7 +123,7 @@ public class SearchTaskEmpController extends HttpServlet {
             }
             session.setAttribute("LIST_HISTORY", historyList);
             session.setAttribute("LIST_FEEDBACK", list);
-            session.setAttribute("SEARCH", search);
+            request.setAttribute("SEARCH", search);
             session.setAttribute("COUNT", list.size());
             url = SUCCESS;
         } catch (Exception e) {
