@@ -14,27 +14,26 @@ document.querySelector('[name="search"]').addEventListener("blur", () => {
             .classList.remove("active");
 });
 window.addEventListener('load', () => {
-      localStorage.setItem("UserCount", JSON.stringify(0));
-       const flag = localStorage.getItem('flag');
-                    if (JSON.parse(flag) === true) {
-                        var feedback = JSON.parse(localStorage.getItem('feedbackDoneID'));
-                        var id = feedback[1].toString();
-                        var loop = document.getElementsByClassName("pipe-item-title");
+    localStorage.setItem("UserCount", JSON.stringify(0));
+    const flag = localStorage.getItem('flag');
+    if (JSON.parse(flag) === true) {
+        var feedback = JSON.parse(localStorage.getItem('feedbackDoneID'));
+        var id = feedback[1].toString();
+        var loop = document.getElementsByClassName("pipe-item-title");
 //        var loopComment = document.getElementsByClassName("pipe-item-title-comment");
 
-                        for (let i = 0; i < Array.from(loop).length; i++) {
-                            if ((Array.from(loop)[i].innerHTML).includes(id)) {
-                                setTimeout(function () {
-                                    (loop[i]).scrollIntoView({
-                                        behavior: "smooth",
-                                        block: "center"
-                                    });
-                                }, 700);
-                            }
-                        }
-                        localStorage.removeItem('flag');
-                    }
-  
+        for (let i = 0; i < Array.from(loop).length; i++) {
+            if ((Array.from(loop)[i].innerHTML).includes(id)) {
+                setTimeout(function () {
+                    (loop[i]).scrollIntoView({
+                        behavior: "smooth",
+                        block: "center"
+                    });
+                }, 700);
+            }
+        }
+        localStorage.removeItem('flag');
+    }
 });
 
 // Pop-up form feedback

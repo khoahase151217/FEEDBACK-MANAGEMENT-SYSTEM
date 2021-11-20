@@ -14,6 +14,14 @@
         transform: scale(1);
     }
 }
+@keyframes lds-dual-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
 *,
 *::before,
 *::after {
@@ -198,6 +206,54 @@ ul {
 }
 .feedback-form-message.open {
     display: block;
+}
+
+.loader {
+    display: none;
+}
+
+.loader.open{
+    display: block; 
+}
+
+.loader .loader-modal {
+    height: 100%;
+    width: 100%;
+    z-index: 3;
+    background-color: rgba(0, 0, 0, 0.27);
+    animation: fadeIn linear 0.2s;
+    display: flex;
+}
+
+.loader .loader-main {
+    display: inline-block;
+    margin: auto;
+    text-align: center;
+    color: #fff;
+}
+
+.loader .loader-main p {
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.5rem;
+}
+
+.lds-dual-ring {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+}
+
+.lds-dual-ring:after {
+    content: " ";
+    display: block;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border-radius: 50%;
+    border: 6px solid #fff;
+    border-color: #fff transparent #fff transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
 }
 
 .header {
@@ -994,10 +1050,10 @@ ul {
 .showcase-item-dropdown-title {
     font-size: 1.5rem;
 }
+
 .showcase-item-dropdown-sub-title {
     font-weight: 500;
     font-size: 1rem;
-    margin-top: 0.5rem;
     color: #a7a7a7;
 }
 .showcase-item-dropdown-sub-title.sub-title-no {
@@ -1005,17 +1061,26 @@ ul {
     display: none;
 }
 
+.pipe-item-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .showcase-item-dropdown-list .pipe-item-title {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
+    line-height: 1;
 }
 .showcase-item-dropdown-list .pipe-item-desc {
-    font-size: 0.85rem;
+    font-size: 1rem;
+    line-height: 1.5;
 }
 .showcase-item-dropdown-list .pipe-item-date {
     font-size: 0.85rem;
+    color: #979797;
 }
 .showcase-item-dropdown-list .pipe-bottom-item {
-    font-size: 0.85rem;
+    font-size: 1rem;
 }
 
 .showcase-item-dropdown-list .notification-item {
@@ -1639,6 +1704,11 @@ ul {
 }
 
 @media screen and (max-width: 1025px) {
+    
+    .hero-main .list-heading {
+        width: 65%;
+    }
+    
     .hero .content-item-main{
         padding: 5.5rem 0;
     }
@@ -1657,10 +1727,6 @@ ul {
 
     .hero .pipe-column {
         max-height: 910px;
-    }
-
-    .image-all-wrapper {
-        max-height: 11rem;
     }
 
     .content-item-main-category-item.active.list .list-showcase .pipe-list .pipe-item .image-all-wrapper {

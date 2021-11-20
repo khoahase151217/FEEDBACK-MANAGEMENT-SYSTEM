@@ -21,6 +21,7 @@ const metadata = {
     contentType: "image/jpeg",
 };
 
+var uploadTask;
 function handleImageName(element_id, input_name) {
     let stringImageName = "";
     if (document.getElementById(element_id).files.length !== 0) {
@@ -30,7 +31,7 @@ function handleImageName(element_id, input_name) {
             // upload file to firebase
             const fileName = file.name.split('.');
             const storageRef = ref(storage, "Images/" + file.lastModified + '.' + fileName[1]);
-            let uploadTask = uploadBytesResumable(storageRef, file, metadata);
+            uploadTask = uploadBytesResumable(storageRef, file, metadata);
             stringImageName += file.lastModified + '.' + fileName[1] + ";";
         });
     }
@@ -46,10 +47,31 @@ function handleImageName(element_id, input_name) {
 }
 
 const response_form = document.getElementById("response_form");
+const loader = document.querySelector('.loader');
 if (response_form) {
     response_form.addEventListener("submit", (e) => {
         e.preventDefault();
         handleImageName('image', 'image');
-        e.target.submit();
+        if (uploadTask) {
+            uploadTask.on('state_changed',
+                    (snapshot) => {
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                switch (snapshot.state) {
+                    case 'paused':
+                        console.log('Upload is paused');
+                        break;
+                    case 'running':
+                        loader.classList.add('open');
+                        break;
+                }
+                if (progress === 100) {
+                    setTimeout(() => {
+                        response_form.submit();
+                    }, 700);
+                }
+            }, (error) => {
+                console.log(error);
+            });
+        }
     });
 }

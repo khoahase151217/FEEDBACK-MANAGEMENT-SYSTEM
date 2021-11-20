@@ -48,6 +48,7 @@ export default async function handleLoadImageForUserFromFirebase(imageString, el
 }
 ;
 
+var uploadTask;
 function handleImageName(element_id, input_name) {
     let stringImageName = "";
     if (document.getElementById(element_id).files.length !== 0) {
@@ -57,7 +58,7 @@ function handleImageName(element_id, input_name) {
             // upload file to firebase
             const fileName = file.name.split('.');
             const storageRef = ref(storage, "Images/" + file.lastModified + '.' + fileName[1]);
-            let uploadTask = uploadBytesResumable(storageRef, file, metadata);
+            uploadTask = uploadBytesResumable(storageRef, file, metadata);
             stringImageName += file.lastModified + '.' + fileName[1] + ";";
         });
     }
@@ -73,14 +74,51 @@ function handleImageName(element_id, input_name) {
 }
 
 const form = document.getElementById("root");
+const loader = document.querySelector('.loader');
 if (form) {
     form.addEventListener("submit", (e) => {
         e.preventDefault();
-        handleImageName('gallery-photo-add-1', 'image-1');
-        handleImageName('gallery-photo-add-2', 'image-2');
-        handleImageName('gallery-photo-add-3', 'image-3');
-        handleImageName('gallery-photo-add-4', 'image-4');
-        e.target.submit();
+        let amount = document.querySelectorAll('.tab-select-wrapper p').length;
+        switch (amount) {
+            case 1:
+                handleImageName('gallery-photo-add-1', 'image-1');
+                break;
+            case 2:
+                handleImageName('gallery-photo-add-1', 'image-1');
+                handleImageName('gallery-photo-add-2', 'image-2');
+                break;
+            case 3:
+                handleImageName('gallery-photo-add-1', 'image-1');
+                handleImageName('gallery-photo-add-2', 'image-2');
+                handleImageName('gallery-photo-add-3', 'image-3');
+                break;
+            default :
+
+                break;
+        }
+        if (uploadTask) {
+            uploadTask.on('state_changed',
+                    (snapshot) => {
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                switch (snapshot.state) {
+                    case 'paused':
+                        console.log('Upload is paused');
+                        break;
+                    case 'running':
+                        loader.classList.add('open');
+                        break;
+                }
+                if (progress === 100) {
+                    setTimeout(() => {
+                        form.submit();
+                    }, 700);
+                }
+            }, (error) => {
+                console.log(error);
+            });
+        } else {
+            form.submit();
+        }
     });
 }
 
