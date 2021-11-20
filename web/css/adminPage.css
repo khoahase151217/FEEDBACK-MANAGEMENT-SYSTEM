@@ -1816,6 +1816,14 @@ img {
 }
 
 @media screen and (max-width: 1025px) { 
+    
+    .comment-list-feedback .pipe-list {
+        min-height: 520px;
+    }
+    
+    .feedback-detail-image-wrapper img {
+        width: 190px;
+    }
 
     .showcase {
         padding: 20px;
@@ -1827,6 +1835,7 @@ img {
 
     .showcase .pipe {
         grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
         grid-gap: 0 3rem;
     }
     .showcase .pipe-column {
@@ -1880,6 +1889,9 @@ img {
 
 }
 @media screen and (max-width: 769px) { 
+    .comment-list-feedback .pipe-list {
+        min-height: 410px;
+    }
     .content-item-main {
         height: calc(100% - 107px);
     }

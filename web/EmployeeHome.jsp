@@ -34,7 +34,7 @@
         <!-- font awesome -->
         <script src="https://kit.fontawesome.com/97ce91ff3b.js" crossorigin="anonymous"></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/EmployeeHome.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/EmployeeHome1.css" />
     </head>
     <body>
         <c:if test="${sessionScope.LOGIN_EMP == null}">
@@ -1145,7 +1145,7 @@
         </main>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-        <script src="${pageContext.request.contextPath}/js/EmployeeHome1.js"></script>
+        <script src="${pageContext.request.contextPath}/js/EmployeeHome.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseEmpFromAdmin1.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseForResponse.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseForTrash.js"></script>

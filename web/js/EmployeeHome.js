@@ -7,6 +7,7 @@ const categoryList = document.querySelectorAll(".content-item-category a");
 const contentMainList = document.querySelectorAll(".content-item-main-item");
 const taskItems = document.querySelectorAll(".task-item");
 const historyItems = document.querySelectorAll(".history-item");
+const categoryFlag = JSON.parse(localStorage.getItem("CATEGORY_EMPLOYEE_PAGE")) || "task";
 
 window.addEventListener('load', () => {
     localStorage.setItem("EmpCount", JSON.stringify(0));
@@ -24,8 +25,22 @@ window.addEventListener('load', () => {
         document.querySelector('.pipe-item.history-item.active').scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
         document.querySelector('.pipe-item.task-item.active').scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
     }, 700);
-    
-    
+
+    // save value of category ["task", "history"]
+    if (categoryFlag === 'task') {
+        document.querySelector('.input-hidden-wrapper').innerHTML = `
+                <input type="hidden" name="LIST_STYLE_TASK" value="active"/>
+                <input type="hidden" name="style_list" value="task"/>
+                `;
+    } else if (categoryFlag === 'history') {
+        document.querySelector('.input-hidden-wrapper').innerHTML = `
+                <input type="hidden" name="LIST_STYLE_HISTORY" value="active"/>
+                <input type="hidden" name="style_list" value="history"/>
+                `;
+    } else {
+        localStorage.setItem("CATEGORY_EMPLOYEE_PAGE", JSON.stringify("task"));
+    }
+
 });
 // Javascript for Feedback Page
 //Array.from(items).forEach((item) => {
@@ -40,7 +55,6 @@ window.addEventListener('load', () => {
 //        Array.from(contents)[index].classList.add("active");
 //    });
 //});
-
 Array.from(navigationItems).forEach((item) => {
     item.addEventListener("click", (e) => {
         Array.from(navigationItems).forEach((item) =>
@@ -57,11 +71,13 @@ Array.from(navigationItems).forEach((item) => {
         );
         Array.from(contentMainList)[index].classList.add("active");
         if (e.target.innerText === "History") {
+            localStorage.setItem("CATEGORY_EMPLOYEE_PAGE", JSON.stringify("history"));
             document.querySelector('.input-hidden-wrapper').innerHTML = `
                 <input type="hidden" name="LIST_STYLE_HISTORY" value="active"/>
                 <input type="hidden" name="style_list" value="history"/>
                 `;
         } else {
+            localStorage.setItem("CATEGORY_EMPLOYEE_PAGE", JSON.stringify("task"));
             document.querySelector('.input-hidden-wrapper').innerHTML = `
                 <input type="hidden" name="LIST_STYLE_TASK" value="active"/>
                 <input type="hidden" name="style_list" value="task"/>
@@ -222,11 +238,11 @@ Array.from(document.querySelectorAll(".btn-submit-links.trash")).forEach(item =>
     })
 })
 
-function decline(){
-    var proceed=confirm("Do you want to decline this task?");
-    if (proceed){
+function decline() {
+    var proceed = confirm("Do you want to decline this task?");
+    if (proceed) {
         return true;
-    }else{
+    } else {
         return false;
     }
 }
