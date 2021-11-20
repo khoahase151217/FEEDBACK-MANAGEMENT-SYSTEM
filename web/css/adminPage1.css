@@ -2135,19 +2135,32 @@ img {
     text-align: left;
     padding:5px;
     font-size: 1.5rem;
-    white-space: nowrap;
     border-radius: 7px;
     line-height: 25px;
-    margin-top: 8px;
+    transition: 0.25s linear;
+}
+
+.decline-reason-message{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.invisible-space{
+    height:8px;
+    background: transparent;
+    display:inline-block;
 }
 
 .warning-box.active:hover .decline-reason-dropdown{
     display:block;
+    transition: 0.25s linear;
 }
 .warning-box.active:hover img{
-    color: #111; 
-    background-color: white;
-    box-shadow: 0 0 2px 5px #bdbdbd; 
-    border-radius: 100px;
+    color: #818181; 
+    background-color: #818181;
+    box-shadow: 0 0 2px 5px #818181; 
+    border-radius: 50%;
+    transition: 0.25s linear;
 }
 

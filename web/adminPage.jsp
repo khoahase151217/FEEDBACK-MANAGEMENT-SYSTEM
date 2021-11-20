@@ -32,7 +32,7 @@
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
         ></script>
 
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage1.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPageDetailModal1.css" />
     </head>
     <body>
@@ -158,10 +158,11 @@
                                             </div>
                                             <c:if test="${feedbackDetail.check eq true}">
                                                 <div class="warning-box active">
-                                                    <img class="warning-icon" src="img/exclamation.png"/>
+                                                    <img class="warning-icon" src="img/exclamation1.png"/>
+                                                    <div class="invisible-space"></div>
                                                     <div class="decline-reason-dropdown">
                                                         <p class="decline-employee">
-                                                            <strong>Employee Decline:</strong> ${feedbackDetail.employeeName}
+                                                            <strong>Employee Name:</strong> ${feedbackDetail.employeeName}
                                                         </p>
                                                         <p class="decline-reason-message">
                                                             <strong>Decline Reason:</strong> ${feedbackDetail.declineReason}
@@ -269,15 +270,15 @@
                                             </div>
                                             <c:if test="${feedbackDetail.check eq true}">
                                                 <div class="warning-box active">
-                                                    <img class="warning-icon" src="img/exclamation.png"/>
+                                                    <img class="warning-icon" src="img/exclamation1.png"/>
+                                                    <div class="invisible-space"></div>
                                                     <div class="decline-reason-dropdown">
                                                         <p class="decline-employee">
-                                                            <strong>Employee Decline:</strong> ${feedbackDetail.employeeName}
+                                                            <strong>Employee Name:</strong> ${feedbackDetail.employeeName}
                                                         </p>
                                                         <p class="decline-reason-message">
                                                             <strong>Decline Reason:</strong> ${feedbackDetail.declineReason}
                                                         </p>
-
                                                     </div>
                                                 </div>
                                             </c:if>
