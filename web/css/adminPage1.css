@@ -2157,10 +2157,14 @@ img {
     transition: 0.25s linear;
 }
 .warning-box.active:hover img{
-    color: #818181; 
-    background-color: #818181;
-    box-shadow: 0 0 2px 5px #818181; 
+    color: rgb(226,226,226); 
+    background-color: rgb(226,226,226);
+    box-shadow: 0 0 2px 5px rgb(226,226,226); 
     border-radius: 50%;
     transition: 0.25s linear;
+}
+
+.warning-icon{
+    max-width: 20px;
 }
 

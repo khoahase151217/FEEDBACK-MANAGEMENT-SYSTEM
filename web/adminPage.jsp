@@ -158,7 +158,7 @@
                                             </div>
                                             <c:if test="${feedbackDetail.check eq true}">
                                                 <div class="warning-box active">
-                                                    <img class="warning-icon" src="img/exclamation1.png"/>
+                                                    <img class="warning-icon" src="img/exclamation.png"/>
                                                     <div class="invisible-space"></div>
                                                     <div class="decline-reason-dropdown">
                                                         <p class="decline-employee">
@@ -270,7 +270,7 @@
                                             </div>
                                             <c:if test="${feedbackDetail.check eq true}">
                                                 <div class="warning-box active">
-                                                    <img class="warning-icon" src="img/exclamation1.png"/>
+                                                    <img class="warning-icon" src="img/exclamation.png"/>
                                                     <div class="invisible-space"></div>
                                                     <div class="decline-reason-dropdown">
                                                         <p class="decline-employee">
