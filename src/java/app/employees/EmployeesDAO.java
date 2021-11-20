@@ -334,10 +334,10 @@ public class EmployeesDAO {
                     String location = rs.getString("Location");
                     String des = rs.getString("Description");
                     String image = rs.getString("ImageFirebase");
-                    if(image==null){
-                        image="";
+                    if (image == null) {
+                        image = "";
                     }
-                    
+
 //                    byte[] tmp = rs.getBytes("Image");
 //                    if (tmp != null) {
 //                        base64Image = Base64.getEncoder().encodeToString(tmp);
@@ -348,7 +348,7 @@ public class EmployeesDAO {
                     String date = rs.getString("date");
                     String facilityName = rs.getString("FacilityName");
                     String feedbackDetailID = rs.getString("feedbackDetailID");
-                    dto.add(new FeedbackDetailDTO(feedbackDetailID, facilityID, userID, feedbackID, quantity, reason, location, flag, facilityName, date, des,image));
+                    dto.add(new FeedbackDetailDTO(feedbackDetailID, facilityID, userID, feedbackID, quantity, reason, location, flag, facilityName, date, des, image));
                 }
             }
 
@@ -677,11 +677,12 @@ public class EmployeesDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = " SELECT t2.DeclinedReason as reason\n"
-                        + "FROM tblResponseFeedback t1\n"
-                        + "JOIN tblDeclinedResponse t2 on t2.ResponseID =t1.ResponseID\n"
+                String sql = "  SELECT top 1 t2.DeclinedReason as reason\n"
+                        + " FROM tblResponseFeedback t1\n"
+                        + " JOIN tblDeclinedResponse t2 on t2.ResponseID =t1.ResponseID\n"
                         + " WHERE t1.FeedbackDetailID = ? AND t1.StatusID='decline' \n"
-                        + " GROUP BY t2.DeclinedReason ";
+                        + " GROUP BY t2.DeclinedReason \n"
+                        + " Order by t2.DeclinedReason desc";
                 ps = conn.prepareCall(sql);
                 ps.setString(1, feedbackDetailID);
                 rs = ps.executeQuery();
@@ -701,7 +702,41 @@ public class EmployeesDAO {
         return reason;
     }
 
-    public String getEmployeeDeclineResponeForFeedback(String feedbackDetailID) throws SQLException {
+    public String getUserIDDecline(String feedbackDetailID) throws SQLException {
+
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String userID = "";
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = " SELECT top 1 t1.UserID\n"
+                        + "FROM tblResponseFeedback t1\n"
+                        + "JOIN tblDeclinedResponse t2 on t2.ResponseID =t1.ResponseID\n"
+                        + "WHERE t1.FeedbackDetailID = ? AND t1.StatusID='decline' \n"
+                        + "GROUP BY t1.UserID ,t1.realtime\n"
+                        + "Order by t1.realtime desc";
+                ps = conn.prepareCall(sql);
+                ps.setString(1, feedbackDetailID);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    userID = rs.getString("UserID");
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return userID;
+    }
+
+    public String getEmployeeDeclineResponeForFeedback(String userID) throws SQLException {
 
         Connection conn = null;
         PreparedStatement ps = null;
@@ -710,14 +745,11 @@ public class EmployeesDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = " SELECT t3.FullName \n"
-                        + "FROM tblResponseFeedback t1\n"
-                        + "JOIN tblFeedbackDetail t2 on t1.UserID =t2.UserID\n"
-                        + "JOIN tblUser t3 on t2.UserID = t3.UserID\n"
-                        + "WHERE t1.FeedbackDetailID = ? AND t1.StatusID='decline'\n"
-                        + "GROUP BY t3.FullName ";
+                String sql = " select t1.FullName\n"
+                        + "from tblUser t1\n"
+                        + "where UserID = ? ";
                 ps = conn.prepareCall(sql);
-                ps.setString(1, feedbackDetailID);
+                ps.setString(1, userID);
                 rs = ps.executeQuery();
                 if (rs.next()) {
                     fullName = rs.getString("FullName");

@@ -2125,3 +2125,29 @@ img {
     display:flex;
 }
 
+.decline-reason-dropdown {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    max-width: 450px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 2;
+    text-align: left;
+    padding:5px;
+    font-size: 1.5rem;
+    white-space: nowrap;
+    border-radius: 7px;
+    line-height: 25px;
+    margin-top: 8px;
+}
+
+.warning-box.active:hover .decline-reason-dropdown{
+    display:block;
+}
+.warning-box.active:hover img{
+    color: #111; 
+    background-color: white;
+    box-shadow: 0 0 2px 5px #bdbdbd; 
+    border-radius: 100px;
+}
+
