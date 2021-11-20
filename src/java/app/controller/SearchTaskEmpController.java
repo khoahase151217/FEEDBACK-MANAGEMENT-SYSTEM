@@ -59,7 +59,7 @@ public class SearchTaskEmpController extends HttpServlet {
                 //
                 session.setAttribute("LIST_HISTORY", historyList);
                 session.setAttribute("LIST_FEEDBACK", list);
-                request.setAttribute("SEARCH", search);
+                session.setAttribute("SEARCH", search);
                 url = SUCCESS;
                 return;
             }else if (!search.matches(FULL__NAME_REGEX) && task != null) { //search sai
@@ -72,7 +72,7 @@ public class SearchTaskEmpController extends HttpServlet {
                 session.setAttribute("LIST_HISTORY", historyList);
                 // active history
                 session.setAttribute("HISTORY", historyList.get(0).getFeedbackID());
-                request.setAttribute("SEARCH", search);
+                session.setAttribute("SEARCH", search);
                 
                 //request.getRequestDispatcher(url).forward(request, response);
                 return;
@@ -86,7 +86,7 @@ public class SearchTaskEmpController extends HttpServlet {
                 session.setAttribute("LIST_HISTORY", historyList);
                 //active task
                 session.setAttribute("FEEDBACK", list.get(0).getFeedbackID());
-                request.setAttribute("SEARCH", search);
+                session.setAttribute("SEARCH", search);
                 return;
             }
 
@@ -123,7 +123,7 @@ public class SearchTaskEmpController extends HttpServlet {
             }
             session.setAttribute("LIST_HISTORY", historyList);
             session.setAttribute("LIST_FEEDBACK", list);
-            request.setAttribute("SEARCH", search);
+            session.setAttribute("SEARCH", search);
             session.setAttribute("COUNT", list.size());
             url = SUCCESS;
         } catch (Exception e) {

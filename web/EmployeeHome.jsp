@@ -344,7 +344,7 @@
                                             type="text"
                                             name="search"
                                             placeholder="Search project..."
-                                            value="${requestScope.SEARCH}"
+                                            value="${sessionScope.SEARCH}"
                                             />
                                         <button type="submit">
                                             <ion-icon name="search"></ion-icon>
