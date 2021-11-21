@@ -34,7 +34,7 @@
         ></script>
 
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage1.css" />
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ManagerViewFacility1.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ManagerViewFacility.css" />
         
     </head>
     <body>

@@ -34,7 +34,7 @@
         ></script>
 
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminPage1.css" />
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ManagerStatictis.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ManagerStatictis1.css" />
     </head>
     <body>
         <c:if test="${sessionScope.LOGIN_ADMIN == null}">
