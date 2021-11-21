@@ -530,7 +530,7 @@ public class EmployeesDAO {
                         + " JOIN tblFeedbackStatus t4 ON t1.statusID = t4.FeedbackStatusID "
                         + " WHERE t2.flag = 'true' AND t1.statusID not in ('decline', 'done') "
                         + " group by t1.Date ,t1.FeedbackID,t1.statusID, t1.UserID, t3.Email, t3.FullName, t4.Name,t1.TrashDate,t1.comment,t1.DoneDate  "
-                        + " ORDER BY t1.DATE ";
+                        + " ORDER BY t1.FeedbackID desc";
                 stm = conn.prepareCall(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
