@@ -69,7 +69,7 @@
                                     </div>
                                     <a
                                         class="btn-google"
-                                        href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8084/SWP391_PROJECT/LoginGoogleController&response_type=code&client_id=988197174823-vpp8lg3rrd0onf7n1fisnjnifenipk7f.apps.googleusercontent.com&approval_prompt=force"                                           
+                                        href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://neveslos.xyz/SWP391_PROJECT/LoginGoogleController&response_type=code&client_id=988197174823-vpp8lg3rrd0onf7n1fisnjnifenipk7f.apps.googleusercontent.com&approval_prompt=force"                                           
                                         />
                                     <img
                                         src="./img/google-logo.png"

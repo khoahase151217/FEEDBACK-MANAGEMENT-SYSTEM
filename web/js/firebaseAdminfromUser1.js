@@ -66,7 +66,7 @@ window.onload = function () {
                 userRef,
                 (snapshot) => {
             snapshot.forEach((childSnapshot) => {
-
+console.log("123");
 
                 var count = JSON.parse(localStorage.getItem("NotiCount")) || 0;
                 count++;

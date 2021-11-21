@@ -1376,7 +1376,7 @@
 
         <script src="${pageContext.request.contextPath}/js/adminPage.js"></script>
         <script src="${pageContext.request.contextPath}/js/ManagerFB.js"></script>
-        <script type="module" src="${pageContext.request.contextPath}/js/firebaseAdminfromUser.js"></script>
+        <script type="module" src="${pageContext.request.contextPath}/js/firebaseAdminfromUser1.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseForAdminDone.js"></script>
         <script type="module" src="${pageContext.request.contextPath}/js/firebaseForEMP.js"></script>
         <!-- Query -->
