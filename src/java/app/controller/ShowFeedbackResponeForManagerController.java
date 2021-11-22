@@ -8,7 +8,6 @@ package app.controller;
 import app.employees.EmployeesDAO;
 import app.feedback.FeedbackDTO;
 import java.io.IOException;
-import static java.util.Collections.list;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

@@ -6,8 +6,6 @@
 package app.controller;
 
 import app.feedback.FeedbackDAO;
-import app.feedback.FeedbackDTO;
-import app.feedback.Comparator;
 import app.feedback.FeedbackLoaderDTO;
 import app.users.UserDTO;
 import app.users.UserHistoryDTO;

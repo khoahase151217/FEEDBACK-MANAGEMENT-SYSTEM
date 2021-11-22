@@ -7,8 +7,6 @@ package app.controller;
 
 import app.feedback.FeedbackDAO;
 import app.feedback.FeedbackDTO;
-import app.users.UserDAO;
-import app.users.UserDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;

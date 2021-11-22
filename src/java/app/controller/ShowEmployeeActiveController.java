@@ -8,7 +8,6 @@ package app.controller;
 import app.employees.EmployeesDAO;
 import app.users.UserDTO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

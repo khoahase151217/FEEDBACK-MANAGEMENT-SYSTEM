@@ -8,7 +8,6 @@ package app.controller;
 import app.feedback.FeedbackDAO;
 import app.response.ResponseDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

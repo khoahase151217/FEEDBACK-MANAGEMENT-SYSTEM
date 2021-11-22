@@ -9,7 +9,6 @@ import app.employees.EmployeesDAO;
 import app.response.ResponseDTO;
 import app.users.UserDTO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;

@@ -7,7 +7,6 @@ package app.controller;
 
 import app.feedback.FeedbackDAO;
 import app.feedback.FeedbackDTO;
-import app.feedback.FeedbackDetailDTO;
 import app.response.ResponseDAO;
 import app.response.ResponseDTO;
 import java.io.IOException;

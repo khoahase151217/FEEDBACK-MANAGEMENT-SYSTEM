@@ -6,12 +6,10 @@
 package app.controller;
 
 import app.feedback.FeedbackDTO;
-import app.response.ResponseDTO;
 import app.statistic.StatisticDAO;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

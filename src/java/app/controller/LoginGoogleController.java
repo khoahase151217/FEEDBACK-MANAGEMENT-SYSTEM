@@ -11,7 +11,6 @@ import app.users.UserDAO;
 import app.users.UserDTO;
 import app.utils.GoogleUtils;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
