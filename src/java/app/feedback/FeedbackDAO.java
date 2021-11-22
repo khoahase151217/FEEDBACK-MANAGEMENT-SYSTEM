@@ -43,7 +43,7 @@ public class FeedbackDAO {
         String subject = "Facility's Feedback System Alert";
 
         final String username = "fptfacilityfeedback@gmail.com";//your email id
-        final String password = "Hoangtuquan2";// your password
+        final String password = "Hoangtuquan9";// your password
         Properties props = new Properties();
         props.put("mail.smtp.auth", true);
         props.put("mail.smtp.starttls.enable", true);
@@ -113,7 +113,7 @@ public class FeedbackDAO {
         String subject = "Facility's Feedback System Alert";
 
         final String username = "fptfacilityfeedback@gmail.com";//your email id
-        final String password = "Hoangtuquan2";// your password
+        final String password = "Hoangtuquan9";// your password
         Properties props = new Properties();
         props.put("mail.smtp.auth", true);
         props.put("mail.smtp.starttls.enable", true);
@@ -181,7 +181,7 @@ public class FeedbackDAO {
         String subject = "Facility's Feedback System Alert";
 
         final String username = "fptfacilityfeedback@gmail.com";//your email id
-        final String password = "Hoangtuquan2";// your password
+        final String password = "Hoangtuquan9";// your password
         Properties props = new Properties();
         props.put("mail.smtp.auth", true);
         props.put("mail.smtp.starttls.enable", true);
@@ -222,7 +222,7 @@ public class FeedbackDAO {
         String subject = "Facility's Feedback System Notification";
 
         final String username = "fptfacilityfeedback@gmail.com";//your email id
-        final String password = "Hoangtuquan2";// your password
+        final String password = "Hoangtuquan9";// your password
         Properties props = new Properties();
         props.put("mail.smtp.auth", true);
         props.put("mail.smtp.starttls.enable", true);
