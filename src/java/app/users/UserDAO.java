@@ -2242,7 +2242,7 @@ public class UserDAO {
                         + "join tblFeedbackDetail b on a.UserID=b.UserID\n"
                         + "join tblBannedFeedbackDetail c on c.FeedbackDetailID=b.FeedbackDetailID\n"
                         + "join tblFeedback d on d.FeedbackID=b.FeedbackID\n"
-                        + "where d.statusID = 'inactive' and d.Date like ? and d.Date like ?\n"
+                        + "where d.statusID = 'decline' and d.Date like ? and d.Date like ?\n"
                         + "group by a.BinaryImage,a.Email,a.FullName,a.Image,a.Password,a.Rating,a.RoleID,a.StatusID,a.UserID\n"
                         + "Having Count(c.FeedbackDetailID) >= 3 \n"
                         + "order by Count desc";
