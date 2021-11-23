@@ -32,7 +32,7 @@ import javax.servlet.http.HttpSession;
 public class FacilityStatisticController extends HttpServlet {
 
     private static final String SUCCESS = "StatisticGoodEmpController";
-    private static final String ERROR = "##";
+    private static final String ERROR = "ShowFeedBackController";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

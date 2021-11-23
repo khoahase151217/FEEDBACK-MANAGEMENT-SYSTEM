@@ -2298,7 +2298,7 @@ public class UserDAO {
                         + "  JOIN tblFeedback t4 on t1.FeedbackID = t4.FeedbackID "
                         + "  GROUP BY t1.Description,t1.FacilityID,t1.FeedbackDetailID,t1.FeedbackID,t1.AssignDate "
                         + "  ,t1.flag,t1.Image,t1.Location,t1.Quantity,t1.Reason,t1.StatusID,t1.UserID,"
-                        + "  t3.Name,t3.Quantity,t4.Date "
+                        + "  t3.Name,t3.Quantity,t4.Date,t1.ImageFirebase "
                         + "  ORDER BY t4.Date desc ";
                 ps = conn.prepareStatement(sql);
                 rs = ps.executeQuery();

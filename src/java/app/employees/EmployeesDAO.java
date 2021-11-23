@@ -1119,7 +1119,7 @@ public class EmployeesDAO {
                         + "JOIN tblFeedbackDetail t2 on t1.FeedbackDetailID =t2.FeedbackDetailID\n"
                         + "JOIN tblDeclinedResponse t3 on t3.ResponseID =t1.ResponseID\n"
                         + "JOIN tblFacilities t4 on t2.FacilityID = t4.FacilityID\n"
-                        + "GROUP BY t1.Date,t1.Description,t1.FeedbackDetailID,t1.Image,t1.ResponseID,t1.StatusID,t1.UserID,t1.realtime,t4.Name,t2.Quantity,t2.Location\n"
+                        + "GROUP BY t1.Date,t1.Description,t1.FeedbackDetailID,t1.Image,t1.ResponseID,t1.StatusID,t1.UserID,t1.realtime,t4.Name,t2.Quantity,t2.Location,t1.ImageFirebase\n"
                         + "ORDER BY t1.Date desc";
                 ps = conn.prepareStatement(sql);
                 rs = ps.executeQuery();
@@ -1165,7 +1165,7 @@ public class EmployeesDAO {
                         + "FROM tblResponseFeedback t1\n"
                         + "JOIN tblFeedbackDetail t2 on t1.FeedbackDetailID =t2.FeedbackDetailID\n"
                         + "JOIN tblFacilities t4 on t2.FacilityID = t4.FacilityID\n"
-                        + "GROUP BY t1.Date,t1.Description,t1.FeedbackDetailID,t1.Image,t1.ResponseID,t1.StatusID,t1.UserID,t1.realtime,t4.Name,t2.Quantity,t2.Location\n"
+                        + "GROUP BY t1.Date,t1.Description,t1.FeedbackDetailID,t1.Image,t1.ResponseID,t1.StatusID,t1.UserID,t1.realtime,t4.Name,t2.Quantity,t2.Location,t1.ImageFirebase\n"
                         + "ORDER BY t1.Date desc";
                 ps = conn.prepareStatement(sql);
                 rs = ps.executeQuery();
@@ -1212,7 +1212,7 @@ public class EmployeesDAO {
                         + "JOIN tblFeedbackDetail t2 on t1.FeedbackDetailID =t2.FeedbackDetailID\n"
                         + "JOIN tblFacilities t4 on t2.FacilityID = t4.FacilityID\n"
                         + "WHERE t1.ResponseID NOT IN (Select t6.ResponseID from tblDeclinedResponse t6)\n"
-                        + "GROUP BY t1.Date,t1.Description,t1.FeedbackDetailID,t1.Image,t1.ResponseID,t1.StatusID,t1.UserID,t1.realtime,t4.Name,t2.Quantity,t2.Location\n"
+                        + "GROUP BY t1.Date,t1.Description,t1.FeedbackDetailID,t1.Image,t1.ResponseID,t1.StatusID,t1.UserID,t1.realtime,t4.Name,t2.Quantity,t2.Location,t1.ImageFirebase\n"
                         + "ORDER BY t1.Date desc";
                 ps = conn.prepareStatement(sql);
                 rs = ps.executeQuery();
@@ -1259,7 +1259,7 @@ public class EmployeesDAO {
                         + "JOIN tblFeedbackDetail t2 on t1.FeedbackDetailID =t2.FeedbackDetailID\n"
                         + "JOIN tblFacilities t3 on t2.FacilityID = t3.FacilityID\n"
                         + "WHERE t1.StatusID='done' "
-                        + "GROUP BY t1.Date,t1.Description,t1.FeedbackDetailID,t1.Image,t1.ResponseID,t1.StatusID,t1.UserID,t1.realtime,t3.Name,t2.Quantity,t2.Location\n"
+                        + "GROUP BY t1.Date,t1.Description,t1.FeedbackDetailID,t1.Image,t1.ResponseID,t1.StatusID,t1.UserID,t1.realtime,t3.Name,t2.Quantity,t2.Location,t1.ImageFirebase\n"
                         + "ORDER BY t1.Date desc";
                 ps = conn.prepareStatement(sql);
                 rs = ps.executeQuery();

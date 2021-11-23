@@ -31,7 +31,10 @@ const database = getDatabase();
 window.onload = function () {
 
     //set new emp assign to firebase
-    var emp = JSON.parse(localStorage.getItem("Empobj"));
+    var emp = JSON.parse(localStorage.getItem("Empobj")) || {
+            id: 0,
+            emp_id: ""
+        };
     if (emp.emp_id != "") {
         var tmp = emp.emp_id;
         $.ajax({
