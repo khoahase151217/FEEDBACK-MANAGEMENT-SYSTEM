@@ -33,4 +33,4 @@ System has three roles:
    - Send response to manager
    - View history of response
 
-### ©️ 2021 NEVESLOS | URL
+### ©️ 2021 NEVESLOS | URL: http://neveslos.xyz/SWP391_PROJECT/
