@@ -17,18 +17,18 @@ System core:
 
 System has three roles:
 
-1. Student:
+1. Student: login with @fpt.edu.vn
    - View sent feedback
    - Send feedback
    - Rating services
-2. Manager:
+2. Manager: login with admin password 1
    - View all of feedback
    - Assign tasks to employee
    - Reply to response from employee
    - Manage users
    - View all of facilities by categories
    - View statistic of system in year/month/quarter
-3. Employee:
+3. Employee: login with employee password 1
    - View assigned feedback
    - Send response to manager
    - View history of response
